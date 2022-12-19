@@ -1,4 +1,5 @@
 
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
@@ -11,7 +12,9 @@ import FormLabel from '@mui/material/FormLabel';
 import Button from '@mui/material/Button';
 
 import registerFormSchema from '../validations/registerFormSchema';
-import React, { useState } from 'react';
+import * as authServices from '../services/authServices'
+import User from '../models/User';
+
 
 type FormData = {
 	firstName: string,
@@ -34,7 +37,13 @@ function RegisterView() {
 	const onFormSubmit = (data: FormData,  e: React.BaseSyntheticEvent<object, any, any> | undefined) => {
 		e?.preventDefault();
 
-		console.log(data);
+		const { firstName, lastName, email, phone, gender, password } = data;
+
+		const user = new User(firstName, lastName, email, phone, gender, password)
+
+		authServices.register(user)
+			.then(data => console.log(data))
+			.catch(err => console.log(err))
 	}
 
 	const onGenderChange = (e: React.ChangeEvent<HTMLInputElement>): void => {

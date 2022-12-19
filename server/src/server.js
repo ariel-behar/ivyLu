@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 
 const initDatabase = require('./config/initDatabase.js')
+const routes = require('./routes/routes.js')
 
 const dbName = 'ivy-lu';
 const PORT = process.env.PORT || '3030';
@@ -12,6 +13,8 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors());
+
+app.use(routes)
 
 initDatabase(dbName)
     .then(() =>{
