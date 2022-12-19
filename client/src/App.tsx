@@ -9,6 +9,7 @@ import ProductsView from "./views/ProductsView";
 import RegisterView from "./views/RegisterView";
 import ServicesView from "./views/ServicesView";
 import HomeView from "./views/HomeView";
+import { AuthProvider } from "./context/AuthContext";
 
 const router = createBrowserRouter([
 	{
@@ -48,7 +49,9 @@ const router = createBrowserRouter([
 
 function App() {
 	return (
-		<RouterProvider router={router} />
+		<AuthProvider>
+			<RouterProvider router={router} />
+		</AuthProvider>
 	);
 }
 

@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
@@ -14,6 +15,7 @@ import Button from '@mui/material/Button';
 import registerFormSchema from '../validations/registerFormSchema';
 import * as authServices from '../services/authServices'
 import User from '../models/User';
+import { useAuthContext } from '../context/AuthContext';
 
 
 type FormData = {
@@ -29,27 +31,50 @@ type FormData = {
 function RegisterView() {
 	const [gender, setGender] = useState<string>('female')
 
+	const { login } = useAuthContext() as any;
+	const navigate = useNavigate();
+	
+
 	const { register, handleSubmit, formState: { errors, isDirty, isValid } } = useForm<FormData>({
 		mode: 'onChange',
 		resolver: yupResolver(registerFormSchema)
 	})
 
-	const onFormSubmit = (data: FormData,  e: React.BaseSyntheticEvent<object, any, any> | undefined) => {
+	const onFormSubmit = async (data: FormData,  e: React.BaseSyntheticEvent<object, any, any> | undefined) => {
 		e?.preventDefault();
 
 		const { firstName, lastName, email, phone, gender, password } = data;
 
 		const user = new User(firstName, lastName, email, phone, gender, password)
 
-		authServices.register(user)
-			.then(data => console.log(data))
-			.catch(err => console.log(err))
+		// authServices.register(user)
+		// 	.then(userData =>{
+		// 		console.log('userData:', userData)
+		// 		login(userData)
+		// 		navigate('/')
+		// 	})
+		// 	.catch(async(err: any) =>  {
+		// 		console.log(await err)
+		// 	})
+
+
+
+		try {
+			let registerUserResponse = await authServices.register(user)
+
+			login(registerUserResponse)
+			navigate('/')
+
+		} catch (err: any) {
+			let error = await err;
+			console.log(await error.message )
+		}
+
 	}
 
 	const onGenderChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
 		setGender((e.target as HTMLInputElement).value)
 	}
-
 
 	return (
 		<>
