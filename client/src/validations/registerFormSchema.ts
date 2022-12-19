@@ -24,13 +24,13 @@ const registerFormSchema = yup.object().shape({
         email: yup
                 .string()
                 .required('Email is required')
-                .email('Input should be a valid e-mail address'),
+                .email('Input should be an e-mail address in a valid format'),
         phone: yup
                 .string()
                 .required('Phone number is required')
                 .matches(PHONE_PATTERN, 'The input should be a valid phone number')
-                .min(6, "Phone number should be at least 6 characters long.")
-                .max(14, "Phone number should be at most 14 characters long."),
+                .min(6, "Phone number should be at least 6 characters long")
+                .max(14, "Phone number should be at most 14 characters long"),
         gender: yup
                 .string()
                 .required('Gender is required')
@@ -39,14 +39,13 @@ const registerFormSchema = yup.object().shape({
         password: yup
                 .string()
                 .required('Password is required')
-                .min(8, "Password should be at least 8 characters long.")
-                .max(20, "Password should be at most 20 characters long.")
-                .matches(PASSWORD_PATTERN, "Password must contain at least 1 uppercase letter, 1 lowercase letter, 1 number and 1 special character."),
+                .min(8, "Password should be at least 8 characters long")
+                .max(20, "Password should be at most 20 characters long")
+                .matches(PASSWORD_PATTERN, "Password must contain at least 1 uppercase letter, 1 lowercase letter, 1 number and 1 special character"),
         confirmPassword: yup
                 .string()
                 .required('Confirm password is required')
                 .oneOf([yup.ref("password")], "Password and Confirm Password must match")
-                .required()
 })
 
 export default registerFormSchema;

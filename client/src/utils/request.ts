@@ -41,8 +41,8 @@ const request = (url: string, method: string, body: object, authToken?: string) 
         }
         return res.json();
     })
-    .catch(error =>{ 
-        console.log(error)
+    .catch(err=> {
+        throw err;
     })
 
 };

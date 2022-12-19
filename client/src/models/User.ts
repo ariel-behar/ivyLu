@@ -4,7 +4,7 @@ const enum UserRole {
 }
 
 export default class User {
-    public status: UserRole = UserRole.Customer
+    public role: UserRole = UserRole.Customer
 
     constructor(
         public firstName: string,
