@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const bcrypt = require('bcrypt');
 
 const authService = require('../services/authService')
 
@@ -39,6 +40,43 @@ router.post('/register', async (req, res) => {
 
     } catch (err) {
         res.json(err.message)
+    }
+
+})
+
+router.post('/login', async (req, res) => {
+    const {email, password} = req.body;
+
+    try {
+        let userResponse = await authService.login(email)
+
+        if(userResponse) {
+            let isValidPassword = await bcrypt.compare(password, userResponse.password);
+
+            if(isValidPassword) {
+                let user = {
+                    userId: userResponse._id,
+                    firstName: userResponse.firstName,
+                    lastName: userResponse.lastName,
+                    email: userResponse.email,
+                    gender: userResponse.gender,
+                    phone: userResponse.phone,
+                    role: userResponse.role
+                };
+
+                console.log(user);
+
+                res.json(user)
+            } else {
+                throw { message: 'Username or password are incorrect.' }
+            }
+
+        } else {
+            throw { message: 'Username or password are incorrect.' }
+        }
+
+    } catch (err) {
+        res.status(500).json(err)
     }
 
 })
