@@ -64,9 +64,10 @@ router.post('/login', async (req, res) => {
                     role: userResponse.role
                 };
 
-                console.log(user);
+                let AUTH_TOKEN = generateAuthToken(user);
 
-                res.json(user)
+                return res.json({ ...user, AUTH_TOKEN });
+                
             } else {
                 throw { message: 'Username or password are incorrect.' }
             }

@@ -54,6 +54,8 @@ const userSchema = mongoose.Schema({
         // maxLength: [20, 'Password should be at most 20 characters long'],
         // validate: [PASSWORD_PATTERN, "Password must contain at least 1 uppercase letter, 1 lowercase letter, 1 number and 1 special character"]
     },
+},{
+    timestamps: true
 });
 
 userSchema.pre('save', function (next) {
