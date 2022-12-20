@@ -22,6 +22,9 @@ function Header() {
         <li>
             <Link to='/dashboard'>Dashboard</Link>
         </li>
+        <li>
+            <Link to='/logout'>Logout</Link>
+        </li>
     </ul>
   )
 }

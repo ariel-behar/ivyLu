@@ -10,6 +10,7 @@ import RegisterView from "./views/RegisterView";
 import ServicesView from "./views/ServicesView";
 import HomeView from "./views/HomeView";
 import { AuthProvider } from "./context/AuthContext";
+import LogoutView from "./views/LogoutView";
 
 const router = createBrowserRouter([
 	{
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
 			{
 				path: "/login",
 				element: <LoginView />
+			},
+			{
+				path: "/logout",
+				element: <LogoutView />
 			},
 			{
 				path: "/products",

@@ -50,9 +50,9 @@ const userSchema = mongoose.Schema({
     password: {
         type: String,
         required: true,
-        minLength: [8, 'Password should be at least 8 characters long'],
-        maxLength: [20, 'Password should be at most 20 characters long'],
-        validate: [PASSWORD_PATTERN, "Password must contain at least 1 uppercase letter, 1 lowercase letter, 1 number and 1 special character"]
+        // minLength: [8, 'Password should be at least 8 characters long'],
+        // maxLength: [20, 'Password should be at most 20 characters long'],
+        // validate: [PASSWORD_PATTERN, "Password must contain at least 1 uppercase letter, 1 lowercase letter, 1 number and 1 special character"]
     },
 });
 
