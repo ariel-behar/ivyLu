@@ -39,9 +39,11 @@ export const AuthProvider = ({
             console.log(err)
         }
     }
+
+    const isLoggedIn = user.userId ? true : false;
     
     return (
-        <AuthContext.Provider value={{user, login, logout}}>
+        <AuthContext.Provider value={{user, login, logout, isLoggedIn}}>
             {children}
         </AuthContext.Provider>
     )
