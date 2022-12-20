@@ -37,7 +37,16 @@ function RegisterView() {
 
 	const { register, handleSubmit, formState: { errors, isDirty, isValid } } = useForm<FormData>({
 		mode: 'onChange',
-		resolver: yupResolver(registerFormSchema)
+		resolver: yupResolver(registerFormSchema),
+		defaultValues: {
+			firstName: '',
+			lastName: '',
+			email: '',
+			phone: undefined,
+			gender: 'female',
+			password: '',
+			confirmPassword: ''
+		}
 	})
 
 	const onFormSubmit = async (data: FormData,  e: React.BaseSyntheticEvent<object, any, any> | undefined) => {
@@ -46,18 +55,6 @@ function RegisterView() {
 		const { firstName, lastName, email, phone, gender, password } = data;
 
 		const user = new User(firstName, lastName, email, phone, gender, password)
-
-		// authServices.register(user)
-		// 	.then(userData =>{
-		// 		console.log('userData:', userData)
-		// 		login(userData)
-		// 		navigate('/')
-		// 	})
-		// 	.catch(async(err: any) =>  {
-		// 		console.log(await err)
-		// 	})
-
-
 
 		try {
 			let registerUserResponse = await authServices.register(user)
@@ -106,7 +103,7 @@ function RegisterView() {
 				<TextField id="confirmPassword" type="password" label="Confirm Password" variant="outlined" size="small" {...register('confirmPassword')}/>
 				{errors.confirmPassword ? <span> {errors.confirmPassword.message}</span> : ''}
 
-				<Button variant="contained" type='submit' disabled={!(isDirty && isValid)}>Submit</Button>
+				<Button variant="contained" type='submit' disabled={!(isDirty && isValid)}>REGISTER</Button>
 			</form>
 		</>
 	)
