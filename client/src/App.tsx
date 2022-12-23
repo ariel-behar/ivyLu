@@ -1,4 +1,5 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import CssBaseline from '@mui/material/CssBaseline';
 
 import './App.css';
 
@@ -50,14 +51,14 @@ const router = createBrowserRouter([
 	}
 ]);
 
-
-
-
 function App() {
 	return (
-		<AuthProvider>
-			<RouterProvider router={router} />
-		</AuthProvider>
+		<>
+			<CssBaseline />
+			<AuthProvider>
+				<RouterProvider router={router} />
+			</AuthProvider>
+		</>
 	);
 }
 
