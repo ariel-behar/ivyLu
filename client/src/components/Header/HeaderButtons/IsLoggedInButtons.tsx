@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link as RouterLink} from 'react-router-dom'
 import { useAuthContext } from '../../../context/AuthContext';
 
 import Button from '@mui/material/Button';
@@ -11,7 +11,7 @@ function IsLoggedInButtons() {
 
     return (
         <>
-            <Button to='/dashboard' color='inherit' component={Link}>Dashboard</Button>
+            <Button to='/dashboard' color='inherit' component={RouterLink}>Dashboard</Button>
 
             {
                 (user.role === 2 || user.role === 3)
@@ -19,7 +19,7 @@ function IsLoggedInButtons() {
                     : ''
             }
 
-            <Button to='/logout' color='inherit' component={Link}>Logout</Button>
+            <Button to='/logout' color='inherit' component={RouterLink}>Logout</Button>
 
         </>
     )

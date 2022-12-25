@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link as RouterLink } from 'react-router-dom'
 
 import { useAuthContext } from '../../context/AuthContext'
 import logoImg from '../../assets/img/logo.png'
@@ -19,13 +19,13 @@ function Header() {
             <AppBar position='static' style={{ background: 'transparent', boxShadow: 'none' }}>
                 <Stack direction='row' spacing={2} >
                     <Toolbar>
-                        <Button to='/products' color='inherit' component={Link}>Products</Button>
-                        <Button to='/services' color='inherit' component={Link}>Services</Button>
+                        <Button to='/products' color='inherit' component={RouterLink}>Products</Button>
+                        <Button to='/services' color='inherit' component={RouterLink}>Services</Button>
                     </Toolbar>
                     <Toolbar>
-                        <Link to='/' >
+                        <RouterLink to='/' >
                             <img src={logoImg} alt="IvyLu Logo" style={{ maxWidth: "50px" }} />
-                        </Link>
+                        </RouterLink>
                     </Toolbar>
                     <Toolbar>
                         {isLoggedIn

@@ -76,7 +76,7 @@ function RegisterView() {
 	return (
 		<>
 			<div>RegisterView</div>
-
+			
 			<form onSubmit={handleSubmit(onFormSubmit)}>
 				<Stack spacing={1}>
 					<TextField

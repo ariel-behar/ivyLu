@@ -1,14 +1,12 @@
-import { Link } from 'react-router-dom'
+import { Link as RouterLink } from 'react-router-dom'
 
 import Button from '@mui/material/Button';
 
 function IsNotloggedInButtons() {
     return (
         <>
-
-            <Button to='/login' color='inherit' component={Link}>Login</Button>
-            <Button to='/register' color='inherit' component={Link}>Register</Button>
-
+            <Button to='/login' color='inherit' component={RouterLink}>Login</Button>
+            <Button to='/register' color='inherit' component={RouterLink}>Register</Button>
         </>
     )
 }

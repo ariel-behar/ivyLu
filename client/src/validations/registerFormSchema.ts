@@ -6,7 +6,7 @@ const PHONE_PATTERN = /^(\+?\d{0,4})?\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{3}\)?)\
 // Minimum 8 characters, at least one uppercase letter, one lowercase letter, one number and one special character:
 const PASSWORD_PATTERN = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
 
-const LATIN_CHARACTERS = /[a-zA-z]{2,}/i
+const LATIN_CHARACTERS = /[a-zA-z]/i
 
 const registerFormSchema = yup.object().shape({
         firstName: yup
