@@ -1,9 +1,11 @@
 import React, { useState } from "react"
 import { useForm } from 'react-hook-form';
+import uniqid from 'uniqid';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import createServiceFormSchema from "../../../validations/createServiceFormSchema";
 import * as servicesService from '../../../services/serviceServices'
+import Service from "../../../models/Service";
 
 import TextField from "@mui/material/TextField"
 import Stack from "@mui/material/Stack"
@@ -13,22 +15,23 @@ import Grid from '@mui/material/Grid';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import Service from "../../../models/Service";
-
+import InputAdornment from "@mui/material/InputAdornment";
 
 type FormData = {
 	title: string,
 	description: string,
 	additionalComments: string | null,
 	imgUrl: string,
-	price: number[] | number,
+	price: (number[] | number) | undefined,
 	duration: string,
 }
 
 const IMAGE_URL_REGEX = /^(?:(?<scheme>[^:\/?#]+):)?(?:\/\/(?<authority>[^\/?#]*))?(?<path>[^?#]*\/)?(?<file>[^?#]*\.(?<extension>[Jj][Pp][Ee]?[Gg]|[Pp][Nn][Gg]|[Gg][Ii][Ff]|[Ss][Vv][Gg]))(?:\?(?<query>[^#]*))?(?:#(?<fragment>.*))?$/gm
 
+const serviceDuration = ['0:05', '0:10', '0:15', '0:20', '0:25', '0:30', '0:35', '0:40', '0:45', '0:50', '0:55', '1:00', '1:05', '1:10', '1:15', '1:20', '1:25', '1:30', '1:40', '1:45', '1:50', '1:55', '2:00']
+
 function CreateService() {
-	const { register, handleSubmit, formState: { errors, isDirty, isValid } } = useForm<FormData>({
+	const { register, handleSubmit, resetField, formState: { errors, isDirty, isValid } } = useForm<FormData>({
 		mode: 'onBlur',
 		resolver: yupResolver(createServiceFormSchema),
 		defaultValues: {
@@ -36,7 +39,7 @@ function CreateService() {
 			description: '',
 			additionalComments: '',
 			imgUrl: '',
-			price: undefined,
+			price: 1,
 			duration: undefined,
 		}
 	})
@@ -55,10 +58,17 @@ function CreateService() {
 		}
 	}
 
+	const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		if(Number(e.target.value) <= 1) {
+			resetField('price')
+		}
+	}
+
 	const onFormSubmit = async (data: FormData, e: React.BaseSyntheticEvent<object, any, any> | undefined) => {
 		e?.preventDefault();
 
-		const { title, description, additionalComments, imgUrl, price, duration } = data;
+		let { title, description, additionalComments, imgUrl, price, duration } = data;
+		price = Number(price);
 
 		const service = new Service(title, description, additionalComments, imgUrl, price, duration)
 
@@ -112,6 +122,7 @@ function CreateService() {
 
 						<Box width='100%' component='div' onBlur={handlePreviewImage}>
 							<TextField
+								required
 								fullWidth
 								label="Service Image"
 								variant="outlined"
@@ -129,10 +140,13 @@ function CreateService() {
 								variant="outlined"
 								size="small"
 								type='number'
-
 								{...register('price')}
+								onChange={handlePriceChange}
 								error={errors.price ? true : false}
 								helperText={errors.price ? errors.price.message : ''}
+								InputProps={{
+									endAdornment: <InputAdornment position='end'>BGN</InputAdornment>
+								}}
 							/>
 
 							<TextField
@@ -147,28 +161,13 @@ function CreateService() {
 								fullWidth
 								error={errors.duration ? true : false}
 								helperText={errors.duration ? errors.duration.message : ''}
-
 							>
-								<MenuItem value='0:10'>0:10</MenuItem>
-								<MenuItem value='0:15'>0:15</MenuItem>
-								<MenuItem value='0:20'>0:20</MenuItem>
-								<MenuItem value='0:25'>0:25</MenuItem>
-								<MenuItem value='0:30'>0:30</MenuItem>
-								<MenuItem value='0:35'>0:35</MenuItem>
-								<MenuItem value='0:40'>0:40</MenuItem>
-								<MenuItem value='0:40'>0:40</MenuItem>
-								<MenuItem value='0:45'>0:45</MenuItem>
-								<MenuItem value='0:50'>0:50</MenuItem>
-								<MenuItem value='0:55'>0:55</MenuItem>
-								<MenuItem value='1:00'>1:00</MenuItem>
-								<MenuItem value='1:10'>1:10</MenuItem>
-								<MenuItem value='1:20'>1:20</MenuItem>
-								<MenuItem value='1:25'>1:25</MenuItem>
-								<MenuItem value='1:30'>1:30</MenuItem>
-								<MenuItem value='1:40'>1:40</MenuItem>
-								<MenuItem value='1:45'>1:45</MenuItem>
-								<MenuItem value='1:50'>1:50</MenuItem>
-								<MenuItem value='2:00'>2:00</MenuItem>
+								{
+									serviceDuration.map(duration => (
+										<MenuItem key={uniqid()} value={duration}>{duration}</MenuItem>
+									))
+								}
+								
 							</TextField>
 						</Stack>
 

@@ -14,7 +14,7 @@ const LATIN_CHARACTERS = /[a-zA-z]/i
 const createServiceFormSchema = yup.object().shape({
     title: yup
         .string()
-        .required('Title is Require')
+        .required('Title is Required')
         .matches(LATIN_CHARACTERS, 'Only characters from the latin alphabet are allowed')
         .min(2, "Title should be at least 2 characters long")
         .max(30, "Title should be at most 30 characters long"),
@@ -32,12 +32,12 @@ const createServiceFormSchema = yup.object().shape({
     imgUrl: yup
         .string()
         .required('Image URL is required')
-        .matches(IMAGE_URL, 'Enter a valid Image URL staring with "http://" or "https://" and ending with .jpg/ .jpeg/ .png/ .gif/ .svg'),
+        .matches(IMAGE_URL, 'Image URL should start with "http://" or "https://" and end with either .jpg|.jpeg|.png|.gif|.svg'),
     price: yup
         .string()
         .required('Price is required')
-        .min(1, "Price should be at least 1 character long")
-        .max(3, "Price should be at most 3 characters long"),
+        .min(1, "Price should be at least 1 BGN")
+        .max(3, "Price should be at most 999 BGN"),
     duration: yup
         .string()
         .required('Duration is required'),
