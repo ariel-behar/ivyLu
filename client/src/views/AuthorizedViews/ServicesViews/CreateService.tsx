@@ -6,6 +6,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import createServiceFormSchema from "../../../validations/createServiceFormSchema";
 import * as servicesService from '../../../services/serviceServices'
 import Service from "../../../models/Service";
+import { useAuthContext } from "../../../context/AuthContext";
 
 import TextField from "@mui/material/TextField"
 import Stack from "@mui/material/Stack"
@@ -16,6 +17,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import InputAdornment from "@mui/material/InputAdornment";
+
 
 type FormData = {
 	title: string,
@@ -31,7 +33,11 @@ const IMAGE_URL_REGEX = /^(?:(?<scheme>[^:\/?#]+):)?(?:\/\/(?<authority>[^\/?#]*
 const serviceDuration = ['0:05', '0:10', '0:15', '0:20', '0:25', '0:30', '0:35', '0:40', '0:45', '0:50', '0:55', '1:00', '1:05', '1:10', '1:15', '1:20', '1:25', '1:30', '1:40', '1:45', '1:50', '1:55', '2:00']
 
 function CreateService() {
-	const { register, handleSubmit, resetField, formState: { errors, isDirty, isValid } } = useForm<FormData>({
+	const [duration, setDuartion] = useState<string>('')
+	const [previewImgUrl, setPreviewImageUrl] = useState<string>('')
+	const { user } = useAuthContext() as any;
+
+	const { register, handleSubmit, formState: { errors, isDirty, isValid } } = useForm<FormData>({
 		mode: 'onBlur',
 		resolver: yupResolver(createServiceFormSchema),
 		defaultValues: {
@@ -43,8 +49,7 @@ function CreateService() {
 			duration: undefined,
 		}
 	})
-	const [duration, setDuartion] = useState<string>('')
-	const [previewImgUrl, setPreviewImageUrl] = useState<string>('')
+
 
 	const handleDurationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setDuartion(e.target.value as string);
@@ -58,12 +63,6 @@ function CreateService() {
 		}
 	}
 
-	const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		if(Number(e.target.value) <= 1) {
-			resetField('price')
-		}
-	}
-
 	const onFormSubmit = async (data: FormData, e: React.BaseSyntheticEvent<object, any, any> | undefined) => {
 		e?.preventDefault();
 
@@ -73,7 +72,9 @@ function CreateService() {
 		const service = new Service(title, description, additionalComments, imgUrl, price, duration)
 
 		try {
-			let createServiceResponse = await servicesService.create(service)
+			let creatorId = user.userId
+
+			let createServiceResponse = await servicesService.create(service, creatorId)
 			console.log('createServiceResponse:', createServiceResponse)
 
 			// login(registerUserResponse)
@@ -141,7 +142,6 @@ function CreateService() {
 								size="small"
 								type='number'
 								{...register('price')}
-								onChange={handlePriceChange}
 								error={errors.price ? true : false}
 								helperText={errors.price ? errors.price.message : ''}
 								InputProps={{

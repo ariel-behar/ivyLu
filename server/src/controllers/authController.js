@@ -13,7 +13,7 @@ router.post('/register', async (req, res) => {
         let userExists = await authService.findOneByEmail(email);
         
         if(userExists){
-            res.status(500).json({message: "This email address is already being used by another user."})
+            return res.status(500).json({message: "This email address is already being used by another user."})
         } else {
             try {
                 let userResponse = await authService.register({firstName, lastName, email, phone, gender,role, password});

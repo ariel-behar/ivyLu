@@ -11,19 +11,21 @@ const PHONE_PATTERN = /^(\+?\d{0,4})?\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{3}\)?)\
 //Email pattern:
 const EMAIL_PATTERN = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
 
+const LATIN_CHARACTERS = /[a-zA-z]/i
+
 const userSchema = mongoose.Schema({
     firstName: {
         type: String,
         required: true,
         minLength: [2, "First Name should be at least 2 characters long"],
         maxLength: [40, "First Name should be at most 40 characters long"],
-        validate: [/[a-zA-z]{2,}/i, 'First Name needs to include only characters from the latin alphabet'],
+        validate: [LATIN_CHARACTERS, 'First Name should include only characters from the latin alphabet'],
     },
     lastName: {
         type: String,
         required: true,
         minLength: [2, 'Last name needs to be at least 2 characters long'],
-        validate: [/[a-zA-z]{2,}/i, 'Last Name needs to include only characters from the latin alphabet'],
+        validate: [LATIN_CHARACTERS, 'Last Name should include only characters from the latin alphabet'],
     },
     email: {
         type: String,

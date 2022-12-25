@@ -1,5 +1,4 @@
 import request from "../utils/request";
+import { servicesUrl } from "./api"; 
 
-let servicesUrl = 'http://localhost:3030/services';
-
-export const create = (service: object) => request(`${servicesUrl}/create`, 'POST', service);
+export const create = (service: object, creatorId: string) => request(`${servicesUrl}/create`, 'POST', {...service, creatorId});
