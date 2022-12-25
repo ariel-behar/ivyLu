@@ -2,12 +2,21 @@ const router = require('express').Router();
 
 const serviceServices = require('../services/serviceServices')
 
+router.get('/', async (req,res) => {
+    try {
+        let services = await serviceServices.getAll();
+        
+        res.json(services)
+    } catch(err) {
+        res.status(500).json(err)
+    }
+})
 
 router.post('/create', async (req, res) => {
     let { title, description, additionalComments, imgUrl, price, duration, creatorId } = req.body;
 
     try {
-        let serviceExists = await serviceServices.findOneByTitle(title);
+        let serviceExists = await serviceServices.getOneByTitle(title);
         
         if(serviceExists){
             throw res.status(500).json({message: "A service with this Title already exists"})
@@ -36,5 +45,6 @@ router.post('/create', async (req, res) => {
         res.json(err.message)
     }
 })
+
 
 module.exports = router;

@@ -2,4 +2,6 @@ const Service = require('../models/Service')
 
 exports.create = (service) => Service.create(service);
 
-exports.findOneByTitle = (title) => Service.findOne({title: title});
+exports.getOneByTitle = (title) => Service.findOne({title: title});
+
+exports.getAll = () => Service.find({}).lean()

@@ -10,7 +10,7 @@ type optionsType = {
 
 }
 
-const request = (url: string, method: string, body: object, authToken?: string) => {
+const request = (url: string, method: string, body?: object, authToken?: string) => {
     if (method === undefined) {
         method = 'Get'
     }
