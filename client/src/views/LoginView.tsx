@@ -1,11 +1,13 @@
 import { useForm } from "react-hook-form"
 import { useNavigate } from "react-router-dom";
 
+import { useAuthContext } from "../context/AuthContext";
+
 import * as authServices from '../services/authServices'
 
 import TextField from "@mui/material/TextField";
 import Button from '@mui/material/Button';
-import { useAuthContext } from "../context/AuthContext";
+import Stack from '@mui/material/Stack';
 
 type FormData = {
 	email: string,
@@ -15,16 +17,17 @@ type FormData = {
 function LoginView() {
 	const navigate = useNavigate()
 	const { login } = useAuthContext() as any;
-	const { handleSubmit, register, formState: { errors, isDirty} } = useForm<FormData>({
+	const { handleSubmit, register, formState: { errors, isDirty } } = useForm<FormData>({
+		mode:'onBlur',
 		defaultValues: {
 			email: '',
 			password: ''
 		}
 	});
 
-	const onFormSubmit = async (data: FormData,  e: React.BaseSyntheticEvent<object, any, any> | undefined) => {
+	const onFormSubmit = async (data: FormData, e: React.BaseSyntheticEvent<object, any, any> | undefined) => {
 		e?.preventDefault()
-		
+
 		const user = data;
 
 		try {
@@ -35,7 +38,7 @@ function LoginView() {
 
 		} catch (err: any) {
 			let error = await err;
-			console.log(await error.message )
+			console.log(await error.message)
 		}
 	}
 
@@ -44,14 +47,33 @@ function LoginView() {
 			<div> LoginView</div>
 
 			<form onSubmit={handleSubmit(onFormSubmit)}>
+				<Stack direction='column'>
 
-				<TextField id="email" label="E-mail" variant="outlined" size="small" {...register('email')} />
-				{errors.email ? <span> {errors.email.message} </span> : ''}
+					<TextField
+						required
+						id="email"
+						label="E-mail"
+						variant="outlined"
+						size="small"
+						{...register('email')}
+						error={errors.email ? true : false}
+						helperText={errors.email ? errors.email.message : ''}
+					/>
 
-				<TextField id="password" type="password" label="Password" variant="outlined" size="small" {...register('password')} />
-				{errors.password ? <span> {errors.password.message}</span> : ''}
+					<TextField
+						required
+						id="password"
+						type="password"
+						label="Password"
+						variant="outlined"
+						size="small"
+						{...register('password')}
+						error={errors.password ? true : false}
+						helperText={errors.password ? errors.password.message : ''}
+					/>
 
-				<Button variant="contained" type='submit' disabled={!isDirty}>LOGIN</Button>
+					<Button variant="contained" type='submit' disabled={!isDirty}>LOGIN</Button>
+				</Stack>
 			</form>
 		</>
 	)

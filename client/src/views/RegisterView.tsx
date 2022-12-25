@@ -11,6 +11,8 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import Button from '@mui/material/Button';
+import Stack from '@mui/system/Stack';
+import FormHelperText from '@mui/material/FormHelperText';
 
 import registerFormSchema from '../validations/registerFormSchema';
 import * as authServices from '../services/authServices'
@@ -33,10 +35,9 @@ function RegisterView() {
 
 	const { login } = useAuthContext() as any;
 	const navigate = useNavigate();
-	
 
 	const { register, handleSubmit, formState: { errors, isDirty, isValid } } = useForm<FormData>({
-		mode: 'onChange',
+		mode: 'onBlur',
 		resolver: yupResolver(registerFormSchema),
 		defaultValues: {
 			firstName: '',
@@ -49,7 +50,7 @@ function RegisterView() {
 		}
 	})
 
-	const onFormSubmit = async (data: FormData,  e: React.BaseSyntheticEvent<object, any, any> | undefined) => {
+	const onFormSubmit = async (data: FormData, e: React.BaseSyntheticEvent<object, any, any> | undefined) => {
 		e?.preventDefault();
 
 		const { firstName, lastName, email, phone, gender, password } = data;
@@ -64,9 +65,8 @@ function RegisterView() {
 
 		} catch (err: any) {
 			let error = await err;
-			console.log(await error.message )
+			console.log(await error.message)
 		}
-
 	}
 
 	const onGenderChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -78,32 +78,88 @@ function RegisterView() {
 			<div>RegisterView</div>
 
 			<form onSubmit={handleSubmit(onFormSubmit)}>
-				<TextField id="first-name" label="First Name" variant="outlined" size="small" {...register('firstName')} />
-				{errors.firstName ? <span> {errors.firstName.message}</span> : ''}
-				<TextField id="last-name" label="Last Name" variant="outlined" size="small" {...register('lastName')} />
-				{errors.lastName ? <span> {errors.lastName.message}</span> : ''}
-				<TextField id="email" label="E-mail" variant="outlined" size="small" {...register('email')} />
-				{errors.email ? <span> {errors.email.message}</span> : ''}
+				<Stack spacing={1}>
+					<TextField
+						required
+						id="first-name"
+						label="First Name"
+						variant="outlined"
+						size="small"
+						{...register('firstName')}
+						error={errors.firstName ? true : false}
+						helperText={errors.firstName ? errors.firstName.message : ''}
+					/>
 
-				<TextField id="phone-number" type='number' label="Phone Number" variant="outlined" size="small" {...register('phone')}/>
-				{errors.phone ? <span> {errors.phone.message}</span> : ''}
+					<TextField
+						required
+						id="last-name"
+						label="Last Name"
+						variant="outlined"
+						size="small"
+						{...register('lastName')}
+						error={errors.lastName ? true : false}
+						helperText={errors.lastName ? errors.lastName.message : ''}
+					/>
 
-				<FormControl>
-					<FormLabel id="gender-select-group">Gender</FormLabel>
-					<RadioGroup row aria-labelledby="gender-select-group" value={gender ?? ' '}  onChange={ onGenderChange } >
-						<FormControlLabel value="female" control={<Radio />} label="Female" {...register('gender')}/>
-						<FormControlLabel value="male" control={<Radio />} label="Male" {...register('gender')}/>
-					</RadioGroup>
-				</FormControl>
-				{errors.gender ? <span> {errors.gender.message}</span> : ''}
 
-				<TextField id="password" type="password" label="Password" variant="outlined" size="small" {...register('password')}/>
-				{errors.password ? <span> {errors.password.message}</span> : ''}
+					<TextField
+						required
+						id="email"
+						label="E-mail"
+						variant="outlined"
+						size="small"
+						{...register('email')}
+						error={errors.email ? true : false}
+						helperText={errors.email ? errors.email.message : ''}
+					/>
 
-				<TextField id="confirmPassword" type="password" label="Confirm Password" variant="outlined" size="small" {...register('confirmPassword')}/>
-				{errors.confirmPassword ? <span> {errors.confirmPassword.message}</span> : ''}
+					<TextField
+						required
+						id="phone-number"
+						type='number'
+						label="Phone Number"
+						variant="outlined"
+						size="small"
+						{...register('phone')}
+						error={errors.phone ? true : false}
+						helperText={errors.phone ? errors.phone.message : ''}
+					/>
 
-				<Button variant="contained" type='submit' disabled={!(isDirty && isValid)}>REGISTER</Button>
+					<FormControl required>
+						<FormLabel id="gender-select-group" >Gender</FormLabel>
+						<RadioGroup row aria-labelledby="gender-select-group" value={gender ?? ' '} onChange={onGenderChange} >
+							<FormControlLabel value="female" control={<Radio />} label="Female" {...register('gender')} />
+							<FormControlLabel value="male" control={<Radio />} label="Male" {...register('gender')} />
+						</RadioGroup>
+						<FormHelperText> {errors.gender ? errors.gender.message : ''} </FormHelperText>
+					</FormControl>
+
+					<TextField
+						required
+						id="password"
+						type="password"
+						label="Password"
+						variant="outlined"
+						size="small"
+						{...register('password')}
+						error={errors.password ? true : false}
+						helperText={errors.password ? errors.password.message : ''}
+					/>
+
+					<TextField
+						required
+						id="confirmPassword"
+						type="password"
+						label="Confirm Password"
+						variant="outlined"
+						size="small"
+						{...register('confirmPassword')}
+						error={errors.confirmPassword ? true : false}
+						helperText={errors.confirmPassword ? errors.confirmPassword.message : ''}
+					/>
+
+					<Button variant="contained" type='submit' disabled={!(isDirty && isValid)}>REGISTER</Button>
+				</Stack>
 			</form>
 		</>
 	)
