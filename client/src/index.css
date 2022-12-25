@@ -1,11 +1,7 @@
-body {
+/* body {
+    background-color: rgb(44, 44, 44)!important;
+} */
+
+header {
     background-color: rgb(44, 44, 44)!important;
 }
-
-form {
-    display: flex;
-
-    flex-direction: column;
-    max-width: 500px;
-}
-

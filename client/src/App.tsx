@@ -13,11 +13,13 @@ import RegisterView from "./views/RegisterView";
 import ServicesView from "./views/ServicesView";
 import HomeView from "./views/HomeView";
 import LogoutView from "./views/LogoutView";
+import ErrorView from "./views/ErrorView";
 
 const router = createBrowserRouter([
 	{
 		path: "/",
 		element: <RootView />,
+		errorElement: <ErrorView />,
 		children: [
 			{
 				index: true,
