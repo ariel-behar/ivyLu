@@ -14,6 +14,12 @@ import ServicesView from "./views/ServicesView";
 import HomeView from "./views/HomeView";
 import LogoutView from "./views/LogoutView";
 import ErrorView from "./views/ErrorView";
+import ServicesManagementView from "./views/AuthorizedViews/ServicesViews/ServicesManagementView";
+import CreateService from "./views/AuthorizedViews/ServicesViews/CreateService";
+import ManagementView from "./views/AuthorizedViews/ManagementView";
+import ProductsManagementView from "./views/AuthorizedViews/ProductViews/ProductsManagementView";
+import UsersManagementView from "./views/AuthorizedViews/UsersViews/UsersManagementView";
+import OrdersManagementView from "./views/AuthorizedViews/OrdersViews/OrdersManagementView";
 
 const router = createBrowserRouter([
 	{
@@ -43,12 +49,49 @@ const router = createBrowserRouter([
 			},
 			{
 				path: "/services",
-				element: <ServicesView />
+				element: <ServicesView />,
+				children: [
+
+				]
 			},
 			{
 				path: "/dashboard",
 				element: <DashboardView />
+			},
+			{
+				path: "/management",
+				element: <ManagementView />,
+				children: [
+					{
+						index: true,
+						element: <OrdersManagementView />
+					},
+					{
+						path: 'orders',
+						element: <OrdersManagementView />
+					},
+					{
+						path: 'services',
+						element: <ServicesManagementView />,
+						children: [
+							{
+								path: 'create',
+								element: <CreateService />
+							}
+						]
+					},
+					{
+						path: 'products',
+						element: <ProductsManagementView />
+					},
+					{
+						path: 'users',
+						element: <UsersManagementView />
+					}
+
+				]
 			}
+
 		]
 	}
 ]);

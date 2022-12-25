@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link as RouterLink} from 'react-router-dom'
 
 import MenuItem from '@mui/material/MenuItem';
 
@@ -10,8 +10,8 @@ function AdminButtons({handleClose}: AdminButtonsProps) {
     return (
         <MenuItem
             onClick={handleClose}
-            component={Link}
-            to='/users-management'
+            component={RouterLink}
+            to='/management/users'
         >
             Users
         </MenuItem>

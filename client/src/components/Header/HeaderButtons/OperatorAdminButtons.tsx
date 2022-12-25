@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom'
+import { Link as RouterLink} from 'react-router-dom'
 
 import { useAuthContext } from '../../../context/AuthContext';
 
@@ -28,7 +28,7 @@ function OperatorAdminButtons() {
                 color='inherit'
                 id='management-button'
                 onClick={handleClick}
-                aria-controls={open ? 'resources-menu' : undefined}
+                aria-controls={open ? 'management-menu' : undefined}
                 aria-haspopup='true'
                 aria-expanded={open ? 'true' : undefined}
                 endIcon={<KeyboardArrowDownIcon />}
@@ -51,22 +51,22 @@ function OperatorAdminButtons() {
             >
                 <MenuItem
                     onClick={handleClose}
-                    component={Link}
-                    to='/orders-management'
+                    component={RouterLink}
+                    to='/management/orders'
                 >
                     Orders
                 </MenuItem>
                 <MenuItem
                     onClick={handleClose}
-                    component={Link}
-                    to='/services-management'
+                    component={RouterLink}
+                    to='/management/services'
                 >
                     Services
                 </MenuItem>
                 <MenuItem
                     onClick={handleClose}
-                    component={Link}
-                    to='/products-management'
+                    component={RouterLink}
+                    to='/management/products'
                 >
                     Products
                 </MenuItem>
