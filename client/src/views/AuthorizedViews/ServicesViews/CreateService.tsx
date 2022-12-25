@@ -7,6 +7,7 @@ import createServiceFormSchema from "../../../validations/createServiceFormSchem
 import * as servicesService from '../../../services/serviceServices'
 import Service from "../../../models/Service";
 import { useAuthContext } from "../../../context/AuthContext";
+import { IMAGE_URL_REGEX } from "../../../utils/regex";
 
 import TextField from "@mui/material/TextField"
 import Stack from "@mui/material/Stack"
@@ -18,7 +19,6 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import InputAdornment from "@mui/material/InputAdornment";
 
-
 type FormData = {
 	title: string,
 	description: string,
@@ -28,7 +28,7 @@ type FormData = {
 	duration: string,
 }
 
-const IMAGE_URL_REGEX = /^(?:(?<scheme>[^:\/?#]+):)?(?:\/\/(?<authority>[^\/?#]*))?(?<path>[^?#]*\/)?(?<file>[^?#]*\.(?<extension>[Jj][Pp][Ee]?[Gg]|[Pp][Nn][Gg]|[Gg][Ii][Ff]|[Ss][Vv][Gg]))(?:\?(?<query>[^#]*))?(?:#(?<fragment>.*))?$/gm
+
 
 const serviceDuration = ['0:05', '0:10', '0:15', '0:20', '0:25', '0:30', '0:35', '0:40', '0:45', '0:50', '0:55', '1:00', '1:05', '1:10', '1:15', '1:20', '1:25', '1:30', '1:40', '1:45', '1:50', '1:55', '2:00']
 
