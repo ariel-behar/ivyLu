@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import { useForm } from 'react-hook-form';
 import uniqid from 'uniqid';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useNavigate } from "react-router-dom";
 
 import createServiceFormSchema from "../../../validations/createServiceFormSchema";
 import * as servicesService from '../../../services/serviceServices'
@@ -28,14 +29,13 @@ type FormData = {
 	duration: string,
 }
 
-
-
 const serviceDuration = ['0:05', '0:10', '0:15', '0:20', '0:25', '0:30', '0:35', '0:40', '0:45', '0:50', '0:55', '1:00', '1:05', '1:10', '1:15', '1:20', '1:25', '1:30', '1:40', '1:45', '1:50', '1:55', '2:00']
 
 function CreateService() {
 	const [duration, setDuartion] = useState<string>('')
 	const [previewImgUrl, setPreviewImageUrl] = useState<string>('')
 	const { user } = useAuthContext() as any;
+	const navigate = useNavigate()
 
 	const { register, handleSubmit, formState: { errors, isDirty, isValid } } = useForm<FormData>({
 		mode: 'onBlur',
@@ -49,7 +49,6 @@ function CreateService() {
 			duration: undefined,
 		}
 	})
-
 
 	const handleDurationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setDuartion(e.target.value as string);
@@ -75,10 +74,10 @@ function CreateService() {
 			let creatorId = user.userId
 
 			let createServiceResponse = await servicesService.create(service, creatorId)
-			console.log('createServiceResponse:', createServiceResponse)
 
-			// login(registerUserResponse)
-			// navigate('/')
+			if(createServiceResponse) {
+				navigate('/management/services')
+			}
 
 		} catch (err: any) {
 			let error = await err;
