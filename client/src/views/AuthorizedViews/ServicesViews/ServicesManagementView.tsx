@@ -1,10 +1,11 @@
 import Button from '@mui/material/Button';
-import { Outlet, Link as RouterLink } from 'react-router-dom';
+import { Outlet, Link as RouterLink,  } from 'react-router-dom';
 
 import AddIcon from '@mui/icons-material/Add';
 import { Stack } from '@mui/system';
 
 function ServicesManagementView() {
+
     return (
         <>
             <div>ServicesManagementView</div>

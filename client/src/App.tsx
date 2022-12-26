@@ -4,6 +4,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import './App.css';
 
 import { AuthProvider } from "./context/AuthContext";
+import { getAllservicesLoader } from './data-loaders/servicesLoader'
 
 import RootView from "./views/RootView";
 import DashboardView from "./views/DashboardView";
@@ -49,10 +50,8 @@ const router = createBrowserRouter([
 			},
 			{
 				path: "/services",
+				loader: getAllservicesLoader,
 				element: <ServicesView />,
-				children: [
-
-				]
 			},
 			{
 				path: "/dashboard",
@@ -72,8 +71,14 @@ const router = createBrowserRouter([
 					},
 					{
 						path: 'services',
+						loader: getAllservicesLoader,
 						element: <ServicesManagementView />,
 						children: [
+							{
+								index: true,
+								loader: getAllservicesLoader,
+								element: <ServicesView />,
+							},
 							{
 								path: 'create',
 								element: <CreateService />

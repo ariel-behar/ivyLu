@@ -1,31 +1,16 @@
 import { useEffect, useState } from "react";
+import { useLoaderData } from "react-router-dom";
 import uniqid from "uniqid";
+
 import MediaCard from "../components/MediaCard";
 import Stack from '@mui/material/Stack';
 
 import * as serviceServices from '../services/serviceServices'
+import Service from "../models/Service";
+
 
 function ServicesView() {
-	let [services, setServices] = useState<object[]>([]);
-
-	useEffect(() => {
-		serviceServices.getAll()
-			.then(data => {
-				setServices(data)
-			})
-
-		return () => {
-		}
-	}, [])
-
-	// "_id": string,
-	// "title": string
-	// "description": string,
-	// "additionalComments": string,
-	// "imgUrl": string, 
-	// "price": 40,
-	// "duration": string,
-	// "creatorId": string,
+	const services = useLoaderData() as Service[]
 
 	return (
 		<>

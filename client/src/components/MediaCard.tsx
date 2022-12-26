@@ -32,8 +32,6 @@ export default function MediaCard({ service: {
 	creatorId
 } }: MediaCardServiceProps) {
 	const { user } = useAuthContext() as any;
-	console.log('user', user.userId);
-	console.log('creatpr', creatorId)
 
 	return (
 		<Card sx={{ maxWidth: 345 }}>
