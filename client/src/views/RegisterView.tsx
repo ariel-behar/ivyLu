@@ -17,7 +17,7 @@ import FormHelperText from '@mui/material/FormHelperText';
 import registerFormSchema from '../validations/registerFormSchema';
 import * as authServices from '../services/authServices'
 import User from '../models/User';
-import { useAuthContext } from '../context/AuthContext';
+import { useAuthContext } from '../contexts/AuthContext';
 
 
 type FormData = {

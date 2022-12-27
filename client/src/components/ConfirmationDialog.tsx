@@ -1,6 +1,6 @@
 import * as serviceServices from '../services/serviceServices'
 
-import { useAuthContext } from '../context/AuthContext'
+import { useAuthContext } from '../contexts/AuthContext'
 
 import Button from '@mui/material/Button'
 import Dialog from '@mui/material/Dialog'
@@ -45,8 +45,6 @@ function ConfirmationDialog({ showConfirmationDialog, closeConfirmationDialog, i
         } catch (err) {
             console.log(err);
         }
-
-
     }
 
     return (
@@ -57,7 +55,7 @@ function ConfirmationDialog({ showConfirmationDialog, closeConfirmationDialog, i
                 aria-labelledby='dialog-title'
                 aria-describedby='dialog-description'>
 
-                <DialogTitle id="dialog-title">Are you sure you want to delete the {itemToDeleteType}: {itemToDelete.title}</DialogTitle>
+                <DialogTitle id="dialog-title">Are you sure you want to delete the {itemToDeleteType}: <b>{itemToDelete.title}</b>?</DialogTitle>
                 <DialogContent>
                     <DialogContentText id='dialog-description'>
                         Once you click "DELETE", you will not be able to retrieve it.

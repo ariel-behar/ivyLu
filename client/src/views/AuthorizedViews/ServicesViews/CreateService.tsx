@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import createServiceFormSchema from "../../../validations/createServiceFormSchema";
 import * as servicesService from '../../../services/serviceServices'
 import Service from "../../../models/Service";
-import { useAuthContext } from "../../../context/AuthContext";
+import { useAuthContext } from "../../../contexts/AuthContext";
 import { IMAGE_URL_REGEX } from "../../../utils/regex";
 
 import TextField from "@mui/material/TextField"

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link as RouterLink} from 'react-router-dom'
 
-import { useAuthContext } from '../../../context/AuthContext';
+import { useAuthContext } from '../../../contexts/AuthContext';
 
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';

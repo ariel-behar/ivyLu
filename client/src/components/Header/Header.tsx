@@ -1,6 +1,6 @@
 import { Link as RouterLink } from 'react-router-dom'
 
-import { useAuthContext } from '../../context/AuthContext'
+import { useAuthContext } from '../../contexts/AuthContext'
 import logoImg from '../../assets/img/logo.png'
 
 import IsLoggedInButtons from './HeaderButtons/IsLoggedInButtons'

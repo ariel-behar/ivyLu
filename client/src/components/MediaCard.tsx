@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useLocation, Link as RouterLink } from 'react-router-dom'
 
-import { useAuthContext } from '../context/AuthContext';
+import { useAuthContext } from '../contexts/AuthContext';
 
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';

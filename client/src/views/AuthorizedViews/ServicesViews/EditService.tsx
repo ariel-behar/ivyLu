@@ -8,7 +8,7 @@ import uniqid from 'uniqid';
 import createServiceFormSchema from "../../../validations/createServiceFormSchema";
 import * as servicesService from '../../../services/serviceServices'
 import Service from "../../../models/Service";
-import { useAuthContext } from "../../../context/AuthContext";
+import { useAuthContext } from "../../../contexts/AuthContext";
 import { IMAGE_URL_REGEX } from "../../../utils/regex";
 
 import TextField from "@mui/material/TextField"
@@ -26,6 +26,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import FormHelperText from '@mui/material/FormHelperText';
+import { useNotificationContext } from "../../../contexts/NotificationContext";
 
 type FormData = {
     title: string,
@@ -46,6 +47,7 @@ function EditService() {
     const [previewImgUrl, setPreviewImageUrl] = useState<string>(service.imgUrl)
     const [status, setStatus] = useState<string>('active')
     const { user } = useAuthContext() as any;
+    const { displayNotification } = useNotificationContext() as any;
     const navigate = useNavigate()
 
     const { register, handleSubmit, formState: { errors, isDirty, isValid } } = useForm<FormData>({
@@ -99,6 +101,7 @@ function EditService() {
 
             } catch (err: any) {
                 let error = await err;
+                displayNotification(error.message)
                 console.log(await error.message)
             }
         }

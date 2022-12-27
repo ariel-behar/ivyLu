@@ -1,5 +1,5 @@
 import { Link as RouterLink} from 'react-router-dom'
-import { useAuthContext } from '../../../context/AuthContext';
+import { useAuthContext } from '../../../contexts/AuthContext';
 
 import Button from '@mui/material/Button';
 

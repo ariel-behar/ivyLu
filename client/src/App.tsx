@@ -4,15 +4,18 @@ import CssBaseline from '@mui/material/CssBaseline';
 
 import './App.css';
 
-import { AuthProvider } from "./context/AuthContext";
+import { AuthProvider } from "./contexts/AuthContext";
 import router from "./router/router";
+import { NotificationProvider } from "./contexts/NotificationContext";
 
 function App() {
 	return (
 		<>
 			<CssBaseline />
 			<AuthProvider>
-				<RouterProvider router={router} />
+				<NotificationProvider>
+					<RouterProvider router={router} />
+				</NotificationProvider>
 			</AuthProvider>
 		</>
 	);
