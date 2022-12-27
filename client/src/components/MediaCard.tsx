@@ -1,4 +1,5 @@
-import * as React from 'react';
+import { useLocation, Link as RouterLink } from 'react-router-dom'
+
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -31,7 +32,9 @@ export default function MediaCard({ service: {
 	duration,
 	creatorId
 } }: MediaCardServiceProps) {
-	const { user } = useAuthContext() as any;
+	const { user, isLoggedIn } = useAuthContext() as any;
+	const location = useLocation()
+	console.log('location:', location.pathname)
 
 	return (
 		<Card sx={{ maxWidth: 345 }}>
@@ -59,11 +62,18 @@ export default function MediaCard({ service: {
 			</CardContent>
 			<CardActions>
 				<Stack direction='row' justifyContent='space-between'>
-					<Button size="small" variant='contained'>Schedule</Button>
+					{isLoggedIn && location.pathname === '/services'
+						? <Button size="small" variant='contained'>Schedule</Button>
+						: ''
+					}
 
 					{
-						user.userId === creatorId
-							? <Button size="small" >Edit</Button>
+						(user.role === 2 || user.role === 3) && location.pathname === '/management/services'
+							?
+								<>
+									<Button size="small" component={RouterLink} to={`/management/services/${_id}/edit`}>Edit</Button>
+									<Button size="small" >Delete</Button>
+								</>
 							: ''
 					}
 				</Stack>

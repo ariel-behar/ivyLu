@@ -7,6 +7,7 @@ import Stack from '@mui/material/Stack';
 
 import * as serviceServices from '../services/serviceServices'
 import Service from "../models/Service";
+import { Grid } from "@mui/material";
 
 
 function ServicesView() {
@@ -15,27 +16,30 @@ function ServicesView() {
 	return (
 		<>
 			<div>ServicesView</div>
-			<Stack direction='row' spacing={2}>
+			<Grid container spacing={2} lg={12}>
 				{
 					services ?
 						services.map((service: any) => {
-							return <MediaCard
-								key={uniqid()}
-								service={{
-									_id: service._id,
-									title: service.title,
-									description: service.description,
-									additionalComments: service.additionalComments,
-									imgUrl: service.imgUrl,
-									price: service.price,
-									duration: service.duration,
-									creatorId: service.creatorId
-								}} />
+							return (
+								<Grid item>
+									<MediaCard
+										key={uniqid()}
+										service={{
+											_id: service._id,
+											title: service.title,
+											description: service.description,
+											additionalComments: service.additionalComments,
+											imgUrl: service.imgUrl,
+											price: service.price,
+											duration: service.duration,
+											creatorId: service.creatorId
+										}} />
+								</Grid>
+							)
 						})
 						: ''
 				}
-
-			</Stack>
+			</Grid>
 		</>
 	)
 }
