@@ -9,3 +9,5 @@ exports.getAll = () => Service.find({}).lean()
 exports.getOne = (serviceId) => Service.findById(serviceId)
 
 exports.updateOne = (serviceId, service) => Service.findByIdAndUpdate(serviceId, service, { new: true });
+
+exports.deleteOne = (serviceId) => Service.deleteOne({_id: serviceId});

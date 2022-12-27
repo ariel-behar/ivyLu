@@ -24,8 +24,6 @@ router.get('/:serviceId', async (req, res) => {
     }
 })
 
-
-
 router.post('/create', async (req, res) => {
     let { title, description, additionalComments, imgUrl, price, duration, status, creatorId } = req.body;
 
@@ -87,6 +85,22 @@ router.post('/:serviceId/edit', async (req, res) => {
     }
 
 })
+
+router.get('/:serviceId/delete', async (req, res) => {
+    let serviceId = req.params.serviceId
+
+    try {
+        let deleteServiceResponse = await serviceServices.deleteOne(serviceId);
+
+        if (deleteServiceResponse) {
+            res.json({message: 'Record successfully deleted'});
+        }
+    } catch (err) {
+        res.status(500).json(err)
+    }
+
+})
+
 
 
 

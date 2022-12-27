@@ -8,3 +8,5 @@ export const getAll = () => request(`${servicesUrl}`, 'GET');
 export const getOne = (serviceId: string) => request(`${servicesUrl}/${serviceId}`, 'GET');
 
 export const edit = (serviceId: string, service: object, authToken: string) => request(`${servicesUrl}/${serviceId}/edit`, 'POST', service, authToken);
+
+export const deleteOne = (serviceId: string, service: undefined, authToken: string) => request(`${servicesUrl}/${serviceId}/delete`, 'GET', service, authToken);
