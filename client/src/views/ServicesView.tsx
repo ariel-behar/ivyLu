@@ -1,11 +1,9 @@
-import { useEffect, useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import uniqid from "uniqid";
 
 import MediaCard from "../components/MediaCard";
 import Stack from '@mui/material/Stack';
 
-import * as serviceServices from '../services/serviceServices'
 import Service from "../models/Service";
 import { Grid } from "@mui/material";
 

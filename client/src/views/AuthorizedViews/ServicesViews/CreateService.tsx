@@ -19,6 +19,12 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import InputAdornment from "@mui/material/InputAdornment";
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
+import FormHelperText from '@mui/material/FormHelperText';
 
 type FormData = {
 	title: string,
@@ -27,12 +33,14 @@ type FormData = {
 	imgUrl: string,
 	price: (number[] | number) | undefined,
 	duration: string,
+	status: 'active' | 'inactive'
 }
 
 const serviceDuration = ['0:05', '0:10', '0:15', '0:20', '0:25', '0:30', '0:35', '0:40', '0:45', '0:50', '0:55', '1:00', '1:05', '1:10', '1:15', '1:20', '1:25', '1:30', '1:40', '1:45', '1:50', '1:55', '2:00']
 
 function CreateService() {
-	const [duration, setDuartion] = useState<string>('')
+	const [duration, setDuration] = useState<string>('')
+	const [status, setStatus] = useState<string>('active')
 	const [previewImgUrl, setPreviewImageUrl] = useState<string>('')
 	const { user } = useAuthContext() as any;
 	const navigate = useNavigate()
@@ -47,11 +55,12 @@ function CreateService() {
 			imgUrl: '',
 			price: 1,
 			duration: undefined,
+			status: 'active'
 		}
 	})
 
 	const handleDurationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setDuartion(e.target.value as string);
+		setDuration(e.target.value as string);
 	}
 
 	const handlePreviewImage = (e: React.FocusEvent<HTMLInputElement>) => {
@@ -62,18 +71,22 @@ function CreateService() {
 		}
 	}
 
+	const onStatusChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+		setStatus((e.target as HTMLInputElement).value)
+	}
+
 	const onFormSubmit = async (data: FormData, e: React.BaseSyntheticEvent<object, any, any> | undefined) => {
 		e?.preventDefault();
 
-		let { title, description, additionalComments, imgUrl, price, duration } = data;
+		let { title, description, additionalComments, imgUrl, price, duration, status } = data;
 		price = Number(price);
 
-		const service = new Service(title, description, additionalComments, imgUrl, price, duration)
+		const service = new Service(title, description, additionalComments, imgUrl, price, duration, status)
 
 		try {
 			let creatorId = user.userId
 
-			let createServiceResponse = await servicesService.create(service, creatorId)
+			let createServiceResponse = await servicesService.create(service, creatorId, user.AUTH_TOKEN)
 
 			if(createServiceResponse) {
 				navigate('/management/services')
@@ -169,6 +182,15 @@ function CreateService() {
 								
 							</TextField>
 						</Stack>
+
+						<FormControl required>
+							<FormLabel id="status-select-group" >Status</FormLabel>
+							<RadioGroup row aria-labelledby="status-select-group" value={status ?? ' '} onChange={onStatusChange} >
+								<FormControlLabel value="active" control={<Radio />} label="Active" {...register('status')} />
+								<FormControlLabel value="inactive" control={<Radio />} label="Inactive" {...register('status')} />
+							</RadioGroup>
+							<FormHelperText> {errors.status ? errors.status.message : ''} </FormHelperText>
+						</FormControl>
 
 						<Button variant="contained" type='submit' disabled={!(isDirty && isValid)}>Create Service </Button>
 					</Stack>

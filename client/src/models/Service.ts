@@ -1,7 +1,3 @@
-const enum ServiceStatus {
-    Scheduled = 1, InProgress, Completed, Rescheduled, Canceled
-}
-
 export default class Service {
     constructor(
         public title: string,
@@ -10,6 +6,6 @@ export default class Service {
         public imgUrl: string,
         public price: number[] | number,
         public duration: string,
-        public status?: ServiceStatus.Scheduled
+        public status: 'active' | 'inactive'
     ){}
 }

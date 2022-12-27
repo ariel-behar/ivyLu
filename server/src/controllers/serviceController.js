@@ -2,42 +2,56 @@ const router = require('express').Router();
 
 const serviceServices = require('../services/serviceServices')
 
-router.get('/', async (req,res) => {
+router.get('/', async (req, res) => {
     try {
         let services = await serviceServices.getAll();
-        
+
         res.json(services)
-    } catch(err) {
+    } catch (err) {
         res.status(500).json(err)
     }
 })
 
+router.get('/:serviceId', async (req, res) => {
+    let serviceId = req.params.serviceId;
+
+    try {
+        let service = await serviceServices.getOne(serviceId);
+
+        res.json(service)
+    } catch (err) {
+        res.status(500).json(err)
+    }
+})
+
+
+
 router.post('/create', async (req, res) => {
-    let { title, description, additionalComments, imgUrl, price, duration, creatorId } = req.body;
+    let { title, description, additionalComments, imgUrl, price, duration, status, creatorId } = req.body;
 
     try {
         let serviceExists = await serviceServices.getOneByTitle(title);
-        
-        if(serviceExists){
-            throw res.status(500).json({message: "A service with this Title already exists"})
+
+        if (serviceExists) {
+            throw res.status(500).json({ message: "A service with this Title already exists" })
         } else {
             try {
-                let serviceCreateResponse = await serviceServices.create({ title, description, additionalComments, imgUrl, price, duration, creatorId });
-        
-                if (serviceCreateResponse) {
+                let createServiceResponse = await serviceServices.create({ title, description, additionalComments, imgUrl, price, duration, status, creatorId });
+
+                if (createServiceResponse) {
                     let service = {
-                        serviceId: serviceCreateResponse._id,
-                        title: serviceCreateResponse.title,
-                        description: serviceCreateResponse.description,
-                        additionalComments: serviceCreateResponse.additionalComments,
-                        imgUrl: serviceCreateResponse.imgUrl,
-                        price: serviceCreateResponse.price,
-                        duration: serviceCreateResponse.duration
+                        serviceId: createServiceResponse._id,
+                        title: createServiceResponse.title,
+                        description: createServiceResponse.description,
+                        additionalComments: createServiceResponse.additionalComments,
+                        imgUrl: createServiceResponse.imgUrl,
+                        price: createServiceResponse.price,
+                        duration: createServiceResponse.duration
                     };
-        
+
                     res.json(service);
                 }
-            } catch(err) {
+            } catch (err) {
                 res.status(500).json(err)
             }
         }
@@ -45,6 +59,36 @@ router.post('/create', async (req, res) => {
         res.json(err.message)
     }
 })
+
+router.post('/:serviceId/edit', async (req, res) => {
+    let serviceId = req.params.serviceId
+    let { title, description, additionalComments, imgUrl, price, duration, status } = req.body;
+
+    let service = { title, description, additionalComments, imgUrl, price, duration, status }
+
+    try {
+        let editServiceResponse = await serviceServices.updateOne(serviceId, service);
+
+        if (editServiceResponse) {
+            let service = {
+                serviceId: editServiceResponse._id,
+                title: editServiceResponse.title,
+                description: editServiceResponse.description,
+                additionalComments: editServiceResponse.additionalComments,
+                imgUrl: editServiceResponse.imgUrl,
+                price: editServiceResponse.price,
+                duration: editServiceResponse.duration
+            };
+
+            res.json(service);
+        }
+    } catch (err) {
+        res.status(500).json(err)
+    }
+
+})
+
+
 
 
 module.exports = router;

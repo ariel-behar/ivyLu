@@ -41,6 +41,11 @@ const serviceSchema = mongoose.Schema({
         required: true,
         enum: ['0:05', '0:10', '0:15', '0:20', '0:25', '0:30', '0:35', '0:40', '0:45', '0:50', '0:55', '1:00', '1:05', '1:10', '1:15', '1:20', '1:25', '1:30', '1:40', '1:45', '1:50', '1:55', '2:00']
     },
+    status: {
+        type: String,
+        required: true,
+        enum: ['active', 'inactive']
+    },
     creatorId: {
         type: mongoose.Types.ObjectId,
         ref: 'User',

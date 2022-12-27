@@ -26,8 +26,8 @@ const request = (url: string, method: string, body?: object, authToken?: string)
     }
 
     let options: optionsType = {
-        headers,
-        method
+        method,
+        headers
     }
 
     if (body !== undefined) {
@@ -42,6 +42,7 @@ const request = (url: string, method: string, body?: object, authToken?: string)
             return res.json();
         })
         .catch(err => {
+            console.log('err:', err)
             throw err;
         })
 
