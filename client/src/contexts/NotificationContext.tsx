@@ -5,14 +5,14 @@ export const NotificationContext = createContext<object | null>(null);
 
 type TypesType = {
     error: string,
-    warning: string,
+    warn: string,
     info: string,
     success: string
 }
 
 export const types: TypesType = {
     error: 'danger',
-    warning: 'warning',
+    warn: 'warn',
     info: 'info',
     success: 'success',
 };

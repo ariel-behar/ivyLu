@@ -95,14 +95,14 @@ function EditService() {
                 console.log('editServiceResponse:', editServiceResponse)
 
                 if (editServiceResponse) {
+                    displayNotification('Record successfully modified', 'success')
                     navigate('/management/services')
                 }
 
 
             } catch (err: any) {
                 let error = await err;
-                displayNotification(error.message)
-                console.log(await error.message)
+                displayNotification(error.message, 'error')
             }
         }
     }

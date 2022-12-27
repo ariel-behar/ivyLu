@@ -33,7 +33,7 @@ function ServicesView() {
 					services ?
 						services.map((service: any) => {
 							return (
-								<Grid item lg={3}>
+								<Grid item lg={3} key={uniqid()}>
 									<MediaCard
 										key={uniqid()}
 										service={{
