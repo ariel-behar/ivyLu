@@ -15,7 +15,7 @@ const initialUserState = {
     AUTH_TOKEN: '',
 };
 
-interface AuthProviderProps {
+type AuthProviderProps = {
     children: React.ReactNode
 }
 
