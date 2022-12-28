@@ -1,7 +1,7 @@
 import { LoaderFunctionArgs } from 'react-router-dom';
 import * as serviceServices from '../services/serviceServices'
 
-export async function getAllservicesLoader() {
+export async function getAllServicesLoader() {
     const services = await serviceServices.getAll()
 
     return services;

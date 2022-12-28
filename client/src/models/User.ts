@@ -1,9 +1,9 @@
+import { UserInterface } from "../types/userTypes"
 
-const enum UserRole {
+export const enum UserRole {
     Customer = 1, Operator, Admin
 }
-
-export default class User {
+export default class User implements UserInterface {
     public role: UserRole = UserRole.Customer
 
     constructor(

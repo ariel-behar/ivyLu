@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
-import { getAllservicesLoader, getOneServicesLoader } from '../data-loaders/servicesLoader'
+import { getAllServicesLoader, getOneServicesLoader } from '../data-loaders/servicesLoader'
 import { getAllProductsLoader, getOneProductsLoader } from "../data-loaders/productsLoader";
+import { getAllUsersLoader } from "../data-loaders/userLoader";
 
 import RootView from "../views/RootView";
 import DashboardView from "../views/DashboardView";
@@ -20,6 +21,8 @@ import OrdersManagementView from "../views/AuthorizedViews/OrdersViews/OrdersMan
 import EditService from "../views/AuthorizedViews/ServicesViews/EditService";
 import CreateProduct from "../views/AuthorizedViews/ProductViews/CreateProduct";
 import EditProduct from "../views/AuthorizedViews/ProductViews/EditProduct";
+import UsersView from "../views/AuthorizedViews/UsersViews/UsersView";
+
 
 const router = createBrowserRouter([
 	{
@@ -50,7 +53,7 @@ const router = createBrowserRouter([
 			},
 			{
 				path: "/services",
-				loader: getAllservicesLoader,
+				loader: getAllServicesLoader,
 				element: <ServicesView />,
 			},
 			{
@@ -75,7 +78,7 @@ const router = createBrowserRouter([
 						children: [
 							{
 								index: true,
-								loader: getAllservicesLoader,
+								loader: getAllServicesLoader,
 								element: <ServicesView />,
 							},
 							{
@@ -111,7 +114,14 @@ const router = createBrowserRouter([
 					},
 					{
 						path: 'users',
-						element: <UsersManagementView />
+						element: <UsersManagementView />,
+						children: [
+							{
+								index: true,
+								loader: getAllUsersLoader,
+								element: <UsersView />,
+							}
+						]
 					}
 
 				]

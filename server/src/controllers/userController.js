@@ -1,22 +1,31 @@
 const router = require('express').Router();
 const bcrypt = require('bcrypt');
 
-const authService = require('../services/authServices')
+const userServices = require('../services/userServices')
 
 const generateAuthToken = require('../utils/generateAuthToken.js')
 
+router.get('/', async (req, res) => {
+    try {
+        let users = await userServices.getAll();
+
+        res.json(users)
+    } catch (err) {
+        res.status(500).json(err)
+    }
+})
 
 router.post('/register', async (req, res) => {
     let { firstName, lastName, email, phone, gender, role, password } = req.body;
 
     try {
-        let userExists = await authService.getOneByEmail(email);
+        let userExists = await userServices.getOneByEmail(email);
         
         if(userExists){
             return res.status(500).json({message: "This email address is already being used by another user."})
         } else {
             try {
-                let userResponse = await authService.register({firstName, lastName, email, phone, gender,role, password});
+                let userResponse = await userServices.register({firstName, lastName, email, phone, gender,role, password});
         
                 if (userResponse) {
                     let user = {
@@ -48,7 +57,7 @@ router.post('/login', async (req, res) => {
     const {email, password} = req.body;
 
     try {
-        let userResponse = await authService.login(email)
+        let userResponse = await userServices.login(email)
 
         if(userResponse) {
             let isValidPassword = await bcrypt.compare(password, userResponse.password);

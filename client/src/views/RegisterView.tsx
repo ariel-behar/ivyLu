@@ -15,10 +15,9 @@ import Stack from '@mui/system/Stack';
 import FormHelperText from '@mui/material/FormHelperText';
 
 import registerFormSchema from '../validations/registerFormSchema';
-import * as authServices from '../services/authServices'
+import * as userServices from '../services/userServices'
 import User from '../models/User';
 import { useAuthContext } from '../contexts/AuthContext';
-
 
 type FormData = {
 	firstName: string,
@@ -58,7 +57,7 @@ function RegisterView() {
 		const user = new User(firstName, lastName, email, phone, gender, password)
 
 		try {
-			let registerUserResponse = await authServices.register(user)
+			let registerUserResponse = await userServices.register(user)
 
 			login(registerUserResponse)
 			navigate('/')

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import { useAuthContext } from "../contexts/AuthContext";
 
-import * as authServices from '../services/authServices'
+import * as userServices from '../services/userServices'
 
 import TextField from "@mui/material/TextField";
 import Button from '@mui/material/Button';
@@ -31,7 +31,7 @@ function LoginView() {
 		const user = data;
 
 		try {
-			let loginUserResponse = await authServices.login(user)
+			let loginUserResponse = await userServices.login(user)
 
 			login(loginUserResponse)
 			navigate('/')

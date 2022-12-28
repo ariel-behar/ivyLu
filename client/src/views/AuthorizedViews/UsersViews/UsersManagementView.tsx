@@ -1,8 +1,12 @@
-import React from 'react'
+import { Outlet } from 'react-router-dom'
 
 function UsersManagementView() {
   return (
-    <div>UsersManagementView</div>
+    <>
+      <div>UsersManagementView</div>
+
+      <Outlet />
+    </>
   )
 }
 
