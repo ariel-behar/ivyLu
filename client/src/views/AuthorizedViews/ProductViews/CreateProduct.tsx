@@ -113,9 +113,9 @@ function CreateProduct() {
 			let createProductResponse = await productServices.create(product, creatorId, user.AUTH_TOKEN)
 			console.log('createProductResponse:', createProductResponse)
 
-			// if(createProductResponse) {
-			// 	navigate('/management/services')
-			// }
+			if(createProductResponse) {
+				navigate('/management/products')
+			}
 
 		} catch (err: any) {
 			let error = await err;

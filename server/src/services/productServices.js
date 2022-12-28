@@ -4,10 +4,10 @@ exports.create = (product) => Product.create(product);
 
 exports.getOneByTitle = (title) => Product.findOne({title: title});
 
-// exports.getAll = () => Service.find({}).lean()
+exports.getAll = () => Product.find({}).lean()
 
-// exports.getOne = (serviceId) => Service.findById(serviceId)
+// exports.getOne = (serviceId) => Product.findById(serviceId)
 
-// exports.updateOne = (serviceId, service) => Service.findByIdAndUpdate(serviceId, service, { new: true });
+// exports.updateOne = (serviceId, service) => Product.findByIdAndUpdate(serviceId, service, { new: true });
 
-// exports.deleteOne = (serviceId) => Service.deleteOne({_id: serviceId});
+// exports.deleteOne = (serviceId) => Product.deleteOne({_id: serviceId});

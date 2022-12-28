@@ -2,15 +2,15 @@ const router = require('express').Router();
 
 const productServices = require('../services/productServices')
 
-// router.get('/', async (req, res) => {
-//     try {
-//         let services = await serviceServices.getAll();
+router.get('/', async (req, res) => {
+    try {
+        let products = await productServices.getAll();
 
-//         res.json(services)
-//     } catch (err) {
-//         res.status(500).json(err)
-//     }
-// })
+        res.json(products)
+    } catch (err) {
+        res.status(500).json(err)
+    }
+})
 
 // router.get('/:serviceId', async (req, res) => {
 //     let serviceId = req.params.serviceId;

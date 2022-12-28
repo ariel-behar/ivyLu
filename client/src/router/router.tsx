@@ -93,7 +93,7 @@ const router = createBrowserRouter([
 						children: [
 							{
 								index: true,
-								// loader: getAllproductsLoader,
+								loader: getAllproductsLoader,
 								element: <ProductsView />,
 							},
 							{
