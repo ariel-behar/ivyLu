@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import { getAllservicesLoader, getOneServicesLoader } from '../data-loaders/servicesLoader'
-import { getAllproductsLoader, getOneProductsLoader } from "../data-loaders/productsLoader";
+import { getAllProductsLoader, getOneProductsLoader } from "../data-loaders/productsLoader";
 
 import RootView from "../views/RootView";
 import DashboardView from "../views/DashboardView";
@@ -45,7 +45,8 @@ const router = createBrowserRouter([
 			},
 			{
 				path: "/products",
-				element: <ProductsView />
+				loader: getAllProductsLoader,
+				element: <ProductsView />,
 			},
 			{
 				path: "/services",
@@ -94,7 +95,7 @@ const router = createBrowserRouter([
 						children: [
 							{
 								index: true,
-								loader: getAllproductsLoader,
+								loader: getAllProductsLoader,
 								element: <ProductsView />,
 							},
 							{
