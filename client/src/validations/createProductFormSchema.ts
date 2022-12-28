@@ -1,8 +1,8 @@
 import * as yup from 'yup'
 
-import { IMAGE_URL_REGEX, LATIN_CHARACTERS_REGEX } from '../utils/regex'
+import { IMAGE_URL_REGEX, LATIN_CHARACTERS_REGEX, ONLY_DIGITS } from '../utils/regex'
 
-const createServiceFormSchema = yup.object().shape({
+const createProductFormSchema = yup.object().shape({
     title: yup
         .string()
         .required('Title is Required')
@@ -29,9 +29,22 @@ const createServiceFormSchema = yup.object().shape({
         .required('Price is required')
         .min(1, "Price should be at least 1 BGN")
         .max(3, "Price should be at most 999 BGN"),
-    duration: yup
+    volume: yup
         .string()
-        .required('Duration is required'),
+        .matches(ONLY_DIGITS, "Product volume must be between 1 to 4 digits")
+        .min(1, 'Product volume must be at least 1 digit')
+        .max(4, 'Product volume must be at most 4 digits')
+        .required('Product volume is required'),
+    volumeMeasurementUnit: yup
+        .string()
+        .required()
+        .oneOf(['grams', 'milliliters'], 'You should pick the appropriate volume measurement unit'),
+    productCode: yup
+        .string()
+        .required()
+        .matches(ONLY_DIGITS, "Product code must be comprised of 5 digits")
+        .min(5, 'Product code must be exactly 5 digits')
+        .max(5, 'Product code must be exactly 5 digits'),
     status: yup
         .string()
         .required('Status is required')
@@ -39,4 +52,4 @@ const createServiceFormSchema = yup.object().shape({
         .nullable(),
 })
 
-export default createServiceFormSchema;
+export default createProductFormSchema;

@@ -8,3 +8,4 @@ export const IMAGE_URL_REGEX = /^(?:(?<scheme>[^:\/?#]+):)?(?:\/\/(?<authority>[
 
 export const LATIN_CHARACTERS_REGEX = /[a-zA-z]/i
 
+export const ONLY_DIGITS = /^[0-9]+$/
