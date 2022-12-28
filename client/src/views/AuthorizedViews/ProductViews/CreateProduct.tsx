@@ -35,9 +35,9 @@ type FormData = {
 	additionalComments: string | null,
 	imgUrl: string,
 	price: number,
-	volume: string | number,
+	volume: string,
 	volumeMeasurementUnit: string,
-	productCode: string | number,
+	productCode: string,
 	status: 'active' | 'inactive'
 }
 
@@ -104,8 +104,6 @@ function CreateProduct() {
 
 		let { title, description, additionalComments, imgUrl, price, volume, volumeMeasurementUnit, productCode, status } = data;
 		price = Number(price);
-		volume = Number(volume);
-		productCode = Number(productCode)
 
 		const product = new Product(title, description, additionalComments, imgUrl, price, volume, volumeMeasurementUnit, productCode, status)
 

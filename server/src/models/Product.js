@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const regex = require('../utils/regex')
 
-const serviceSchema = mongoose.Schema({
+const productSchema = mongoose.Schema({
     title: {
         type: String,
         required: true,
@@ -34,10 +34,23 @@ const serviceSchema = mongoose.Schema({
         minLength: [1, "Price should be at least 1 BGN"],
         maxLength: [999, "Price should be at most 999 BGN"],
     },
-    duration: {
+    volume: {
         type: String,
         required: true,
-        enum: ['0:05', '0:10', '0:15', '0:20', '0:25', '0:30', '0:35', '0:40', '0:45', '0:50', '0:55', '1:00', '1:05', '1:10', '1:15', '1:20', '1:25', '1:30', '1:40', '1:45', '1:50', '1:55', '2:00']
+        minLength: [1, "Product volume must be at least 1 digit"],
+        maxLength: [4, "Product volume must be at most 4 digits"],
+    },
+    volumeMeasurementUnit: {
+        type: String,
+        required: true,
+        enum: ['grams', 'milliliters']
+    },
+    productCode: {
+        type: String,
+        required: true,
+        unique: true,
+        minLength: [5, "Product code must be exactly 5 digits"],
+        maxLength: [5, "Product code must be exactly 5 digits"],
     },
     status: {
         type: String,
@@ -52,6 +65,6 @@ const serviceSchema = mongoose.Schema({
     timestamps: true
 });
 
-const Service = mongoose.model('Service', serviceSchema);
+const Product = mongoose.model('Product', productSchema);
 
-module.exports = Service;
+module.exports = Product;

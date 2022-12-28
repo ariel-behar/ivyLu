@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const bcrypt = require('bcrypt');
 
-const authService = require('../services/authService')
+const authService = require('../services/authServices')
 
 const generateAuthToken = require('../utils/generateAuthToken.js')
 

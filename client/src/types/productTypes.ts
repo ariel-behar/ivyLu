@@ -6,9 +6,9 @@ export interface ProductInterface {
     additionalComments: string | null,
     imgUrl: string,
     price: number,
-    volume: number,
+    volume: string,
     volumeMeasurementUnit: string
-    productCode: number,
+    productCode: string,
     status: 'active' | 'inactive'
 }
 
@@ -19,9 +19,9 @@ export interface ProductFromDBInterface extends ProductInterface, Identifiable<I
     additionalComments: string | null,
     imgUrl: string,
     price: number,
-    volume: number,
+    volume: string,
     volumeMeasurementUnit: string
-    productCode: number,
+    productCode: string,
     status: 'active' | 'inactive'
     creatorId: IdType
 }
