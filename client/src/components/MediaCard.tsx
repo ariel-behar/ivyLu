@@ -11,23 +11,18 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
+import { ServiceFromDBInterface } from '../types/serviceTypes';
+import { ProductFromDBInterface } from '../types/productTypes';
+
+
 
 type MediaCardServiceProps = {
-	service: {
-		_id: string,
-		title: string
-		description: string,
-		additionalComments: string,
-		imgUrl: string,
-		price: number,
-		duration: string,
-		creatorId: string,
-	},
+	item: ServiceFromDBInterface | ProductFromDBInterface,
 	onDeleteButtonClickHandler: (_id: string, title: string) => void
 }
 
 export default function MediaCard({
-	service,
+	item,
 	onDeleteButtonClickHandler
 }: MediaCardServiceProps) {
 	const { user, isLoggedIn } = useAuthContext() as any;
@@ -37,23 +32,25 @@ export default function MediaCard({
 		<Card sx={{ maxWidth: 345 }}>
 			<CardMedia
 				sx={{ height: 140 }}
-				image={service.imgUrl}
-				title={service.title}
+				image={item.imgUrl}
+				title={item.title}
 			/>
 			<CardContent>
 				<Typography gutterBottom variant="h5" component="div">
-					{service.title}
+					{item.title}
 				</Typography>
 				<Typography variant="body2" color="text.secondary">
-					{service.description}
+					{item.description}
 				</Typography>
 
 				<Stack mt={2} direction='row' justifyContent='space-between'>
+
+					{/* <Typography variant="body2" color="text.secondary">
+						Duration: {item.duration} hrs
+					</Typography> */}
+
 					<Typography variant="body2" color="text.secondary">
-						Duration: {service.duration} hrs
-					</Typography>
-					<Typography variant="body2" color="text.secondary">
-						Price: {service.price} BGN
+						Price: {item.price} BGN
 					</Typography>
 				</Stack>
 			</CardContent>
@@ -67,8 +64,8 @@ export default function MediaCard({
 						(user.role === 2 || user.role === 3) && location.pathname === '/management/services'
 							?
 							<>
-								<Button size="small" component={RouterLink} to={`/management/services/${service._id}/edit`}>Edit</Button>
-								<Button size="small" onClick={() => onDeleteButtonClickHandler(service._id, service.title)}>Delete</Button>
+								<Button size="small" component={RouterLink} to={`/management/services/${item._id}/edit`}>Edit</Button>
+								<Button size="small" onClick={() => onDeleteButtonClickHandler(item._id, item.title)}>Delete</Button>
 							</>
 							: ''
 					}

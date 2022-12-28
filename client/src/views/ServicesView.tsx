@@ -2,21 +2,25 @@ import { useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import uniqid from "uniqid";
 
-import MediaCard from "../components/MediaCard";
+import ConfirmationDialog from "../components/Common/ConfirmationDialog";
 
-import Service from "../models/Service";
-import { Grid } from "@mui/material";
-import ConfirmationDialog from "../components/ConfirmationDialog";
+import { ServiceFromDBInterface } from "../types/serviceTypes";
+import { IdType } from "../types/common/commonTypes";
+
+import MediaCard from "../components/MediaCard";
+import Grid from "@mui/material/Grid";
+
+
 
 function ServicesView() {
-	const services = useLoaderData() as Service[]
+	const services = useLoaderData() as ServiceFromDBInterface[]
 	const [showConfirmationDialog, setShowConfirmationDialog] = useState<boolean>(false)
 	const [deleteService, setDeleteService] = useState<{_id:string, title:string}>({
 		_id: '',
 		title: ''
 	})
 
-	const onDeleteButtonClickHandler = (_id: string, title: string): void => {
+	const onDeleteButtonClickHandler = (_id: IdType, title: string): void => {
 		setShowConfirmationDialog(true)
 		setDeleteService({_id, title})
 	}
@@ -31,21 +35,12 @@ function ServicesView() {
 			<Grid container spacing={2} >
 				{
 					services ?
-						services.map((service: any) => {
+						services.map((service: ServiceFromDBInterface) => {
 							return (
 								<Grid item lg={3} key={uniqid()}>
 									<MediaCard
 										key={uniqid()}
-										service={{
-											_id: service._id,
-											title: service.title,
-											description: service.description,
-											additionalComments: service.additionalComments,
-											imgUrl: service.imgUrl,
-											price: service.price,
-											duration: service.duration,
-											creatorId: service.creatorId
-										}}
+										item={service}
 										onDeleteButtonClickHandler={onDeleteButtonClickHandler}
 									/>
 								</Grid>

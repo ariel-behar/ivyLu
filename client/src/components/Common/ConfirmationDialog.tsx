@@ -1,6 +1,9 @@
-import * as serviceServices from '../services/serviceServices'
+import { useNavigate } from 'react-router-dom'
 
-import { useAuthContext } from '../contexts/AuthContext'
+import * as serviceServices from '../../services/serviceServices'
+
+import { useAuthContext } from '../../contexts/AuthContext'
+import { useNotificationContext } from '../../contexts/NotificationContext'
 
 import Button from '@mui/material/Button'
 import Dialog from '@mui/material/Dialog'
@@ -9,8 +12,6 @@ import DialogContent from '@mui/material/DialogContent'
 import DialogContentText from '@mui/material/DialogContentText'
 import DialogActions from '@mui/material/DialogActions'
 import Stack from '@mui/material/Stack'
-import { useNavigate } from 'react-router-dom'
-
 
 type ConfirmationDialogProps = {
     showConfirmationDialog: boolean,
@@ -21,6 +22,7 @@ type ConfirmationDialogProps = {
 
 function ConfirmationDialog({ showConfirmationDialog, closeConfirmationDialog, itemToDelete, itemToDeleteType }: ConfirmationDialogProps) {
     const { user } = useAuthContext() as any
+    const { displayNotification } = useNotificationContext() as any;
     const navigate = useNavigate();
 
     const onDeleteButtonClick = async () => {
@@ -32,7 +34,11 @@ function ConfirmationDialog({ showConfirmationDialog, closeConfirmationDialog, i
             if (itemToDeleteType === 'service') {
                 deleteResponse = await serviceServices.deleteOne(itemId, undefined, user.AUTH_TOKEN);
 
-                navigate('/management/services');
+                if(deleteResponse) {    
+                    displayNotification(`Record ${itemToDelete.title} has successfully been deleted`, 'success')
+                    navigate('/management/services');
+                }
+                
 
             } else if (itemToDeleteType === 'product') {
 
@@ -42,8 +48,10 @@ function ConfirmationDialog({ showConfirmationDialog, closeConfirmationDialog, i
 
             closeConfirmationDialog()
 
-        } catch (err) {
-            console.log(err);
+        } catch (err: any) {
+
+            // displayNotification(err.message, 'error')
+            console.log(err.message)
         }
     }
 

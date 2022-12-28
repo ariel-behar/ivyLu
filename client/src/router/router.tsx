@@ -1,5 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import { getAllservicesLoader, getOneServicesLoader } from '../data-loaders/servicesLoader'
+import { getAllproductsLoader } from "../data-loaders/productsLoader";
 
 import RootView from "../views/RootView";
 import DashboardView from "../views/DashboardView";
@@ -88,7 +89,8 @@ const router = createBrowserRouter([
 					},
 					{
 						path: 'products',
-						element: <ProductsManagementView />
+						element: <ProductsManagementView />,
+						loader: getAllproductsLoader,
 					},
 					{
 						path: 'users',
