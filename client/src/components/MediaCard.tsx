@@ -15,7 +15,6 @@ import { ServiceFromDBInterface } from '../types/serviceTypes';
 import { ProductFromDBInterface } from '../types/productTypes';
 
 
-
 type MediaCardServiceProps = {
 	item: ServiceFromDBInterface | ProductFromDBInterface,
 	onDeleteButtonClickHandler: (_id: string, title: string) => void

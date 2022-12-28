@@ -96,20 +96,20 @@ router.post('/:productId/edit', async (req, res) => {
     }
 })
 
-// router.get('/:serviceId/delete', async (req, res) => {
-//     let serviceId = req.params.serviceId
+router.get('/:productId/delete', async (req, res) => {
+    let productId = req.params.productId
 
-//     try {
-//         let deleteServiceResponse = await serviceServices.deleteOne(serviceId);
+    try {
+        let deleteProductResponse = await productServices.deleteOne(productId);
 
-//         if (deleteServiceResponse) {
-//             res.json({message: 'Record successfully deleted'});
-//         }
-//     } catch (err) {
-//         res.status(500).json(err)
-//     }
+        if (deleteProductResponse) {
+            res.json({message: 'Record successfully deleted'});
+        }
+    } catch (err) {
+        res.status(500).json(err)
+    }
 
-// })
+})
 
 
 

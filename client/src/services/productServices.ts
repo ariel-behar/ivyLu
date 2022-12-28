@@ -11,4 +11,4 @@ export const getOne = (productId: IdType) => request(`${productsUrl}/${productId
 
 export const edit = (productId: IdType, product: ProductInterface, authToken: string) => request(`${productsUrl}/${productId}/edit`, 'POST', product, authToken);
 
-// export const deleteOne = (serviceId: string, service: undefined, authToken: string) => request(`${productsUrl}/${serviceId}/delete`, 'GET', service, authToken);
+export const deleteOne = (productId: IdType, product: undefined, authToken: string) => request(`${productsUrl}/${productId}/delete`, 'GET', product, authToken);

@@ -12,14 +12,14 @@ import Grid from "@mui/material/Grid";
 function ProductsView() {
 	const products = useLoaderData() as ProductFromDBInterface[]
 	const [showConfirmationDialog, setShowConfirmationDialog] = useState<boolean>(false)
-	const [deleteService, setDeleteService] = useState<{_id:string, title:string}>({
+	const [deleteProduct, setDeleteProduct] = useState<{_id:string, title:string}>({
 		_id: '',
 		title: ''
 	})
 
 	const onDeleteButtonClickHandler = (_id: string, title: string): void => {
 		setShowConfirmationDialog(true)
-		setDeleteService({_id, title})
+		setDeleteProduct({_id, title})
 	}
 
 	const closeConfirmationDialog = (): void => {
@@ -52,8 +52,8 @@ function ProductsView() {
 				? <ConfirmationDialog
 					showConfirmationDialog={showConfirmationDialog}
 					closeConfirmationDialog={closeConfirmationDialog}
-					itemToDelete={{ _id: deleteService._id, title: deleteService.title }}
-					itemToDeleteType={'service'}
+					itemToDelete={{ _id: deleteProduct._id, title: deleteProduct.title }}
+					itemToDeleteType={'product'}
 				/>
 				: ''
 			}

@@ -10,4 +10,4 @@ exports.getOne = (productId) => Product.findById(productId)
 
 exports.updateOne = (productId, product) => Product.findByIdAndUpdate(productId, product, { new: true });
 
-// exports.deleteOne = (serviceId) => Product.deleteOne({_id: serviceId});
+exports.deleteOne = (productId) => Product.deleteOne({_id: productId});

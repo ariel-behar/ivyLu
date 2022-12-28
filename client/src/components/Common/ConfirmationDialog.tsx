@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 
 import * as serviceServices from '../../services/serviceServices'
+import * as productServices from '../../services/productServices'
 
 import { useAuthContext } from '../../contexts/AuthContext'
 import { useNotificationContext } from '../../contexts/NotificationContext'
@@ -34,16 +35,17 @@ function ConfirmationDialog({ showConfirmationDialog, closeConfirmationDialog, i
             if (itemToDeleteType === 'service') {
                 deleteResponse = await serviceServices.deleteOne(itemId, undefined, user.AUTH_TOKEN);
 
-                if(deleteResponse) {    
-                    displayNotification(`Record ${itemToDelete.title} has successfully been deleted`, 'success')
-                    navigate('/management/services');
-                }
-                
-
             } else if (itemToDeleteType === 'product') {
+                deleteResponse = await productServices.deleteOne(itemId, undefined, user.AUTH_TOKEN);
+
 
             } else if (itemToDeleteType === 'user') {
 
+            }
+
+            if(deleteResponse) {    
+                displayNotification(`Record ${itemToDelete.title} has successfully been deleted`, 'success')
+                navigate(`/management/${itemToDeleteType.concat('s')}`);
             }
 
             closeConfirmationDialog()
