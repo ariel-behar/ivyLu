@@ -111,7 +111,6 @@ function CreateProduct() {
 			let creatorId = user.userId
 
 			let createProductResponse = await productServices.create(product, creatorId, user.AUTH_TOKEN)
-			console.log('createProductResponse:', createProductResponse)
 
 			if(createProductResponse) {
 				navigate('/management/products')
