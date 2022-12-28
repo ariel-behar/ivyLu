@@ -61,10 +61,10 @@ export default function MediaCard({
 						: ''
 					}
 					{
-						(user.role === 2 || user.role === 3) && location.pathname === '/management/services'
+						(user.role === 2 || user.role === 3) && (location.pathname === '/management/services' || location.pathname === '/management/products')
 							?
 							<>
-								<Button size="small" component={RouterLink} to={`/management/services/${item._id}/edit`}>Edit</Button>
+								<Button size="small" component={RouterLink} to={`${location.pathname}/${item._id}/edit`}>Edit</Button>
 								<Button size="small" onClick={() => onDeleteButtonClickHandler(item._id, item.title)}>Delete</Button>
 							</>
 							: ''

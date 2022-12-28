@@ -13,15 +13,15 @@ function ManagementView() {
             <div>ManagementView</div>
 
             <Stack direction='row' justifyContent='center'>
-            <Breadcrumbs 
-                aria-label="breadcrumb" 
-            >
-                <Link mx={2} underline="hover" to="/management/orders" component={RouterLink}>Orders</Link>
-                <Link mx={2} underline="hover" to="/management/services" component={RouterLink}>Services</Link>
-                <Link mx={2} underline="hover" to="/management/products" component={RouterLink}>Products</Link>
-                <Link mx={2} underline="hover" to="/management/users" component={RouterLink}>Users</Link>
+                <Breadcrumbs
+                    aria-label="breadcrumb"
+                >
+                    <Link mx={2} underline="hover" to="/management/orders" component={RouterLink}>Orders</Link>
+                    <Link mx={2} underline="hover" to="/management/services" component={RouterLink}>Services</Link>
+                    <Link mx={2} underline="hover" to="/management/products" component={RouterLink}>Products</Link>
+                    <Link mx={2} underline="hover" to="/management/users" component={RouterLink}>Users</Link>
 
-            </Breadcrumbs>
+                </Breadcrumbs>
 
             </Stack>
 

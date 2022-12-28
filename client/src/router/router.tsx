@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import { getAllservicesLoader, getOneServicesLoader } from '../data-loaders/servicesLoader'
-import { getAllproductsLoader } from "../data-loaders/productsLoader";
+import { getAllproductsLoader, getOneProductsLoader } from "../data-loaders/productsLoader";
 
 import RootView from "../views/RootView";
 import DashboardView from "../views/DashboardView";
@@ -19,6 +19,7 @@ import UsersManagementView from "../views/AuthorizedViews/UsersViews/UsersManage
 import OrdersManagementView from "../views/AuthorizedViews/OrdersViews/OrdersManagementView";
 import EditService from "../views/AuthorizedViews/ServicesViews/EditService";
 import CreateProduct from "../views/AuthorizedViews/ProductViews/CreateProduct";
+import EditProduct from "../views/AuthorizedViews/ProductViews/EditProduct";
 
 const router = createBrowserRouter([
 	{
@@ -100,6 +101,11 @@ const router = createBrowserRouter([
 								path: 'create',
 								element: <CreateProduct />
 							},
+							{
+								path: ':productId/edit',
+								loader: getOneProductsLoader,
+								element: <EditProduct />
+							}
 						]
 					},
 					{
