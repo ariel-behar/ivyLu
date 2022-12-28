@@ -1,5 +1,5 @@
 import request from "../utils/request";
-import { servicesUrl as productsUrl } from "./api"; 
+import { productsUrl } from "./api"; 
 
 export const create = (product: object, creatorId: string, authToken: string) => request(`${productsUrl}/create`, 'POST', {...product, creatorId}, authToken);
 

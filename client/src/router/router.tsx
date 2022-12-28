@@ -18,6 +18,7 @@ import ProductsManagementView from "../views/AuthorizedViews/ProductViews/Produc
 import UsersManagementView from "../views/AuthorizedViews/UsersViews/UsersManagementView";
 import OrdersManagementView from "../views/AuthorizedViews/OrdersViews/OrdersManagementView";
 import EditService from "../views/AuthorizedViews/ServicesViews/EditService";
+import CreateProduct from "../views/AuthorizedViews/ProductViews/CreateProduct";
 
 const router = createBrowserRouter([
 	{
@@ -68,7 +69,6 @@ const router = createBrowserRouter([
 					},
 					{
 						path: 'services',
-						loader: getAllservicesLoader,
 						element: <ServicesManagementView />,
 						children: [
 							{
@@ -90,7 +90,17 @@ const router = createBrowserRouter([
 					{
 						path: 'products',
 						element: <ProductsManagementView />,
-						loader: getAllproductsLoader,
+						children: [
+							{
+								index: true,
+								// loader: getAllproductsLoader,
+								element: <ProductsView />,
+							},
+							{
+								path: 'create',
+								element: <CreateProduct />
+							},
+						]
 					},
 					{
 						path: 'users',

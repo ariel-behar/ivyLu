@@ -7,8 +7,9 @@ export default class Product implements ProductInterface{
         public additionalComments: string | null,
         public imgUrl: string,
         public price: number,
-        public volume: string,
-        public productCode: string,
+        public volume: number,
+        public volumeMeasurementUnit: string,
+        public productCode: number,
         public status: 'active' | 'inactive'
     ){}
 }

@@ -1,6 +1,6 @@
 import * as yup from 'yup'
 
-import { IMAGE_URL_REGEX, LATIN_CHARACTERS_REGEX } from '../utils/regex'
+import { IMAGE_URL_REGEX, LATIN_CHARACTERS_REGEX, PRICE_REGEX } from '../utils/regex'
 
 const createServiceFormSchema = yup.object().shape({
     title: yup
@@ -8,7 +8,7 @@ const createServiceFormSchema = yup.object().shape({
         .required('Title is Required')
         .matches(LATIN_CHARACTERS_REGEX, 'Only characters from the latin alphabet are allowed')
         .min(2, "Title should be at least 2 characters long")
-        .max(30, "Title should be at most 30 characters long"),
+        .max(50, "Title should be at most 50 characters long"),
     description: yup
         .string()
         .required('Description is required')
@@ -27,8 +27,7 @@ const createServiceFormSchema = yup.object().shape({
     price: yup
         .string()
         .required('Price is required')
-        .min(1, "Price should be at least 1 BGN")
-        .max(3, "Price should be at most 999 BGN"),
+        .matches(PRICE_REGEX, 'Price should be between 1 and 999.99 BGN'),
     duration: yup
         .string()
         .required('Duration is required'),

@@ -5,6 +5,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigate } from "react-router-dom";
 
 import createProductFormSchema from "../../../validations/createProductFormSchema";
+import Product from "../../../models/Product";
+import * as productServices from '../../../services/productServices'
 
 import { useAuthContext } from "../../../contexts/AuthContext";
 import { IMAGE_URL_REGEX } from "../../../utils/regex";
@@ -24,22 +26,41 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import FormHelperText from '@mui/material/FormHelperText';
+import { useNotificationContext } from "../../../contexts/NotificationContext";
+
 
 type FormData = {
 	title: string,
 	description: string,
 	additionalComments: string | null,
 	imgUrl: string,
-	price: (number[] | number) | undefined,
-	volume: string,
-	volumeMeasurement: string,
+	price: number,
+	volume: string | number,
+	volumeMeasurementUnit: string,
+	productCode: string | number,
 	status: 'active' | 'inactive'
 }
 
+const measurementUnits: object = {
+	milliliters: {
+		onTextField: 'Milliliters',
+		abbreviated: 'ml',
+		lowerCase: 'milliliters'
+	},
+	grams: {
+		onTextField: 'Grams',
+		abbreviated: 'gr',
+		lowerCase: 'grams'
+	}
+}
+
 function CreateProduct() {
+	const [measurementUnit, setMeasurementUnit] = useState<object>(measurementUnits['milliliters' as keyof typeof measurementUnits])
+	const [priceValue, setPriceValue] = useState<string>('1')
 	const [status, setStatus] = useState<string>('active')
 	const [previewImgUrl, setPreviewImageUrl] = useState<string>('')
 	const { user } = useAuthContext() as any;
+	const { displayNotification} = useNotificationContext() as any;
 	const navigate = useNavigate()
 
 	const { register, handleSubmit, formState: { errors, isDirty, isValid } } = useForm<FormData>({
@@ -49,13 +70,22 @@ function CreateProduct() {
 			title: '',
 			description: '',
 			additionalComments: '',
-			imgUrl: '',
-			price: 1,
-			volume: '1',
-			volumeMeasurement: 'milliliters',
+			imgUrl: 'https://...',
+			price: 0,
+			volume: '0',
+			volumeMeasurementUnit: 'milliliters',
+			productCode: '00000',
 			status: 'active'
 		}
 	})
+
+	const handleVolumeMeasurementUnitChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		if ((e.target.value as string).toLowerCase() === 'milliliters') {
+			setMeasurementUnit(measurementUnits['milliliters' as keyof typeof measurementUnits]);
+		} else if ((e.target.value as string).toLowerCase() === 'grams') {
+			setMeasurementUnit(measurementUnits['grams' as keyof typeof measurementUnits]);
+		}
+	}
 
 	const handlePreviewImage = (e: React.FocusEvent<HTMLInputElement>) => {
 		if ((IMAGE_URL_REGEX).test(e.target.value)) {
@@ -72,24 +102,27 @@ function CreateProduct() {
 	const onFormSubmit = async (data: FormData, e: React.BaseSyntheticEvent<object, any, any> | undefined) => {
 		e?.preventDefault();
 
-		// let { title, description, additionalComments, imgUrl, price, duration, status } = data;
-		// price = Number(price);
+		let { title, description, additionalComments, imgUrl, price, volume, volumeMeasurementUnit, productCode, status } = data;
+		price = Number(price);
+		volume = Number(volume);
+		productCode = Number(productCode)
 
-		// const service = new Service(title, description, additionalComments, imgUrl, price, duration, status)
+		const product = new Product(title, description, additionalComments, imgUrl, price, volume, volumeMeasurementUnit, productCode, status)
 
-		// try {
-		// 	let creatorId = user.userId
+		try {
+			let creatorId = user.userId
 
-		// 	let createServiceResponse = await servicesService.create(service, creatorId, user.AUTH_TOKEN)
+			let createProductResponse = await productServices.create(product, creatorId, user.AUTH_TOKEN)
+			console.log('createProductResponse:', createProductResponse)
 
-		// 	if(createServiceResponse) {
-		// 		navigate('/management/services')
-		// 	}
+			// if(createProductResponse) {
+			// 	navigate('/management/services')
+			// }
 
-		// } catch (err: any) {
-		// 	let error = await err;
-		// 	console.log(await error.message)
-		// }
+		} catch (err: any) {
+			let error = await err;
+			displayNotification(error.message, 'error')
+		}
 	}
 
 	return (
@@ -100,7 +133,7 @@ function CreateProduct() {
 					<Stack spacing={2}>
 						<TextField
 							required
-							label="Service Title"
+							label="Product Title"
 							variant="outlined"
 							size="small"
 							{...register('title')}
@@ -110,7 +143,7 @@ function CreateProduct() {
 
 						<TextField
 							required
-							label="Service Description"
+							label="Product Description"
 							variant="outlined"
 							size="small"
 							{...register('description')}
@@ -131,7 +164,7 @@ function CreateProduct() {
 							<TextField
 								required
 								fullWidth
-								label="Service Image"
+								label="Product Image"
 								variant="outlined"
 								size="small"
 								{...register('imgUrl')}
@@ -140,23 +173,71 @@ function CreateProduct() {
 							/>
 						</Box>
 
+
 						<Stack direction='row' spacing={2}>
 							<TextField
 								required
-								label="Price"
+								label="Volume"
 								variant="outlined"
 								size="small"
 								type='number'
-								{...register('price')}
-								error={errors.price ? true : false}
-								helperText={errors.price ? errors.price.message : ''}
+								{...register('volume')}
+								error={errors.volume ? true : false}
+								helperText={errors.volume ? errors.volume.message : ''}
 								InputProps={{
-									endAdornment: <InputAdornment position='end'>BGN</InputAdornment>
+									endAdornment: <InputAdornment position='end'>{measurementUnit['abbreviated' as keyof typeof measurementUnit]}</InputAdornment>
 								}}
 							/>
 
-						
+							<TextField
+								required
+								label='Select Measurement Unit'
+								select
+								value={measurementUnit['lowerCase' as keyof typeof measurementUnit]}
+								{...register('volumeMeasurementUnit')}
+								onChange={handleVolumeMeasurementUnitChange}
+								variant="outlined"
+								size="small"
+								fullWidth
+								error={errors.volumeMeasurementUnit ? true : false}
+								helperText={errors.volumeMeasurementUnit ? errors.volumeMeasurementUnit.message : ''}
+							>
+								{
+									Object.values(measurementUnits).map(unit => (
+										<MenuItem key={uniqid()} value={unit.lowerCase}>{unit.onTextField}</MenuItem>
+									))
+								}
+							</TextField>
 						</Stack>
+
+						<TextField
+							required
+							label="Price"
+							
+							variant="outlined"
+							size="small"
+							type='number'
+							{...register('price')}
+							onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPriceValue(e.target.value)}
+							value={priceValue}
+							error={errors.price ? true : false}
+							helperText={errors.price ? errors.price.message : ''}
+							InputProps={{
+								endAdornment: <InputAdornment position='end'>BGN</InputAdornment>
+							}}
+						/>
+
+						<TextField
+							required
+							label="Product code"
+							variant="outlined"
+							size="small"
+							type='number'
+							{...register('productCode')}
+							error={errors.price ? true : false}
+							helperText={errors.productCode ? errors.productCode.message : ''}
+						/>
+
 
 						<FormControl required>
 							<FormLabel id="status-select-group" >Status</FormLabel>
@@ -167,7 +248,8 @@ function CreateProduct() {
 							<FormHelperText> {errors.status ? errors.status.message : ''} </FormHelperText>
 						</FormControl>
 
-						<Button variant="contained" type='submit' disabled={!(isDirty && isValid)}>Create Service </Button>
+
+						<Button variant="contained" type='submit' disabled={!(isDirty && isValid)}>Create Product</Button>
 					</Stack>
 				</form>
 			</Grid>

@@ -8,4 +8,8 @@ export const IMAGE_URL_REGEX = /^(?:(?<scheme>[^:\/?#]+):)?(?:\/\/(?<authority>[
 
 export const LATIN_CHARACTERS_REGEX = /[a-zA-z]/i
 
-export const ONLY_DIGITS = /^[0-9]+$/
+export const ONLY_DIGITS_REGEX = /^\d+(\.)?\d{0,3}$/
+
+// Matches from 1 up to 999 (int) or 999.99 (float)
+export const PRICE_REGEX = /^[1-9]+\d{0,2}((\.)?\d{0,2})?$/
+

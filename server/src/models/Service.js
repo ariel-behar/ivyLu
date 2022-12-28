@@ -9,7 +9,7 @@ const serviceSchema = mongoose.Schema({
         type: String,
         required: true,
         minLength: [2, "Title should be at least 2 characters long"],
-        maxLength: [30, "Title should be at most 30 characters long"],
+        maxLength: [50, "Title should be at most 50 characters long"],
         validate: [LATIN_CHARACTERS , 'Title should include only characters from the latin alphabet'],
     },
     description: {

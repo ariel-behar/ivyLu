@@ -40,6 +40,7 @@ const serviceDuration = ['0:05', '0:10', '0:15', '0:20', '0:25', '0:30', '0:35',
 
 function CreateService() {
 	const [duration, setDuration] = useState<string>('')
+	const [priceValue, setPriceValue] = useState<string>('1')
 	const [status, setStatus] = useState<string>('active')
 	const [previewImgUrl, setPreviewImageUrl] = useState<string>('')
 	const { user } = useAuthContext() as any;
@@ -52,7 +53,7 @@ function CreateService() {
 			title: '',
 			description: '',
 			additionalComments: '',
-			imgUrl: '',
+			imgUrl: 'https://...',
 			price: 1,
 			duration: undefined,
 			status: 'active'
@@ -154,6 +155,8 @@ function CreateService() {
 								size="small"
 								type='number'
 								{...register('price')}
+								onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPriceValue(e.target.value)}
+								value={priceValue}
 								error={errors.price ? true : false}
 								helperText={errors.price ? errors.price.message : ''}
 								InputProps={{
