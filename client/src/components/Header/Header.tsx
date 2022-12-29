@@ -1,7 +1,7 @@
 import { Link as RouterLink } from 'react-router-dom'
 
 import { useAuthContext } from '../../contexts/AuthContext'
-import logoImg from '../../assets/img/logo.png'
+import logo from '../../assets/img/logo.png'
 
 import IsLoggedInButtons from './HeaderButtons/IsLoggedInButtons'
 import IsNotloggedInButtons from './HeaderButtons/IsNotloggedInButtons';
@@ -37,7 +37,7 @@ function Header() {
                             transform: "translate(-50%, -50%)"
                         }}>
                             <RouterLink to='/' >
-                                <img src={logoImg} alt="IvyLu Logo" style={{ maxWidth: "50px" }} />
+                                <img src={logo} alt="IvyLu Logo" style={{ maxWidth: "50px" }} />
                             </RouterLink>
                         </Toolbar>
                         <Toolbar>
