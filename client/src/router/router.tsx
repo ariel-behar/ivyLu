@@ -22,6 +22,7 @@ import EditService from "../views/AuthorizedViews/ServicesViews/EditService";
 import CreateProduct from "../views/AuthorizedViews/ProductViews/CreateProduct";
 import EditProduct from "../views/AuthorizedViews/ProductViews/EditProduct";
 import UsersView from "../views/AuthorizedViews/UsersViews/UsersView";
+import AboutView from "../views/AboutView";
 
 
 const router = createBrowserRouter([
@@ -55,6 +56,10 @@ const router = createBrowserRouter([
 				path: "/services",
 				loader: getAllServicesLoader,
 				element: <ServicesView />,
+			},
+			{
+				path: "/about",
+				element: <AboutView />
 			},
 			{
 				path: "/dashboard",
