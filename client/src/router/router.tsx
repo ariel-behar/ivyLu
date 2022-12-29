@@ -8,11 +8,11 @@ import DashboardView from "../views/DashboardView";
 import LoginView from "../views/LoginView";
 import ProductsView from "../views/ProductsView";
 import RegisterView from "../views/RegisterView";
-import ServicesView from "../views/ServicesView";
+import ServicesView from "../views/ServiceViews/ServicesView";
 import HomeView from "../views/HomeView";
 import LogoutView from "../views/LogoutView";
 import ErrorView from "../views/ErrorView";
-import ServicesManagementView from "../views/AuthorizedViews/ServicesViews/ServicesManagementView";
+import ServicesOperatorAdminView from "../views/AuthorizedViews/ServicesViews/ServicesOperatorAdminView";
 import CreateService from "../views/AuthorizedViews/ServicesViews/CreateService";
 import ManagementView from "../views/AuthorizedViews/ManagementView";
 import ProductsManagementView from "../views/AuthorizedViews/ProductViews/ProductsManagementView";
@@ -23,6 +23,9 @@ import CreateProduct from "../views/AuthorizedViews/ProductViews/CreateProduct";
 import EditProduct from "../views/AuthorizedViews/ProductViews/EditProduct";
 import UsersView from "../views/AuthorizedViews/UsersViews/UsersView";
 import AboutView from "../views/AboutView";
+import ServiceDetailsView from "../views/ServiceViews/ServiceDetailsView";
+import ServicesGuestCustomerView from "../views/ServiceViews/ServicesGuestCustomerView";
+import ServicesManagementView from "../views/AuthorizedViews/ServicesViews/ServicesManagementView";
 
 
 const router = createBrowserRouter([
@@ -56,6 +59,18 @@ const router = createBrowserRouter([
 				path: "/services",
 				loader: getAllServicesLoader,
 				element: <ServicesView />,
+				children: [
+					{
+						index: true,
+						loader: getAllServicesLoader,
+						element: <ServicesGuestCustomerView />
+					},
+					{
+						path: ':serviceId/details',
+						loader: getOneServicesLoader,
+						element: <ServiceDetailsView />
+					}
+				]
 			},
 			{
 				path: "/about",
@@ -79,12 +94,13 @@ const router = createBrowserRouter([
 					},
 					{
 						path: 'services',
+						
 						element: <ServicesManagementView />,
 						children: [
 							{
 								index: true,
 								loader: getAllServicesLoader,
-								element: <ServicesView />,
+								element: <ServicesOperatorAdminView />,
 							},
 							{
 								path: 'create',

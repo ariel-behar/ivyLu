@@ -6,8 +6,6 @@ import Breadcrumbs from "@mui/material/Breadcrumbs"
 import Link from "@mui/material/Link"
 import { useAuthContext } from "../../contexts/AuthContext";
 
-
-
 function ManagementView() {
     const { user } = useAuthContext() as any;
 
@@ -28,8 +26,6 @@ function ManagementView() {
                         ? <Link mx={2} underline="hover" to="/management/users" component={RouterLink}>Users</Link>
                         : ''
                     }
-                   
-
                 </Breadcrumbs>
 
             </Stack>

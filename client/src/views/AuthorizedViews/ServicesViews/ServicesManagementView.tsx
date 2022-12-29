@@ -5,7 +5,6 @@ import AddIcon from '@mui/icons-material/Add';
 import { Stack } from '@mui/system';
 
 function ServicesManagementView() {
-
     return (
         <>
             <div>ServicesManagementView</div>
