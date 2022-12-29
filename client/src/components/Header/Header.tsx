@@ -23,6 +23,7 @@ function Header() {
                 <Container>
                     <Stack direction='row' justifyContent='space-between'>
                         <Toolbar>
+                            <Button to='/' color='inherit' component={RouterLink}>Home</Button>
                             <Button to='/products' color='inherit' component={RouterLink}>Products</Button>
                             <Button to='/services' color='inherit' component={RouterLink}>Services</Button>
                         </Toolbar>
