@@ -1,25 +1,25 @@
-import { Link as RouterLink} from 'react-router-dom'
-import { useAuthContext } from '../../../contexts/AuthContext';
+import IsLoggedInTopBarButtons from './IsLoggedInTopBarButtons';
+import IsLoggedInBottomBarButtons from './IsLoggedInBottomBarButtons';
 
-import Button from '@mui/material/Button';
+type IsLoggedInButtonsProps = {
+    bar: 'top' | 'bottom'
+}
 
-import OperatorAdminButtons from './OperatorAdminButtons';
-
-
-function IsLoggedInButtons() {
-    const { user } = useAuthContext() as any;
-
+function IsLoggedInButtons({bar}:IsLoggedInButtonsProps) {
+    
     return (
         <>
-            <Button to='/dashboard' color='inherit' component={RouterLink}>Dashboard</Button>
-
             {
-                (user.role === 2 || user.role === 3)
-                    ? <OperatorAdminButtons />
-                    : ''
+                bar === 'top' 
+                ? <IsLoggedInTopBarButtons />
+                : ''
             }
 
-            <Button to='/logout' color='inherit' component={RouterLink}>Logout</Button>
+            {   
+                bar === 'bottom' 
+                ? <IsLoggedInBottomBarButtons />
+                : ''
+            }
 
         </>
     )

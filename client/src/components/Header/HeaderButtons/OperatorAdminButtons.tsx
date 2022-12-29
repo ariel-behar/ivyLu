@@ -1,13 +1,16 @@
 import { useState } from 'react';
-import { Link as RouterLink} from 'react-router-dom'
+import { Link as RouterLink } from 'react-router-dom'
 
 import { useAuthContext } from '../../../contexts/AuthContext';
+
+import AdminButtons from './AdminButtons';
 
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Button from '@mui/material/Button';
+import Toolbar from '@mui/material/Toolbar';
+
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import AdminButtons from './AdminButtons';
 
 function OperatorAdminButtons() {
     const { user } = useAuthContext() as any;
@@ -46,7 +49,7 @@ function OperatorAdminButtons() {
                 onClose={handleClose}
                 anchorOrigin={{
                     vertical: 'bottom',
-                    horizontal: 'right'
+                    horizontal: 'center'
                 }}
             >
                 <MenuItem

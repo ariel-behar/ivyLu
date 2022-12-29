@@ -3,11 +3,10 @@ import { UserFromDBInterface } from "../../../types/userTypes"
 
 function UsersView() {
     const users = useLoaderData() as UserFromDBInterface[]
-    console.log('users:', users)
 
     return (
-        // <div>UsersView</div>
         <>
+            <div>UsersView</div>
             {
                 users
                     ? users.map((user: UserFromDBInterface) => (
