@@ -26,6 +26,7 @@ import AboutView from "../views/AboutView";
 import ServiceDetailsView from "../views/ServiceViews/ServiceDetailsView";
 import ServicesGuestCustomerView from "../views/ServiceViews/ServicesGuestCustomerView";
 import ServicesManagementView from "../views/AuthorizedViews/ServicesViews/ServicesManagementView";
+import ServiceScheduleView from "../views/ServiceViews/ServiceScheduleView";
 
 
 const router = createBrowserRouter([
@@ -69,6 +70,11 @@ const router = createBrowserRouter([
 						path: ':serviceId/details',
 						loader: getOneServicesLoader,
 						element: <ServiceDetailsView />
+					},
+					{
+						path: ':serviceId/schedule',
+						loader: getOneServicesLoader,
+						element: <ServiceScheduleView />
 					}
 				]
 			},
@@ -94,7 +100,6 @@ const router = createBrowserRouter([
 					},
 					{
 						path: 'services',
-						
 						element: <ServicesManagementView />,
 						children: [
 							{
