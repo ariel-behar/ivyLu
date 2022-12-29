@@ -80,6 +80,10 @@ function EditService() {
         setStatus((e.target as HTMLInputElement).value)
     }
 
+    const onClickCancelButton = (): void => {
+        navigate('/management/services')
+    }
+
 
     const onFormSubmit = async (data: FormData, e: React.BaseSyntheticEvent<object, any, any> | undefined) => {
         e?.preventDefault();
@@ -88,7 +92,7 @@ function EditService() {
         price = Number(price);
 
         const service = { title, description, additionalComments, imgUrl, price, duration, status }
-        
+
         if (serviceId) {
             try {
                 let editServiceResponse = await servicesService.edit(serviceId, service, user.AUTH_TOKEN)
@@ -201,7 +205,10 @@ function EditService() {
                             <FormHelperText> {errors.status ? errors.status.message : ''} </FormHelperText>
                         </FormControl>
 
-                        <Button variant="contained" type='submit' disabled={!(isDirty && isValid)}>Edit Service </Button>
+                        <Stack direction='row' justifyContent='space-around'>
+                            <Button variant="contained" type='submit' disabled={!(isDirty && isValid)}>Edit Service </Button>
+                            <Button variant="contained" color="error" onClick={onClickCancelButton}>Cancel </Button>
+                        </Stack>
                     </Stack>
                 </form>
             </Grid>

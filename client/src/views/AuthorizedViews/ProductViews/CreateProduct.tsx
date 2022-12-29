@@ -99,6 +99,10 @@ function CreateProduct() {
 		setStatus((e.target as HTMLInputElement).value)
 	}
 
+	const onClickCancelButton = (): void => {
+        navigate('/management/products')
+    }
+
 	const onFormSubmit = async (data: FormData, e: React.BaseSyntheticEvent<object, any, any> | undefined) => {
 		e?.preventDefault();
 
@@ -245,8 +249,10 @@ function CreateProduct() {
 							<FormHelperText> {errors.status ? errors.status.message : ''} </FormHelperText>
 						</FormControl>
 
-
-						<Button variant="contained" type='submit' disabled={!(isDirty && isValid)}>Create Product</Button>
+                        <Stack direction='row' justifyContent='space-around'>
+                            <Button variant="contained" type='submit' disabled={!(isDirty && isValid)}>Create Product</Button>
+                            <Button variant="contained" color="error" onClick={onClickCancelButton}>Cancel </Button>
+                        </Stack>
 					</Stack>
 				</form>
 			</Grid>
