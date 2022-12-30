@@ -1,10 +1,10 @@
 import { useNavigate } from 'react-router-dom'
 
-import * as serviceServices from '../../services/serviceServices'
-import * as productServices from '../../services/productServices'
-
 import { useAuthContext } from '../../contexts/AuthContext'
 import { useNotificationContext } from '../../contexts/NotificationContext'
+import { ApiClient, ApiClientImpl } from '../../services/clientServices'
+import { Service } from '../../models/Service'
+import { AuthTokenType, IdType } from '../../types/common/commonTypes'
 
 import Button from '@mui/material/Button'
 import Dialog from '@mui/material/Dialog'
@@ -13,6 +13,7 @@ import DialogContent from '@mui/material/DialogContent'
 import DialogContentText from '@mui/material/DialogContentText'
 import DialogActions from '@mui/material/DialogActions'
 import Stack from '@mui/material/Stack'
+
 
 type ConfirmationDialogProps = {
     showConfirmationDialog: boolean,
@@ -24,6 +25,7 @@ type ConfirmationDialogProps = {
 function ConfirmationDialog({ showConfirmationDialog, closeConfirmationDialog, itemToDelete, itemToDeleteType }: ConfirmationDialogProps) {
     const { user } = useAuthContext() as any
     const { displayNotification } = useNotificationContext() as any;
+    const clientServices: ApiClient<IdType, Service, AuthTokenType> = new ApiClientImpl<IdType, Service, AuthTokenType>(`${itemToDeleteType}s`);
     const navigate = useNavigate();
 
     const onDeleteButtonClick = async () => {
@@ -33,10 +35,10 @@ function ConfirmationDialog({ showConfirmationDialog, closeConfirmationDialog, i
             let deleteResponse = '';
 
             if (itemToDeleteType === 'service') {
-                deleteResponse = await serviceServices.deleteOne(itemId, undefined, user.AUTH_TOKEN);
+                deleteResponse = await clientServices.deleteOne(itemId, undefined, user.AUTH_TOKEN);
 
             } else if (itemToDeleteType === 'product') {
-                deleteResponse = await productServices.deleteOne(itemId, undefined, user.AUTH_TOKEN);
+                deleteResponse = await clientServices.deleteOne(itemId, undefined, user.AUTH_TOKEN);
 
 
             } else if (itemToDeleteType === 'user') {
@@ -45,7 +47,7 @@ function ConfirmationDialog({ showConfirmationDialog, closeConfirmationDialog, i
 
             if(deleteResponse) {    
                 displayNotification(`Record ${itemToDelete.title} has successfully been deleted`, 'success')
-                navigate(`/management/${itemToDeleteType.concat('s')}`);
+                navigate(`/management/${itemToDeleteType}s`);
             }
 
             closeConfirmationDialog()

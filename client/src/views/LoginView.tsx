@@ -7,10 +7,10 @@ import TextField from "@mui/material/TextField";
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import { ApiClient, ApiClientImpl } from "../services/clientServices";
-import { IdType } from "../types/common/commonTypes";
+import { AuthTokenType, IdType } from "../types/common/commonTypes";
 import { User, UserLoginDTO } from "../models/User";
 
-const clientServices: ApiClient<IdType, User> = new ApiClientImpl<IdType, User>('users');
+const clientServices: ApiClient<IdType, User, AuthTokenType> = new ApiClientImpl<IdType, User, AuthTokenType>('users');
 
 type FormData = {
 	email: string,

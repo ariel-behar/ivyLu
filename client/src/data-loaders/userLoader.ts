@@ -1,8 +1,8 @@
 import { User } from '../models/User';
 import { ApiClient, ApiClientImpl } from '../services/clientServices';
-import { IdType } from '../types/common/commonTypes';
+import { IdType, AuthTokenType } from '../types/common/commonTypes';
 
-const clientServices: ApiClient<IdType, User> = new ApiClientImpl<IdType, User>('users');
+const clientServices: ApiClient<IdType, User, AuthTokenType> = new ApiClientImpl<IdType, User, AuthTokenType>('users');
 
 export async function getAllUsersLoader() {
     const users = await clientServices.getAll()

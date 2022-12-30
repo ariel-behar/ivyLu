@@ -4,10 +4,11 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import uniqid from 'uniqid';
 
-
 import createServiceFormSchema from "../../../validations/createServiceFormSchema";
-import * as servicesService from '../../../services/serviceServices'
-import Service from "../../../models/Service";
+import { Service } from "../../../models/Service";
+import { useNotificationContext } from "../../../contexts/NotificationContext";
+import { ApiClient, ApiClientImpl } from "../../../services/clientServices";
+import { AuthTokenType, IdType } from "../../../types/common/commonTypes";
 import { useAuthContext } from "../../../contexts/AuthContext";
 import { IMAGE_URL_REGEX } from "../../../utils/regex";
 
@@ -26,7 +27,8 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import FormHelperText from '@mui/material/FormHelperText';
-import { useNotificationContext } from "../../../contexts/NotificationContext";
+
+const clientServices: ApiClient<IdType, Service, AuthTokenType> = new ApiClientImpl<IdType, Service, AuthTokenType>('services');
 
 type FormData = {
     title: string,
@@ -95,14 +97,13 @@ function EditService() {
 
         if (serviceId) {
             try {
-                let editServiceResponse = await servicesService.edit(serviceId, service, user.AUTH_TOKEN)
+                let editServiceResponse = await clientServices.update(serviceId, service as Service, user.AUTH_TOKEN)
                 console.log('editServiceResponse:', editServiceResponse)
 
                 if (editServiceResponse) {
                     displayNotification('Record successfully modified', 'success')
                     navigate('/management/services')
                 }
-
 
             } catch (err: any) {
                 let error = await err;
@@ -192,7 +193,6 @@ function EditService() {
                                         <MenuItem key={uniqid()} value={duration}>{duration}</MenuItem>
                                     ))
                                 }
-
                             </TextField>
                         </Stack>
 

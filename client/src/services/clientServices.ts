@@ -1,47 +1,49 @@
-import { Identifiable } from "../types/common/commonTypes";
+import { AuthTokenType, Identifiable } from "../types/common/commonTypes";
 import request from "../utils/request";
 
 let baseUrl = 'http://localhost:3030'
 
-export interface ApiClient<K, V extends Identifiable<K>> {
-    register(entityWithoutId: Omit<V, 'id'>): Promise<V>;
-    login(entity: V): Promise<V>;
+export interface ApiClient<I, E extends Identifiable<I>, A extends AuthTokenType> {
+    register(userWithoutId: Omit<E, 'id'>): Promise<E>;
+    login(user: E): Promise<E>;
 
-    getAll(): Promise<V[]>;
-    getOneById(id: K): Promise<V>;
-    create(entityWithoutId: Omit<V, 'id'>): Promise<V>;
-    update(entity: V): Promise<V>;
-    deleteById(id: K): Promise<void>;
+    getAll(): Promise<E[]>;
+    getOne(entityId: I): Promise<E>;
+    create(entityWithoutId: Omit<E, 'id'>, userId: I, authToken: A): Promise<E>;
+    update(entityId: I, entity: E, authToken: A): Promise<E>;
+    deleteOne(entityId: I, entity: undefined, authToken: A): Promise<string>;
 }
 
-export class ApiClientImpl<K, V extends Identifiable<K>> implements ApiClient<K,V> {
+export class ApiClientImpl<I, E extends Identifiable<I>, A extends AuthTokenType> implements ApiClient<I,E,A> {
     constructor(public apiCollectionSuffix: string) {}
 
     // User related
-    register(entityWithoutId: Omit<V, "id">): Promise<V> {
-        return request(`${baseUrl}/${this.apiCollectionSuffix}/register`, 'POST', entityWithoutId);
+    register(userWithoutId: Omit<E, "id">): Promise<E> {
+        return request(`${baseUrl}/${this.apiCollectionSuffix}/register`, 'POST', userWithoutId);
     }
-    login(entity: V): Promise<V> {
-        return request(`${baseUrl}/${this.apiCollectionSuffix}/login`, 'POST', entity);
+    login(user: E): Promise<E> {
+        return request(`${baseUrl}/${this.apiCollectionSuffix}/login`, 'POST', user);
     }
 
-    // Common
-    getAll(): Promise<V[]> {
+    // Common - User and Entities related
+    getAll(): Promise<E[]> {
         return request(`${baseUrl}/${this.apiCollectionSuffix}`, 'GET');
     }
 
     // Entities related
-    getOneById(id: K): Promise<V> {
-        throw new Error("Method not implemented.");
+    getOne(entityId: I): Promise<E> {
+        return request(`${baseUrl}/${this.apiCollectionSuffix}/${entityId}`, 'GET');
     }
-    create(entityWithoutId: Omit<V, "id">): Promise<V> {
-        throw new Error("Method not implemented.");
+    create(entityWithoutId: Omit<E, "id">, userId: I, authToken: A): Promise<E> {
+        return request(`${baseUrl}/${this.apiCollectionSuffix}/create`, 'POST', {...entityWithoutId, userId}, authToken);
     }
-    update(entity: V): Promise<V> {
-        throw new Error("Method not implemented.");
+    update(entityId: I, entity: E, authToken: A): Promise<E> {
+        return request(`${baseUrl}/${this.apiCollectionSuffix}/${entityId}/edit`, 'POST', entity, authToken);
     }
-    deleteById(id: K): Promise<void> {
-        throw new Error("Method not implemented.");
+    deleteOne(entityId: I, entity: undefined, authToken: A): Promise<string> {
+        return request(`${baseUrl}/${this.apiCollectionSuffix}/${entityId}/delete`, 'GET', entity, authToken);
     }
+ 
 
 }
+

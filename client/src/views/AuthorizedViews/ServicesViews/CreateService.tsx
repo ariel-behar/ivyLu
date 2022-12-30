@@ -5,8 +5,9 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigate } from "react-router-dom";
 
 import createServiceFormSchema from "../../../validations/createServiceFormSchema";
-import * as servicesService from '../../../services/serviceServices'
-import Service from "../../../models/Service";
+import { Service, ServiceCreateDTO } from "../../../models/Service";
+import { ApiClient, ApiClientImpl } from "../../../services/clientServices";
+import { AuthTokenType, IdType } from "../../../types/common/commonTypes";
 import { useAuthContext } from "../../../contexts/AuthContext";
 import { IMAGE_URL_REGEX } from "../../../utils/regex";
 
@@ -25,6 +26,8 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import FormHelperText from '@mui/material/FormHelperText';
+
+const clientServices: ApiClient<IdType, Service, AuthTokenType> = new ApiClientImpl<IdType, Service, AuthTokenType>('services');
 
 type FormData = {
 	title: string,
@@ -86,12 +89,12 @@ function CreateService() {
 		let { title, description, additionalComments, imgUrl, price, duration, status } = data;
 		price = Number(price);
 
-		const service = new Service(title, description, additionalComments, imgUrl, price, duration, status)
+		const service = new ServiceCreateDTO(title, description, additionalComments, imgUrl, price, duration, status)
 
 		try {
 			let creatorId = user.userId
 
-			let createServiceResponse = await servicesService.create(service, creatorId, user.AUTH_TOKEN)
+			let createServiceResponse = await clientServices.create(service as Service, creatorId, user.AUTH_TOKEN)
 
 			if(createServiceResponse) {
 				navigate('/management/services')

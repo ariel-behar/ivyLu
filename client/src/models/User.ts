@@ -16,7 +16,7 @@ export class User implements Identifiable<IdType> {
     ){}
 }
 
-export class UserCreateDTO implements Omit<User, '_id'> {
+export class UserRegisterDTO implements Omit<User, '_id'> {
     constructor(
         public firstName: string,
         public lastName: string,
