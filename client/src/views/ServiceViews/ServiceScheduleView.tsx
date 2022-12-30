@@ -1,9 +1,9 @@
 import { useLoaderData } from "react-router-dom"
 import BackToButton from "../../components/BackToButton";
-import { ServiceFromDBInterface } from "../../types/serviceTypes"
+import { Service } from "../../models/Service";
 
 function ServiceScheduleView() {
-	const service = useLoaderData() as ServiceFromDBInterface;
+	const service = useLoaderData() as Service;
 
 	return (
 		<>

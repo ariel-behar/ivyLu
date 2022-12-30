@@ -11,12 +11,12 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
-import { ServiceFromDBInterface } from '../types/serviceTypes';
 import { ProductFromDBInterface } from '../types/productTypes';
+import { Service } from '../models/Service';
 
 
 type MediaCardServiceProps = {
-	item: ServiceFromDBInterface | ProductFromDBInterface,
+	item: Service | ProductFromDBInterface,
 	onDeleteButtonClickHandler: (_id: string, title: string) => void
 }
 

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useLoaderData,} from "react-router-dom";
 import uniqid from "uniqid";
 
-import { ServiceFromDBInterface } from "../../../types/serviceTypes";
+import { Service } from "../../../models/Service";
 import { IdType } from "../../../types/common/commonTypes";
 
 import ConfirmationDialog from "../../../components/Common/ConfirmationDialog";
@@ -10,8 +10,9 @@ import MediaCard from "../../../components/MediaCard";
 
 import Grid from "@mui/material/Grid";
 
+
 function ServicesOperatorAdminView() {
-    const services = useLoaderData() as ServiceFromDBInterface[];
+    const services = useLoaderData() as Service[];
 	const [showConfirmationDialog, setShowConfirmationDialog] = useState<boolean>(false)
 	const [deleteService, setDeleteService] = useState<{ _id: string, title: string }>({
 		_id: '',
@@ -35,7 +36,7 @@ function ServicesOperatorAdminView() {
             <Grid container spacing={2} >
                 {
                     services ?
-                        services.map((service: ServiceFromDBInterface) => {
+                        services.map((service: Service) => {
                             return (
                                 <Grid item lg={3} key={uniqid()}>
                                     <MediaCard

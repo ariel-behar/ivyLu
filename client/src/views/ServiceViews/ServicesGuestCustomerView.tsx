@@ -1,7 +1,7 @@
 import uniqid from "uniqid";
 import { Link as RouterLink, useLoaderData } from "react-router-dom";
 
-import { ServiceFromDBInterface } from "../../types/serviceTypes";
+import { Service } from "../../models/Service";
 
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
@@ -9,9 +9,8 @@ import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 
-
 function ServicesGuestCustomerView() {
-    const services = useLoaderData() as ServiceFromDBInterface[];
+    const services = useLoaderData() as Service[];
 
     return (
         <>

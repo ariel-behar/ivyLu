@@ -1,5 +1,6 @@
 import { useLoaderData, Link as RouterLink } from "react-router-dom"
-import { ServiceFromDBInterface } from "../../types/serviceTypes"
+
+import { Service } from "../../models/Service";
 
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button/Button";
@@ -10,8 +11,9 @@ import BackToButton from "../../components/BackToButton";
 import { Paper } from "@mui/material";
 
 
+
 function ServiceDetailsView() {
-    const service = useLoaderData() as ServiceFromDBInterface;
+    const service = useLoaderData() as Service;
 
     return (
         <>
