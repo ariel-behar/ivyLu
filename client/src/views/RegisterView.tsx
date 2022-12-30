@@ -15,9 +15,12 @@ import Stack from '@mui/system/Stack';
 import FormHelperText from '@mui/material/FormHelperText';
 
 import registerFormSchema from '../validations/registerFormSchema';
-import * as userServices from '../services/userServices'
-import User from '../models/User';
+import { User, UserCreateDTO}  from '../models/User';
 import { useAuthContext } from '../contexts/AuthContext';
+import { ApiClient, ApiClientImpl } from '../services/clientServices'
+import { IdType } from '../types/common/commonTypes';
+
+const clientServices: ApiClient<IdType, User> = new ApiClientImpl<IdType, User>('users');
 
 type FormData = {
 	firstName: string,
@@ -54,10 +57,10 @@ function RegisterView() {
 
 		const { firstName, lastName, email, phone, gender, password } = data;
 
-		const user = new User(firstName, lastName, email, phone, gender, password)
+		const user = new UserCreateDTO(firstName, lastName, email, phone, gender, password)
 
 		try {
-			let registerUserResponse = await userServices.register(user)
+			let registerUserResponse = await clientServices.register(user as User)
 
 			login(registerUserResponse)
 			navigate('/')

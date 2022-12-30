@@ -1,15 +1,15 @@
 import { useLoaderData } from "react-router-dom"
-import { UserFromDBInterface } from "../../../types/userTypes"
+import { User } from "../../../models/User"
 
 function UsersView() {
-    const users = useLoaderData() as UserFromDBInterface[]
+    const users = useLoaderData() as Omit<User,'password'>[]
 
     return (
         <>
             <div>UsersView</div>
             {
                 users
-                    ? users.map((user: UserFromDBInterface) => (
+                    ? users.map((user) => (
                         <div>
                             <h3>{user.firstName} {user.lastName}</h3>
                             <h4>{user.role}</h4>

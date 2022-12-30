@@ -3,11 +3,14 @@ import { useNavigate } from "react-router-dom";
 
 import { useAuthContext } from "../contexts/AuthContext";
 
-import * as userServices from '../services/userServices'
-
 import TextField from "@mui/material/TextField";
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
+import { ApiClient, ApiClientImpl } from "../services/clientServices";
+import { IdType } from "../types/common/commonTypes";
+import { User, UserLoginDTO } from "../models/User";
+
+const clientServices: ApiClient<IdType, User> = new ApiClientImpl<IdType, User>('users');
 
 type FormData = {
 	email: string,
@@ -28,10 +31,10 @@ function LoginView() {
 	const onFormSubmit = async (data: FormData, e: React.BaseSyntheticEvent<object, any, any> | undefined) => {
 		e?.preventDefault()
 
-		const user = data;
+		const user: UserLoginDTO = data;
 
 		try {
-			let loginUserResponse = await userServices.login(user)
+			let loginUserResponse = await clientServices.login(user as User)
 
 			login(loginUserResponse)
 			navigate('/')
