@@ -1,6 +1,7 @@
-const router = require('express').Router();
+import {Router} from 'express'
+import * as serviceServices from '../services/serviceServices.js'
 
-const serviceServices = require('../services/serviceServices')
+const router = Router();
 
 router.get('/', async (req, res) => {
     try {
@@ -101,8 +102,4 @@ router.get('/:serviceId/delete', async (req, res) => {
 
 })
 
-
-
-
-
-module.exports = router;
+export default router;

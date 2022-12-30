@@ -1,13 +1,13 @@
-const Service = require('../models/Service')
+import Service from '../models/Service.js'
 
-exports.create = (service) => Service.create(service);
+export const create = (service) => Service.create(service);
 
-exports.getOneByTitle = (title) => Service.findOne({title: title});
+export const getOneByTitle = (title) => Service.findOne({title: title});
 
-exports.getAll = () => Service.find({}).lean()
+export const getAll = () => Service.find({}).lean()
 
-exports.getOne = (serviceId) => Service.findById(serviceId)
+export const getOne = (serviceId) => Service.findById(serviceId)
 
-exports.updateOne = (serviceId, service) => Service.findByIdAndUpdate(serviceId, service, { new: true });
+export const updateOne = (serviceId, service) => Service.findByIdAndUpdate(serviceId, service, { new: true });
 
-exports.deleteOne = (serviceId) => Service.deleteOne({_id: serviceId});
+export const deleteOne = (serviceId) => Service.deleteOne({_id: serviceId});

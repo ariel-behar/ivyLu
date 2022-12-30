@@ -1,13 +1,13 @@
-const Product = require('../models/Product')
+import Product from '../models/Product.js'
 
-exports.create = (product) => Product.create(product);
+export const create = (product) => Product.create(product);
 
-exports.getOneByTitle = (title) => Product.findOne({title: title});
+export const getOneByTitle = (title) => Product.findOne({title: title});
 
-exports.getAll = () => Product.find({}).lean()
+export const getAll = () => Product.find({}).lean()
 
-exports.getOne = (productId) => Product.findById(productId)
+export const getOne = (productId) => Product.findById(productId)
 
-exports.updateOne = (productId, product) => Product.findByIdAndUpdate(productId, product, { new: true });
+export const updateOne = (productId, product) => Product.findByIdAndUpdate(productId, product, { new: true });
 
-exports.deleteOne = (productId) => Product.deleteOne({_id: productId});
+export const deleteOne = (productId) => Product.deleteOne({_id: productId});

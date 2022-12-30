@@ -1,8 +1,9 @@
-const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
-require('dotenv').config();
+import mongoose from 'mongoose';
+import bcrypt from 'bcrypt';
+import * as env from 'dotenv'
+import * as regex from '../utils/regex.js'
 
-const regex = require('../utils/regex')
+env.config()
 
 const userSchema = mongoose.Schema({
     firstName: {
@@ -68,4 +69,4 @@ userSchema.pre('save', function (next) {
 
 const User = mongoose.model('User', userSchema);
 
-module.exports = User;
+export default User;

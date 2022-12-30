@@ -1,12 +1,13 @@
-const router = require('express').Router();
+import { Router } from 'express';
 
-const userController = require('../controllers/userController.js')
-const serviceController = require('../controllers/serviceController.js')
-const productController = require('../controllers/productController.js')
+import userController from '../controllers/userController.js'
+import serviceController from '../controllers/serviceController.js'
+import productController from '../controllers/productController.js'
+
+const router = Router()
 
 router.use('/users', userController)
 router.use('/services', serviceController)
 router.use('/products', productController)
 
-
-module.exports = router;
+export default router;

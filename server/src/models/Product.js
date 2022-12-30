@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose'
 
-const regex = require('../utils/regex')
+import * as regex from '../utils/regex.js'
 
 const productSchema = mongoose.Schema({
     title: {
@@ -67,4 +67,4 @@ const productSchema = mongoose.Schema({
 
 const Product = mongoose.model('Product', productSchema);
 
-module.exports = Product;
+export default Product;

@@ -1,9 +1,8 @@
-const mongoose = require('mongoose');
-require('dotenv').config();
+import mongoose from 'mongoose'
+import * as env from 'dotenv'
+env.config()
 
-function initDatabase (dbName){
+export default function initDatabase (dbName){
     mongoose.set("strictQuery", false);
     return mongoose.connect(`${process.env.MONGODB_LOCAL_URI}/${dbName}`);
 }
-
-module.exports =  initDatabase;

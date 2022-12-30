@@ -1,12 +1,11 @@
-const express = require('express');
-const cors = require('cors');
+import express from "express" ;
+import cors from "cors"
 
-const initDatabase = require('./config/initDatabase.js')
-const routes = require('./routes/routes.js')
+import initDatabase  from './config/initDatabase.js'
+import routes from "./routes/routes.js"
 
 const dbName = 'ivy-lu';
 const PORT = process.env.PORT || '3030';
-
 
 const app = express();
 

@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose'
 
-const regex = require('../utils/regex')
+import * as regex from '../utils/regex.js'
 
 const serviceSchema = mongoose.Schema({
     title: {
@@ -54,4 +54,4 @@ const serviceSchema = mongoose.Schema({
 
 const Service = mongoose.model('Service', serviceSchema);
 
-module.exports = Service;
+export default Service;

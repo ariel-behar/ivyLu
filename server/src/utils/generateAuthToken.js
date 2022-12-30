@@ -1,5 +1,7 @@
-const jwt = require('jsonwebtoken');
-require('dotenv').config();
+import jwt from 'jsonwebtoken'
+import * as env from 'dotenv'
+
+env.config()
 
 const generateAuthToken = (user) => {
     let payload = user;
@@ -9,4 +11,4 @@ const generateAuthToken = (user) => {
     return AUTH_TOKEN;
 }
 
-module.exports = generateAuthToken; 
+export default generateAuthToken; 

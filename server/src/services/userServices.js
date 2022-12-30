@@ -1,11 +1,9 @@
-const User = require('../models/User')
+import User from '../models/User.js'
 
-exports.getOneByEmail = (email) => User.findOne({email: email});
+export const getOneByEmail = (email) => User.findOne({email: email});
 
-exports.getAll = () => User.find({}, {firstName: 1, lastName: 1, email: 1, phone: 1, gender: 1, role: 1}).lean();
+export const getAll = () => User.find({}, {firstName: 1, lastName: 1, email: 1, phone: 1, gender: 1, role: 1}).lean();
 
-exports.register = (user) => User.create(user);
+export const register = (user) => User.create(user);
 
-exports.login = (email) => {
-    return User.findOne({email}).lean()
-}
+export const login = (email) => User.findOne({email}).lean()

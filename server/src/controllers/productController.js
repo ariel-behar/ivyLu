@@ -1,6 +1,8 @@
-const router = require('express').Router();
+import { Router } from 'express'
 
-const productServices = require('../services/productServices')
+import * as productServices from '../services/productServices.js'
+
+const router = Router();
 
 router.get('/', async (req, res) => {
     try {
@@ -111,8 +113,4 @@ router.get('/:productId/delete', async (req, res) => {
 
 })
 
-
-
-
-
-module.exports = router;
+export default router;

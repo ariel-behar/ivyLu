@@ -1,9 +1,11 @@
-const router = require('express').Router();
-const bcrypt = require('bcrypt');
+import { Router } from 'express';
+import bcrypt from 'bcrypt'
 
-const userServices = require('../services/userServices')
+import * as userServices from '../services/userServices.js'
 
-const generateAuthToken = require('../utils/generateAuthToken.js')
+import generateAuthToken from '../utils/generateAuthToken.js'
+
+const router = Router()
 
 router.get('/', async (req, res) => {
     try {
@@ -91,4 +93,4 @@ router.post('/login', async (req, res) => {
 
 })
 
-module.exports = router;
+export default router;
