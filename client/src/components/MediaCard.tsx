@@ -1,7 +1,8 @@
-import React from 'react';
 
 import { useLocation, Link as RouterLink } from 'react-router-dom'
 
+import { Service } from '../models/Service';
+import { Product } from '../models/Product';
 import { useAuthContext } from '../contexts/AuthContext';
 
 import Card from '@mui/material/Card';
@@ -11,12 +12,11 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
-import { ProductFromDBInterface } from '../types/productTypes';
-import { Service } from '../models/Service';
+
 
 
 type MediaCardServiceProps = {
-	item: Service | ProductFromDBInterface,
+	item: Service | Product,
 	onDeleteButtonClickHandler: (_id: string, title: string) => void
 }
 

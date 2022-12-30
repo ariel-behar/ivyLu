@@ -5,10 +5,10 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigate } from "react-router-dom";
 
 import createProductFormSchema from "../../../validations/createProductFormSchema";
-import Product from "../../../models/Product";
-import * as productServices from '../../../services/productServices'
+import { Product, ProductCreateDTO } from "../../../models/Product";
 
 import { useAuthContext } from "../../../contexts/AuthContext";
+import { useNotificationContext } from "../../../contexts/NotificationContext";
 import { IMAGE_URL_REGEX } from "../../../utils/regex";
 
 import TextField from "@mui/material/TextField"
@@ -26,8 +26,8 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import FormHelperText from '@mui/material/FormHelperText';
-import { useNotificationContext } from "../../../contexts/NotificationContext";
-
+import { ApiClient, ApiClientImpl } from "../../../services/clientServices";
+import { AuthTokenType, IdType } from "../../../types/common/commonTypes";
 
 type FormData = {
 	title: string,
@@ -53,6 +53,8 @@ const measurementUnits: object = {
 		lowerCase: 'grams'
 	}
 }
+
+const clientServices: ApiClient<IdType, Product, AuthTokenType> = new ApiClientImpl<IdType, Product, AuthTokenType>('products');
 
 function CreateProduct() {
 	const [measurementUnit, setMeasurementUnit] = useState<object>(measurementUnits['milliliters' as keyof typeof measurementUnits])
@@ -109,12 +111,12 @@ function CreateProduct() {
 		let { title, description, additionalComments, imgUrl, price, volume, volumeMeasurementUnit, productCode, status } = data;
 		price = Number(price);
 
-		const product = new Product(title, description, additionalComments, imgUrl, price, volume, volumeMeasurementUnit, productCode, status)
+		const product = new ProductCreateDTO(title, description, additionalComments, imgUrl, price, volume, volumeMeasurementUnit, productCode, status)
 
 		try {
 			let creatorId = user.userId
 
-			let createProductResponse = await productServices.create(product, creatorId, user.AUTH_TOKEN)
+			let createProductResponse = await clientServices.create(product as Product, creatorId, user.AUTH_TOKEN)
 
 			if(createProductResponse) {
 				navigate('/management/products')

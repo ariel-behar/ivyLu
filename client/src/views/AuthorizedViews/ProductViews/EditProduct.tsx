@@ -4,11 +4,14 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import uniqid from 'uniqid';
 
-
 import createProductFormSchema from "../../../validations/createProductFormSchema";
-import * as productServices from '../../../services/productServices'
+
+import { AuthTokenType, IdType } from "../../../types/common/commonTypes";
+import { ApiClient, ApiClientImpl } from "../../../services/clientServices";
+import { Product } from "../../../models/Product";
 
 import { useAuthContext } from "../../../contexts/AuthContext";
+import { useNotificationContext } from "../../../contexts/NotificationContext";
 import { IMAGE_URL_REGEX } from "../../../utils/regex";
 
 import TextField from "@mui/material/TextField"
@@ -26,8 +29,6 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import FormHelperText from '@mui/material/FormHelperText';
-import { useNotificationContext } from "../../../contexts/NotificationContext";
-import { ProductFromDBInterface } from "../../../types/productTypes";
 
 type FormData = {
     title: string,
@@ -54,8 +55,10 @@ const measurementUnits: object = {
     }
 }
 
+const clientServices: ApiClient<IdType, Product, AuthTokenType> = new ApiClientImpl<IdType, Product, AuthTokenType>('products');
+
 function EditProduct() {
-    let product = useLoaderData() as ProductFromDBInterface;
+    let product = useLoaderData() as Product;
     let { productId } = useParams<string>()
     const [measurementUnit, setMeasurementUnit] = useState<object>(measurementUnits[product.volumeMeasurementUnit as keyof typeof measurementUnits])
     const [priceValue, setPriceValue] = useState<string>(product.price.toString())
@@ -64,7 +67,6 @@ function EditProduct() {
     const { user } = useAuthContext() as any;
     const { displayNotification } = useNotificationContext() as any;
     const navigate = useNavigate()
-
 
     const { register, handleSubmit, formState: { errors, isDirty, isValid } } = useForm<FormData>({
         mode: 'onBlur',
@@ -116,7 +118,7 @@ function EditProduct() {
 
         if (productId) {
             try {
-                let editProductResponse = await productServices.edit(productId, product, user.AUTH_TOKEN)
+                let editProductResponse = await clientServices.update(productId, product as Product, user.AUTH_TOKEN)
 
                 if (editProductResponse) {
                     displayNotification('Record successfully modified', 'success')

@@ -1,6 +1,22 @@
-import { ProductInterface } from "../types/productTypes";
+import { IdType, Identifiable } from "../types/common/commonTypes";
 
-export default class Product implements ProductInterface{
+export class Product implements Identifiable<IdType>{
+    constructor(
+        public _id: IdType,
+        public title: string,
+        public description: string,
+        public additionalComments: string | null,
+        public imgUrl: string,
+        public price: number,
+        public volume: string,
+        public volumeMeasurementUnit: string,
+        public productCode: string,
+        public status: 'active' | 'inactive',
+        public creatorId: IdType
+    ){}
+}
+
+export class ProductCreateDTO implements Omit<Product, '_id' | 'creatorId'>{
     constructor(
         public title: string,
         public description: string,
@@ -10,6 +26,6 @@ export default class Product implements ProductInterface{
         public volume: string,
         public volumeMeasurementUnit: string,
         public productCode: string,
-        public status: 'active' | 'inactive'
+        public status: 'active' | 'inactive',
     ){}
 }

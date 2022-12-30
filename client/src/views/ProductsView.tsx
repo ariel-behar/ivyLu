@@ -2,15 +2,16 @@ import { useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import uniqid from "uniqid";
 
-import { ProductFromDBInterface } from "../types/productTypes";
+import { Product } from "../models/Product";
 
 import ConfirmationDialog from "../components/Common/ConfirmationDialog";
 
 import MediaCard from "../components/MediaCard";
 import Grid from "@mui/material/Grid";
 
+
 function ProductsView() {
-	const products = useLoaderData() as ProductFromDBInterface[]
+	const products = useLoaderData() as Product[]
 	const [showConfirmationDialog, setShowConfirmationDialog] = useState<boolean>(false)
 	const [deleteProduct, setDeleteProduct] = useState<{_id:string, title:string}>({
 		_id: '',
@@ -33,7 +34,7 @@ function ProductsView() {
 			<Grid container spacing={2} >
 				{
 					products ?
-						products.map((product: ProductFromDBInterface) => {
+						products.map((product: Product) => {
 							return (
 								<Grid item lg={3} key={uniqid()}>
 									<MediaCard
