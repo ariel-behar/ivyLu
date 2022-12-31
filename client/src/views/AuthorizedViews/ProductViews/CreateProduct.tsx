@@ -10,6 +10,8 @@ import { Product, ProductCreateDTO } from "../../../models/Product";
 import { useAuthContext } from "../../../contexts/AuthContext";
 import { useNotificationContext } from "../../../contexts/NotificationContext";
 import { IMAGE_URL_REGEX } from "../../../utils/regex";
+import { ApiClient, ApiClientImpl } from "../../../services/clientServices";
+import { AuthTokenType, IdType } from "../../../types/common/commonTypes";
 
 import TextField from "@mui/material/TextField"
 import Stack from "@mui/material/Stack"
@@ -26,8 +28,6 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import FormHelperText from '@mui/material/FormHelperText';
-import { ApiClient, ApiClientImpl } from "../../../services/clientServices";
-import { AuthTokenType, IdType } from "../../../types/common/commonTypes";
 
 type FormData = {
 	title: string,
@@ -119,12 +119,12 @@ function CreateProduct() {
 			let createProductResponse = await clientServices.create(product as Product, creatorId, user.AUTH_TOKEN)
 
 			if(createProductResponse) {
+				displayNotification({message: 'Record has succesfully been created'}, 'success')
 				navigate('/management/products')
 			}
 
-		} catch (err: any) {
-			let error = await err;
-			displayNotification(error.message, 'error')
+		} catch (err) {
+			displayNotification(err, 'error')
 		}
 	}
 

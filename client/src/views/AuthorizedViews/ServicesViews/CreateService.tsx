@@ -9,6 +9,7 @@ import { Service, ServiceCreateDTO } from "../../../models/Service";
 import { ApiClient, ApiClientImpl } from "../../../services/clientServices";
 import { AuthTokenType, IdType } from "../../../types/common/commonTypes";
 import { useAuthContext } from "../../../contexts/AuthContext";
+import { useNotificationContext } from "../../../contexts/NotificationContext";
 import { IMAGE_URL_REGEX } from "../../../utils/regex";
 
 import TextField from "@mui/material/TextField"
@@ -26,6 +27,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import FormHelperText from '@mui/material/FormHelperText';
+
 
 const clientServices: ApiClient<IdType, Service, AuthTokenType> = new ApiClientImpl<IdType, Service, AuthTokenType>('services');
 
@@ -47,6 +49,7 @@ function CreateService() {
 	const [status, setStatus] = useState<string>('active')
 	const [previewImgUrl, setPreviewImageUrl] = useState<string>('')
 	const { user } = useAuthContext() as any;
+	const { displayNotification } = useNotificationContext() as any;
 	const navigate = useNavigate()
 
 	const { register, handleSubmit, formState: { errors, isDirty, isValid } } = useForm<FormData>({
@@ -97,12 +100,13 @@ function CreateService() {
 			let createServiceResponse = await clientServices.create(service as Service, creatorId, user.AUTH_TOKEN)
 
 			if(createServiceResponse) {
+				displayNotification({message: 'Record has succesfully been created'}, 'success')
 				navigate('/management/services')
 			}
 
-		} catch (err: any) {
-			let error = await err;
-			console.log(await error.message)
+		} catch (err) {
+			displayNotification(err, 'error')
+
 		}
 	}
 

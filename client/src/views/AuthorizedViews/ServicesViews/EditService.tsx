@@ -98,16 +98,13 @@ function EditService() {
         if (serviceId) {
             try {
                 let editServiceResponse = await clientServices.update(serviceId, service as Service, user.AUTH_TOKEN)
-                console.log('editServiceResponse:', editServiceResponse)
 
                 if (editServiceResponse) {
-                    displayNotification('Record successfully modified', 'success')
+                    displayNotification({message: 'Record has successfully been modified'}, 'success')
                     navigate('/management/services')
                 }
-
-            } catch (err: any) {
-                let error = await err;
-                displayNotification(error.message, 'error')
+            } catch (err) {
+                displayNotification(err, 'error')
             }
         }
     }

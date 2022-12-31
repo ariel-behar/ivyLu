@@ -24,7 +24,7 @@ router.post('/register', async (req, res) => {
         let userExists = await userServices.getOneByEmail(email);
         
         if(userExists){
-           throw {status: 403, message: "This email address is already being used by another user."}
+           throw {statusCode: 403, message: "This email address is already being used by another user."}
         } else {
             try {
                 let userResponse = await userServices.register({firstName, lastName,email, phone, gender, role, password});
@@ -49,7 +49,7 @@ router.post('/register', async (req, res) => {
             }
         }
     } catch (err) {
-        res.status(err.status).send(err)
+        res.status(400).send(err)
     }
 
 })
@@ -79,13 +79,13 @@ router.post('/login', async (req, res) => {
                 return res.json({ ...user, AUTH_TOKEN });
                 
             } else {
-                throw {status: 401, message: 'Username or password are incorrect.' }
+                throw {statusCode: 401, message: 'Username or password are incorrect.' }
             }
         } else {
-            throw {status: 401, message: 'Username or password are incorrect.' }
+            throw {statusCode: 401, message: 'Username or password are incorrect.' }
         }
     } catch (err) {
-        res.status(err.status).send(err)
+        res.status(err.statusCode).send(err)
     }
 })
 

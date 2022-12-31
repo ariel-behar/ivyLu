@@ -10,20 +10,19 @@ router.get('/', async (req, res) => {
 
         res.json(products)
     } catch (err) {
-        res.status(500).json(err)
+        res.status(500).send(err)
     }
 })
 
 router.get('/:productId', async (req, res) => {
     let productId = req.params.productId;
-    console.log('productId:', productId)
 
     try {
         let product = await productServices.getOne(productId);
 
         res.json(product)
     } catch (err) {
-        res.status(500).json(err)
+        res.status(400).send(err)
     }
 })
 
@@ -34,11 +33,10 @@ router.post('/create', async (req, res) => {
         let productExists = await productServices.getOneByTitle(title);
 
         if (productExists) {
-            throw res.status(500).json({ message: "A product with this Title already exists" })
+            throw {statusCode: 403, message: "A product with this Title already exists"}
         } else {
             try {
                 let createProductResponse = await productServices.create({ title, description, additionalComments, imgUrl, price, volume, volumeMeasurementUnit, productCode, status, creatorId });
-                console.log('createProductResponse:', createProductResponse)
 
                 if (createProductResponse) {
                     let product = {
@@ -57,14 +55,11 @@ router.post('/create', async (req, res) => {
                     res.json(product);
                 }
             } catch (err) {
-                console.log('err:', err)
-
-                res.status(500).json(err.message)
+                res.status(400).send(err)
             }
         }
     } catch (err) {
-        console.log(err.message);
-        res.json(err.message)
+        res.status(err.statusCode ? err.statusCode : 500).json(err)
     }
 })
 
@@ -92,9 +87,11 @@ router.post('/:productId/edit', async (req, res) => {
             };
 
             res.json(product);
+        } else {
+            throw {statusCode: 401, message: 'Bad request'}
         }
     } catch (err) {
-        res.status(500).json(err)
+        res.status(err.statusCode ? err.statusCode : 500).json(err)
     }
 })
 
@@ -105,10 +102,10 @@ router.get('/:productId/delete', async (req, res) => {
         let deleteProductResponse = await productServices.deleteOne(productId);
 
         if (deleteProductResponse) {
-            res.json({message: 'Record successfully deleted'});
+            res.json({message: 'Record has successfully been deleted'});
         }
     } catch (err) {
-        res.status(500).json(err)
+        res.status(err.statusCode ? err.statusCode : 500).json(err)
     }
 
 })

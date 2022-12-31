@@ -119,16 +119,14 @@ function EditProduct() {
         if (productId) {
             try {
                 let editProductResponse = await clientServices.update(productId, product as Product, user.AUTH_TOKEN)
+                console.log('editProductResponse:', editProductResponse)
 
                 if (editProductResponse) {
-                    displayNotification('Record successfully modified', 'success')
+                    displayNotification({message: 'Record has successfully been modified'}, 'success')
                     navigate('/management/products')
                 }
-
-
-            } catch (err: any) {
-                let error = await err;
-                displayNotification(error.message, 'error')
+            } catch (err) {
+                displayNotification(err, 'error')
             }
         }
     }

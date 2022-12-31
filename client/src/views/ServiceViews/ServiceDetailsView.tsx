@@ -1,5 +1,4 @@
 import { useLoaderData, Link as RouterLink } from "react-router-dom"
-
 import { Service } from "../../models/Service";
 
 import Stack from "@mui/material/Stack";
@@ -9,8 +8,6 @@ import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import BackToButton from "../../components/BackToButton";
 import { Paper } from "@mui/material";
-
-
 
 function ServiceDetailsView() {
     const service = useLoaderData() as Service;

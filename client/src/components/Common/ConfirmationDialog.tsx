@@ -39,23 +39,18 @@ function ConfirmationDialog({ showConfirmationDialog, closeConfirmationDialog, i
 
             } else if (itemToDeleteType === 'product') {
                 deleteResponse = await clientServices.deleteOne(itemId, undefined, user.AUTH_TOKEN);
-
-
             } else if (itemToDeleteType === 'user') {
 
             }
 
             if(deleteResponse) {    
-                displayNotification(`Record ${itemToDelete.title} has successfully been deleted`, 'success')
+                displayNotification(deleteResponse, 'success')
                 navigate(`/management/${itemToDeleteType}s`);
-            }
-
+            } 
+            
             closeConfirmationDialog()
-
-        } catch (err: any) {
-
-            // displayNotification(err.message, 'error')
-            console.log(err.message)
+        } catch (err) {
+            displayNotification(err, 'error')
         }
     }
 

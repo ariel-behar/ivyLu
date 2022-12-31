@@ -9,7 +9,7 @@ router.get('/', async (req, res) => {
 
         res.json(services)
     } catch (err) {
-        res.status(500).json(err)
+        res.status(500).send(err)
     }
 })
 
@@ -21,7 +21,7 @@ router.get('/:serviceId', async (req, res) => {
 
         res.json(service)
     } catch (err) {
-        res.status(500).json(err)
+        res.status(400).send(err)
     }
 })
 
@@ -32,7 +32,7 @@ router.post('/create', async (req, res) => {
         let serviceExists = await serviceServices.getOneByTitle(title);
 
         if (serviceExists) {
-            throw res.status(500).json({ message: "A service with this Title already exists" })
+            throw {statusCode: 403, message: "A service with this Title already exists" }
         } else {
             try {
                 let createServiceResponse = await serviceServices.create({ title, description, additionalComments, imgUrl, price, duration, status, creatorId });
@@ -51,11 +51,11 @@ router.post('/create', async (req, res) => {
                     res.json(service);
                 }
             } catch (err) {
-                res.status(500).json(err)
+                res.status(400).send(err)
             }
         }
     } catch (err) {
-        res.json(err.message)
+        res.status(err.statusCode ? err.statusCode : 500).json(err)
     }
 })
 
@@ -80,9 +80,12 @@ router.post('/:serviceId/edit', async (req, res) => {
             };
 
             res.json(service);
+        } else {
+            throw {statusCode: 401, message: 'Bad request'}
         }
+
     } catch (err) {
-        res.status(500).json(err)
+        res.status(err.statusCode ? err.statusCode : 500).json(err)
     }
 
 })
@@ -94,10 +97,10 @@ router.get('/:serviceId/delete', async (req, res) => {
         let deleteServiceResponse = await serviceServices.deleteOne(serviceId);
 
         if (deleteServiceResponse) {
-            res.json({message: 'Record successfully deleted'});
+            res.json({message: 'Record has successfully been deleted'});
         }
     } catch (err) {
-        res.status(500).json(err)
+        res.status(err.statusCode ? err.statusCode : 500).json(err)
     }
 
 })
