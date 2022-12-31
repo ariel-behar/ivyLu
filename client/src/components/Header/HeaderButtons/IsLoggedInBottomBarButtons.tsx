@@ -1,15 +1,15 @@
 import { useAuthContext } from '../../../contexts/AuthContext';
-import useUserRole from '../../../hooks/useUserRole';
 
 import OperatorAdminButtons from './OperatorAdminButtons';
 
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
+import getUserRole from '../../../utils/getUserRole';
 
 
 function IsLoggedInBottomBarButtons() {
     const { user, isOperator, isAdmin } = useAuthContext() as any;
-    const userRole = useUserRole(user.role)
+    const userRole = getUserRole(user.role)
 
     return (
         <>
@@ -17,7 +17,7 @@ function IsLoggedInBottomBarButtons() {
 
                 <Typography variant='body1'>
                     Hello, {user.firstName}
-                    <i>{(isAdmin || isOperator === 'operator') ? ` (${userRole})` : ''}</i>
+                    <i>{(isAdmin || isOperator === 'operator') ? ` (${userRole.capitalized})` : ''}</i>
                 </Typography>
 
                 {

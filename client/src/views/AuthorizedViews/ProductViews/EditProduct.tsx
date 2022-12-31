@@ -13,6 +13,7 @@ import { Product } from "../../../models/Product";
 import { useAuthContext } from "../../../contexts/AuthContext";
 import { useNotificationContext } from "../../../contexts/NotificationContext";
 import { IMAGE_URL_REGEX } from "../../../utils/regex";
+import {getMeasurementUnit, measurementUnits} from "../../../utils/getMeasurementUnit";
 
 import TextField from "@mui/material/TextField"
 import Stack from "@mui/material/Stack"
@@ -40,19 +41,6 @@ type FormData = {
     volumeMeasurementUnit: string,
     productCode: string,
     status: 'active' | 'inactive'
-}
-
-const measurementUnits: object = {
-    milliliters: {
-        onTextField: 'Milliliters',
-        abbreviated: 'ml',
-        lowerCase: 'milliliters'
-    },
-    grams: {
-        onTextField: 'Grams',
-        abbreviated: 'gr',
-        lowerCase: 'grams'
-    }
 }
 
 const clientServices: ApiClient<IdType, Product, AuthTokenType> = new ApiClientImpl<IdType, Product, AuthTokenType>('products');
@@ -85,11 +73,7 @@ function EditProduct() {
     })
 
     const handleVolumeMeasurementUnitChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if ((e.target.value as string).toLowerCase() === 'milliliters') {
-            setMeasurementUnit(measurementUnits['milliliters' as keyof typeof measurementUnits]);
-        } else if ((e.target.value as string).toLowerCase() === 'grams') {
-            setMeasurementUnit(measurementUnits['grams' as keyof typeof measurementUnits]);
-        }
+        setMeasurementUnit(getMeasurementUnit(e.target.value))
     }
 
     const handlePreviewImage = (e: React.FocusEvent<HTMLInputElement>) => {
@@ -210,7 +194,7 @@ function EditProduct() {
                             >
                                 {
                                     Object.values(measurementUnits).map(unit => (
-                                        <MenuItem key={uniqid()} value={unit.lowerCase}>{unit.onTextField}</MenuItem>
+                                        <MenuItem key={uniqid()} value={unit.lowerCase}>{unit.capitalized}</MenuItem>
                                     ))
                                 }
                             </TextField>

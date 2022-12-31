@@ -21,12 +21,12 @@ import OrdersManagementView from "../views/AuthorizedViews/OrdersViews/OrdersMan
 import EditService from "../views/AuthorizedViews/ServicesViews/EditService";
 import CreateProduct from "../views/AuthorizedViews/ProductViews/CreateProduct";
 import EditProduct from "../views/AuthorizedViews/ProductViews/EditProduct";
-import UsersView from "../views/AuthorizedViews/UsersViews/UsersView";
 import AboutView from "../views/AboutView";
 import ServiceDetailsView from "../views/ServiceViews/ServiceDetailsView";
 import ServicesGuestCustomerView from "../views/ServiceViews/ServicesGuestCustomerView";
 import ServicesManagementView from "../views/AuthorizedViews/ServicesViews/ServicesManagementView";
 import ServiceScheduleView from "../views/ServiceViews/ServiceScheduleView";
+import ProductsOperatorAdminView from "../views/AuthorizedViews/ProductViews/ProductsOperatorAdminView";
 
 
 const router = createBrowserRouter([
@@ -125,7 +125,7 @@ const router = createBrowserRouter([
 							{
 								index: true,
 								loader: getAllProductsLoader,
-								element: <ProductsView />,
+								element: <ProductsOperatorAdminView />,
 							},
 							{
 								path: 'create',
@@ -140,14 +140,8 @@ const router = createBrowserRouter([
 					},
 					{
 						path: 'users',
+						loader: getAllUsersLoader,
 						element: <UsersManagementView />,
-						children: [
-							{
-								index: true,
-								loader: getAllUsersLoader,
-								element: <UsersView />,
-							}
-						]
 					}
 
 				]

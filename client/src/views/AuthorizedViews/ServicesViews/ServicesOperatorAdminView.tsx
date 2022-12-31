@@ -9,6 +9,7 @@ import ConfirmationDialog from "../../../components/Common/ConfirmationDialog";
 import MediaCard from "../../../components/MediaCard";
 
 import Grid from "@mui/material/Grid";
+import DataTable from "../../../components/DataTable/DataTable";
 
 
 function ServicesOperatorAdminView() {
@@ -32,6 +33,8 @@ function ServicesOperatorAdminView() {
     return (
         <>
             <div>ServicesOperatorAdminView</div>
+
+            <DataTable entityType={"service"} entities={services} />
             
             <Grid container spacing={2} >
                 {
