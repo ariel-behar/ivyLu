@@ -6,4 +6,4 @@ export const getAll = () => User.find({}, {firstName: 1, lastName: 1, email: 1, 
 
 export const register = (user) => User.create(user);
 
-export const login = (email) => User.findOne({email}).lean()
+export const login = (email) => User.findOne({email}, {firstName: 1, lastName: 1, email: 1, phone: 1, gender: 1, role: 1}).lean()

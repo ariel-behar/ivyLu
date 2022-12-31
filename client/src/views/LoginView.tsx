@@ -2,13 +2,15 @@ import { useForm } from "react-hook-form"
 import { useNavigate } from "react-router-dom";
 
 import { useAuthContext } from "../contexts/AuthContext";
+import { useNotificationContext } from "../contexts/NotificationContext";
+
+import { ApiClient, ApiClientImpl } from "../services/clientServices";
+import { AuthTokenType, IdType } from "../types/common/commonTypes";
+import { User, UserLoginDTO } from "../models/User";
 
 import TextField from "@mui/material/TextField";
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
-import { ApiClient, ApiClientImpl } from "../services/clientServices";
-import { AuthTokenType, IdType } from "../types/common/commonTypes";
-import { User, UserLoginDTO } from "../models/User";
 
 const clientServices: ApiClient<IdType, User, AuthTokenType> = new ApiClientImpl<IdType, User, AuthTokenType>('users');
 
@@ -20,6 +22,7 @@ type FormData = {
 function LoginView() {
 	const navigate = useNavigate()
 	const { login } = useAuthContext() as any;
+	const { displayNotification } = useNotificationContext() as any;
 	const { handleSubmit, register, formState: { errors, isDirty } } = useForm<FormData>({
 		mode:'onBlur',
 		defaultValues: {
@@ -39,9 +42,8 @@ function LoginView() {
 			login(loginUserResponse)
 			navigate('/')
 
-		} catch (err: any) {
-			let error = await err;
-			console.log(await error.message)
+		} catch (err) {
+			displayNotification(err, 'error')
 		}
 	}
 
