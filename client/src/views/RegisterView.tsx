@@ -15,10 +15,11 @@ import Stack from '@mui/system/Stack';
 import FormHelperText from '@mui/material/FormHelperText';
 
 import registerFormSchema from '../validations/registerFormSchema';
-import { User, UserRegisterDTO}  from '../models/User';
+import { User, UserRegisterDTO } from '../models/User';
 import { useAuthContext } from '../contexts/AuthContext';
 import { ApiClient, ApiClientImpl } from '../services/clientServices'
 import { AuthTokenType, IdType } from '../types/common/commonTypes';
+import { useNotificationContext } from '../contexts/NotificationContext';
 
 const clientServices: ApiClient<IdType, User, AuthTokenType> = new ApiClientImpl<IdType, User, AuthTokenType>('users');
 
@@ -34,7 +35,7 @@ type FormData = {
 
 function RegisterView() {
 	const [gender, setGender] = useState<string>('female')
-
+	const { displayNotification } = useNotificationContext() as any;
 	const { login } = useAuthContext() as any;
 	const navigate = useNavigate();
 
@@ -65,9 +66,9 @@ function RegisterView() {
 			login(registerUserResponse)
 			navigate('/')
 
-		} catch (err: any) {
-			let error = await err;
-			console.log(await error.message)
+		} catch (err) {
+				displayNotification(err, 'error')
+
 		}
 	}
 
@@ -78,7 +79,7 @@ function RegisterView() {
 	return (
 		<>
 			<div>RegisterView</div>
-			
+
 			<form onSubmit={handleSubmit(onFormSubmit)}>
 				<Stack spacing={1}>
 					<TextField

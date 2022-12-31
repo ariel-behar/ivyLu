@@ -5,29 +5,31 @@ export const NotificationContext = createContext<object | null>(null);
 
 type TypesType = {
     error: string,
-    warn: string,
+    warning: string,
     info: string,
     success: string
 }
 
 export const types: TypesType = {
-    error: 'danger',
-    warn: 'warn',
+    error: 'error',
+    warning: 'warn',
     info: 'info',
     success: 'success',
 };
 
-type InitialNotificationStateType = {
+export type InitialNotificationStateType = {
     show: boolean,
     message: string,
     type: string,
 };
 
-const initialNotificationState: InitialNotificationStateType = { 
-    show: false, 
-    message: '', 
-    type: types.error 
-};
+const initialNotificationState: InitialNotificationStateType[] = [
+    { 
+        show: false, 
+        message: '', 
+        type: types.error 
+    }
+];
 
 
 interface NotificationProviderProps {
@@ -37,22 +39,44 @@ interface NotificationProviderProps {
 export const NotificationProvider = ({
     children
 }:NotificationProviderProps) => {
-    const [notification, setNotification] = useState<InitialNotificationStateType>(initialNotificationState);
+    const [notifications, setNotifications] = useState<InitialNotificationStateType[]>(initialNotificationState);
 
-    const displayNotification = useCallback((message: string, type = types.error) => {
-        setNotification({show: true, message, type});
+    const displayNotification = useCallback(async (errObj: object, type = types.error) => {
+        let newNotificationContentObj: object; 
+
+        if(errObj instanceof Error) {
+            newNotificationContentObj = errObj
+        } else {
+            newNotificationContentObj = await errObj as object
+        }
+
+        if(newNotificationContentObj.hasOwnProperty('errors')) {
+            let newErrors: InitialNotificationStateType[] = [];
+
+            Object.keys(newNotificationContentObj['errors' as keyof typeof newNotificationContentObj]).forEach(err => {
+                let message = `${newNotificationContentObj['errors' as keyof typeof newNotificationContentObj][err]['message' as keyof typeof err]}`
+
+                newErrors.push({show: true, message, type})
+            })
+
+            setNotifications(newErrors)
+        } else {
+            let message = newNotificationContentObj['message' as keyof typeof newNotificationContentObj]
+            setNotifications([{show: true, message , type}]);
+        }
 
         setTimeout(() => {
-            setNotification(initialNotificationState);
+            setNotifications(initialNotificationState);
         }, 5000);
-    }, [initialNotificationState]);
+    }, []);
+
 
     const hideNotification = useCallback(() => {
-        setNotification(initialNotificationState)
-    }, [initialNotificationState])
+        setNotifications(initialNotificationState)
+    }, [])
 
         return (
-        <NotificationContext.Provider value={{notification, displayNotification, hideNotification}}>
+        <NotificationContext.Provider value={{ notifications, displayNotification, hideNotification}}>
             {children}
         </NotificationContext.Provider>
     )
