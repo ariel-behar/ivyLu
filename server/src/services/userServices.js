@@ -7,3 +7,5 @@ export const getAll = () => User.find({}, {firstName: 1, lastName: 1, email: 1, 
 export const register = (user) => User.create(user);
 
 export const login = (email) => User.findOne({email}).lean()
+
+export const deleteOne = (userId) => User.deleteOne({_id: userId});

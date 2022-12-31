@@ -89,4 +89,20 @@ router.post('/login', async (req, res) => {
     }
 })
 
+router.get('/:userId/delete', async (req, res) => {
+    let userId = req.params.userId
+
+    try {
+        let deleteUserResponse = await userServices.deleteOne(userId);
+        console.log('deleteUserResponse:', deleteUserResponse)
+
+        if (deleteUserResponse) {
+            res.json({message: 'Record has successfully been deleted'});
+        }
+    } catch (err) {
+        res.status(err.statusCode ? err.statusCode : 500).json(err)
+    }
+
+})
+
 export default router;
