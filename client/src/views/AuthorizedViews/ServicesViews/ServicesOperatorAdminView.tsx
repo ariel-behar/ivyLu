@@ -14,21 +14,7 @@ import DataTable from "../../../components/DataTable/DataTable";
 
 function ServicesOperatorAdminView() {
     const services = useLoaderData() as Service[];
-	const [showConfirmationDialog, setShowConfirmationDialog] = useState<boolean>(false)
-	const [deleteService, setDeleteService] = useState<{ _id: string, title: string }>({
-		_id: '',
-		title: ''
-	})
 
-    
-    const onDeleteButtonClickHandler = (_id: IdType, title: string): void => {
-		setShowConfirmationDialog(true)
-		setDeleteService({ _id, title })
-	}
-
-	const closeConfirmationDialog = (): void => {
-		setShowConfirmationDialog(false)
-	}
 
     return (
         <>
@@ -36,7 +22,7 @@ function ServicesOperatorAdminView() {
 
             <DataTable entityType={"service"} entities={services} />
             
-            <Grid container spacing={2} >
+            {/* <Grid container spacing={2} >
                 {
                     services ?
                         services.map((service: Service) => {
@@ -52,18 +38,9 @@ function ServicesOperatorAdminView() {
                         })
                         : ''
                 }
-            </Grid>
+            </Grid> */}
 
-            {
-                showConfirmationDialog
-                    ? <ConfirmationDialog
-                        showConfirmationDialog={showConfirmationDialog}
-                        closeConfirmationDialog={closeConfirmationDialog}
-                        itemToDelete={{ _id: deleteService._id, title: deleteService.title }}
-                        itemToDeleteType={'service'}
-                    />
-                    : ''
-            }
+
         </>
     )
 }

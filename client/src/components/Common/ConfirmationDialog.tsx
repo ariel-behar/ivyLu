@@ -16,36 +16,37 @@ import Stack from '@mui/material/Stack'
 
 
 type ConfirmationDialogProps = {
+    itemToDelete: {_id: IdType, entity: 'user' | 'service' | 'product'},
     showConfirmationDialog: boolean,
     closeConfirmationDialog: () => void,
-    itemToDelete: { _id: string, title: string },
-    itemToDeleteType: string
 }
 
-function ConfirmationDialog({ showConfirmationDialog, closeConfirmationDialog, itemToDelete, itemToDeleteType }: ConfirmationDialogProps) {
+function ConfirmationDialog({ 
+    itemToDelete, 
+    showConfirmationDialog, 
+    closeConfirmationDialog,
+}: ConfirmationDialogProps) {
     const { user } = useAuthContext() as any
     const { displayNotification } = useNotificationContext() as any;
-    const clientServices: ApiClient<IdType, Service, AuthTokenType> = new ApiClientImpl<IdType, Service, AuthTokenType>(`${itemToDeleteType}s`);
+    const clientServices: ApiClient<IdType, Service, AuthTokenType> = new ApiClientImpl<IdType, Service, AuthTokenType>(`${itemToDelete.entity}s`);
     const navigate = useNavigate();
 
     const onDeleteButtonClick = async () => {
-        let itemId = itemToDelete._id
-
         try {
             let deleteResponse = '';
 
-            if (itemToDeleteType === 'service') {
-                deleteResponse = await clientServices.deleteOne(itemId, undefined, user.AUTH_TOKEN);
+            if (itemToDelete.entity === 'service') {
+                deleteResponse = await clientServices.deleteOne(itemToDelete._id, undefined, user.AUTH_TOKEN);
 
-            } else if (itemToDeleteType === 'product') {
-                deleteResponse = await clientServices.deleteOne(itemId, undefined, user.AUTH_TOKEN);
-            } else if (itemToDeleteType === 'user') {
-
+            } else if (itemToDelete.entity === 'product') {
+                deleteResponse = await clientServices.deleteOne(itemToDelete._id, undefined, user.AUTH_TOKEN);
+            } else if (itemToDelete.entity === 'user') {
+                deleteResponse = await clientServices.deleteOne(itemToDelete._id, undefined, user.AUTH_TOKEN);
             }
 
             if(deleteResponse) {    
                 displayNotification(deleteResponse, 'success')
-                navigate(`/management/${itemToDeleteType}s`);
+                navigate(`/management/${itemToDelete.entity}s`);
             } 
             
             closeConfirmationDialog()
@@ -62,7 +63,7 @@ function ConfirmationDialog({ showConfirmationDialog, closeConfirmationDialog, i
                 aria-labelledby='dialog-title'
                 aria-describedby='dialog-description'>
 
-                <DialogTitle id="dialog-title">Are you sure you want to delete the {itemToDeleteType}: <b>{itemToDelete.title}</b>?</DialogTitle>
+                <DialogTitle id="dialog-title">Are you sure you want to delete this {itemToDelete.entity}?</DialogTitle>
                 <DialogContent>
                     <DialogContentText id='dialog-description'>
                         Once you click "DELETE", you will not be able to retrieve it.

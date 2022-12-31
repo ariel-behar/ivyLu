@@ -48,7 +48,7 @@ function ProductsView() {
 						: ''
 				}
 			</Grid>
-
+{/* 
 			{showConfirmationDialog
 				? <ConfirmationDialog
 					showConfirmationDialog={showConfirmationDialog}
@@ -57,7 +57,7 @@ function ProductsView() {
 					itemToDeleteType={'product'}
 				/>
 				: ''
-			}
+			} */}
 		</>
 	)
 }

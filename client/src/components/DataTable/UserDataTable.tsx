@@ -9,15 +9,18 @@ import TableBody from "@mui/material/TableBody"
 import TableCell from "@mui/material/TableCell"
 import TableHead from "@mui/material/TableHead"
 import TableRow from "@mui/material/TableRow"
+import { IdType } from "../../types/common/commonTypes"
 
 
 
 interface UserDataTableInterface {
-    entity: Omit<User, 'password'>[]
+    entity: Omit<User, 'password'>[],
+    onDeleteButtonClickHandler: (_id: IdType, entity: 'user' | 'service' | 'product') => void
 }
 
 function UserDataTable({
-    entity
+    entity,
+    onDeleteButtonClickHandler
 }: UserDataTableInterface) {
     return (
         <>
@@ -48,7 +51,11 @@ function UserDataTable({
                             <TableCell>{user.lastName}</TableCell>
                             <TableCell align='center'>{user.email}</TableCell>
                             <TableCell align='center'><Button variant="text">Edit</Button></TableCell>
-                            <TableCell align='center'><Button variant="text" color="error">Delete</Button></TableCell>
+                            <TableCell align='center'>
+                                <Button variant="text" color="error" onClick={() => onDeleteButtonClickHandler(user._id, 'user')}>
+                                    Delete 
+                                </Button>
+                            </TableCell>
                         </TableRow>
                     ))
                 }
