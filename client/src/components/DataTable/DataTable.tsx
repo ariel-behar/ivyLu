@@ -29,7 +29,6 @@ function DataTable({ entityType, entities }: DataTableInterface) {
 
 
     const onDeleteButtonClickHandler = (_id: IdType, entity: 'user' | 'service' | 'product'): void => {
-        console.log('here');
         setShowConfirmationDialog(true)
         setDeleteItem({ _id, entity })
     }
@@ -49,12 +48,12 @@ function DataTable({ entityType, entities }: DataTableInterface) {
                     }
                     {
                         entityType === 'service'
-                            ? <ServiceDataTable entity={entities as Service[]} />
+                            ? <ServiceDataTable entity={entities as Service[]} onDeleteButtonClickHandler={onDeleteButtonClickHandler} />
                             : ''
                     }
                     {
                         entityType === 'product'
-                            ? <ProductDataTable entity={entities as Product[]} />
+                            ? <ProductDataTable entity={entities as Product[]} onDeleteButtonClickHandler={onDeleteButtonClickHandler} />
                             : ''
                     }
                 </Table>

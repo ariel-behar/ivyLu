@@ -15,7 +15,7 @@ import { IdType } from "../../types/common/commonTypes"
 
 interface UserDataTableInterface {
     entity: Omit<User, 'password'>[],
-    onDeleteButtonClickHandler: (_id: IdType, entity: 'user' | 'service' | 'product') => void
+    onDeleteButtonClickHandler: (_id: IdType, entity: 'user') => void
 }
 
 function UserDataTable({

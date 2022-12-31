@@ -94,7 +94,6 @@ router.get('/:userId/delete', async (req, res) => {
 
     try {
         let deleteUserResponse = await userServices.deleteOne(userId);
-        console.log('deleteUserResponse:', deleteUserResponse)
 
         if (deleteUserResponse) {
             res.json({message: 'Record has successfully been deleted'});

@@ -1,19 +1,24 @@
 import { Product } from '../../models/Product'
 
+import { getMeasurementUnit } from '../../utils/getMeasurementUnit'
+import { IdType } from '../../types/common/commonTypes'
+
 import Button from "@mui/material/Button"
 import TableBody from "@mui/material/TableBody"
 import TableCell from "@mui/material/TableCell"
 import TableHead from "@mui/material/TableHead"
 import TableRow from "@mui/material/TableRow"
-import { getMeasurementUnit } from '../../utils/getMeasurementUnit'
+
 
 
 interface ProductDataTableInterface {
-    entity: Product[]
+    entity: Product[],
+    onDeleteButtonClickHandler: (_id: IdType, entity: 'product') => void
 }
 
 function ProductDataTable({
-    entity
+    entity,
+    onDeleteButtonClickHandler
 }: ProductDataTableInterface) {
     return (
         <>
@@ -48,7 +53,12 @@ function ProductDataTable({
                             <TableCell >{product.price} BGN</TableCell>
 
                             <TableCell align='center'><Button variant="text">Edit</Button></TableCell>
-                            <TableCell align='center'><Button variant="text" color='error'>Delete</Button></TableCell>
+                            
+                            <TableCell align='center'>
+                                <Button variant="text" color="error" onClick={() => onDeleteButtonClickHandler(product._id, 'product')}>
+                                    Delete 
+                                </Button>
+                            </TableCell>
                         </TableRow>
                     ))
                 }

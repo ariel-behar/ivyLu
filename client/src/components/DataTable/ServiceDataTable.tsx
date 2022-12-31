@@ -1,4 +1,5 @@
 import { Service } from '../../models/Service'
+import { IdType } from '../../types/common/commonTypes'
 
 import Button from "@mui/material/Button"
 import TableBody from "@mui/material/TableBody"
@@ -6,12 +7,15 @@ import TableCell from "@mui/material/TableCell"
 import TableHead from "@mui/material/TableHead"
 import TableRow from "@mui/material/TableRow"
 
+
 interface ServiceDataTableInterface {
-    entity: Service[]
+    entity: Service[],
+    onDeleteButtonClickHandler: (_id: IdType, entity: 'service') => void
 }
 
 function ServiceDataTable({
-    entity
+    entity,
+    onDeleteButtonClickHandler
 }: ServiceDataTableInterface) {
     return (
         <>
@@ -44,7 +48,12 @@ function ServiceDataTable({
                             <TableCell >{service.price} BGN</TableCell>
                             
                             <TableCell align='center'><Button variant="text">Edit</Button></TableCell>
-                            <TableCell align='center'><Button variant="text" color="error">Delete</Button></TableCell>
+                            
+                            <TableCell align='center'>
+                                <Button variant="text" color="error" onClick={() => onDeleteButtonClickHandler(service._id, 'service')}>
+                                    Delete 
+                                </Button>
+                            </TableCell>
                         </TableRow>
                     ))
                 }
