@@ -1,7 +1,7 @@
 import { Identifiable, IdType } from "../types/common/commonTypes"
 
 export const enum UserRole {
-    Customer = 1, Operator, Admin
+    Customer = 1, Hairdresser, Operator, Admin
 }
 export class User implements Identifiable<IdType> {
     constructor(

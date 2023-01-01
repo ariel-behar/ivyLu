@@ -41,6 +41,8 @@ function Header() {
                             </RouterLink>
                         </Toolbar>
                         <Toolbar>
+                            <Button to='/our-team' color='inherit' component={RouterLink}>Our Team</Button>
+
                             <Button to='/about' color='inherit' component={RouterLink}>About</Button>
 
                             {isLoggedIn

@@ -17,11 +17,11 @@ function IsLoggedInBottomBarButtons() {
 
                 <Typography variant='body1'>
                     Hello, {user.firstName}
-                    <i>{(isAdmin || isOperator === 'operator') ? ` (${userRole.capitalized})` : ''}</i>
+                    <i>{isAdmin || isOperator ? ` (${userRole.capitalized})` : ''}</i>
                 </Typography>
 
                 {
-                    (isOperator || isAdmin)
+                    (isAdmin || isOperator)
                         ? <OperatorAdminButtons />
                         : ''
                 }

@@ -12,7 +12,7 @@ import Button from '@mui/material/Button';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 function OperatorAdminButtons() {
-    const { user } = useAuthContext() as any;
+    const { isAdmin } = useAuthContext() as any;
 
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl)
@@ -73,7 +73,7 @@ function OperatorAdminButtons() {
                     Products
                 </MenuItem>
 
-                {user.role === 3
+                { isAdmin
                     ? <AdminButtons handleClose={handleClose} />
                     : ''
                 }

@@ -46,12 +46,14 @@ export const AuthProvider = ({
 
     const isCustomer = user.role === 1 ? true: false;
 
-    const isOperator = user.role === 2 ? true: false;
+    const isHairdresser = user.role === 2 ? true: false;
 
-    const isAdmin = user.role === 3 ? true: false;
+    const isOperator = user.role === 3 ? true: false;
+
+    const isAdmin = user.role === 4 ? true: false;
     
     return (
-        <AuthContext.Provider value={{user, login, logout, isLoggedIn,isGuest, isCustomer, isOperator, isAdmin}}>
+        <AuthContext.Provider value={{user, login, logout, isLoggedIn, isGuest, isHairdresser, isCustomer, isOperator, isAdmin}}>
             {children}
         </AuthContext.Provider>
     )

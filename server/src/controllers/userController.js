@@ -8,13 +8,28 @@ import generateAuthToken from '../utils/generateAuthToken.js'
 const router = Router()
 
 router.get('/', async (req, res) => {
-    try {
-        let users = await userServices.getAll();
 
-        res.json(users)
-    } catch (err) {
-        res.status(500).send(err)
+    if(Object.entries(req.query).length > 0) {
+        let filters = req.query;
+        try {
+            let users = await userServices.getManyFilteredBy(filters);
+            console.log('users:', users)
+    
+            res.json(users)
+        } catch (err) {
+            res.status(500).send(err)
+        }
+    }  else {
+        try {
+            let users = await userServices.getAll();
+    
+            res.json(users)
+        } catch (err) {
+            res.status(500).send(err)
+        }
     }
+
+    
 })
 
 router.post('/register', async (req, res) => {

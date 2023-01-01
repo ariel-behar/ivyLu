@@ -1,4 +1,4 @@
-import { Outlet, Link as RouterLink, useLocation } from "react-router-dom"
+import { Outlet, Link as RouterLink } from "react-router-dom"
 
 
 import Stack from "@mui/material/Stack"
@@ -7,7 +7,7 @@ import Link from "@mui/material/Link"
 import { useAuthContext } from "../../contexts/AuthContext";
 
 function ManagementView() {
-    const { user } = useAuthContext() as any;
+    const { isAdmin } = useAuthContext() as any;
 
     return (
         <>
@@ -22,7 +22,7 @@ function ManagementView() {
                     <Link mx={2} underline="hover" to="/management/products" component={RouterLink}>Products</Link>
 
                     {   
-                        user.role === 3 
+                        isAdmin
                         ? <Link mx={2} underline="hover" to="/management/users" component={RouterLink}>Users</Link>
                         : ''
                     }

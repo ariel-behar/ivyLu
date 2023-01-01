@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import { getAllServicesLoader, getOneServicesLoader } from '../data-loaders/servicesLoader'
 import { getAllProductsLoader, getOneProductsLoader } from "../data-loaders/productsLoader";
-import { getAllUsersLoader } from "../data-loaders/userLoader";
+import { getAllHairdressers, getAllUsersLoader } from "../data-loaders/usersLoader";
 
 import RootView from "../views/RootView";
 import DashboardView from "../views/DashboardView";
@@ -27,6 +27,7 @@ import ServicesGuestCustomerView from "../views/ServiceViews/ServicesGuestCustom
 import ServicesManagementView from "../views/AuthorizedViews/ServicesViews/ServicesManagementView";
 import ServiceScheduleView from "../views/ServiceViews/ServiceScheduleView";
 import ProductsOperatorAdminView from "../views/AuthorizedViews/ProductViews/ProductsOperatorAdminView";
+import OurTeamView from "../views/OurTeamView";
 
 
 const router = createBrowserRouter([
@@ -77,6 +78,11 @@ const router = createBrowserRouter([
 						element: <ServiceScheduleView />
 					}
 				]
+			},
+			{
+				path: "/our-team",
+				loader: getAllHairdressers,
+				element: <OurTeamView />
 			},
 			{
 				path: "/about",
