@@ -26,13 +26,13 @@ function UserDataTable({
         <>
             <TableHead>
                 <TableRow>
-                    <TableCell></TableCell>
-                    <TableCell>Role</TableCell>
-                    <TableCell>First Name</TableCell>
-                    <TableCell>Last Name</TableCell>
-                    <TableCell align='center'>Email</TableCell>
-                    <TableCell align='center'>Edit</TableCell>
-                    <TableCell align='center'>Delete</TableCell>
+                    <TableCell sx={{ backgroundColor: 'main.black', color: 'mainContrast.white'}}></TableCell>
+                    <TableCell sx={{ backgroundColor: 'main.black', color: 'mainContrast.white'}}>Role</TableCell>
+                    <TableCell sx={{ backgroundColor: 'main.black', color: 'mainContrast.white'}}>First Name</TableCell>
+                    <TableCell sx={{ backgroundColor: 'main.black', color: 'mainContrast.white'}}>Last Name</TableCell>
+                    <TableCell sx={{ backgroundColor: 'main.black', color: 'mainContrast.white'}} align='center'>Email</TableCell>
+                    <TableCell sx={{ backgroundColor: 'main.black', color: 'mainContrast.white'}} align='center'>Edit</TableCell>
+                    <TableCell sx={{ backgroundColor: 'main.black', color: 'mainContrast.white'}} align='center'>Delete</TableCell>
                 </TableRow>
             </TableHead>
             <TableBody>
@@ -53,7 +53,7 @@ function UserDataTable({
                             <TableCell align='center'><Button variant="text">Edit</Button></TableCell>
                             <TableCell align='center'>
                                 <Button variant="text" color="error" onClick={() => onDeleteButtonClickHandler(user._id, 'user')}>
-                                    Delete 
+                                    Delete
                                 </Button>
                             </TableCell>
                         </TableRow>

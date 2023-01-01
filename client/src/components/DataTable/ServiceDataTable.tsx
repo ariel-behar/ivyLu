@@ -21,15 +21,15 @@ function ServiceDataTable({
         <>
             <TableHead>
                 <TableRow>
-                    <TableCell></TableCell>
-                    <TableCell>Title</TableCell>
-                    <TableCell>Description</TableCell>
-                    <TableCell>Additional Comments</TableCell>
-                    <TableCell>Duration</TableCell>
-                    <TableCell>Price</TableCell>
+                    <TableCell sx={{ backgroundColor: 'main.black', color: 'mainContrast.white'}}></TableCell>
+                    <TableCell sx={{ backgroundColor: 'main.black', color: 'mainContrast.white'}}>Title</TableCell>
+                    <TableCell sx={{ backgroundColor: 'main.black', color: 'mainContrast.white'}}>Description</TableCell>
+                    <TableCell sx={{ backgroundColor: 'main.black', color: 'mainContrast.white'}}>Additional Comments</TableCell>
+                    <TableCell sx={{ backgroundColor: 'main.black', color: 'mainContrast.white'}}>Duration</TableCell>
+                    <TableCell sx={{ backgroundColor: 'main.black', color: 'mainContrast.white'}}>Price</TableCell>
                     
-                    <TableCell align='center'>Edit</TableCell>
-                    <TableCell align='center'>Delete</TableCell>
+                    <TableCell sx={{ backgroundColor: 'main.black', color: 'mainContrast.white'}} align='center'>Edit</TableCell>
+                    <TableCell sx={{ backgroundColor: 'main.black', color: 'mainContrast.white'}} align='center'>Delete</TableCell>
                 </TableRow>
             </TableHead>
             <TableBody>

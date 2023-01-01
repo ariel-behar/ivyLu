@@ -11,7 +11,7 @@ function Footer() {
             component='header'
             elevation={10}
             sx={{
-                background: 'rgb(44, 44, 44)',
+                backgroundColor: 'main.black',
                 position: 'fixed',
                 bottom: 0,
                 width: '100%',
@@ -20,7 +20,7 @@ function Footer() {
         >
             <Container>
                 <Toolbar sx={{
-                    background: 'rgb(44, 44, 44)',
+                    backgroundColor: 'main.black',
                     borderRadius: '50%',
                     position: "absolute",
                     zIndex: '100',

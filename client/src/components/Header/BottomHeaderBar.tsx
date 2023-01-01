@@ -6,7 +6,7 @@ import Box from '@mui/material/Box';
 
 function BottomHeaderBar() {
     return (
-        <Box style={{ background: '#F3EFE0', boxShadow: 'none' }}>
+        <Box sx={{ backgroundColor: 'main.beige'}}>
             <Container>
                 <IsLoggedInButtons bar={'bottom'} />
             </Container>

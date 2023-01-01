@@ -22,7 +22,6 @@
   },
   "include": [
     "src",
-    "uniqid.d.ts"
-
+    "src/@types/*"
   ]
 }

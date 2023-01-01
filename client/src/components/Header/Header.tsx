@@ -19,7 +19,7 @@ function Header() {
 
     return (
         <>
-            <AppBar position='sticky' style={{ background: 'rgb(44, 44, 44)' }}>
+            <AppBar position='sticky' sx={{ backgroundColor: 'main.black' }}>
                 <Container>
                     <Stack direction='row' justifyContent='space-between'>
                         <Toolbar>
@@ -28,7 +28,7 @@ function Header() {
                             <Button to='/services' color='inherit' component={RouterLink}>Services</Button>
                         </Toolbar>
                         <Toolbar sx={{
-                            background: 'rgb(44, 44, 44)',
+                            backgroundColor: 'main.black',
                             borderRadius: '100%',
                             position: "absolute",
                             zIndex: '100',

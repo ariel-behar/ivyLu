@@ -8,6 +8,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import { AuthProvider } from "./contexts/AuthContext";
 import router from "./router/router";
 import { NotificationProvider } from "./contexts/NotificationContext";
+import { ThemeProvider } from "@mui/material";
+import theme from "./theme/theme";
 
 function App() {
 	return (
@@ -15,7 +17,9 @@ function App() {
 			<CssBaseline />
 			<AuthProvider>
 				<NotificationProvider>
-					<RouterProvider router={router} />
+					<ThemeProvider theme={theme}>
+						<RouterProvider router={router} />
+					</ThemeProvider>
 				</NotificationProvider>
 			</AuthProvider>
 		</>
