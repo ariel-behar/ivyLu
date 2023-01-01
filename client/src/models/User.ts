@@ -37,7 +37,7 @@ export class AuthUserRegisterDTO implements Omit<User, '_id'> {
         public gender: "male" | "female",
         public password: string,
         public role: number,
-        public imgUrl: string,
+        public imgUrl?: string,
     ){}
 }
 

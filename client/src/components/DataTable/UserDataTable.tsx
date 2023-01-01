@@ -24,6 +24,7 @@ function UserDataTable({
     entity,
     onDeleteButtonClickHandler
 }: UserDataTableInterface) {
+    console.log(entity);
     return (
         <>
             <TableHead>
@@ -32,9 +33,9 @@ function UserDataTable({
                     <StyledTableCell >Role</StyledTableCell>
                     <StyledTableCell >First Name</StyledTableCell>
                     <StyledTableCell >Last Name</StyledTableCell>
-                    <StyledTableCell  align='center'>Email</StyledTableCell>
-                    <StyledTableCell  align='center'>Edit</StyledTableCell>
-                    <StyledTableCell  align='center'>Delete</StyledTableCell>
+                    <StyledTableCell align='center'>Email</StyledTableCell>
+                    <StyledTableCell align='center'>Edit</StyledTableCell>
+                    <StyledTableCell align='center'>Delete</StyledTableCell>
                 </TableRow>
             </TableHead>
             <TableBody>
@@ -46,7 +47,14 @@ function UserDataTable({
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                         >
                             <TableCell>
-                                <img height='50px' src={user.gender === 'male' ? maleAvatar : femaleAvatar} alt={`${user.gender} avatar`} />
+                                <img
+                                    height='50px'
+                                    src={
+                                            user.imgUrl
+                                            ? user.imgUrl 
+                                            : (user.gender === 'male' ? maleAvatar : femaleAvatar)}
+                                    alt={`${user.gender} avatar`}
+                                />
                             </TableCell>
                             <TableCell>{getUserRole(user.role).capitalized}</TableCell>
                             <TableCell>{user.firstName}</TableCell>

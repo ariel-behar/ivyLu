@@ -32,7 +32,7 @@ router.get('/', async (req, res) => {
 })
 
 router.post('/register', async (req, res) => {
-    let { firstName, lastName, email, phone, gender, role,imgUrl, password } = req.body;
+    let { firstName, lastName, email, phone, gender, role, imgUrl, password } = req.body;
 
     try {
         let userExists = await userServices.getOneByEmail(email);
@@ -57,7 +57,8 @@ router.post('/register', async (req, res) => {
                         email: userResponse.email,
                         gender: userResponse.gender,
                         phone: userResponse.phone,
-                        role: userResponse.role
+                        role: userResponse.role,
+                        imgUrl: userResponse.imgUrl
                     };
         
                     let AUTH_TOKEN = generateAuthToken(user);
@@ -91,7 +92,8 @@ router.post('/login', async (req, res) => {
                     email: userResponse.email,
                     gender: userResponse.gender,
                     phone: userResponse.phone,
-                    role: userResponse.role
+                    role: userResponse.role,
+                    imgUrl: userResponse.imgUrl
                 };
 
                 let AUTH_TOKEN = generateAuthToken(user);

@@ -1,6 +1,6 @@
 import User from '../models/User.js'
 
-const selectedFields = {firstName: 1, lastName: 1, email: 1, phone: 1, gender: 1, role: 1}
+const selectedFields = {firstName: 1, lastName: 1, email: 1, phone: 1, gender: 1, role: 1, imgUrl: 1}
 
 export const getOneByEmail = (email) => User.findOne({email: email});
 

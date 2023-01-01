@@ -12,8 +12,13 @@ const registerAuthorizedFormSchema = yup.object().shape({
         .nullable(),
     imgUrl: yup
         .string()
-        .required('Image URL is required')
-        .matches(IMAGE_URL_REGEX, 'Image URL should start with "http://" or "https://" and end with either .jpg|.jpeg|.png|.gif|.svg'),
+        .when('role', {
+            is: (role: number) => role === 2,
+            then:
+                yup.string()
+                    .required('User Picture is required for the role "Hairdresser", because it will be displayed on the "OUR TEAM" page')
+                    .matches(IMAGE_URL_REGEX, 'Image URL should start with "http://" or "https://" and end with either .jpg|.jpeg|.png|.gif|.svg')
+        })
 })
 
 export default registerAuthorizedFormSchema;

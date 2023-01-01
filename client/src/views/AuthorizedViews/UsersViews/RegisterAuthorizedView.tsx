@@ -64,10 +64,14 @@ function RegisterAuthorizedView() {
 	const onFormSubmit = async (data: FormData, e: React.BaseSyntheticEvent<object, any, any> | undefined) => {
 		e?.preventDefault();
 
-		let { firstName, lastName, email, phone, imgUrl, gender, role, password } = data;
+		let { firstName, lastName, email, phone, gender, role, password } = data;
+		let imgUrl: string = '';
+
+		if(data.hasOwnProperty('imgUrl')) {
+			imgUrl = data.imgUrl
+		}
 
 		const user = new AuthUserRegisterDTO(firstName, lastName, email, phone, gender, password, role, imgUrl)
-		console.log('imgUrl:', imgUrl)
 
 		try {
 			let registerUserResponse = await userServices.register(user as User)
@@ -156,18 +160,7 @@ function RegisterAuthorizedView() {
 								helperText={errors.phone ? errors.phone.message : ''}
 							/>
 
-							<Box width='100%' component='div' onBlur={handlePreviewImage}>
-								<TextField
-									required
-									fullWidth
-									label="User Picture"
-									variant="outlined"
-									size="small"
-									{...register('imgUrl')}
-									error={errors.imgUrl ? true : false}
-									helperText={errors.imgUrl ? errors.imgUrl.message : ''}
-								/>
-							</Box>
+
 
 							<Stack direction='row' justifyContent='space-around'>
 								<FormControl required>
@@ -189,6 +182,18 @@ function RegisterAuthorizedView() {
 									<FormHelperText> {errors.role ? errors.role.message : ''} </FormHelperText>
 								</FormControl>
 							</Stack>
+
+							<Box width='100%' component='div' onBlur={handlePreviewImage}>
+								<TextField
+									fullWidth
+									label="User Picture"
+									variant="outlined"
+									size="small"
+									{...register('imgUrl')}
+									error={errors.imgUrl ? true : false}
+									helperText={errors.imgUrl ? errors.imgUrl.message : ''}
+								/>
+							</Box>
 
 
 							<TextField
@@ -233,6 +238,7 @@ function RegisterAuthorizedView() {
 						}
 					</Stack>
 				</Grid>
+
 			</Grid>
 		</>
 	)
