@@ -12,11 +12,12 @@ export class User implements Identifiable<IdType> {
         public phone: number,
         public gender: "male" | "female",
         public password: string,
-        public role: UserRole = UserRole.Customer
+        public role: UserRole = UserRole.Customer,
+        public imgUrl?: string
     ){}
 }
 
-export class UserRegisterDTO implements Omit<User, '_id'> {
+export class UserRegisterDTO implements Omit<User, '_id' | 'imgUrl'> {
     constructor(
         public firstName: string,
         public lastName: string,
@@ -25,6 +26,18 @@ export class UserRegisterDTO implements Omit<User, '_id'> {
         public gender: "male" | "female",
         public password: string,
         public role: UserRole = UserRole.Customer
+    ){}
+}
+export class AuthUserRegisterDTO implements Omit<User, '_id'> {
+    constructor(
+        public firstName: string,
+        public lastName: string,
+        public email: string,
+        public phone: number,
+        public gender: "male" | "female",
+        public password: string,
+        public role: number,
+        public imgUrl: string,
     ){}
 }
 

@@ -13,7 +13,6 @@ router.get('/', async (req, res) => {
         let filters = req.query;
         try {
             let users = await userServices.getManyFilteredBy(filters);
-            console.log('users:', users)
     
             res.json(users)
         } catch (err) {
@@ -33,7 +32,7 @@ router.get('/', async (req, res) => {
 })
 
 router.post('/register', async (req, res) => {
-    let { firstName, lastName, email, phone, gender, role, password } = req.body;
+    let { firstName, lastName, email, phone, gender, role,imgUrl, password } = req.body;
 
     try {
         let userExists = await userServices.getOneByEmail(email);
@@ -42,8 +41,14 @@ router.post('/register', async (req, res) => {
            throw {statusCode: 403, message: "This email address is already being used by another user."}
         } else {
             try {
-                let userResponse = await userServices.register({firstName, lastName,email, phone, gender, role, password});
-        
+                let userResponse;
+
+                if(imgUrl) {
+                    userResponse = await userServices.register({firstName, lastName,email, phone, gender, role, imgUrl, password });
+                } else {
+                    userResponse = await userServices.register({firstName, lastName,email, phone, gender, role, password });
+                }
+
                 if (userResponse) {
                     let user = {
                         userId: userResponse._id,

@@ -2,7 +2,7 @@ import * as yup from 'yup'
 
 import { IMAGE_URL_REGEX, LATIN_CHARACTERS_REGEX, ONLY_DIGITS_REGEX, PRICE_REGEX } from '../utils/regex'
 
-const createProductFormSchema = yup.object().shape({
+const createProductFormSchemaShape = {
     title: yup
         .string()
         .required('Title is Required')
@@ -49,6 +49,8 @@ const createProductFormSchema = yup.object().shape({
         .required('Status is required')
         .oneOf(['active', 'inactive'], 'Status should be either Active or Inactive')
         .nullable(),
-})
+}
+
+const createProductFormSchema = yup.object().shape(createProductFormSchemaShape)
 
 export default createProductFormSchema;

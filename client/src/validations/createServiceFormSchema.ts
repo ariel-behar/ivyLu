@@ -2,7 +2,7 @@ import * as yup from 'yup'
 
 import { IMAGE_URL_REGEX, LATIN_CHARACTERS_REGEX, PRICE_REGEX } from '../utils/regex'
 
-const createServiceFormSchema = yup.object().shape({
+const createServiceFormSchemaShape = {
     title: yup
         .string()
         .required('Title is Required')
@@ -36,6 +36,8 @@ const createServiceFormSchema = yup.object().shape({
         .required('Status is required')
         .oneOf(['active', 'inactive'], 'Status should be either Active or Inactive')
         .nullable(),
-})
+}
+
+const createServiceFormSchema = yup.object().shape(createServiceFormSchemaShape)
 
 export default createServiceFormSchema;

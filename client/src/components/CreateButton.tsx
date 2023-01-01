@@ -4,7 +4,7 @@ import { Link as RouterLink, } from 'react-router-dom';
 import AddIcon from '@mui/icons-material/Add';
 
 type CreateButtonProps = {
-	item: 'Service' | 'Product'
+	item: 'Service' | 'Product' | 'User'
 }
 
 function CreateButton({

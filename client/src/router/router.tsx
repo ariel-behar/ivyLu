@@ -28,6 +28,8 @@ import ServicesManagementView from "../views/AuthorizedViews/ServicesViews/Servi
 import ServiceScheduleView from "../views/ServiceViews/ServiceScheduleView";
 import ProductsOperatorAdminView from "../views/AuthorizedViews/ProductViews/ProductsOperatorAdminView";
 import OurTeamView from "../views/OurTeamView";
+import UsersAdminView from "../views/AuthorizedViews/UsersViews/UsersAdminView";
+import RegisterAuthorizedView from "../views/AuthorizedViews/UsersViews/RegisterAuthorizedView";
 
 
 const router = createBrowserRouter([
@@ -146,8 +148,18 @@ const router = createBrowserRouter([
 					},
 					{
 						path: 'users',
-						loader: getAllUsersLoader,
 						element: <UsersManagementView />,
+						children: [
+							{
+								index: true,
+								loader: getAllUsersLoader,
+								element: <UsersAdminView />,
+							},
+							{
+								path: 'create',
+								element: <RegisterAuthorizedView />
+							}
+						]
 					}
 
 				]

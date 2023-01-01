@@ -2,7 +2,7 @@ import * as yup from 'yup'
 
 import { LATIN_CHARACTERS_REGEX, PHONE_PATTERN_REGEX, PASSWORD_PATTERN_REGEX } from '../utils/regex'
 
-const registerFormSchema = yup.object().shape({
+export const registerFormSchemaShape = {
         firstName: yup
                 .string()
                 .required('First Name is required')
@@ -40,6 +40,8 @@ const registerFormSchema = yup.object().shape({
                 .string()
                 .required('Confirm password is required')
                 .oneOf([yup.ref("password")], "Password and Confirm Password must match")
-})
+}
+
+const registerFormSchema = yup.object().shape(registerFormSchemaShape)
 
 export default registerFormSchema;

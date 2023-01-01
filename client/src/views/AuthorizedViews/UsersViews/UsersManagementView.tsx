@@ -1,15 +1,17 @@
-import { useLoaderData } from "react-router-dom"
-import DataTable from "../../../components/DataTable/DataTable"
-import { User } from "../../../models/User"
+import { Stack } from "@mui/material"
+import { Outlet} from "react-router-dom"
+import CreateButton from "../../../components/CreateButton"
+
 
 function UsersManagementView() {
-	const users = useLoaderData() as Omit<User, 'password'>[]
 	return (
 		<>
 			<div>UsersManagementView</div>
+			<Stack direction='row' justifyContent='end'>
+				<CreateButton item={'User'} />
+			</Stack>
 
-			<DataTable entityType={'user'} entities={users}/>
-
+			<Outlet />
 		</>
 	)
 }

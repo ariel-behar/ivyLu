@@ -41,6 +41,11 @@ const userSchema = mongoose.Schema({
         required: [true, 'User Role is required'],
         enum: [1,2,3]
     },
+    imgUrl: {
+        type: String,
+        required: false,
+        validate: [regex.IMAGE_URL, 'Image URL should start with "http://" or "https://" and end with either .jpg|.jpeg|.png|.gif|.svg'],
+    },
     password: {
         type: String,
         required: [true, 'Password is required'],
