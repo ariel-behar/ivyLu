@@ -6,6 +6,8 @@ import TableBody from "@mui/material/TableBody"
 import TableCell from "@mui/material/TableCell"
 import TableHead from "@mui/material/TableHead"
 import TableRow from "@mui/material/TableRow"
+import StyledTableCell from './StyledTableCell'
+import StyledTableRow from './StyledTableRow'
 
 
 interface ServiceDataTableInterface {
@@ -21,22 +23,22 @@ function ServiceDataTable({
         <>
             <TableHead>
                 <TableRow>
-                    <TableCell sx={{ backgroundColor: 'main.black', color: 'mainContrast.white'}}></TableCell>
-                    <TableCell sx={{ backgroundColor: 'main.black', color: 'mainContrast.white'}}>Title</TableCell>
-                    <TableCell sx={{ backgroundColor: 'main.black', color: 'mainContrast.white'}}>Description</TableCell>
-                    <TableCell sx={{ backgroundColor: 'main.black', color: 'mainContrast.white'}}>Additional Comments</TableCell>
-                    <TableCell sx={{ backgroundColor: 'main.black', color: 'mainContrast.white'}}>Duration</TableCell>
-                    <TableCell sx={{ backgroundColor: 'main.black', color: 'mainContrast.white'}}>Price</TableCell>
+                    <StyledTableCell></StyledTableCell>
+                    <StyledTableCell>Title</StyledTableCell>
+                    <StyledTableCell>Description</StyledTableCell>
+                    <StyledTableCell>Additional Comments</StyledTableCell>
+                    <StyledTableCell>Duration</StyledTableCell>
+                    <StyledTableCell>Price</StyledTableCell>
                     
-                    <TableCell sx={{ backgroundColor: 'main.black', color: 'mainContrast.white'}} align='center'>Edit</TableCell>
-                    <TableCell sx={{ backgroundColor: 'main.black', color: 'mainContrast.white'}} align='center'>Delete</TableCell>
+                    <StyledTableCell align='center'>Edit</StyledTableCell>
+                    <StyledTableCell align='center'>Delete</StyledTableCell>
                 </TableRow>
             </TableHead>
             <TableBody>
 
                 {
                     (entity as Service[]).map((service) => (
-                        <TableRow
+                        <StyledTableRow
                             key={service._id}
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                         >
@@ -54,7 +56,7 @@ function ServiceDataTable({
                                     Delete 
                                 </Button>
                             </TableCell>
-                        </TableRow>
+                        </StyledTableRow>
                     ))
                 }
             </TableBody>

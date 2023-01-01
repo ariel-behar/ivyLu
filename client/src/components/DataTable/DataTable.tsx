@@ -3,6 +3,7 @@ import { useState } from "react"
 import { Product } from "../../models/Product"
 import { Service } from "../../models/Service"
 import { User } from "../../models/User"
+import { IdType } from "../../types/common/commonTypes"
 
 import ConfirmationDialog from "../Common/ConfirmationDialog"
 import ProductDataTable from "./ProductDataTable"
@@ -12,8 +13,6 @@ import UserDataTable from "./UserDataTable"
 import Paper from "@mui/material/Paper"
 import Table from "@mui/material/Table"
 import TableContainer from "@mui/material/TableContainer"
-import { IdType } from "../../types/common/commonTypes"
-
 
 interface DataTableInterface {
     entityType: 'user' | 'service' | 'product',

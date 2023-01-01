@@ -1,6 +1,8 @@
 import { User } from "../../models/User"
 import getUserRole from "../../utils/getUserRole"
 
+import { IdType } from "../../types/common/commonTypes"
+
 import maleAvatar from '../../assets/img/male-avatar.png'
 import femaleAvatar from '../../assets/img/female-avatar.png'
 
@@ -9,8 +11,8 @@ import TableBody from "@mui/material/TableBody"
 import TableCell from "@mui/material/TableCell"
 import TableHead from "@mui/material/TableHead"
 import TableRow from "@mui/material/TableRow"
-import { IdType } from "../../types/common/commonTypes"
-
+import StyledTableCell from "./StyledTableCell"
+import StyledTableRow from "./StyledTableRow"
 
 
 interface UserDataTableInterface {
@@ -26,20 +28,20 @@ function UserDataTable({
         <>
             <TableHead>
                 <TableRow>
-                    <TableCell sx={{ backgroundColor: 'main.black', color: 'mainContrast.white'}}></TableCell>
-                    <TableCell sx={{ backgroundColor: 'main.black', color: 'mainContrast.white'}}>Role</TableCell>
-                    <TableCell sx={{ backgroundColor: 'main.black', color: 'mainContrast.white'}}>First Name</TableCell>
-                    <TableCell sx={{ backgroundColor: 'main.black', color: 'mainContrast.white'}}>Last Name</TableCell>
-                    <TableCell sx={{ backgroundColor: 'main.black', color: 'mainContrast.white'}} align='center'>Email</TableCell>
-                    <TableCell sx={{ backgroundColor: 'main.black', color: 'mainContrast.white'}} align='center'>Edit</TableCell>
-                    <TableCell sx={{ backgroundColor: 'main.black', color: 'mainContrast.white'}} align='center'>Delete</TableCell>
+                    <StyledTableCell ></StyledTableCell>
+                    <StyledTableCell >Role</StyledTableCell>
+                    <StyledTableCell >First Name</StyledTableCell>
+                    <StyledTableCell >Last Name</StyledTableCell>
+                    <StyledTableCell  align='center'>Email</StyledTableCell>
+                    <StyledTableCell  align='center'>Edit</StyledTableCell>
+                    <StyledTableCell  align='center'>Delete</StyledTableCell>
                 </TableRow>
             </TableHead>
             <TableBody>
 
                 {
                     (entity as Omit<User, 'password'>[]).map((user) => (
-                        <TableRow
+                        <StyledTableRow
                             key={user._id}
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                         >
@@ -56,7 +58,7 @@ function UserDataTable({
                                     Delete
                                 </Button>
                             </TableCell>
-                        </TableRow>
+                        </StyledTableRow>
                     ))
                 }
             </TableBody>

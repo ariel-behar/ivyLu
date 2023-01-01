@@ -14,21 +14,23 @@ declare module '@mui/material/styles' {
     //     }
     // }
 
-    // interface Palette {
-    //     main?: {
-    //         primary: string | PaletteColor
-    //     }
-    // }
+    interface Palette {
+        main?: {
+            black?: PaletteColor,
+            beige?: PaletteColor,
+            beigeLight: PaletteColor,
+            darkGrey?: PaletteColor,
+            teal?: PaletteColor
+        }
+    }
 
     interface PaletteOptions {
         main?: {
             black?: string | PaletteColorOptions,
             beige?: string | PaletteColorOptions,
+            beigeLight?: string | PaletteColorOptions,
             darkGrey?: string | PaletteColorOptions,
             teal?: string | PaletteColorOptions
-        }
-        mainContrast: {
-            white?: string | PaletteColorOptions
         }
     }
 
