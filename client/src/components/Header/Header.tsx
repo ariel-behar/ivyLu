@@ -1,4 +1,4 @@
-import { Link as RouterLink } from 'react-router-dom'
+import { NavLink as RouterNavLink } from 'react-router-dom'
 
 import { useAuthContext } from '../../contexts/AuthContext'
 import logo from '../../assets/img/logo.png'
@@ -23,9 +23,9 @@ function Header() {
                 <Container>
                     <Stack direction='row' justifyContent='space-between'>
                         <Toolbar>
-                            <Button to='/' color='inherit' component={RouterLink}>Home</Button>
-                            <Button to='/products' color='inherit' component={RouterLink}>Products</Button>
-                            <Button to='/services' color='inherit' component={RouterLink}>Services</Button>
+                            <Button to='/' color='inherit' component={RouterNavLink} sx={{ '&.active': {fontWeight: 'fontWeightBold'} }}>Home</Button>
+                            <Button to='/products' color='inherit' component={RouterNavLink} sx={{ '&.active': {fontWeight: 'fontWeightBold'} }}>Products</Button>
+                            <Button to='/services' color='inherit' component={RouterNavLink} sx={{ '&.active': {fontWeight: 'fontWeightBold'} }}>Services</Button>
                         </Toolbar>
                         <Toolbar sx={{
                             backgroundColor: 'main.black',
@@ -36,14 +36,14 @@ function Header() {
                             top: "50px",
                             transform: "translate(-50%, -50%)"
                         }}>
-                            <RouterLink to='/' >
+                            <RouterNavLink to='/' >
                                 <img src={logo} alt="IvyLu Logo" style={{ maxWidth: "50px" }} />
-                            </RouterLink>
+                            </RouterNavLink>
                         </Toolbar>
                         <Toolbar>
-                            <Button to='/our-team' color='inherit' component={RouterLink}>Our Team</Button>
+                            <Button to='/our-team' color='inherit' component={RouterNavLink} sx={{ '&.active': {fontWeight: 'fontWeightBold'} }}>Our Team</Button>
 
-                            <Button to='/about' color='inherit' component={RouterLink}>About</Button>
+                            <Button to='/about' color='inherit' component={RouterNavLink} sx={{ '&.active': {fontWeight: 'fontWeightBold'} }}>About</Button>
 
                             {isLoggedIn
                                 ? <IsLoggedInButtons bar={'top'} />

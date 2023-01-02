@@ -1,8 +1,8 @@
 import IsLoggedInTopBarButtons from './IsLoggedInTopBarButtons';
 import IsLoggedInBottomBarButtons from './IsLoggedInBottomBarButtons';
 
-type IsLoggedInButtonsProps = {
-    bar: 'top' | 'bottom'
+interface IsLoggedInButtonsProps {
+    bar: 'top' | 'bottom',
 }
 
 function IsLoggedInButtons({bar}:IsLoggedInButtonsProps) {

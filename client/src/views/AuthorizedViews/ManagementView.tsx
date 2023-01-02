@@ -1,4 +1,4 @@
-import { Outlet, Link as RouterLink } from "react-router-dom"
+import { Outlet, NavLink as RouterNavLink } from "react-router-dom"
 
 
 import Stack from "@mui/material/Stack"
@@ -17,14 +17,46 @@ function ManagementView() {
                 <Breadcrumbs
                     aria-label="breadcrumb"
                 >
-                    <Link mx={2} underline="hover" to="/management/orders" component={RouterLink}>Orders</Link>
-                    <Link mx={2} underline="hover" to="/management/services" component={RouterLink}>Services</Link>
-                    <Link mx={2} underline="hover" to="/management/products" component={RouterLink}>Products</Link>
+                    <Link
+                        mx={2}
+                        underline="hover"
+                        to="/management/orders"
+                        component={RouterNavLink}
+                        sx={{ '&.active': { fontWeight: 'fontWeightBold' } }}
+                    >
+                        Orders
+                    </Link>
+                    <Link
+                        mx={2}
+                        underline="hover"
+                        to="/management/services"
+                        component={RouterNavLink}
+                        sx={{ '&.active': { fontWeight: 'fontWeightBold' } }}
+                    >
+                        Services
+                    </Link>
+                    <Link
+                        mx={2}
+                        underline="hover"
+                        to="/management/products"
+                        component={RouterNavLink}
+                        sx={{ '&.active': { fontWeight: 'fontWeightBold' } }}
+                    >
+                        Products
+                    </Link>
 
-                    {   
+                    {
                         isAdmin
-                        ? <Link mx={2} underline="hover" to="/management/users" component={RouterLink}>Users</Link>
-                        : ''
+                            ? <Link
+                                mx={2}
+                                underline="hover"
+                                to="/management/users"
+                                component={RouterNavLink}
+                                sx={{ '&.active': { fontWeight: 'fontWeightBold' } }}
+                            >
+                                Users
+                            </Link>
+                            : ''
                     }
                 </Breadcrumbs>
 

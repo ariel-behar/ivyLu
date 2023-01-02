@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link as RouterLink } from 'react-router-dom'
+import { NavLink as RouterNavLink } from 'react-router-dom'
 
 import { useAuthContext } from '../../../contexts/AuthContext';
 
@@ -50,31 +50,35 @@ function OperatorAdminButtons() {
                     vertical: 'bottom',
                     horizontal: 'center'
                 }}
+                
             >
                 <MenuItem
                     onClick={handleClose}
-                    component={RouterLink}
+                    component={RouterNavLink}
                     to='/management/orders'
+                    sx={{ '&.active': { fontWeight: 'fontWeightBold' }}}
                 >
                     Orders
                 </MenuItem>
                 <MenuItem
                     onClick={handleClose}
-                    component={RouterLink}
+                    component={RouterNavLink}
                     to='/management/services'
+                    sx={{ '&.active': { fontWeight: 'fontWeightBold' } }}
                 >
                     Services
                 </MenuItem>
                 <MenuItem
                     onClick={handleClose}
-                    component={RouterLink}
+                    component={RouterNavLink}
                     to='/management/products'
+                    sx={{ '&.active': { fontWeight: 'fontWeightBold' } }}
                 >
                     Products
                 </MenuItem>
 
                 { isAdmin
-                    ? <AdminButtons handleClose={handleClose} />
+                    ? <AdminButtons handleClose={handleClose}/>
                     : ''
                 }
             </Menu>
@@ -82,4 +86,4 @@ function OperatorAdminButtons() {
     )
 }
 
-export default OperatorAdminButtons
+export default OperatorAdminButtons;

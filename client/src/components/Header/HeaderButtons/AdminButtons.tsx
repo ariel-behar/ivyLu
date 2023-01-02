@@ -1,8 +1,8 @@
-import { Link as RouterLink} from 'react-router-dom'
+import { NavLink as RouterNavLink} from 'react-router-dom'
 
 import MenuItem from '@mui/material/MenuItem';
 
-type AdminButtonsProps ={
+interface AdminButtonsProps {
     handleClose: () => void
 }
 
@@ -10,8 +10,9 @@ function AdminButtons({handleClose}: AdminButtonsProps) {
     return (
         <MenuItem
             onClick={handleClose}
-            component={RouterLink}
+            component={RouterNavLink}
             to='/management/users'
+            sx={{ '&.active': {fontWeight: 'fontWeightBold'} }}
         >
             Users
         </MenuItem>
