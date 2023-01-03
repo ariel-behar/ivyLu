@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../contexts/AuthContext";
 import { useNotificationContext } from "../contexts/NotificationContext";
 
-import { IdType } from "../types/common/commonTypes";
+import { AuthTokenType, IdType } from "../types/common/commonTypes";
 import { User, UserLoginDTO } from "../models/User";
 
 import TextField from "@mui/material/TextField";
@@ -13,7 +13,7 @@ import Stack from '@mui/material/Stack';
 import { ApiUser, ApiUserImpl } from "../services/userServices";
 import { isGuestRouteGuard } from "../hoc/isGuestRouteGuard";
 
-const userServices: ApiUser<IdType, User> = new ApiUserImpl<IdType, User>('users');
+const userServices: ApiUser<IdType, User, AuthTokenType> = new ApiUserImpl<IdType, User, AuthTokenType>('clients');
 
 type FormData = {
 	email: string,

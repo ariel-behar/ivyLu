@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import { getAllServicesLoader, getOneServicesLoader } from '../data-loaders/servicesLoader'
 import { getAllProductsLoader, getOneProductsLoader } from "../data-loaders/productsLoader";
-import { getAllHairdressers, getAllUsersLoader } from "../data-loaders/usersLoader";
+import { getAllClientsLoader } from "../data-loaders/clientsLoader";
 
 import RootView from "../views/RootView";
 import DashboardView from "../views/DashboardView";
@@ -28,8 +28,10 @@ import ServicesManagementView from "../views/AuthorizedViews/ServicesViews/Servi
 import ServiceScheduleView from "../views/ServiceViews/ServiceScheduleView";
 import ProductsOperatorAdminView from "../views/AuthorizedViews/ProductViews/ProductsOperatorAdminView";
 import OurTeamView from "../views/OurTeamView";
-import UsersAdminView from "../views/AuthorizedViews/UsersViews/UsersAdminView";
+import ClientsAdminView from "../views/AuthorizedViews/UsersViews/ClientsAdminView";
 import RegisterAuthorizedView from "../views/AuthorizedViews/UsersViews/RegisterAuthorizedView";
+import { getAllHairdressers, getAllStaffLoader } from "../data-loaders/staffLoader";
+import StaffAdminView from "../views/AuthorizedViews/UsersViews/StaffAdminView";
 
 const router = createBrowserRouter([
 	{
@@ -146,13 +148,24 @@ const router = createBrowserRouter([
 						]
 					},
 					{
-						path: 'users',
+						path: 'clients',
 						element: <UsersManagementView />,
 						children: [
 							{
 								index: true,
-								loader: getAllUsersLoader,
-								element: <UsersAdminView />,
+								loader: getAllClientsLoader,
+								element: <ClientsAdminView />,
+							},
+						]
+					},
+					{
+						path: 'staff',
+						element: <UsersManagementView />,
+						children: [
+							{
+								index: true,
+								loader: getAllStaffLoader,
+								element: <StaffAdminView />,
 							},
 							{
 								path: 'create',

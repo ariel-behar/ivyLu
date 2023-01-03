@@ -17,12 +17,12 @@ import FormHelperText from '@mui/material/FormHelperText';
 import registerFormSchema from '../validations/registerFormSchema';
 import { User, UserRegisterDTO } from '../models/User';
 import { useAuthContext } from '../contexts/AuthContext';
-import { IdType } from '../types/common/commonTypes';
+import { AuthTokenType, IdType } from '../types/common/commonTypes';
 import { useNotificationContext } from '../contexts/NotificationContext';
 import { ApiUser, ApiUserImpl } from '../services/userServices';
 import { isGuestRouteGuard } from '../hoc/isGuestRouteGuard';
 
-const userServices: ApiUser<IdType, User> = new ApiUserImpl<IdType, User>('users');
+const userServices: ApiUser<IdType, User, AuthTokenType> = new ApiUserImpl<IdType, User, AuthTokenType>('clients');
 
 type FormData = {
 	firstName: string,

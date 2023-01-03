@@ -1,11 +1,10 @@
 import { User } from '../models/User';
 import { ApiUser, ApiUserImpl } from '../services/userServices';
-import { IdType } from '../types/common/commonTypes';
+import { AuthTokenType, IdType } from '../types/common/commonTypes';
 
-const userServices: ApiUser<IdType, User> = new ApiUserImpl<IdType, User>('users');
+const userServices: ApiUser<IdType, User,AuthTokenType> = new ApiUserImpl<IdType, User, AuthTokenType>('staff');
 
-
-export async function getAllUsersLoader() {
+export async function getAllStaffLoader() {
     const users = await userServices.getAll()
 
     return users;
@@ -16,4 +15,3 @@ export async function getAllHairdressers() {
 
     return hairdressers;
 }
-

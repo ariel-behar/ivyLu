@@ -15,12 +15,12 @@ import { useAuthContext } from '../../contexts/AuthContext'
 
 
 interface ProductDataTableInterface {
-    entity: Product[],
+    entities: Product[],
     onDeleteButtonClickHandler: (_id: IdType, entity: 'product') => void
 }
 
 function ProductDataTable({
-    entity,
+    entities,
     onDeleteButtonClickHandler
 }: ProductDataTableInterface) {
     const { isAdmin, isOperator } = useAuthContext() as any;
@@ -53,7 +53,7 @@ function ProductDataTable({
             <TableBody>
 
                 {
-                    (entity as Product[]).map((product) => (
+                    (entities as Product[]).map((product) => (
                         <StyledTableRow
                             key={product._id}
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}

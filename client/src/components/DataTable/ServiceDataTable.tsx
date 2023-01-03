@@ -12,12 +12,12 @@ import { useAuthContext } from '../../contexts/AuthContext'
 
 
 interface ServiceDataTableInterface {
-    entity: Service[],
+    entities: Service[],
     onDeleteButtonClickHandler: (_id: IdType, entity: 'service') => void
 }
 
 function ServiceDataTable({
-    entity,
+    entities,
     onDeleteButtonClickHandler
 }: ServiceDataTableInterface) {
     const { isAdmin, isOperator } = useAuthContext() as any;
@@ -47,7 +47,7 @@ function ServiceDataTable({
             <TableBody>
 
                 {
-                    (entity as Service[]).map((service) => (
+                    (entities as Service[]).map((service) => (
                         <StyledTableRow
                             key={service._id}
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}

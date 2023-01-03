@@ -1,16 +1,25 @@
 import { Stack } from "@mui/material"
-import { Outlet} from "react-router-dom"
+import { Outlet, useLocation} from "react-router-dom"
 import CreateButton from "../../../components/CreateButton"
 import { isAdminRouteGuard } from "../../../hoc/isAdminRouteGuard"
 
 
 function UsersManagementView() {
+	const location = useLocation();
+
 	return (
 		<>
 			<div>UsersManagementView</div>
-			<Stack direction='row' justifyContent='end'>
-				<CreateButton item={'User'} />
-			</Stack>
+
+			{
+				location.pathname.includes('staff')
+				? (
+					<Stack direction='row' justifyContent='end'>
+					<CreateButton item={'Staff Member'} />
+				</Stack>
+				)
+				: ''
+			}
 
 			<Outlet />
 		</>

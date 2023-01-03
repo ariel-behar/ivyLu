@@ -1,11 +1,6 @@
-import mongoose from 'mongoose';
-import bcrypt from 'bcrypt';
-import * as env from 'dotenv'
 import * as regex from '../utils/regex.js'
 
-env.config()
-
-const userSchema = mongoose.Schema({
+const commonUserSchema = {
     firstName: {
         type: String,
         required: [true, 'First Name is required'],
@@ -36,11 +31,7 @@ const userSchema = mongoose.Schema({
         required: [true, 'Gender is required'],
         enum: { values: ['male', 'female'], message: 'Gender should be either Male or Female'},
     },
-    role: {
-        type: Number,
-        required: [true, 'User Role is required'],
-        enum: [1,2,3]
-    },
+
     imgUrl: {
         type: String,
         required: false,
@@ -53,25 +44,7 @@ const userSchema = mongoose.Schema({
         // maxLength: [20, 'Password should be at most 20 characters long'],
         // validate: [regex.PASSWORD_PATTERN, "Password must contain at least 1 uppercase letter, 1 lowercase letter, 1 number and 1 special character"]
     },
-},{
-    timestamps: true
-});
+}
 
-userSchema.pre('save', function (next) {
-    return bcrypt
-        .hash(this.password, Number(process.env.JWT_SALT))
-        .then(hash => {
-            this.password = hash;
-            next();
-        })
-        .catch(error => {
-            if (error.message === 'data and salt arguments required') {
-                throw { code: 500, message: 'An error occurred while attempting to sign you up. Please try again' };
-            }
-            throw { code: 500, message: error.message };
-        });
-});
 
-const User = mongoose.model('User', userSchema);
-
-export default User;
+export default commonUserSchema;

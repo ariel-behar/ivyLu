@@ -2,16 +2,16 @@ import { useLoaderData } from "react-router-dom"
 import DataTable from "../../../components/DataTable/DataTable"
 import { User } from "../../../models/User"
 
-function UsersAdminView() {
+function ClientsAdminView() {
     const users = useLoaderData() as Omit<User, 'password'>[]
     
     return (
         <>
-            <div>UsersAdminView</div>
+            <div>ClientsAdminView</div>
 
-            <DataTable entityType={'user'} entities={users} />
+            <DataTable entityType={'client'} entities={users} />
         </>
     )
 }
 
-export default UsersAdminView
+export default ClientsAdminView

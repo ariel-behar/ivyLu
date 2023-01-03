@@ -15,19 +15,19 @@ import Table from "@mui/material/Table"
 import TableContainer from "@mui/material/TableContainer"
 
 interface DataTableInterface {
-    entityType: 'user' | 'service' | 'product',
+    entityType: 'client' | 'staff' | 'service' | 'product',
     entities: Omit<User, 'password'>[] | Product[] | Service[]
 }
 
 function DataTable({ entityType, entities }: DataTableInterface) {
     const [showConfirmationDialog, setShowConfirmationDialog] = useState<boolean>(false)
-    const [deleteItem, setDeleteItem] = useState<{ _id: string, entity: 'user' | 'service' | 'product' | '' }>({
+    const [deleteItem, setDeleteItem] = useState<{ _id: string, entity: 'client' | 'staff' | 'service' | 'product' | '' }>({
         _id: '',
         entity: ''
     })
 
 
-    const onDeleteButtonClickHandler = (_id: IdType, entity: 'user' | 'service' | 'product'): void => {
+    const onDeleteButtonClickHandler = (_id: IdType, entity: 'client' | 'staff' | 'service' | 'product'): void => {
         setShowConfirmationDialog(true)
         setDeleteItem({ _id, entity })
     }
@@ -41,18 +41,25 @@ function DataTable({ entityType, entities }: DataTableInterface) {
         <>
             <TableContainer component={Paper} sx={{ marginTop: '20px' }}>
                 <Table aria-label='simple table' stickyHeader size="small">
-                    {entityType === 'user'
-                        ? <UserDataTable entity={entities as Omit<User, 'password'>[]} onDeleteButtonClickHandler={onDeleteButtonClickHandler}/>
+                    {(entityType === 'client' || entityType === 'staff')
+                        ? <UserDataTable 
+                            entityType={entityType}
+                            entities={entities as Omit<User, 'password'>[]} 
+                            onDeleteButtonClickHandler={onDeleteButtonClickHandler} />
                         : ''
                     }
                     {
                         entityType === 'service'
-                            ? <ServiceDataTable entity={entities as Service[]} onDeleteButtonClickHandler={onDeleteButtonClickHandler} />
+                            ? <ServiceDataTable 
+                                entities={entities as Service[]} 
+                                onDeleteButtonClickHandler={onDeleteButtonClickHandler} />
                             : ''
                     }
                     {
                         entityType === 'product'
-                            ? <ProductDataTable entity={entities as Product[]} onDeleteButtonClickHandler={onDeleteButtonClickHandler} />
+                            ? <ProductDataTable 
+                                entities={entities as Product[]} 
+                                onDeleteButtonClickHandler={onDeleteButtonClickHandler} />
                             : ''
                     }
                 </Table>
@@ -61,7 +68,7 @@ function DataTable({ entityType, entities }: DataTableInterface) {
             {
                 showConfirmationDialog
                     ? <ConfirmationDialog
-                        itemToDelete={{_id: deleteItem._id, entity: deleteItem.entity as 'user' | 'service' | 'product'}}
+                        itemToDelete={{ _id: deleteItem._id, entity: deleteItem.entity as 'client' | 'service' | 'product' | 'staff' }}
                         showConfirmationDialog={showConfirmationDialog}
                         closeConfirmationDialog={closeConfirmationDialog}
                     />

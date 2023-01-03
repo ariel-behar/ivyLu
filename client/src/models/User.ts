@@ -1,7 +1,7 @@
 import { Identifiable, IdType } from "../types/common/commonTypes"
 
 export const enum UserRole {
-    Customer = 1, Hairdresser, Operator, Admin
+    Client = 1, Hairdresser, Operator, Admin
 }
 export class User implements Identifiable<IdType> {
     constructor(
@@ -12,7 +12,7 @@ export class User implements Identifiable<IdType> {
         public phone: number,
         public gender: "male" | "female",
         public password: string,
-        public role: UserRole = UserRole.Customer,
+        public role: UserRole = UserRole.Client,
         public imgUrl?: string
     ){}
 }
@@ -25,7 +25,7 @@ export class UserRegisterDTO implements Omit<User, '_id' | 'imgUrl'> {
         public phone: number,
         public gender: "male" | "female",
         public password: string,
-        public role: UserRole = UserRole.Customer
+        public role: UserRole = UserRole.Client
     ){}
 }
 export class AuthUserRegisterDTO implements Omit<User, '_id'> {

@@ -13,10 +13,12 @@ import DialogContent from '@mui/material/DialogContent'
 import DialogContentText from '@mui/material/DialogContentText'
 import DialogActions from '@mui/material/DialogActions'
 import Stack from '@mui/material/Stack'
+import { ApiUser, ApiUserImpl } from '../../services/userServices'
+import { User } from '../../models/User'
 
 
 type ConfirmationDialogProps = {
-    itemToDelete: {_id: IdType, entity: 'user' | 'service' | 'product'},
+    itemToDelete: {_id: IdType, entity: 'client' | 'service' | 'product' | 'staff'},
     showConfirmationDialog: boolean,
     closeConfirmationDialog: () => void,
 }
@@ -29,24 +31,28 @@ function ConfirmationDialog({
     const { user } = useAuthContext() as any
     const { displayNotification } = useNotificationContext() as any;
     const clientServices: ApiClient<IdType, Service, AuthTokenType> = new ApiClientImpl<IdType, Service, AuthTokenType>(`${itemToDelete.entity}s`);
+    const userServices: ApiUser<IdType, User, AuthTokenType> = new ApiUserImpl<IdType, User, AuthTokenType>(itemToDelete.entity === 'client' ? 'clients' : 'staff');
     const navigate = useNavigate();
 
     const onDeleteButtonClick = async () => {
         try {
             let deleteResponse = '';
+            let navigateTo = ''
 
             if (itemToDelete.entity === 'service') {
                 deleteResponse = await clientServices.deleteOne(itemToDelete._id, undefined, user.AUTH_TOKEN);
-
+                navigateTo = 'services';
             } else if (itemToDelete.entity === 'product') {
                 deleteResponse = await clientServices.deleteOne(itemToDelete._id, undefined, user.AUTH_TOKEN);
-            } else if (itemToDelete.entity === 'user') {
-                deleteResponse = await clientServices.deleteOne(itemToDelete._id, undefined, user.AUTH_TOKEN);
-            }
+                navigateTo = 'prodcuts';
+            } else if (itemToDelete.entity === 'client' || itemToDelete.entity === 'staff') {
+                deleteResponse = await userServices.deleteOne(itemToDelete._id, undefined, user.AUTH_TOKEN);
+                navigateTo = itemToDelete.entity === 'client' ? 'clients' : 'staff';
+            }            
 
             if(deleteResponse) {    
                 displayNotification(deleteResponse, 'success')
-                navigate(`/management/${itemToDelete.entity}s`);
+                navigate(`/management/${navigateTo}`);
             } 
             
             closeConfirmationDialog()

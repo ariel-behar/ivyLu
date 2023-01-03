@@ -4,7 +4,7 @@ import { Link as RouterLink, } from 'react-router-dom';
 import AddIcon from '@mui/icons-material/Add';
 
 type CreateButtonProps = {
-	item: 'Service' | 'Product' | 'User'
+	item: 'Service' | 'Product' | 'Staff Member'
 }
 
 function CreateButton({
@@ -12,7 +12,11 @@ function CreateButton({
 }: CreateButtonProps) {
 
 	const getEntity = () => {
-		return item.toLowerCase().slice(0, item.length).concat('s')
+		if(item === 'Staff Member') {
+			return 'staff'
+		} else {
+			return item.toLowerCase().slice(0, item.length).concat('s')
+		}
 	}
 
 	return (

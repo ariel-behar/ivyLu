@@ -46,19 +46,31 @@ function ManagementView() {
                         Products
                     </Link>
 
-                    {
-                        isAdmin
-                            ? <Link
-                                mx={2}
-                                underline="hover"
-                                to="/management/users"
-                                component={RouterNavLink}
-                                sx={{ '&.active': { fontWeight: 'fontWeightBold' } }}
-                            >
-                                Users
-                            </Link>
-                            : ''
+                    {isAdmin
+                        ? <Link
+                            mx={2}
+                            underline="hover"
+                            to="/management/clients"
+                            component={RouterNavLink}
+                            sx={{ '&.active': { fontWeight: 'fontWeightBold' } }}
+                        >
+                            Clients
+                        </Link>
+                        : ''
                     }
+                    {isAdmin
+                        ? <Link
+                            mx={2}
+                            underline="hover"
+                            to="/management/staff"
+                            component={RouterNavLink}
+                            sx={{ '&.active': { fontWeight: 'fontWeightBold' } }}
+                        >
+                            Staff
+                        </Link>
+                        : ''
+                    }
+
                 </Breadcrumbs>
 
             </Stack>

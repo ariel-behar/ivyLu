@@ -1,16 +1,18 @@
-import { Identifiable } from "../types/common/commonTypes";
+import { AuthTokenType, Identifiable } from "../types/common/commonTypes";
 import request from "../utils/request";
 
 let baseUrl = 'http://localhost:3030'
 
-export interface ApiUser<I, E extends Identifiable<I>> {
+export interface ApiUser<I, E extends Identifiable<I>, A extends AuthTokenType> {
     register(userWithoutId: Omit<E, 'id'>): Promise<E>;
     login(user: E): Promise<E>;
     getAll(): Promise<E[]>;
     getManyFilteredBy(filter: object): Promise<E[]>
+    update(entityId: I, entity: E, authToken: A): Promise<E>;
+    deleteOne(entityId: I, entity: undefined, authToken: A): Promise<string>;
 }
 
-export class ApiUserImpl<I, E extends Identifiable<I>> implements ApiUser<I, E> {
+export class ApiUserImpl<I, E extends Identifiable<I>, A extends AuthTokenType> implements ApiUser<I, E, A> {
     constructor(public apiCollectionSuffix: string) {}
     
     register(userWithoutId: Omit<E, "id">): Promise<E> {
@@ -33,6 +35,13 @@ export class ApiUserImpl<I, E extends Identifiable<I>> implements ApiUser<I, E> 
         }
 
         return request(`${baseUrl}/${this.apiCollectionSuffix}?${queryString.join('&')}`, 'GET');
+    }
+
+    update(entityId: I, entity: E, authToken: A): Promise<E> {
+        return request(`${baseUrl}/${this.apiCollectionSuffix}/${entityId}/edit`, 'POST', entity, authToken);
+    }
+    deleteOne(entityId: I, entity: undefined, authToken: A): Promise<string> {
+        return request(`${baseUrl}/${this.apiCollectionSuffix}/${entityId}/delete`, 'GET', entity, authToken);
     }
 }
 

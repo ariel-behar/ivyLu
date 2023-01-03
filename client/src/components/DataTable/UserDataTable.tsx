@@ -16,15 +16,16 @@ import StyledTableRow from "./StyledTableRow"
 
 
 interface UserDataTableInterface {
-    entity: Omit<User, 'password'>[],
-    onDeleteButtonClickHandler: (_id: IdType, entity: 'user') => void
+    entityType: 'client' | 'staff',
+    entities: Omit<User, 'password'>[],
+    onDeleteButtonClickHandler: (_id: IdType, entityType: 'client' | 'staff') => void
 }
 
 function UserDataTable({
-    entity,
+    entityType,
+    entities,
     onDeleteButtonClickHandler
 }: UserDataTableInterface) {
-    console.log(entity);
     return (
         <>
             <TableHead>
@@ -41,7 +42,7 @@ function UserDataTable({
             <TableBody>
 
                 {
-                    (entity as Omit<User, 'password'>[]).map((user) => (
+                    (entities as Omit<User, 'password'>[]).map((user) => (
                         <StyledTableRow
                             key={user._id}
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -62,7 +63,7 @@ function UserDataTable({
                             <TableCell align='center'>{user.email}</TableCell>
                             <TableCell align='center'><Button variant="text">Edit</Button></TableCell>
                             <TableCell align='center'>
-                                <Button variant="text" color="error" onClick={() => onDeleteButtonClickHandler(user._id, 'user')}>
+                                <Button variant="text" color="error" onClick={() => onDeleteButtonClickHandler(user._id, entityType)}>
                                     Delete
                                 </Button>
                             </TableCell>

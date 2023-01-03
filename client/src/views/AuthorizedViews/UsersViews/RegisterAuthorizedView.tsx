@@ -6,7 +6,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 
 import registerAuthorizedFormSchema from '../../../validations/registerAuthorizedFormSchema';
 import { ApiUser, ApiUserImpl } from '../../../services/userServices';
-import { IdType } from '../../../types/common/commonTypes';
+import { AuthTokenType, IdType } from '../../../types/common/commonTypes';
 import { AuthUserRegisterDTO, User } from '../../../models/User';
 import { useNotificationContext } from '../../../contexts/NotificationContext';
 
@@ -24,7 +24,7 @@ import Grid from '@mui/material/Grid';
 import { CardMedia, Typography } from '@mui/material';
 import { IMAGE_URL_REGEX } from '../../../utils/regex';
 
-const userServices: ApiUser<IdType, User> = new ApiUserImpl<IdType, User>('users');
+const userServices: ApiUser<IdType, User, AuthTokenType> = new ApiUserImpl<IdType, User, AuthTokenType>('staff');
 
 type FormData = {
 	firstName: string,
@@ -78,7 +78,7 @@ function RegisterAuthorizedView() {
 
 			if (registerUserResponse) {
 				displayNotification({ message: 'Record has succesfully been created' }, 'success')
-				navigate('/management/users')
+				navigate('/management/staff')
 			}
 
 		} catch (err) {

@@ -1,18 +1,18 @@
 import { Router } from 'express';
 import bcrypt from 'bcrypt'
 
-import * as userServices from '../services/userServices.js'
+import * as staffServices from '../services/staffServices.js'
+import * as clientServices from '../services/clientServices.js'
 
 import generateAuthToken from '../utils/generateAuthToken.js'
 
 const router = Router()
 
 router.get('/', async (req, res) => {
-
     if(Object.entries(req.query).length > 0) {
         let filters = req.query;
         try {
-            let users = await userServices.getManyFilteredBy(filters);
+            let users = await staffServices.getManyFilteredBy(filters);
     
             res.json(users)
         } catch (err) {
@@ -20,7 +20,7 @@ router.get('/', async (req, res) => {
         }
     }  else {
         try {
-            let users = await userServices.getAll();
+            let users = await staffServices.getAll();
     
             res.json(users)
         } catch (err) {
@@ -35,7 +35,7 @@ router.post('/register', async (req, res) => {
     let { firstName, lastName, email, phone, gender, role, imgUrl, password } = req.body;
 
     try {
-        let userExists = await userServices.getOneByEmail(email);
+        let userExists = await staffServices.getOneByEmail(email);
         
         if(userExists){
            throw {statusCode: 403, message: "This email address is already being used by another user."}
@@ -44,9 +44,9 @@ router.post('/register', async (req, res) => {
                 let userResponse;
 
                 if(imgUrl) {
-                    userResponse = await userServices.register({firstName, lastName,email, phone, gender, role, imgUrl, password });
+                    userResponse = await staffServices.register({firstName, lastName,email, phone, gender, role, imgUrl, password });
                 } else {
-                    userResponse = await userServices.register({firstName, lastName,email, phone, gender, role, password });
+                    userResponse = await staffServices.register({firstName, lastName,email, phone, gender, role, password });
                 }
 
                 if (userResponse) {
@@ -79,7 +79,11 @@ router.post('/login', async (req, res) => {
     const {email, password} = req.body;
 
     try {
-        let userResponse = await userServices.login(email)
+        let userResponse = await staffServices.login(email)
+
+        if(!userResponse) {
+            userResponse = await clientServices.login(email)
+        }
 
         if(userResponse) {
             let isValidPassword = await bcrypt.compare(password, userResponse.password);
@@ -115,7 +119,7 @@ router.get('/:userId/delete', async (req, res) => {
     let userId = req.params.userId
 
     try {
-        let deleteUserResponse = await userServices.deleteOne(userId);
+        let deleteUserResponse = await staffServices.deleteOne(userId);
 
         if (deleteUserResponse) {
             res.json({message: 'Record has successfully been deleted'});
