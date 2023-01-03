@@ -20,6 +20,7 @@ import { useAuthContext } from '../contexts/AuthContext';
 import { IdType } from '../types/common/commonTypes';
 import { useNotificationContext } from '../contexts/NotificationContext';
 import { ApiUser, ApiUserImpl } from '../services/userServices';
+import { isGuestRouteGuard } from '../hoc/isGuestRouteGuard';
 
 const userServices: ApiUser<IdType, User> = new ApiUserImpl<IdType, User>('users');
 
@@ -168,4 +169,4 @@ function RegisterView() {
 	)
 }
 
-export default RegisterView
+export default isGuestRouteGuard(RegisterView)

@@ -11,6 +11,7 @@ import { AuthTokenType, IdType } from "../../../types/common/commonTypes";
 import { useAuthContext } from "../../../contexts/AuthContext";
 import { useNotificationContext } from "../../../contexts/NotificationContext";
 import { IMAGE_URL_REGEX } from "../../../utils/regex";
+import { isOperatorAdminRouteGuard } from "../../../hoc/isOperatorAdminRouteGuard";
 
 import TextField from "@mui/material/TextField"
 import Stack from "@mui/material/Stack"
@@ -27,6 +28,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import FormHelperText from '@mui/material/FormHelperText';
+
 
 
 const clientServices: ApiClient<IdType, Service, AuthTokenType> = new ApiClientImpl<IdType, Service, AuthTokenType>('services');
@@ -226,4 +228,4 @@ function CreateService() {
 	)
 }
 
-export default CreateService
+export default isOperatorAdminRouteGuard(CreateService)

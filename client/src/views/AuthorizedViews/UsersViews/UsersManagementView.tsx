@@ -1,6 +1,7 @@
 import { Stack } from "@mui/material"
 import { Outlet} from "react-router-dom"
 import CreateButton from "../../../components/CreateButton"
+import { isAdminRouteGuard } from "../../../hoc/isAdminRouteGuard"
 
 
 function UsersManagementView() {
@@ -16,4 +17,4 @@ function UsersManagementView() {
 	)
 }
 
-export default UsersManagementView
+export default isAdminRouteGuard(UsersManagementView)

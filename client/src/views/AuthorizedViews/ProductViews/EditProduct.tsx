@@ -13,6 +13,7 @@ import { Product } from "../../../models/Product";
 import { useAuthContext } from "../../../contexts/AuthContext";
 import { useNotificationContext } from "../../../contexts/NotificationContext";
 import { IMAGE_URL_REGEX } from "../../../utils/regex";
+import { isOperatorAdminRouteGuard } from "../../../hoc/isOperatorAdminRouteGuard";
 import {getMeasurementUnit, measurementUnits} from "../../../utils/getMeasurementUnit";
 
 import TextField from "@mui/material/TextField"
@@ -30,6 +31,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import FormHelperText from '@mui/material/FormHelperText';
+
 
 type FormData = {
     title: string,
@@ -259,4 +261,4 @@ function EditProduct() {
 
 }
 
-export default EditProduct
+export default isOperatorAdminRouteGuard(EditProduct)

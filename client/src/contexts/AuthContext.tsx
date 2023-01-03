@@ -42,8 +42,6 @@ export const AuthProvider = ({
 
     const isLoggedIn = user.userId ? true : false;
 
-    const isGuest = !user.role ? true: false;
-
     const isCustomer = user.role === 1 ? true: false;
 
     const isHairdresser = user.role === 2 ? true: false;
@@ -53,7 +51,7 @@ export const AuthProvider = ({
     const isAdmin = user.role === 4 ? true: false;
     
     return (
-        <AuthContext.Provider value={{user, login, logout, isLoggedIn, isGuest, isHairdresser, isCustomer, isOperator, isAdmin}}>
+        <AuthContext.Provider value={{user, login, logout, isLoggedIn, isHairdresser, isCustomer, isOperator, isAdmin}}>
             {children}
         </AuthContext.Provider>
     )

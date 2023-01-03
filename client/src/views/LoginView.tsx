@@ -11,6 +11,7 @@ import TextField from "@mui/material/TextField";
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import { ApiUser, ApiUserImpl } from "../services/userServices";
+import { isGuestRouteGuard } from "../hoc/isGuestRouteGuard";
 
 const userServices: ApiUser<IdType, User> = new ApiUserImpl<IdType, User>('users');
 
@@ -84,4 +85,4 @@ function LoginView() {
 	)
 }
 
-export default LoginView
+export default isGuestRouteGuard(LoginView)

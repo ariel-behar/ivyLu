@@ -5,6 +5,7 @@ import Stack from "@mui/material/Stack"
 import Breadcrumbs from "@mui/material/Breadcrumbs"
 import Link from "@mui/material/Link"
 import { useAuthContext } from "../../contexts/AuthContext";
+import { isAuthRouteGuard } from "../../hoc/isAuthRouteGuard";
 
 function ManagementView() {
     const { isAdmin } = useAuthContext() as any;
@@ -67,4 +68,4 @@ function ManagementView() {
     )
 }
 
-export default ManagementView
+export default isAuthRouteGuard(ManagementView)

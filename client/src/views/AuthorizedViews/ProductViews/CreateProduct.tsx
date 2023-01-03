@@ -13,6 +13,7 @@ import { IMAGE_URL_REGEX } from "../../../utils/regex";
 import { ApiClient, ApiClientImpl } from "../../../services/clientServices";
 import { AuthTokenType, IdType } from "../../../types/common/commonTypes";
 import {getMeasurementUnit, measurementUnits} from "../../../utils/getMeasurementUnit";
+import { isOperatorAdminRouteGuard } from "../../../hoc/isOperatorAdminRouteGuard";
 
 import TextField from "@mui/material/TextField"
 import Stack from "@mui/material/Stack"
@@ -29,6 +30,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import FormHelperText from '@mui/material/FormHelperText';
+
 
 
 type FormData = {
@@ -256,4 +258,4 @@ function CreateProduct() {
 	)
 }
 
-export default CreateProduct
+export default isOperatorAdminRouteGuard(CreateProduct)

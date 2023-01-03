@@ -31,7 +31,6 @@ import OurTeamView from "../views/OurTeamView";
 import UsersAdminView from "../views/AuthorizedViews/UsersViews/UsersAdminView";
 import RegisterAuthorizedView from "../views/AuthorizedViews/UsersViews/RegisterAuthorizedView";
 
-
 const router = createBrowserRouter([
 	{
 		path: "/",
