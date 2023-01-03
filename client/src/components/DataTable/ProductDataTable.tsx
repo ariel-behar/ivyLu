@@ -10,6 +10,7 @@ import TableHead from "@mui/material/TableHead"
 import TableRow from "@mui/material/TableRow"
 import StyledTableCell from './StyledTableCell'
 import StyledTableRow from './StyledTableRow'
+import { useAuthContext } from '../../contexts/AuthContext'
 
 
 
@@ -22,6 +23,8 @@ function ProductDataTable({
     entity,
     onDeleteButtonClickHandler
 }: ProductDataTableInterface) {
+    const { isAdmin, isOperator } = useAuthContext() as any;
+
     return (
         <>
             <TableHead>
@@ -34,8 +37,17 @@ function ProductDataTable({
                     <StyledTableCell >Volume</StyledTableCell>
                     <StyledTableCell >Price</StyledTableCell>
 
-                    <StyledTableCell  align='center'>Edit</StyledTableCell>
-                    <StyledTableCell  align='center'>Delete</StyledTableCell>
+                    {
+                        (isAdmin || isOperator)
+                            ? (
+                                <>
+                                    <StyledTableCell align='center'>Edit</StyledTableCell>
+                                    <StyledTableCell align='center'>Delete</StyledTableCell>
+                                </>
+                            )
+                            : ''
+                    }
+                    
                 </TableRow>
             </TableHead>
             <TableBody>
@@ -54,13 +66,24 @@ function ProductDataTable({
                             <TableCell >{`${product.volume} ${getMeasurementUnit(product.volumeMeasurementUnit).abbreviated}`}</TableCell>
                             <TableCell >{product.price} BGN</TableCell>
 
-                            <TableCell align='center'><Button variant="text">Edit</Button></TableCell>
-                            
-                            <TableCell align='center'>
-                                <Button variant="text" color="error" onClick={() => onDeleteButtonClickHandler(product._id, 'product')}>
-                                    Delete 
-                                </Button>
-                            </TableCell>
+
+
+                            {
+                                (isAdmin || isOperator)
+                                    ? (
+                                        <>
+                                            <TableCell align='center'><Button variant="text">Edit</Button></TableCell>
+
+                                            <TableCell align='center'>
+                                                <Button variant="text" color="error" onClick={() => onDeleteButtonClickHandler(product._id, 'product')}>
+                                                    Delete
+                                                </Button>
+                                            </TableCell>
+                                        </>
+                                    )
+                                    : ''
+                            }
+
                         </StyledTableRow>
                     ))
                 }

@@ -9,7 +9,7 @@ import Stack from '@mui/material/Stack';
 
 
 function IsLoggedInBottomBarButtons() {
-    const { user, isOperator, isAdmin } = useAuthContext() as any;
+    const { user, isHairdresser, isOperator, isAdmin } = useAuthContext() as any;
     const userRole = getUserRole(user.role)
 
     return (
@@ -18,11 +18,11 @@ function IsLoggedInBottomBarButtons() {
 
                 <Typography variant='body1'>
                     Hello, {user.firstName}
-                    <i>{isAdmin || isOperator ? ` (${userRole.capitalized})` : ''}</i>
+                    <i>{isAdmin || isOperator || isHairdresser ? ` (${userRole.capitalized})` : ''}</i>
                 </Typography>
 
                 {
-                    (isAdmin || isOperator)
+                    (isAdmin || isOperator || isHairdresser)
                         ? <OperatorAdminButtons />
                         : ''
                 }

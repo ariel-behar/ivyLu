@@ -8,6 +8,7 @@ import TableHead from "@mui/material/TableHead"
 import TableRow from "@mui/material/TableRow"
 import StyledTableCell from './StyledTableCell'
 import StyledTableRow from './StyledTableRow'
+import { useAuthContext } from '../../contexts/AuthContext'
 
 
 interface ServiceDataTableInterface {
@@ -19,6 +20,8 @@ function ServiceDataTable({
     entity,
     onDeleteButtonClickHandler
 }: ServiceDataTableInterface) {
+    const { isAdmin, isOperator } = useAuthContext() as any;
+
     return (
         <>
             <TableHead>
@@ -29,9 +32,16 @@ function ServiceDataTable({
                     <StyledTableCell>Additional Comments</StyledTableCell>
                     <StyledTableCell>Duration</StyledTableCell>
                     <StyledTableCell>Price</StyledTableCell>
-                    
-                    <StyledTableCell align='center'>Edit</StyledTableCell>
-                    <StyledTableCell align='center'>Delete</StyledTableCell>
+                    {
+                        (isAdmin || isOperator)
+                            ? (
+                                <>
+                                    <StyledTableCell align='center'>Edit</StyledTableCell>
+                                    <StyledTableCell align='center'>Delete</StyledTableCell>
+                                </>
+                            )
+                            : ''
+                    }
                 </TableRow>
             </TableHead>
             <TableBody>
@@ -48,14 +58,25 @@ function ServiceDataTable({
                             <TableCell>{service.additionalComments}</TableCell>
                             <TableCell >{service.duration} hrs</TableCell>
                             <TableCell >{service.price} BGN</TableCell>
-                            
-                            <TableCell align='center'><Button variant="text">Edit</Button></TableCell>
-                            
-                            <TableCell align='center'>
-                                <Button variant="text" color="error" onClick={() => onDeleteButtonClickHandler(service._id, 'service')}>
-                                    Delete 
-                                </Button>
-                            </TableCell>
+
+
+                            {
+                                (isAdmin || isOperator)
+                                    ? (
+                                        <>
+                                            <TableCell align='center'><Button variant="text">Edit</Button></TableCell>
+
+                                            <TableCell align='center'>
+                                                <Button variant="text" color="error" onClick={() => onDeleteButtonClickHandler(service._id, 'service')}>
+                                                    Delete
+                                                </Button>
+                                            </TableCell>
+                                        </>
+                                    )
+                                    : ''
+                            }
+
+
                         </StyledTableRow>
                     ))
                 }

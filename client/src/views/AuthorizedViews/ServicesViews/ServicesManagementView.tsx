@@ -1,25 +1,34 @@
-import Button from '@mui/material/Button';
-import { Outlet, Link as RouterLink,  } from 'react-router-dom';
+import { useAuthContext } from '../../../contexts/AuthContext';
 
+
+import { Outlet, Link as RouterLink, } from 'react-router-dom';
+
+import CreateButton from '../../../components/CreateButton';
+
+import Button from '@mui/material/Button';
 import AddIcon from '@mui/icons-material/Add';
-import { Stack } from '@mui/system';
+import Stack from '@mui/system/Stack';
+
+
 
 function ServicesManagementView() {
+    const { isOperator, isAdmin } = useAuthContext() as any;
+
     return (
         <>
             <div>ServicesManagementView</div>
-            <Stack direction='row' justifyContent='end'>
-                <Button
-                    to='/management/services/create'
-                    variant='text'
-                    size='small'
-                    sx={{ marginTop: '20px', marginBottom: '20px' }}
-                    component={RouterLink}
-                    endIcon={<AddIcon />}
-                >
-                    Create Service
-                </Button>
-            </Stack>
+
+            {
+                (isOperator || isAdmin)
+                    ? (
+                        <Stack direction='row' justifyContent='end'>
+                            <CreateButton item={'Service'} />
+                        </Stack>
+                    )
+                    : ""
+
+            }
+
 
             <Outlet />
         </>
