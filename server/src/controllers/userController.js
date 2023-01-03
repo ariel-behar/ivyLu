@@ -1,18 +1,20 @@
 import { Router } from 'express';
 import bcrypt from 'bcrypt'
 
-import * as staffServices from '../services/staffServices.js'
-import * as clientServices from '../services/clientServices.js'
+import * as userServices from '../services/userServices.js'
 
 import generateAuthToken from '../utils/generateAuthToken.js'
 
 const router = Router()
 
 router.get('/', async (req, res) => {
+    let userEntity = req.userEntity
+
     if(Object.entries(req.query).length > 0) {
         let filters = req.query;
         try {
-            let users = await staffServices.getManyFilteredBy(filters);
+            
+            let users = await userServices.getManyFilteredBy(userEntity, filters);
     
             res.json(users)
         } catch (err) {
@@ -20,22 +22,25 @@ router.get('/', async (req, res) => {
         }
     }  else {
         try {
-            let users = await staffServices.getAll();
+            let users = await userServices.getAll(userEntity);
     
             res.json(users)
         } catch (err) {
             res.status(500).send(err)
         }
     }
-
-    
 })
 
 router.post('/register', async (req, res) => {
     let { firstName, lastName, email, phone, gender, role, imgUrl, password } = req.body;
+    let userEntity = req.userEntity;
 
     try {
-        let userExists = await staffServices.getOneByEmail(email);
+        let userExists = await userServices.getOneByEmail('Client', email);
+
+        if(!userExists) {
+            userExists = await userServices.getOneByEmail('Staff', email);
+        }
         
         if(userExists){
            throw {statusCode: 403, message: "This email address is already being used by another user."}
@@ -44,10 +49,12 @@ router.post('/register', async (req, res) => {
                 let userResponse;
 
                 if(imgUrl) {
-                    userResponse = await staffServices.register({firstName, lastName,email, phone, gender, role, imgUrl, password });
+                    userResponse = await userServices.register(userEntity, {firstName, lastName,email, phone, gender, role, imgUrl, password });
                 } else {
-                    userResponse = await staffServices.register({firstName, lastName,email, phone, gender, role, password });
+                    userResponse = await userServices.register(userEntity, {firstName, lastName,email, phone, gender, role, password });
                 }
+
+                console.log(userResponse)
 
                 if (userResponse) {
                     let user = {
@@ -61,9 +68,9 @@ router.post('/register', async (req, res) => {
                         imgUrl: userResponse.imgUrl
                     };
         
-                    let AUTH_TOKEN = generateAuthToken(user);
+                    let authToken = generateAuthToken(user);
 
-                    return res.json({ ...user, AUTH_TOKEN });
+                    return res.json({ ...user, authToken });
                 }
             } catch(err) {
                 res.status(400).send(err)
@@ -77,12 +84,13 @@ router.post('/register', async (req, res) => {
 
 router.post('/login', async (req, res) => {
     const {email, password} = req.body;
+    
 
     try {
-        let userResponse = await staffServices.login(email)
+        let userResponse = await userServices.login('Client',email)
 
         if(!userResponse) {
-            userResponse = await clientServices.login(email)
+            userResponse = await userServices.login('Staff', email)
         }
 
         if(userResponse) {
@@ -100,9 +108,9 @@ router.post('/login', async (req, res) => {
                     imgUrl: userResponse.imgUrl
                 };
 
-                let AUTH_TOKEN = generateAuthToken(user);
+                let authToken = generateAuthToken(user);
 
-                return res.json({ ...user, AUTH_TOKEN });
+                return res.json({ ...user, authToken });
                 
             } else {
                 throw {statusCode: 401, message: 'Username or password are incorrect.' }
@@ -117,9 +125,10 @@ router.post('/login', async (req, res) => {
 
 router.get('/:userId/delete', async (req, res) => {
     let userId = req.params.userId
+    let userEntity = req.userEntity
 
     try {
-        let deleteUserResponse = await staffServices.deleteOne(userId);
+        let deleteUserResponse = await userServices.deleteOne(userEntity, userId);
 
         if (deleteUserResponse) {
             res.json({message: 'Record has successfully been deleted'});
