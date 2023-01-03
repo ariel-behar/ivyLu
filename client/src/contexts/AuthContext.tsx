@@ -12,7 +12,7 @@ const initialUserState = {
     phone: '',
     gender: '',
     role: '',
-    AUTH_TOKEN: '',
+    authToken: '',
 };
 
 type AuthProviderProps = {
