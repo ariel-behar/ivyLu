@@ -47,11 +47,11 @@ export const isOperatorAdmin = function (req, res, next) {
 
 
 export const isGuest = function (req, res, next) {
-    let user = res.locals.user;
-    
-    if(!user) {
-        next()
-    } else {
-        return res.status(401).json({ message: 'You need to log out in order to be able to log in.' })
+    let userAuthToken = req.headers['auth-token']
+
+    if (!userAuthToken) {
+        return next()
     }
+
+    return res.status(401).json({ message: 'You need to log out in order to be able to log in.' })
 }

@@ -80,7 +80,7 @@ router.post('/register', async (req, res) => {
 
 })
 
-router.post('/login', isAuth, isGuest, async (req, res) => {
+router.post('/login', isGuest, async (req, res) => {
     const {email, password} = req.body;
     
     try {
