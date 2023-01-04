@@ -40,13 +40,13 @@ function ConfirmationDialog({
             let navigateTo = ''
 
             if (itemToDelete.entity === 'service') {
-                deleteResponse = await clientServices.deleteOne(itemToDelete._id, undefined, user.AUTH_TOKEN);
+                deleteResponse = await clientServices.deleteOne(itemToDelete._id, undefined, user.authToken);
                 navigateTo = 'services';
             } else if (itemToDelete.entity === 'product') {
-                deleteResponse = await clientServices.deleteOne(itemToDelete._id, undefined, user.AUTH_TOKEN);
+                deleteResponse = await clientServices.deleteOne(itemToDelete._id, undefined, user.authToken);
                 navigateTo = 'prodcuts';
             } else if (itemToDelete.entity === 'client' || itemToDelete.entity === 'staff') {
-                deleteResponse = await userServices.deleteOne(itemToDelete._id, undefined, user.AUTH_TOKEN);
+                deleteResponse = await userServices.deleteOne(itemToDelete._id, undefined, user.authToken);
                 navigateTo = itemToDelete.entity === 'client' ? 'clients' : 'staff';
             }            
 

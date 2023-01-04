@@ -1,4 +1,6 @@
 import {Router} from 'express'
+import { isAuth, isOperatorAdmin } from '../middlewares/authMiddleware.js';
+
 import * as serviceServices from '../services/serviceServices.js'
 
 const router = Router();
@@ -25,7 +27,7 @@ router.get('/:serviceId', async (req, res) => {
     }
 })
 
-router.post('/create', async (req, res) => {
+router.post('/create', isAuth, isOperatorAdmin, async (req, res) => {
     let { title, description, additionalComments, imgUrl, price, duration, status, creatorId } = req.body;
 
     try {
@@ -59,7 +61,7 @@ router.post('/create', async (req, res) => {
     }
 })
 
-router.post('/:serviceId/edit', async (req, res) => {
+router.post('/:serviceId/edit',isAuth, isOperatorAdmin, async (req, res) => {
     let serviceId = req.params.serviceId
     let { title, description, additionalComments, imgUrl, price, duration, status } = req.body;
 
@@ -90,7 +92,7 @@ router.post('/:serviceId/edit', async (req, res) => {
 
 })
 
-router.get('/:serviceId/delete', async (req, res) => {
+router.get('/:serviceId/delete',isAuth, isOperatorAdmin, async (req, res) => {
     let serviceId = req.params.serviceId
 
     try {

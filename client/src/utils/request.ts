@@ -1,6 +1,6 @@
 type headersType = {
     'Content-Type'?: string,
-    'authToken'?: string
+    'Auth-Token'?: string
 }
 
 type optionsType = {
@@ -22,7 +22,7 @@ const request = (url: string, method: string, body?: object, authToken?: string)
     }
 
     if (authToken) {
-        headers['authToken'] = authToken;
+        headers['Auth-Token'] = authToken;
     }
 
     let options: optionsType = {

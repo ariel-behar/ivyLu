@@ -2,19 +2,19 @@ import { Router } from 'express';
 import bcrypt from 'bcrypt'
 
 import * as userServices from '../services/userServices.js'
+import {isAuth, isGuest} from '../middlewares/authMiddleware.js'
 
 import generateAuthToken from '../utils/generateAuthToken.js'
 
 const router = Router()
 
 router.get('/', async (req, res) => {
-    let userEntity = req.userEntity
 
     if(Object.entries(req.query).length > 0) {
         let filters = req.query;
         try {
             
-            let users = await userServices.getManyFilteredBy(userEntity, filters);
+            let users = await userServices.getManyFilteredBy('Client', filters);
     
             res.json(users)
         } catch (err) {
@@ -22,10 +22,11 @@ router.get('/', async (req, res) => {
         }
     }  else {
         try {
-            let users = await userServices.getAll(userEntity);
+            let users = await userServices.getAll('Client');
     
             res.json(users)
         } catch (err) {
+            
             res.status(500).send(err)
         }
     }
@@ -33,7 +34,6 @@ router.get('/', async (req, res) => {
 
 router.post('/register', async (req, res) => {
     let { firstName, lastName, email, phone, gender, role, imgUrl, password } = req.body;
-    let userEntity = req.userEntity;
 
     try {
         let userExists = await userServices.getOneByEmail('Client', email);
@@ -49,12 +49,10 @@ router.post('/register', async (req, res) => {
                 let userResponse;
 
                 if(imgUrl) {
-                    userResponse = await userServices.register(userEntity, {firstName, lastName,email, phone, gender, role, imgUrl, password });
+                    userResponse = await userServices.register('Client', {firstName, lastName,email, phone, gender, role, imgUrl, password });
                 } else {
-                    userResponse = await userServices.register(userEntity, {firstName, lastName,email, phone, gender, role, password });
+                    userResponse = await userServices.register('Client', {firstName, lastName,email, phone, gender, role, password });
                 }
-
-                console.log(userResponse)
 
                 if (userResponse) {
                     let user = {
@@ -82,10 +80,9 @@ router.post('/register', async (req, res) => {
 
 })
 
-router.post('/login', async (req, res) => {
+router.post('/login', isAuth, isGuest, async (req, res) => {
     const {email, password} = req.body;
     
-
     try {
         let userResponse = await userServices.login('Client',email)
 
@@ -119,16 +116,19 @@ router.post('/login', async (req, res) => {
             throw {statusCode: 401, message: 'Username or password are incorrect.' }
         }
     } catch (err) {
-        res.status(err.statusCode).send(err)
+        if(err.hasOwnProperty('statusCode')){
+            res.status(err.statusCode).send(err)
+        } else {
+            res.status(400).send(err)
+        }
     }
 })
 
 router.get('/:userId/delete', async (req, res) => {
     let userId = req.params.userId
-    let userEntity = req.userEntity
 
     try {
-        let deleteUserResponse = await userServices.deleteOne(userEntity, userId);
+        let deleteUserResponse = await userServices.deleteOne('Client', userId);
 
         if (deleteUserResponse) {
             res.json({message: 'Record has successfully been deleted'});

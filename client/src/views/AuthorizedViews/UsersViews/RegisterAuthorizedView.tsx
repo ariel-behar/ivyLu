@@ -23,6 +23,7 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import { CardMedia, Typography } from '@mui/material';
 import { IMAGE_URL_REGEX } from '../../../utils/regex';
+import { useAuthContext } from '../../../contexts/AuthContext';
 
 const userServices: ApiUser<IdType, User, AuthTokenType> = new ApiUserImpl<IdType, User, AuthTokenType>('staff');
 
@@ -42,6 +43,7 @@ function RegisterAuthorizedView() {
 	const [gender, setGender] = useState<string>('female')
 	const [role, setRole] = useState<number>(2)
 	const { displayNotification } = useNotificationContext() as any;
+	const { user } = useAuthContext() as any;
 	const [previewImgUrl, setPreviewImageUrl] = useState<string>('')
 	const navigate = useNavigate();
 
@@ -71,10 +73,10 @@ function RegisterAuthorizedView() {
 			imgUrl = data.imgUrl
 		}
 
-		const user = new AuthUserRegisterDTO(firstName, lastName, email, phone, gender, password, role, imgUrl)
+		const newUser = new AuthUserRegisterDTO(firstName, lastName, email, phone, gender, password, role, imgUrl)
 
 		try {
-			let registerUserResponse = await userServices.register(user as User)
+			let registerUserResponse = await userServices.register(newUser as User, user.authToken)
 
 			if (registerUserResponse) {
 				displayNotification({ message: 'Record has succesfully been created' }, 'success')

@@ -4,9 +4,9 @@ import request from "../utils/request";
 let baseUrl = 'http://localhost:3030'
 
 export interface ApiUser<I, E extends Identifiable<I>, A extends AuthTokenType> {
-    register(userWithoutId: Omit<E, 'id'>): Promise<E>;
+    register(userWithoutId: Omit<E, 'id'>, authToken?: A): Promise<E>;
     login(user: E): Promise<E>;
-    getAll(): Promise<E[]>;
+    getAll(authToken?: A): Promise<E[]>;
     getManyFilteredBy(filter: object): Promise<E[]>
     update(entityId: I, entity: E, authToken: A): Promise<E>;
     deleteOne(entityId: I, entity: undefined, authToken: A): Promise<string>;
@@ -15,16 +15,16 @@ export interface ApiUser<I, E extends Identifiable<I>, A extends AuthTokenType> 
 export class ApiUserImpl<I, E extends Identifiable<I>, A extends AuthTokenType> implements ApiUser<I, E, A> {
     constructor(public apiCollectionSuffix: string) {}
     
-    register(userWithoutId: Omit<E, "id">): Promise<E> {
-        return request(`${baseUrl}/${this.apiCollectionSuffix}/register`, 'POST', userWithoutId);
+    register(userWithoutId: Omit<E, "id">, authToken?: A): Promise<E> {
+        return request(`${baseUrl}/${this.apiCollectionSuffix}/register`, 'POST', userWithoutId, authToken);
     }
 
     login(user: E): Promise<E> {
         return request(`${baseUrl}/${this.apiCollectionSuffix}/login`, 'POST', user);
     }
 
-    getAll(): Promise<E[]> {
-        return request(`${baseUrl}/${this.apiCollectionSuffix}`, 'GET');
+    getAll(authToken?: A): Promise<E[]> {
+        return request(`${baseUrl}/${this.apiCollectionSuffix}`, 'GET', undefined, authToken);
     }
 
     getManyFilteredBy(filter: object): Promise<E[]> {

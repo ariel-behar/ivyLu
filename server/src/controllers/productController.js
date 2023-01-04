@@ -1,4 +1,5 @@
 import { Router } from 'express'
+import { isAuth, isOperatorAdmin } from '../middlewares/authMiddleware.js';
 
 import * as productServices from '../services/productServices.js'
 
@@ -26,7 +27,7 @@ router.get('/:productId', async (req, res) => {
     }
 })
 
-router.post('/create', async (req, res) => {
+router.post('/create', isAuth, isOperatorAdmin, async (req, res) => {
     let { title, description, additionalComments, imgUrl, price, volume, volumeMeasurementUnit, productCode, status, creatorId } = req.body;
 
     try {
@@ -63,7 +64,7 @@ router.post('/create', async (req, res) => {
     }
 })
 
-router.post('/:productId/edit', async (req, res) => {
+router.post('/:productId/edit',isAuth, isOperatorAdmin, async (req, res) => {
     let productId = req.params.productId
     let { title, description, additionalComments, imgUrl, price, volume, volumeMeasurementUnit, productCode, status } = req.body;
 
@@ -95,7 +96,7 @@ router.post('/:productId/edit', async (req, res) => {
     }
 })
 
-router.get('/:productId/delete', async (req, res) => {
+router.get('/:productId/delete',isAuth, isOperatorAdmin, async (req, res) => {
     let productId = req.params.productId
 
     try {
