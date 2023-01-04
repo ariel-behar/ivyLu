@@ -32,6 +32,7 @@ import ClientsAdminView from "../views/AuthorizedViews/UsersViews/ClientsAdminVi
 import RegisterAuthorizedView from "../views/AuthorizedViews/UsersViews/RegisterAuthorizedView";
 import { getAllHairdressers, getAllStaffLoader } from "../data-loaders/staffLoader";
 import StaffAdminView from "../views/AuthorizedViews/UsersViews/StaffAdminView";
+import ScheduleManagementView from "../views/AuthorizedViews/ScheduleViews/ScheduleManagementView";
 
 const router = createBrowserRouter([
 	{
@@ -106,6 +107,10 @@ const router = createBrowserRouter([
 					{
 						path: 'orders',
 						element: <OrdersManagementView />
+					},
+					{
+						path: 'schedule',
+						element: <ScheduleManagementView />
 					},
 					{
 						path: 'services',

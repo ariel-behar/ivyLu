@@ -63,6 +63,14 @@ function OperatorAdminButtons() {
                 <MenuItem
                     onClick={handleClose}
                     component={RouterNavLink}
+                    to='/management/schedule'
+                    sx={{ '&.active': { fontWeight: 'fontWeightBold' }}}
+                >
+                    Schedule
+                </MenuItem>
+                <MenuItem
+                    onClick={handleClose}
+                    component={RouterNavLink}
                     to='/management/services'
                     sx={{ '&.active': { fontWeight: 'fontWeightBold' } }}
                 >

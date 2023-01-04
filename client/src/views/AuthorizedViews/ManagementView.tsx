@@ -30,6 +30,15 @@ function ManagementView() {
                     <Link
                         mx={2}
                         underline="hover"
+                        to="/management/schedule"
+                        component={RouterNavLink}
+                        sx={{ '&.active': { fontWeight: 'fontWeightBold' } }}
+                    >
+                        Schedule
+                    </Link>
+                    <Link
+                        mx={2}
+                        underline="hover"
                         to="/management/services"
                         component={RouterNavLink}
                         sx={{ '&.active': { fontWeight: 'fontWeightBold' } }}
