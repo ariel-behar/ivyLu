@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import { getAllServicesLoader, getOneServicesLoader } from '../data-loaders/servicesLoader'
+import { getAllServicesLoader, getOneServicesAndHairdressersLoader, getOneServicesLoader } from '../data-loaders/servicesLoader'
 import { getAllProductsLoader, getOneProductsLoader } from "../data-loaders/productsLoader";
 import { getAllClientsLoader } from "../data-loaders/clientsLoader";
 
@@ -8,7 +8,6 @@ import DashboardView from "../views/DashboardView";
 import LoginView from "../views/LoginView";
 import ProductsView from "../views/ProductsView";
 import RegisterView from "../views/RegisterView";
-import ServicesView from "../views/ServiceViews/ServicesView";
 import HomeView from "../views/HomeView";
 import LogoutView from "../views/LogoutView";
 import ErrorView from "../views/ErrorView";
@@ -23,16 +22,16 @@ import CreateProduct from "../views/AuthorizedViews/ProductViews/CreateProduct";
 import EditProduct from "../views/AuthorizedViews/ProductViews/EditProduct";
 import AboutView from "../views/AboutView";
 import ServiceDetailsView from "../views/ServiceViews/ServiceDetailsView";
-import ServicesGuestCustomerView from "../views/ServiceViews/ServicesGuestCustomerView";
+import ServicesView from "../views/ServiceViews/ServicesView";
 import ServicesManagementView from "../views/AuthorizedViews/ServicesViews/ServicesManagementView";
-import ServiceScheduleView from "../views/ServiceViews/ServiceScheduleView";
 import ProductsOperatorAdminView from "../views/AuthorizedViews/ProductViews/ProductsOperatorAdminView";
 import OurTeamView from "../views/OurTeamView";
 import ClientsAdminView from "../views/AuthorizedViews/UsersViews/ClientsAdminView";
 import RegisterAuthorizedView from "../views/AuthorizedViews/UsersViews/RegisterAuthorizedView";
 import { getAllHairdressers, getAllStaffLoader } from "../data-loaders/staffLoader";
 import StaffAdminView from "../views/AuthorizedViews/UsersViews/StaffAdminView";
-import ScheduleManagementView from "../views/AuthorizedViews/ScheduleViews/ScheduleManagementView";
+import ScheduleManagementView from "../views/AuthorizedViews/Schedule/ScheduleManagementView";
+import ServicesGuestCustomerView from "../views/ServiceViews/ServicesGuestCustomerView";
 
 const router = createBrowserRouter([
 	{
@@ -72,14 +71,9 @@ const router = createBrowserRouter([
 						element: <ServicesGuestCustomerView />
 					},
 					{
-						path: ':serviceId/details',
-						loader: getOneServicesLoader,
-						element: <ServiceDetailsView />
-					},
-					{
 						path: ':serviceId/schedule',
-						loader: getOneServicesLoader,
-						element: <ServiceScheduleView />
+						loader: getOneServicesAndHairdressersLoader,
+						element: <ServiceDetailsView />
 					}
 				]
 			},

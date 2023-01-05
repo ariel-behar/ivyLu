@@ -51,7 +51,6 @@ function ServicesGuestCustomerView() {
                                     justifyContent='space-around'
                                     spacing={1}
                                     py={2}
-                                    px={1}
                                     width='100%'
                                     position='absolute'
                                     bottom='0'
@@ -60,7 +59,12 @@ function ServicesGuestCustomerView() {
                                     }}
                                 >
                                     <Button variant="contained" to={`/services/${service._id}/schedule`} component={RouterLink}>Schedule</Button>
-                                    <Button variant="contained" to={`/services/${service._id}/details`} component={RouterLink}>Details</Button>
+
+                                    <Stack direction='column'>
+                                        <Typography variant="body1" sx={{ color: 'common.white' }}>Duration: <b> {service.duration} hrs</b></Typography>
+                                        <Typography variant="body1" sx={{ color: 'common.white' }}>Price: <b>{service.price} BGN</b></Typography>
+
+                                    </Stack>
                                 </Stack>
                             </ImageListItem>
 
