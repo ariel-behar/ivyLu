@@ -8,7 +8,7 @@ import { isAuth, isAdmin, isGuest } from '../middlewares/authMiddleware.js';
 
 const router = Router()
 
-router.get('/', isAuth, isAdmin, async (req, res) => {
+router.get('/', async (req, res) => {
 
     if (Object.entries(req.query).length > 0) {
         let filters = req.query;
