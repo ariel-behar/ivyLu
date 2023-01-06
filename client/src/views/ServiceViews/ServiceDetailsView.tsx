@@ -42,8 +42,7 @@ type FormData = {
 const scheduleServices: ApiSchedule<IdType, Schedule, AuthTokenType> = new ApiScheduleImpl<IdType, Schedule, AuthTokenType>('schedule');
 
 function ServiceDetailsView() {
-	const { service } = useLoaderData() as { service: Service };
-	const { hairdressers } = useLoaderData() as { hairdressers: User[] };
+	const { service, hairdressers } = useLoaderData() as { service: Service, hairdressers: User[] };
 	const { user, isClient } = useAuthContext() as any;
 	const { displayNotification } = useNotificationContext() as any;
 	const [selectedHairdresser, setSelectedHairdresser] = useState<User | ''>('')
@@ -55,13 +54,13 @@ function ServiceDetailsView() {
 	const [showConfirmationView, setShowConfirmationView] = useState<boolean>(false)
 	const [createdScheduledItem, setCreatedScheduledItem] = useState<object | ScheduledItemConfirmationResponseInterface>({})
 
-	const { register, handleSubmit, formState: { errors, isDirty, isValid } } = useForm<FormData>({
-		mode: 'onBlur',
+	const { register, handleSubmit, formState: { errors, isValid } } = useForm<FormData>({
+		mode: 'onChange',
 		resolver: yupResolver(addScheduleFormSchema),
 		defaultValues: {
 			hairdresser: '',
 			appointmentDate: new Date(),
-			appointmentHour: availableSchedulingHours[0]
+			appointmentHour: filteredAvailableShedulingHours[0]
 		}
 	})
 
@@ -161,7 +160,9 @@ function ServiceDetailsView() {
 					? <ConfirmationView entity={createdScheduledItem as ScheduledItemConfirmationResponseInterface} entityType='service' />
 					:
 					<>
-						<BackToButton whereTo="services" />
+						<Stack direction='row' justifyContent='right' mb={3}>
+							<BackToButton whereTo="services" />
+						</Stack>
 						<Paper>
 							<Grid container>
 								<Grid item md={6}>
@@ -187,93 +188,95 @@ function ServiceDetailsView() {
 
 									{isClient &&
 										<form onSubmit={handleSubmit(onFormSubmit)}>
-											<TextField
-												required
-												label='Select Hairdresser'
-												select
-												value={selectedHairdresser !== '' ? selectedHairdresser._id : ''}
-												{...register('hairdresser')}
-												onChange={onHairdresserChange}
-												variant="outlined"
-												size="small"
-												fullWidth
-												error={errors.hairdresser ? true : false}
-												helperText={errors.hairdresser ? errors.hairdresser.message : ''}
-											>
-												{
-													Object.values(hairdressers).map(hairdresser => (
-														<MenuItem
-															key={uniqid()}
-															value={hairdresser._id}
-														>
-															{`${hairdresser.firstName} ${hairdresser.lastName}`}
-														</MenuItem>
-													))
-												}
-											</TextField>
-
-											{
-												selectedHairdresser &&
-												<>
-													<TextField
-														required
-														variant='outlined'
-														onClick={toggleCalendarState}
-														label="Select Appointment Date"
-														{...register('appointmentDate')}
-														value={format(selectedAppointmentDate, "d MMMM, yyyy")}
-														size="small"
-														fullWidth
-														error={errors.appointmentDate ? true : false}
-														helperText={errors.appointmentDate ? errors.appointmentDate.message : ''}
-													/>
-
+											<Stack spacing={2} p={2}>
+												<TextField
+													required
+													label='Select Hairdresser'
+													select
+													value={selectedHairdresser !== '' ? selectedHairdresser._id : ''}
+													{...register('hairdresser')}
+													onChange={onHairdresserChange}
+													variant="outlined"
+													size="small"
+													fullWidth
+													error={errors.hairdresser ? true : false}
+													helperText={errors.hairdresser ? errors.hairdresser.message : ''}
+												>
 													{
-														isCalendarOpen &&
-														<DatePicker
-															selected={selectedAppointmentDate}
-															highlightDates={[new Date()]}
-															minDate={new Date()}
-															showDisabledMonthNavigation
-															onChange={(date: Date) => {
-																onDateChange(date)
-															}}
-															inline
-														/>
+														Object.values(hairdressers).map(hairdresser => (
+															<MenuItem
+																key={uniqid()}
+																value={hairdresser._id}
+															>
+																{`${hairdresser.firstName} ${hairdresser.lastName}`}
+															</MenuItem>
+														))
 													}
+												</TextField>
 
-													<TextField
-														required
-														label='Select Available Hour'
-														select
-														value={selectedAppointmentHour}
-														{...register('appointmentHour')}
-														onChange={onHourChange}
-														variant="outlined"
-														size="small"
-														fullWidth
-														sx={{ maxHeight: '100px' }}
-														error={errors.appointmentHour ? true : false}
-														helperText={errors.appointmentHour ? errors.appointmentHour.message : ''}
-													>
+												{
+													selectedHairdresser &&
+													<>
+														<TextField
+															required
+															variant='outlined'
+															onClick={toggleCalendarState}
+															label="Select Appointment Date"
+															{...register('appointmentDate')}
+															value={format(selectedAppointmentDate, "d MMMM, yyyy")}
+															size="small"
+															fullWidth
+															error={errors.appointmentDate ? true : false}
+															helperText={errors.appointmentDate ? errors.appointmentDate.message : ''}
+														/>
+
 														{
-															filteredAvailableShedulingHours.map(hour => (
-																<MenuItem key={uniqid()} value={hour}>{hour}</MenuItem>
-															))
+															isCalendarOpen &&
+															<DatePicker
+																selected={selectedAppointmentDate}
+																highlightDates={[new Date()]}
+																minDate={new Date()}
+																showDisabledMonthNavigation
+																onChange={(date: Date) => {
+																	onDateChange(date)
+																}}
+																inline
+															/>
 														}
-													</TextField>
 
-													<Button
-														sx={{ display: 'block' }}
-														variant='contained'
-														style={{ marginTop: '10px' }}
-														type="submit"
-														disabled={isDirty && isValid}
-													>
-														Create Appointment
-													</Button>
-												</>
-											}
+														<TextField
+															required
+															label='Select Available Hour'
+															select
+															value={selectedAppointmentHour}
+															{...register('appointmentHour')}
+															onChange={onHourChange}
+															variant="outlined"
+															size="small"
+															fullWidth
+															sx={{ maxHeight: '100px' }}
+															error={errors.appointmentHour ? true : false}
+															helperText={errors.appointmentHour ? errors.appointmentHour.message : ''}
+														>
+															{
+																filteredAvailableShedulingHours.map(hour => (
+																	<MenuItem key={uniqid()} value={hour}>{hour}</MenuItem>
+																))
+															}
+														</TextField>
+
+														<Button
+															sx={{ display: 'block' }}
+															variant='contained'
+															style={{ marginTop: '10px' }}
+															type="submit"
+															disabled={!(isValid)}
+														>
+															Create Appointment
+														</Button>
+													</>
+												}
+											</Stack>
 										</form>
 									}
 								</Grid>

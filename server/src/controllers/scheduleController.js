@@ -45,6 +45,7 @@ router.post('/create', isAuth, isClient, async (req, res) => {
         let formattedDateISO = format(new Date(date), "dd/MM/yyyy")
 
         let appointmentExists = await scheduleServices.findOneByHairdresserDateAndHour(hairdresserId, formattedDateISO, hour)
+        console.log('appointmentExists:', appointmentExists)
 
         if (appointmentExists) {
             throw {statusCode: 403, message: "An appointment on this Date and Hour already exists. Please pick another time"}

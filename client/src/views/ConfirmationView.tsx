@@ -1,7 +1,9 @@
+import Box from "@mui/material/Box"
 import Container from "@mui/material/Container"
 import Paper from "@mui/material/Paper"
 import Stack from "@mui/material/Stack"
 import Typography from "@mui/material/Typography"
+import BackToButton from "../components/BackToButton"
 import GoToDashboardButton from "../components/GoToDashboardButton"
 import ServiceAppointmentConfirmationCard from "../components/ServiceAppointmentConfirmationCard"
 import { ScheduledItemConfirmationResponseInterface } from "../types/common/scheduleTypes"
@@ -18,7 +20,7 @@ function ConfirmationView({ entity, entityType }: ConfirmationViewProps) {
             <div>ConfirmationView</div>
             <Container>
 
-                <Stack spacing={4} mb={3}>
+                <Stack >
                     {
                         entityType === 'service'
                         && <Typography variant="h4" textAlign='center'>You have successfully made your appointment!</Typography>
@@ -29,12 +31,19 @@ function ConfirmationView({ entity, entityType }: ConfirmationViewProps) {
                         && <Typography variant="body1">You have successfully ordererd your product!</Typography>
                     }
 
-                    <Stack direction='row' justifyContent='space-between'>
+                    <Stack direction='row' justifyContent='space-between' mt={5} mb={1}>
                         <Typography variant="h6">Here are the confirmation details:</Typography>
-                        <GoToDashboardButton />
+
+                        <Stack direction='row' justifyContent='right'>
+                            <BackToButton whereTo="services" />
+
+                            <Box width='50px' ></Box>
+                            
+                            <GoToDashboardButton />
+                        </Stack>
                     </Stack>
 
-                    <Paper elevation={5} sx={{marginTop: '0!important'}}>
+                    <Paper elevation={5} >
                         {
                             entityType === 'service'
                             && <ServiceAppointmentConfirmationCard service={entity as ScheduledItemConfirmationResponseInterface} />
