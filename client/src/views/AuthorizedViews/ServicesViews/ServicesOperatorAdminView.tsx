@@ -1,45 +1,28 @@
-import { useState } from "react";
-import { useLoaderData,} from "react-router-dom";
-import uniqid from "uniqid";
+import { useLoaderData } from "react-router-dom";
 
-import { Service } from "../../../models/Service";
-import { IdType } from "../../../types/common/commonTypes";
+import { useAuthContext } from "../../../contexts/AuthContext";
 
-import ConfirmationDialog from "../../../components/Common/ConfirmationDialog";
-import MediaCard from "../../../components/MediaCard";
-
-import Grid from "@mui/material/Grid";
 import DataTable from "../../../components/DataTable/DataTable";
-
+import Stack from "@mui/material/Stack";
+import CreateButton from "../../../components/CreateButton";
+import { Service } from "../../../models/Service";
 
 function ServicesOperatorAdminView() {
     const services = useLoaderData() as Service[];
+    const { isOperator, isAdmin } = useAuthContext() as any;
 
 
     return (
         <>
             <div>ServicesOperatorAdminView</div>
 
-            <DataTable entityType={"service"} entities={services} />
+            {(isOperator || isAdmin)
+                && <Stack direction='row' justifyContent='end'>
+                    <CreateButton text='Create new Service' whereTo='services' />
+                </Stack>
+            }
             
-            {/* <Grid container spacing={2} >
-                {
-                    services ?
-                        services.map((service: Service) => {
-                            return (
-                                <Grid item lg={3} key={uniqid()}>
-                                    <MediaCard
-                                        key={uniqid()}
-                                        item={service}
-                                        onDeleteButtonClickHandler={onDeleteButtonClickHandler}
-                                    />
-                                </Grid>
-                            )
-                        })
-                        : ''
-                }
-            </Grid> */}
-
+            <DataTable entityType={"service"} entities={services} />
 
         </>
     )

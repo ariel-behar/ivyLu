@@ -110,6 +110,7 @@ function RegisterView() {
 						required
 						id="email"
 						label="E-mail"
+						placeholder='example@email.com'
 						variant="outlined"
 						size="small"
 						{...register('email')}

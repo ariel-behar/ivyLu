@@ -157,6 +157,7 @@ function EditProduct() {
                                 required
                                 fullWidth
                                 label="Product Image"
+                                placeholder='https://...'
                                 variant="outlined"
                                 size="small"
                                 {...register('imgUrl')}

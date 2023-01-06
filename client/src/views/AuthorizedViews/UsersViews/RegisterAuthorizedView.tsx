@@ -56,7 +56,7 @@ function RegisterAuthorizedView() {
 			email: '',
 			phone: undefined,
 			gender: 'female',
-			imgUrl: 'https://...',
+			imgUrl: '',
 			role: 2,
 			password: '',
 			confirmPassword: ''
@@ -98,7 +98,7 @@ function RegisterAuthorizedView() {
 	}
 
 	const onClickCancelButton = (): void => {
-		navigate('/management/users')
+		navigate('/management/staff')
 	}
 
 	const handlePreviewImage = (e: React.FocusEvent<HTMLInputElement>) => {
@@ -143,6 +143,7 @@ function RegisterAuthorizedView() {
 								required
 								id="email"
 								label="E-mail"
+								placeholder='example@email.com'
 								variant="outlined"
 								size="small"
 								{...register('email')}
@@ -188,7 +189,8 @@ function RegisterAuthorizedView() {
 							<Box width='100%' component='div' onBlur={handlePreviewImage}>
 								<TextField
 									fullWidth
-									label="User Picture"
+									label="User Image"
+									placeholder='https://...'
 									variant="outlined"
 									size="small"
 									{...register('imgUrl')}

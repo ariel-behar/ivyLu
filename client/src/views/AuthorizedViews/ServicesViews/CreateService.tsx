@@ -61,7 +61,7 @@ function CreateService() {
 			title: '',
 			description: '',
 			additionalComments: '',
-			imgUrl: 'https://...',
+			imgUrl: '',
 			price: 1,
 			duration: undefined,
 			status: 'active'
@@ -152,6 +152,7 @@ function CreateService() {
 								required
 								fullWidth
 								label="Service Image"
+								placeholder='https://...'
 								variant="outlined"
 								size="small"
 								{...register('imgUrl')}

@@ -63,7 +63,7 @@ function CreateProduct() {
 			title: '',
 			description: '',
 			additionalComments: '',
-			imgUrl: 'https://...',
+			imgUrl: '',
 			price: 0,
 			volume: '0',
 			volumeMeasurementUnit: 'milliliters',
@@ -155,6 +155,7 @@ function CreateProduct() {
 								required
 								fullWidth
 								label="Product Image"
+								placeholder='https://...'
 								variant="outlined"
 								size="small"
 								{...register('imgUrl')}

@@ -4,31 +4,25 @@ import { Link as RouterLink, } from 'react-router-dom';
 import AddIcon from '@mui/icons-material/Add';
 
 type CreateButtonProps = {
-	item: 'Service' | 'Product' | 'Staff Member'
+	text: string,
+	whereTo: 'services' | 'products' | 'staff'
 }
 
 function CreateButton({
-	item
+	text,
+	whereTo
 }: CreateButtonProps) {
-
-	const getEntity = () => {
-		if(item === 'Staff Member') {
-			return 'staff'
-		} else {
-			return item.toLowerCase().slice(0, item.length).concat('s')
-		}
-	}
 
 	return (
 		<Button
-			to={`/management/${getEntity()}/create`}
+			to={`/management/${whereTo}/create`}
 			variant='text'
 			size='small'
 			sx={{ marginTop: '20px', marginBottom: '20px' }}
 			component={RouterLink}
 			endIcon={<AddIcon />}
 		>
-			Create {item}
+			{text}
 		</Button>
 	)
 }

@@ -1,13 +1,26 @@
 import { useLoaderData } from 'react-router-dom'
-import DataTable from '../../../components/DataTable/DataTable'
+
+import { useAuthContext } from '../../../contexts/AuthContext';
 import { Product } from '../../../models/Product';
+
+import CreateButton from '../../../components/CreateButton';
+import DataTable from '../../../components/DataTable/DataTable'
+
+import Stack from '@mui/material/Stack';
 
 function ProductsOperatorAdminView() {
     const products = useLoaderData() as Product[];
+    const { isOperator, isAdmin } = useAuthContext() as any;
 
     return (
         <>
             <div>ProductsOperatorAdminView</div>
+
+            {(isOperator || isAdmin)
+                && <Stack direction='row' justifyContent='end'>
+                    <CreateButton text={'Create new Product'} whereTo='products' />
+                </Stack>
+            }
 
             <DataTable entityType={'product'} entities={products} />
         </>

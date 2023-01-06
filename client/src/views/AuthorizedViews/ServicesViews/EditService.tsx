@@ -151,6 +151,7 @@ function EditService() {
                                 required
                                 fullWidth
                                 label="Service Image"
+                                placeholder='https://...'
                                 variant="outlined"
                                 size="small"
                                 {...register('imgUrl')}
