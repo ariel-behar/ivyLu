@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import {format} from 'date-fns/format'
+import format from 'date-fns/format/index.js'
 
 const scheduleSchema = mongoose.Schema({
     clientId: {
@@ -17,33 +17,27 @@ const scheduleSchema = mongoose.Schema({
         ref: 'Service',
         required: true
     },
-    fullDate: {
+    date: {
         type: Date, 
         required: true
     },
-    fullDateISO: {
+    dateISO: {
         type: String,
-        required: true
     },
     day: {
         type: String,
-        required: true
     },
     dayOfWeek: {
         type: String,
-        required: true
     },
     month: {
         type: String,
-        required: true
     },
     monthName: {
         type: String,
-        required: true
     },
     year: {
         type: String,
-        required: true
     },
     hour: {
         type: String,
@@ -54,13 +48,12 @@ const scheduleSchema = mongoose.Schema({
 });
 
 scheduleSchema.pre('save', function (next) {
-    this.fullDateISO = format(this.Date, "dd/MM/yyyy")
-    this.day = format(this.Date, 'dd')
-    this.dayOfWeek = format(this.Date, 'EEEE')
-    this.month = format(this.Date, 'MM')
-    this.monthName = format(this.Date, 'MMMM')
-    this.year = format(this.Date, 'yyyy')
-    this.hour = format(this.Date, 'hh:mm')
+    this.dateISO = format(this.date, "dd/MM/yyyy")
+    this.day = format(this.date, 'dd')
+    this.dayOfWeek = format(this.date, 'EEEE')
+    this.month = format(this.date, 'MM')
+    this.monthName = format(this.date, 'MMMM')
+    this.year = format(this.date, 'yyyy')
 
     next()
 });
