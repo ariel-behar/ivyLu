@@ -75,8 +75,8 @@ router.post('/create', isAuth, isClient, async (req, res) => {
                                 imgUrl: scheduledItemResponse.hairdresserId.imgUrl
                             },
                             service: {
-                                title: scheduledItemResponse.serviceId.firstName,
-                                description: scheduledItemResponse.serviceId.lastName,
+                                title: scheduledItemResponse.serviceId.title,
+                                description: scheduledItemResponse.serviceId.description,
                                 imgUrl: scheduledItemResponse.serviceId.imgUrl,
                                 price: scheduledItemResponse.serviceId.price,
                                 duration: scheduledItemResponse.serviceId.duration,
