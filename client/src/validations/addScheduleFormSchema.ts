@@ -12,6 +12,7 @@ const addScheduleFormSchemaShape = {
     appointmentHour: yup
         .string()
         .oneOf(availableSchedulingHours, 'Appointment hour should be chosen from the hairdresser\'s available time slots')
+        .nullable()
 }
 
 const addScheduleFormSchema = yup.object().shape(addScheduleFormSchemaShape)

@@ -21,11 +21,8 @@ import TextField from '@mui/material/TextField'
 import Paper from '@mui/material/Paper'
 import MenuItem from '@mui/material/MenuItem'
 
-import { Calendar, dateFnsLocalizer } from 'react-big-calendar'
 import format from 'date-fns/format'
-import parse from 'date-fns/parse'
-import startOfWeek from 'date-fns/startOfWeek';
-import getDay from 'date-fns/getDay';
+import isToday from 'date-fns/isToday'
 import 'react-big-calendar/lib/css/react-big-calendar.css'
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
@@ -50,9 +47,10 @@ function ServiceDetailsCard({ service }: ServiceDetailsCardProps) {
 	const { user, isClient } = useAuthContext() as any;
 	const { displayNotification } = useNotificationContext() as any;
 	const [selectedHairdresser, setSelectedHairdresser] = useState<User | ''>('')
-	const [hairdresserSchedule, setHairdresserSchedule] = useState<Schedule | null>(null);
+	const [hairdresserSchedule, setHairdresserSchedule] = useState<object | null>(null);
 	const [selectedAppointmentDate, setSelectedAppointmentDate] = useState<Date>(new Date());
-	const [selectedAppointmentHour, setSelectedAppointmentHour] = useState<AvailableSchedulingHoursType>(availableSchedulingHours[0])
+	const [filteredAvailableShedulingHours, setFilteredAvailableShedulingHours] = useState<AvailableSchedulingHoursType[] | []>(availableSchedulingHours)
+	const [selectedAppointmentHour, setSelectedAppointmentHour] = useState<AvailableSchedulingHoursType>(filteredAvailableShedulingHours[0])
 	const [isCalendarOpen, setIsCalendarOpen] = useState(false);
 
 	const { register, handleSubmit, formState: { errors, isDirty, isValid } } = useForm<FormData>({
@@ -69,29 +67,62 @@ function ServiceDetailsCard({ service }: ServiceDetailsCardProps) {
 		if (selectedHairdresser !== '') {
 			scheduleServices.getHairdresserSchedule(selectedHairdresser._id)
 				.then((data) => {
-					setHairdresserSchedule(data as Schedule);
+					setHairdresserSchedule(data);
 				})
-				.catch(err => console.log(err))
-		}
-		return () => {
+				.catch(err => {
+					displayNotification(err, 'error')
+				})
 		}
 	}, [selectedHairdresser])
 
-	const handleDateChange = (e: Date) => {
-		// Need to implement that whenever the date is changed, the hours also need to be updated according to availablity. If chosen "today", it shouldn't display the hours that have already passed today
-		setIsCalendarOpen(!isCalendarOpen);
-		setSelectedAppointmentDate(e);
+	useEffect(() => {
+		updateAvailableAppointmentHours()
+	}, [hairdresserSchedule, selectedAppointmentDate])
+
+	const onDateChange = (date: Date) => {
+		toggleCalendarState();
+		setSelectedAppointmentDate(date);
 	};
 
-	const toggleCalendarIsOpen = () => setIsCalendarOpen(!isCalendarOpen);
+	const toggleCalendarState = () => setIsCalendarOpen(!isCalendarOpen);
 
-	const handleHairdresserChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+	const onHairdresserChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		let changedHairdresser = hairdressers.filter((hairdressers: User) => hairdressers._id === e.target.value)[0]
 		setSelectedHairdresser(changedHairdresser)
 	}
 
-	const handleHourChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+	const onHourChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setSelectedAppointmentHour(e.target.value as AvailableSchedulingHoursType)
+	}
+
+	const updateAvailableAppointmentHours = () => {
+		const currentFormatedSelectedDate = format(selectedAppointmentDate, "dd/MM/yyyy")
+		let filteredAvailableHaidresserHours: AvailableSchedulingHoursType[] = availableSchedulingHours;
+
+		if(isToday(selectedAppointmentDate)){
+			let currentHour = Number(format(new Date(), 'H'))
+			let currentMinutes = Number(format(new Date(), 'm'))
+
+			filteredAvailableHaidresserHours = filteredAvailableHaidresserHours.filter((hour: AvailableSchedulingHoursType) =>{
+				let availableScheduleHour = Number(hour.substring(0,2))
+				let availableScheduleMinutes = Number(hour.substring(3,5))
+
+				if(availableScheduleHour === currentHour){
+					return availableScheduleMinutes > currentMinutes
+				} else {
+					return availableScheduleHour > currentHour
+				}
+			})
+		}
+
+		if (hairdresserSchedule !== null && hairdresserSchedule.hasOwnProperty(currentFormatedSelectedDate)) {
+			filteredAvailableHaidresserHours = filteredAvailableHaidresserHours.filter((hour: AvailableSchedulingHoursType) => {
+					return !(hairdresserSchedule[currentFormatedSelectedDate as keyof typeof hairdresserSchedule] as AvailableSchedulingHoursType[]).includes(hour)
+				})
+		} 
+
+		setSelectedAppointmentHour(filteredAvailableHaidresserHours[0])
+		setFilteredAvailableShedulingHours(filteredAvailableHaidresserHours)
 	}
 
 	const onFormSubmit = async (data: FormData, e: React.BaseSyntheticEvent<object, any, any> | undefined) => {
@@ -113,8 +144,6 @@ function ServiceDetailsCard({ service }: ServiceDetailsCardProps) {
 		} catch (err) {
 			displayNotification(err, 'error')
 		}
-
-
 	}
 
 	return (
@@ -122,7 +151,7 @@ function ServiceDetailsCard({ service }: ServiceDetailsCardProps) {
 			<div>ServiceDetailsCard</div>
 			<Paper>
 				<Grid container>
-					<Grid item lg={6}>
+					<Grid item md={6}>
 						<ImageListItem >
 							<img
 								src={`${service.imgUrl}`}
@@ -132,7 +161,7 @@ function ServiceDetailsCard({ service }: ServiceDetailsCardProps) {
 
 						</ImageListItem>
 					</Grid>
-					<Grid item lg={6} sx={{ backgroundColor: "main.beige" }}>
+					<Grid item md={6} sx={{ backgroundColor: "main.beige" }}>
 						<Stack direction='row' justifyContent='center' p={2} sx={{ backgroundColor: "main.black", color: "common.white" }}>
 							<Typography variant="h4" component='h4'>{service.title}</Typography>
 						</Stack>
@@ -151,7 +180,7 @@ function ServiceDetailsCard({ service }: ServiceDetailsCardProps) {
 									select
 									value={selectedHairdresser !== '' ? selectedHairdresser._id : ''}
 									{...register('hairdresser')}
-									onChange={handleHairdresserChange}
+									onChange={onHairdresserChange}
 									variant="outlined"
 									size="small"
 									fullWidth
@@ -170,14 +199,13 @@ function ServiceDetailsCard({ service }: ServiceDetailsCardProps) {
 									}
 								</TextField>
 
-
 								{
 									selectedHairdresser &&
 									<>
 										<TextField
 											required
 											variant='outlined'
-											onClick={toggleCalendarIsOpen}
+											onClick={toggleCalendarState}
 											label="Select Appointment Date"
 											{...register('appointmentDate')}
 											value={format(selectedAppointmentDate, "d MMMM, yyyy")}
@@ -189,15 +217,13 @@ function ServiceDetailsCard({ service }: ServiceDetailsCardProps) {
 
 										{
 											isCalendarOpen &&
-											 <DatePicker
+											<DatePicker
 												selected={selectedAppointmentDate}
 												highlightDates={[new Date()]}
 												minDate={new Date()}
 												showDisabledMonthNavigation
 												onChange={(date: Date) => {
-													console.log('date:', date)
-													setSelectedAppointmentDate(date as Date)
-													toggleCalendarIsOpen()
+													onDateChange(date)
 												}}
 												inline
 											/>
@@ -209,7 +235,7 @@ function ServiceDetailsCard({ service }: ServiceDetailsCardProps) {
 											select
 											value={selectedAppointmentHour}
 											{...register('appointmentHour')}
-											onChange={handleHourChange}
+											onChange={onHourChange}
 											variant="outlined"
 											size="small"
 											fullWidth
@@ -218,7 +244,7 @@ function ServiceDetailsCard({ service }: ServiceDetailsCardProps) {
 											helperText={errors.appointmentHour ? errors.appointmentHour.message : ''}
 										>
 											{
-												availableSchedulingHours.map(hour => (
+												filteredAvailableShedulingHours.map(hour => (
 													<MenuItem key={uniqid()} value={hour}>{hour}</MenuItem>
 												))
 											}

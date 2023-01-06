@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 
 import * as regex from '../utils/regex.js'
 
-const productSchema = mongoose.Schema({
+const productSchema = new mongoose.Schema({
     title: {
         type: String,
         required: [true, 'Title is required'],

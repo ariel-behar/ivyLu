@@ -1,7 +1,7 @@
 import mongoose from 'mongoose'
 import format from 'date-fns/format/index.js'
 
-const scheduleSchema = mongoose.Schema({
+const scheduleSchema = new mongoose.Schema({
     clientId: {
         type: mongoose.Types.ObjectId,
         ref: 'Client',

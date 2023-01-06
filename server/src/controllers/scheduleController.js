@@ -11,14 +11,31 @@ router.get('/:hairdresserId', async (req, res) => {
     try {
         let hairdresserScheduleResponse = await scheduleServices.getHairdresserSchedule(hairdresserId)
 
-        if (hairdresserScheduleResponse) {
-            res.json(hairdresserScheduleResponse)
-        }
+        if(hairdresserScheduleResponse) {
+            let hairdresserSchedule = {
+                _id: hairdresserScheduleResponse[0].hairdresserId._id,
+                firstName: hairdresserScheduleResponse[0].hairdresserId.firstName,
+                lastName: hairdresserScheduleResponse[0].hairdresserId.lastName,
+            }
+    
+            for (const scheduledItem of hairdresserScheduleResponse) {
+                if(hairdresserSchedule.hasOwnProperty(scheduledItem.dateISO)) {
+                    hairdresserSchedule[scheduledItem.dateISO].push(scheduledItem.hour)
+                } else {
+                    hairdresserSchedule[scheduledItem.dateISO] =[scheduledItem.hour]
+                }
+            }
+
+            return res.json(hairdresserSchedule)
+        } 
 
     } catch (err) {
-        res.status(500).send(err)
+        if(err.message.includes('Cannot read properties of undefined')) {
+            res.status(200).send({})
+        } else {
+            return res.status(500).json(err)
+        }
     }
-
 })
 
 router.post('/create', isAuth, isClient, async (req, res) => {
@@ -26,9 +43,8 @@ router.post('/create', isAuth, isClient, async (req, res) => {
 
     try {
         let formattedDateISO = format(new Date(date), "dd/MM/yyyy")
-        console.log('formattedDateIso:', typeof formattedDateISO)
 
-        let appointmentExists = await scheduleServices.findOneByDateAndHour(formattedDateISO, hour)
+        let appointmentExists = await scheduleServices.findOneByHairdresserDateAndHour(hairdresserId, formattedDateISO, hour)
 
         if (appointmentExists) {
             throw {statusCode: 403, message: "An appointment on this Date and Hour already exists. Please pick another time"}

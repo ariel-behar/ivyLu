@@ -6,7 +6,7 @@ import commonUserSchema from './commonUserSchema.js';
 
 env.config()
 
-const staffSchema = mongoose.Schema({
+const staffSchema = new mongoose.Schema({
     ...commonUserSchema,
     role: {
         type: Number,

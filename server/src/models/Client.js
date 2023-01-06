@@ -5,7 +5,7 @@ import commonUserSchema from './commonUserSchema.js';
 
 env.config()
 
-const clientSchema = mongoose.Schema({
+const clientSchema = new mongoose.Schema({
     ...commonUserSchema,
     role: {
         type: Number,
