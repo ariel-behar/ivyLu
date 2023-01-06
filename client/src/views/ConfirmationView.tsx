@@ -14,12 +14,17 @@ interface ConfirmationViewProps {
 }
 
 function ConfirmationView({ entity, entityType }: ConfirmationViewProps) {
-
     return (
         <>
             <div>ConfirmationView</div>
             <Container>
+                <Stack direction='row' justifyContent='right' mb={5}>
+                    <BackToButton whereTo="services" />
 
+                    <Box width='50px' ></Box>
+
+                    <GoToDashboardButton />
+                </Stack>
                 <Stack >
                     {
                         entityType === 'service'
@@ -33,14 +38,6 @@ function ConfirmationView({ entity, entityType }: ConfirmationViewProps) {
 
                     <Stack direction='row' justifyContent='space-between' mt={5} mb={1}>
                         <Typography variant="h6">Here are the confirmation details:</Typography>
-
-                        <Stack direction='row' justifyContent='right'>
-                            <BackToButton whereTo="services" />
-
-                            <Box width='50px' ></Box>
-                            
-                            <GoToDashboardButton />
-                        </Stack>
                     </Stack>
 
                     <Paper elevation={5} >
