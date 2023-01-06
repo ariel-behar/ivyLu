@@ -45,6 +45,15 @@ export const isOperatorAdmin = function (req, res, next) {
     }
 }
 
+export const isClient = function (req, res, next) {
+    let userRole = res.locals.user.role;
+    
+    if(userRole === 1) {
+        next()
+    } else {
+        return res.status(401).json({ message: 'Unauthorized request' })
+    }
+}
 
 export const isGuest = function (req, res, next) {
     let userAuthToken = req.headers['auth-token']
