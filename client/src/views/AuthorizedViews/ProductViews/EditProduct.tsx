@@ -58,7 +58,7 @@ function EditProduct() {
     const { displayNotification } = useNotificationContext() as any;
     const navigate = useNavigate()
 
-    const { register, handleSubmit, formState: { errors, isDirty, isValid } } = useForm<FormData>({
+    const { register, handleSubmit, formState: { errors, isValid } } = useForm<FormData>({
         mode: 'onBlur',
         resolver: yupResolver(createProductFormSchema),
         defaultValues: {
@@ -242,7 +242,7 @@ function EditProduct() {
                         </FormControl>
 
                         <Stack direction='row' justifyContent='space-around'>
-                            <Button variant="contained" type='submit' disabled={!(isDirty && isValid)}>Edit Product</Button>
+                            <Button variant="contained" type='submit' disabled={!(isValid)}>Edit Product</Button>
                             <Button variant="contained" color="error" onClick={onClickCancelButton}>Cancel</Button>
                         </Stack>
                     </Stack>
