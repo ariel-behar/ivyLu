@@ -11,7 +11,7 @@ export async function getAllProductsLoader() {
     return products;
 }
 
-export async function getOneProductsLoader({params}: LoaderFunctionArgs) {
+export async function getOneProductLoader({params}: LoaderFunctionArgs) {
     if(typeof params.productId === 'string') {
         const product = await clientServices.getOne(params.productId)
 

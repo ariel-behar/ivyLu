@@ -7,12 +7,12 @@ import Link from "@mui/material/Link"
 import { useAuthContext } from "../../contexts/AuthContext";
 import { isAuthRouteGuard } from "../../hoc/isAuthRouteGuard";
 
-function ManagementView() {
+function ManagementRootView() {
     const { isAdmin } = useAuthContext() as any;
 
     return (
         <>
-            <div>ManagementView</div>
+            <div>ManagementRootView</div>
 
             <Stack direction='row' justifyContent='center'>
                 <Breadcrumbs
@@ -89,4 +89,4 @@ function ManagementView() {
     )
 }
 
-export default isAuthRouteGuard(ManagementView)
+export default isAuthRouteGuard(ManagementRootView)

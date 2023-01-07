@@ -1,19 +1,19 @@
 import { createBrowserRouter } from "react-router-dom";
 import { getAllServicesLoader, getOneServicesAndHairdressersLoader, getOneServicesLoader } from '../data-loaders/servicesLoader'
-import { getAllProductsLoader, getOneProductsLoader } from "../data-loaders/productsLoader";
+import { getAllProductsLoader, getOneProductLoader } from "../data-loaders/productsLoader";
 import { getAllClientsLoader } from "../data-loaders/clientsLoader";
 
 import RootView from "../views/RootView";
 import DashboardView from "../views/DashboardView";
 import LoginView from "../views/LoginView";
-import ProductsView from "../views/ProductsView";
+import ProductsView from "../views/ProductViews/ProductsView";
 import RegisterView from "../views/RegisterView";
 import HomeView from "../views/HomeView";
 import LogoutView from "../views/LogoutView";
 import ErrorView from "../views/ErrorView";
 import ServicesOperatorAdminView from "../views/AuthorizedViews/ServicesViews/ServicesOperatorAdminView";
 import CreateService from "../views/AuthorizedViews/ServicesViews/CreateService";
-import ManagementView from "../views/AuthorizedViews/ManagementView";
+import ManagementRootView from "../views/AuthorizedViews/ManagementRootView";
 import ProductsManagementView from "../views/AuthorizedViews/ProductViews/ProductsManagementView";
 import UsersManagementView from "../views/AuthorizedViews/UsersViews/UsersManagementView";
 import OrdersManagementView from "../views/AuthorizedViews/OrdersViews/OrdersManagementView";
@@ -22,7 +22,7 @@ import CreateProduct from "../views/AuthorizedViews/ProductViews/CreateProduct";
 import EditProduct from "../views/AuthorizedViews/ProductViews/EditProduct";
 import AboutView from "../views/AboutView";
 import ServiceDetailsView from "../views/ServiceViews/ServiceDetailsView";
-import ServicesView from "../views/ServiceViews/ServicesView";
+import ServicesRootView from "../views/ServiceViews/ServicesRootView";
 import ServicesManagementView from "../views/AuthorizedViews/ServicesViews/ServicesManagementView";
 import ProductsOperatorAdminView from "../views/AuthorizedViews/ProductViews/ProductsOperatorAdminView";
 import OurTeamView from "../views/OurTeamView";
@@ -31,8 +31,10 @@ import RegisterAuthorizedView from "../views/AuthorizedViews/UsersViews/Register
 import { getAllHairdressers, getAllStaffLoader } from "../data-loaders/staffLoader";
 import StaffAdminView from "../views/AuthorizedViews/UsersViews/StaffAdminView";
 import ScheduleManagementView from "../views/AuthorizedViews/Schedule/ScheduleManagementView";
-import ServicesGuestCustomerView from "../views/ServiceViews/ServicesGuestCustomerView";
+import ServicesView from "../views/ServiceViews/ServicesView";
 import { getScheduleForAllLoader } from "../data-loaders/scheduleLoader";
+import ProductsRootView from "../views/ProductViews/ProductsRootView";
+import ProductOrderView from "../views/ProductViews/ProductOrderView";
 
 const router = createBrowserRouter([
 	{
@@ -58,18 +60,29 @@ const router = createBrowserRouter([
 			},
 			{
 				path: "/products",
-				loader: getAllProductsLoader,
-				element: <ProductsView />,
+				element: <ProductsRootView />,
+				children: [
+					{
+						index: true,
+						loader: getAllProductsLoader,
+						element: <ProductsView />,
+					},
+					{
+						path: ':productId/order',
+						loader: getOneProductLoader,
+						element: <ProductOrderView />
+					}
+				]
 			},
-			{
+			{ // /services
 				path: "/services",
 				loader: getAllServicesLoader,
-				element: <ServicesView />,
+				element: <ServicesRootView />,
 				children: [
 					{
 						index: true,
 						loader: getAllServicesLoader,
-						element: <ServicesGuestCustomerView />
+						element: <ServicesView />
 					},
 					{
 						path: ':serviceId/schedule',
@@ -91,9 +104,10 @@ const router = createBrowserRouter([
 				path: "/dashboard",
 				element: <DashboardView />
 			},
-			{
+
+			{ // /management
 				path: "/management",
-				element: <ManagementView />,
+				element: <ManagementRootView />,
 				children: [
 					{
 						index: true,
@@ -107,7 +121,7 @@ const router = createBrowserRouter([
 						path: 'schedule',
 						loader: getScheduleForAllLoader,
 						element: <ScheduleManagementView />
-						
+
 					},
 					{
 						path: 'services',
@@ -144,7 +158,7 @@ const router = createBrowserRouter([
 							},
 							{
 								path: ':productId/edit',
-								loader: getOneProductsLoader,
+								loader: getOneProductLoader,
 								element: <EditProduct />
 							}
 						]

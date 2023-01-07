@@ -1,9 +1,9 @@
 import { useLoaderData } from "react-router-dom";
 import uniqid from "uniqid";
 
-import { Product } from "../models/Product";
+import { Product } from "../../models/Product";
 
-import MediaCard from "../components/MediaCard";
+import ProductCard from "../../components/ProductCard";
 import Grid from "@mui/material/Grid";
 
 
@@ -14,14 +14,14 @@ function ProductsView() {
 		<>
 			<div>ProductsView</div>
 
-			<Grid container spacing={2} >
+			<Grid container spacing={3} >
 				{products &&
 					products.map((product: Product) => {
 						return (
-							<Grid item lg={3} key={uniqid()}>
-								<MediaCard
+							<Grid item lg={4} key={uniqid()}>
+								<ProductCard
 									key={uniqid()}
-									item={product}
+									product={product}
 								/>
 							</Grid>
 						)
