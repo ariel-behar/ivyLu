@@ -17,5 +17,4 @@ export async function getOneProductLoader({params}: LoaderFunctionArgs) {
 
         return product;
     }
-
 }

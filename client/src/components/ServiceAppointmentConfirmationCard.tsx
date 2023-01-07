@@ -20,10 +20,8 @@ function ServiceAppointmentConfirmationCard({ service }: ServiceAppointmentConfi
 						<Box>
 							<Typography variant="body1">Date: <b>{service.appointmentDetails.dayISO} {service.appointmentDetails.monthName}, {service.appointmentDetails.yearISO} ({service.appointmentDetails.dateISO})</b></Typography>
 							<Typography variant="body1">Time: <b>{service.appointmentDetails.scheduledHour}</b></Typography>
-
 						</Box>
 						<Box>
-
 							<Typography variant="body1">Duration: <b>{service.service.duration} minutes</b></Typography>
 							<Typography variant="body1">Price: <b>{service.service.price} BGN</b></Typography>
 						</Box>
