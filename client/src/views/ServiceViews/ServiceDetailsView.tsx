@@ -10,7 +10,6 @@ import { Schedule, ScheduleCreateDTO } from '../../models/Schedule';
 import { ApiSchedule, ApiScheduleImpl } from '../../services/scheduleServices';
 import { AuthTokenType, IdType } from '../../types/common/commonTypes';
 import addScheduleFormSchema from '../../validations/addScheduleFormSchema';
-import { availableSchedulingHours, AvailableSchedulingHoursType } from '../../utils/availableSchedulingHours';
 
 import Grid from "@mui/material/Grid"
 import ImageListItem from "@mui/material/ImageListItem"
@@ -30,6 +29,7 @@ import { useNotificationContext } from '../../contexts/NotificationContext';
 import ConfirmationView from '../ConfirmationView';
 import { ScheduleConfirmationResponseInterface } from '../../types/common/scheduleTypes';
 import BackToButton from '../../components/BackToButton';
+import { availableSchedulingHours, AvailableSchedulingHoursType } from '../../utils/constants';
 
 
 type FormData = {

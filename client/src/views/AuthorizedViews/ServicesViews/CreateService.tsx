@@ -28,9 +28,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import FormHelperText from '@mui/material/FormHelperText';
-import { serviceDuration } from "../../../utils/serviceDuration";
-
-
+import { serviceDuration } from "../../../utils/constants";
 
 const clientServices: ApiClient<IdType, Service, AuthTokenType> = new ApiClientImpl<IdType, Service, AuthTokenType>('services');
 
@@ -43,10 +41,6 @@ type FormData = {
 	duration: string,
 	status: 'active' | 'inactive'
 }
-
-
-
-
 
 function CreateService() {
 	const [duration, setDuration] = useState<string>('')

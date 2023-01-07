@@ -1,5 +1,5 @@
 import * as yup from 'yup'
-import { availableSchedulingHours } from '../utils/availableSchedulingHours';
+import { availableSchedulingHours } from '../utils/constants';
 
 
 const addScheduleFormSchemaShape = {

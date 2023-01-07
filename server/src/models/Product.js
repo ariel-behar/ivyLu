@@ -2,6 +2,8 @@ import mongoose from 'mongoose'
 
 import commonEntitySchema from './common-schemas/commonEntitySchema.js';
 
+import {productCategories, volumeMeasurementUnits} from '../utils/constants.js'
+
 const productSchema = new mongoose.Schema({
     ...commonEntitySchema,
     volume: {
@@ -13,7 +15,7 @@ const productSchema = new mongoose.Schema({
     volumeMeasurementUnit: {
         type: String,
         required: [true, 'Volume Measurement Unit is required'],
-        enum: ['grams', 'milliliters']
+        enum: volumeMeasurementUnits
     },
     productCode: {
         type: String,
@@ -21,6 +23,11 @@ const productSchema = new mongoose.Schema({
         unique: true,
         minLength: [5, "Product code must be exactly 5 digits"],
         maxLength: [5, "Product code must be exactly 5 digits"],
+    },
+    productCategory: {
+        type: String,
+        required: true,
+        enum: productCategories
     },
 
 },{

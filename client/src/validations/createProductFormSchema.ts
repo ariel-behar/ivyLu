@@ -1,4 +1,5 @@
 import * as yup from 'yup'
+import { productCategories } from '../utils/constants';
 
 import { IMAGE_URL_REGEX, LATIN_CHARACTERS_REGEX, ONLY_DIGITS_REGEX, PRICE_REGEX } from '../utils/regex'
 
@@ -15,6 +16,10 @@ const createProductFormSchemaShape = {
         .matches(LATIN_CHARACTERS_REGEX, 'Only characters from the latin alphabet are allowed')
         .min(5, "Description should be at least 5 characters long")
         .max(200, "Description should be at most 200 characters long"),
+    productCategory: yup
+        .string()
+        .required('Product Category is required')
+        .oneOf(productCategories, 'Product category should be chosen from the available options'),
     additionalComments: yup
         .string()
         .matches(LATIN_CHARACTERS_REGEX, 'Only characters from the latin alphabet are allowed')

@@ -14,7 +14,7 @@ import { useAuthContext } from "../../../contexts/AuthContext";
 import { useNotificationContext } from "../../../contexts/NotificationContext";
 import { IMAGE_URL_REGEX } from "../../../utils/regex";
 import { isOperatorAdminRouteGuard } from "../../../hoc/isOperatorAdminRouteGuard";
-import {getMeasurementUnit, measurementUnits} from "../../../utils/getMeasurementUnit";
+import { getMeasurementUnit, measurementUnits } from "../../../utils/getMeasurementUnit";
 
 import TextField from "@mui/material/TextField"
 import Stack from "@mui/material/Stack"
@@ -31,18 +31,20 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import FormHelperText from '@mui/material/FormHelperText';
+import { productCategories, productCategorieseType } from "../../../utils/constants";
 
 
 type FormData = {
-    title: string,
-    description: string,
-    additionalComments: string | null,
-    imgUrl: string,
-    price: number,
-    volume: string,
-    volumeMeasurementUnit: string,
-    productCode: string,
-    status: 'active' | 'inactive'
+	title: string,
+	description: string,
+	productCategory: productCategorieseType | '',
+	additionalComments: string | null,
+	imgUrl: string,
+	price: number,
+	volume: string,
+	volumeMeasurementUnit: 'milliliters' | 'grams',
+	productCode: string,
+	status: 'active' | 'inactive'
 }
 
 const clientServices: ApiClient<IdType, Product, AuthTokenType> = new ApiClientImpl<IdType, Product, AuthTokenType>('products');
@@ -50,6 +52,7 @@ const clientServices: ApiClient<IdType, Product, AuthTokenType> = new ApiClientI
 function EditProduct() {
     let product = useLoaderData() as Product;
     let { productId } = useParams<string>()
+    const [productCategory, setProductCategory] = useState<productCategorieseType>(product.productCategory)
     const [measurementUnit, setMeasurementUnit] = useState<object>(measurementUnits[product.volumeMeasurementUnit as keyof typeof measurementUnits])
     const [priceValue, setPriceValue] = useState<string>(product.price.toString())
     const [status, setStatus] = useState<string>(product.status)
@@ -64,6 +67,7 @@ function EditProduct() {
         defaultValues: {
             title: product.title,
             description: product.description,
+            productCategory: product.productCategory,
             additionalComments: product.additionalComments,
             imgUrl: product.imgUrl,
             price: product.price,
@@ -73,6 +77,10 @@ function EditProduct() {
             status: product.status
         }
     })
+
+    const handleProductCategoryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setProductCategory(e.target.value as productCategorieseType)
+	}
 
     const handleVolumeMeasurementUnitChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setMeasurementUnit(getMeasurementUnit(e.target.value))
@@ -89,18 +97,22 @@ function EditProduct() {
     const onStatusChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
         setStatus((e.target as HTMLInputElement).value)
     }
-    
-	const onClickCancelButton = (): void => {
+
+    const onClickCancelButton = (): void => {
         navigate('/management/products')
     }
 
     const onFormSubmit = async (data: FormData, e: React.BaseSyntheticEvent<object, any, any> | undefined) => {
         e?.preventDefault();
 
-        let { title, description, additionalComments, imgUrl, price, volume, volumeMeasurementUnit, productCode, status } = data;
+        let { title, description,productCategory, additionalComments, imgUrl, price, volume, volumeMeasurementUnit, productCode, status } = data;
         price = Number(price);
 
-        const product = { title, description, additionalComments, imgUrl, price, volume, volumeMeasurementUnit, productCode, status }
+        let product;
+
+        if(productCategory !== '') {
+			product = { title, description, productCategory, additionalComments, imgUrl, price, volume, volumeMeasurementUnit, productCode, status }
+		}
 
         if (productId) {
             try {
@@ -108,7 +120,7 @@ function EditProduct() {
                 console.log('editProductResponse:', editProductResponse)
 
                 if (editProductResponse) {
-                    displayNotification({message: 'Record has successfully been modified'}, 'success')
+                    displayNotification({ message: 'Record has successfully been modified' }, 'success')
                     navigate('/management/products')
                 }
             } catch (err) {
@@ -142,6 +154,26 @@ function EditProduct() {
                             error={errors.description ? true : false}
                             helperText={errors.description ? errors.description.message : ''}
                         />
+
+                        <TextField
+                            required
+                            label='Select Product Category'
+                            select
+                            value={productCategory}
+                            {...register('productCategory')}
+                            onChange={handleProductCategoryChange}
+                            variant="outlined"
+                            size="small"
+                            fullWidth
+                            error={errors.productCategory ? true : false}
+                            helperText={errors.productCategory ? errors.productCategory.message : ''}
+                        >
+                            {
+                                productCategories.map(category => (
+                                    <MenuItem key={uniqid()} value={category}>{`${category.substring(0, 1).toUpperCase()}${category.substring(1,)} `}</MenuItem>
+                                ))
+                            }
+                        </TextField>
 
                         <TextField
                             label="Additional Comments"

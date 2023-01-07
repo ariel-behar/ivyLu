@@ -12,7 +12,7 @@ import { useNotificationContext } from "../../../contexts/NotificationContext";
 import { IMAGE_URL_REGEX } from "../../../utils/regex";
 import { ApiClient, ApiClientImpl } from "../../../services/clientServices";
 import { AuthTokenType, IdType } from "../../../types/common/commonTypes";
-import {getMeasurementUnit, measurementUnits} from "../../../utils/getMeasurementUnit";
+import { getMeasurementUnit, measurementUnits } from "../../../utils/getMeasurementUnit";
 import { isOperatorAdminRouteGuard } from "../../../hoc/isOperatorAdminRouteGuard";
 
 import TextField from "@mui/material/TextField"
@@ -30,17 +30,17 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import FormHelperText from '@mui/material/FormHelperText';
-
-
+import { productCategories, productCategorieseType } from "../../../utils/constants";
 
 type FormData = {
 	title: string,
 	description: string,
+	productCategory: productCategorieseType | '',
 	additionalComments: string | null,
 	imgUrl: string,
 	price: number,
 	volume: string,
-	volumeMeasurementUnit: string,
+	volumeMeasurementUnit: 'milliliters' | 'grams',
 	productCode: string,
 	status: 'active' | 'inactive'
 }
@@ -48,12 +48,13 @@ type FormData = {
 const clientServices: ApiClient<IdType, Product, AuthTokenType> = new ApiClientImpl<IdType, Product, AuthTokenType>('products');
 
 function CreateProduct() {
+	const [productCategory, setProductCategory] = useState<productCategorieseType>()
 	const [measurementUnit, setMeasurementUnit] = useState<object>(getMeasurementUnit('milliliters'))
 	const [priceValue, setPriceValue] = useState<string>('1')
 	const [status, setStatus] = useState<string>('active')
 	const [previewImgUrl, setPreviewImageUrl] = useState<string>('')
 	const { user } = useAuthContext() as any;
-	const { displayNotification} = useNotificationContext() as any;
+	const { displayNotification } = useNotificationContext() as any;
 	const navigate = useNavigate()
 
 	const { register, handleSubmit, formState: { errors, isDirty, isValid } } = useForm<FormData>({
@@ -62,6 +63,7 @@ function CreateProduct() {
 		defaultValues: {
 			title: '',
 			description: '',
+			productCategory: '',
 			additionalComments: '',
 			imgUrl: '',
 			price: 0,
@@ -71,6 +73,10 @@ function CreateProduct() {
 			status: 'active'
 		}
 	})
+
+	const handleProductCategoryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setProductCategory(e.target.value as productCategorieseType)
+	}
 
 	const handleVolumeMeasurementUnitChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setMeasurementUnit(getMeasurementUnit(e.target.value))
@@ -89,24 +95,27 @@ function CreateProduct() {
 	}
 
 	const onClickCancelButton = (): void => {
-        navigate('/management/products')
-    }
+		navigate('/management/products')
+	}
 
 	const onFormSubmit = async (data: FormData, e: React.BaseSyntheticEvent<object, any, any> | undefined) => {
 		e?.preventDefault();
 
-		let { title, description, additionalComments, imgUrl, price, volume, volumeMeasurementUnit, productCode, status } = data;
+		let { title, description, productCategory, additionalComments, imgUrl, price, volume, volumeMeasurementUnit, productCode, status } = data;
 		price = Number(price);
+		let product;
 
-		const product = new ProductCreateDTO(title, description, additionalComments, imgUrl, price, volume, volumeMeasurementUnit, productCode, status)
+		if(productCategory !== '') {
+			product = new ProductCreateDTO(title, description, productCategory, additionalComments, imgUrl, price, volume, volumeMeasurementUnit, productCode, status)
+		}
 
 		try {
 			let creatorId = user.userId
 
 			let createProductResponse = await clientServices.create(product as Product, creatorId, user.authToken)
 
-			if(createProductResponse) {
-				displayNotification({message: 'Record has succesfully been created'}, 'success')
+			if (createProductResponse) {
+				displayNotification({ message: 'Record has succesfully been created' }, 'success')
 				navigate('/management/products')
 			}
 
@@ -121,6 +130,7 @@ function CreateProduct() {
 
 				<form onSubmit={handleSubmit(onFormSubmit)}>
 					<Stack spacing={2}>
+
 						<TextField
 							required
 							label="Product Title"
@@ -140,6 +150,26 @@ function CreateProduct() {
 							error={errors.description ? true : false}
 							helperText={errors.description ? errors.description.message : ''}
 						/>
+
+						<TextField
+							required
+							label='Select Product Category'
+							select
+							value={productCategory}
+							{...register('productCategory')}
+							onChange={handleProductCategoryChange}
+							variant="outlined"
+							size="small"
+							fullWidth
+							error={errors.productCategory ? true : false}
+							helperText={errors.productCategory ? errors.productCategory.message : ''}
+						>
+							{
+								productCategories.map(category => (
+									<MenuItem key={uniqid()} value={category}>{`${category.substring(0,1).toUpperCase()}${category.substring(1,)} `}</MenuItem>
+								))
+							}
+						</TextField>
 
 						<TextField
 							label="Additional Comments"
@@ -204,7 +234,6 @@ function CreateProduct() {
 						<TextField
 							required
 							label="Price"
-							
 							variant="outlined"
 							size="small"
 							type='number'
@@ -239,10 +268,10 @@ function CreateProduct() {
 							<FormHelperText> {errors.status ? errors.status.message : ''} </FormHelperText>
 						</FormControl>
 
-                        <Stack direction='row' justifyContent='space-around'>
-                            <Button variant="contained" type='submit' disabled={!(isDirty && isValid)}>Create Product</Button>
-                            <Button variant="contained" color="error" onClick={onClickCancelButton}>Cancel </Button>
-                        </Stack>
+						<Stack direction='row' justifyContent='space-around'>
+							<Button variant="contained" type='submit' disabled={!(isDirty && isValid)}>Create Product</Button>
+							<Button variant="contained" color="error" onClick={onClickCancelButton}>Cancel </Button>
+						</Stack>
 					</Stack>
 				</form>
 			</Grid>

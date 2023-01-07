@@ -13,21 +13,19 @@ function ProductsView() {
 	return (
 		<>
 			<div>ProductsView</div>
-			
+
 			<Grid container spacing={2} >
-				{
-					products ?
-						products.map((product: Product) => {
-							return (
-								<Grid item lg={3} key={uniqid()}>
-									<MediaCard
-										key={uniqid()}
-										item={product}
-									/>
-								</Grid>
-							)
-						})
-						: ''
+				{products &&
+					products.map((product: Product) => {
+						return (
+							<Grid item lg={3} key={uniqid()}>
+								<MediaCard
+									key={uniqid()}
+									item={product}
+								/>
+							</Grid>
+						)
+					})
 				}
 			</Grid>
 
