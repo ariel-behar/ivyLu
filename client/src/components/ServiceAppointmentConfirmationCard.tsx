@@ -1,5 +1,4 @@
 import Box from "@mui/material/Box"
-import Grid from "@mui/material/Grid"
 import Stack from "@mui/material/Stack"
 import Typography from "@mui/material/Typography"
 import { ScheduledItemConfirmationResponseInterface } from "../types/common/scheduleTypes"

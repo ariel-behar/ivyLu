@@ -16,15 +16,15 @@ import { Service } from '../../../models/Service';
 import { Schedule } from '../../../models/Schedule';
 
 const locales = {
-  "en-US": require('date-fns/locale/en-US')
+	"en-US": require('date-fns/locale/en-US')
 }
 
 const localizer = dateFnsLocalizer({
-  format,
-  parse,
-  startOfWeek,
-  getDay,
-  locales
+	format,
+	parse,
+	startOfWeek,
+	getDay,
+	locales
 })
 
 interface ScheduleInterface {
@@ -39,46 +39,53 @@ interface ScheduleInterface {
 }
 
 interface ScheduledItemInterface {
-    title: string
-    start: Date
-    end: Date
-  }
+	title: string
+	start: Date
+	end: Date
+}
 
 function ScheduleManagementView() {
-  const schedule = useLoaderData() as ScheduleInterface[]
-  const [allScheduledItems, setAllScheduledItems] = useState<ScheduledItemInterface[]>([]);
+	const schedule = useLoaderData() as ScheduleInterface[]
+	const [allScheduledItems, setAllScheduledItems] = useState<ScheduledItemInterface[]>([]);
 
-  useEffect(() => {
-	console.log(schedule);
-	let filteredScheduleData = schedule.map((scheduleItem:ScheduleInterface) => {
-		console.log(scheduleItem.start)
+	useEffect(() => {
+		let filteredScheduleData = schedule.map((scheduleItem: ScheduleInterface) => {
+			let year = Number(scheduleItem.appointmentDetails.yearISO)
+			let month = Number(scheduleItem.appointmentDetails.monthISO) - 1
+			let day = Number(scheduleItem.appointmentDetails.dayISO)
+			let hour = Number(scheduleItem.appointmentDetails.hourISO)
+			let minutes = Number(scheduleItem.appointmentDetails.minutesISO)
+
+			let appointmentDuration = Number(scheduleItem.service.duration.substring(2,5))
+
+			let startDate = new Date(year, month, day, hour, minutes)
+			let endDate = new Date(year, month, day, hour, minutes + appointmentDuration)
+
+			return { title: scheduleItem.title, start: startDate, end: endDate }
+		})
+
+		setAllScheduledItems(filteredScheduleData)
+		return () => {
+		}
+	}, [schedule])
 
 
-		return {title: scheduleItem.title, start: new Date(scheduleItem.start), end: new Date(scheduleItem.end)}
-	})
-	console.log(filteredScheduleData)
-	
-	setAllScheduledItems(filteredScheduleData)
-	return () => {
-	}
-  }, [schedule])
-  
+	return (
+		<>
+			<div>ScheduleManagementView</div>
 
-  return (
-    <>
-      <div>ScheduleManagementView</div>
-
-      <div className="App">
-        <Calendar
-          localizer={localizer}
-          events={allScheduledItems}
-          startAccessor='start'
-          endAccessor='end'
-          style={{ minHeight: '600px', marginTop: '50px' }}
-        />
-      </div>
-    </>
-  )
+			<div className="App">
+				<Calendar
+					defaultView={Views.DAY}
+					localizer={localizer}
+					events={allScheduledItems}
+					startAccessor='start'
+					endAccessor='end'
+					style={{ minHeight: '600px', marginTop: '50px' }}
+				/>
+			</div>
+		</>
+	)
 
 }
 
