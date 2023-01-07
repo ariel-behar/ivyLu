@@ -26,7 +26,6 @@ function DataTable({ entityType, entities }: DataTableInterface) {
         entity: ''
     })
 
-
     const onDeleteButtonClickHandler = (_id: IdType, entity: 'client' | 'staff' | 'service' | 'product'): void => {
         setShowConfirmationDialog(true)
         setDeleteItem({ _id, entity })
@@ -35,7 +34,6 @@ function DataTable({ entityType, entities }: DataTableInterface) {
     const closeConfirmationDialog = (): void => {
         setShowConfirmationDialog(false)
     }
-
 
     return (
         <>

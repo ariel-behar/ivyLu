@@ -1,3 +1,5 @@
+import { Link as RouterLink } from 'react-router-dom'
+
 import { Product } from '../../models/Product'
 
 import { getMeasurementUnit } from '../../utils/getMeasurementUnit'
@@ -37,17 +39,14 @@ function ProductDataTable({
                     <StyledTableCell >Volume</StyledTableCell>
                     <StyledTableCell >Price</StyledTableCell>
 
-                    {
-                        (isAdmin || isOperator)
-                            ? (
-                                <>
-                                    <StyledTableCell align='center'>Edit</StyledTableCell>
-                                    <StyledTableCell align='center'>Delete</StyledTableCell>
-                                </>
-                            )
-                            : ''
+
+                    {(isAdmin || isOperator) &&
+                        <>
+                            <StyledTableCell align='center'>Edit</StyledTableCell>
+                            <StyledTableCell align='center'>Delete</StyledTableCell>
+                        </>
                     }
-                    
+
                 </TableRow>
             </TableHead>
             <TableBody>
@@ -68,20 +67,27 @@ function ProductDataTable({
 
 
 
-                            {
-                                (isAdmin || isOperator)
-                                    ? (
-                                        <>
-                                            <TableCell align='center'><Button variant="text">Edit</Button></TableCell>
+                            {(isAdmin || isOperator) &&
+                                <>
+                                    <TableCell align='center'>
+                                        <Button
+                                            variant="text"
+                                            component={RouterLink}
+                                            to={`/management/products/${product._id}/edit`}>
+                                            Edit
+                                        </Button>
+                                    </TableCell>
 
-                                            <TableCell align='center'>
-                                                <Button variant="text" color="error" onClick={() => onDeleteButtonClickHandler(product._id, 'product')}>
-                                                    Delete
-                                                </Button>
-                                            </TableCell>
-                                        </>
-                                    )
-                                    : ''
+                                    <TableCell align='center'>
+                                        <Button
+                                            variant="text"
+                                            color="error"
+                                            onClick={() => onDeleteButtonClickHandler(product._id, 'product')}
+                                        >
+                                            Delete
+                                        </Button>
+                                    </TableCell>
+                                </>
                             }
 
                         </StyledTableRow>

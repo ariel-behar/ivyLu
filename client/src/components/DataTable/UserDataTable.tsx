@@ -1,3 +1,5 @@
+import { Link as RouterLink } from 'react-router-dom'
+
 import { User } from "../../models/User"
 import getUserRole from "../../utils/getUserRole"
 
@@ -35,7 +37,9 @@ function UserDataTable({
                     <StyledTableCell >First Name</StyledTableCell>
                     <StyledTableCell >Last Name</StyledTableCell>
                     <StyledTableCell align='center'>Email</StyledTableCell>
-                    <StyledTableCell align='center'>Edit</StyledTableCell>
+
+                    {entityType === 'staff' && <StyledTableCell align='center'>Edit</StyledTableCell> }
+                    
                     <StyledTableCell align='center'>Delete</StyledTableCell>
                 </TableRow>
             </TableHead>
@@ -51,8 +55,8 @@ function UserDataTable({
                                 <img
                                     height='50px'
                                     src={
-                                            user.imgUrl
-                                            ? user.imgUrl 
+                                        user.imgUrl
+                                            ? user.imgUrl
                                             : (user.gender === 'male' ? maleAvatar : femaleAvatar)}
                                     alt={`${user.gender} avatar`}
                                 />
@@ -60,8 +64,20 @@ function UserDataTable({
                             <TableCell>{getUserRole(user.role).capitalized}</TableCell>
                             <TableCell>{user.firstName}</TableCell>
                             <TableCell>{user.lastName}</TableCell>
+
                             <TableCell align='center'>{user.email}</TableCell>
-                            <TableCell align='center'><Button variant="text">Edit</Button></TableCell>
+
+                            {entityType === 'staff' &&
+                                <TableCell align='center'>
+                                    <Button
+                                        variant="text"
+                                        component={RouterLink}
+                                        to={`/management/users/${user._id}/edit`}>
+                                        Edit
+                                    </Button>
+                                </TableCell>
+                            }
+
                             <TableCell align='center'>
                                 <Button variant="text" color="error" onClick={() => onDeleteButtonClickHandler(user._id, entityType)}>
                                     Delete
