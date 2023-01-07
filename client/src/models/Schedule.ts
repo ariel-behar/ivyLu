@@ -6,23 +6,25 @@ export class Schedule implements Identifiable<IdType>{
         public clientId: IdType,
         public hairdresserId: IdType,
         public serviceId: IdType,
-        public date: Date,
+        public scheduledDate: Date,
         public dateISO: string,
-        public day: string,
+        public dayISO: string,
         public dayOfWeek: string,
-        public month: string,
+        public monthISO: string,
         public monthName: string,
-        public year: string,
-        public hour: string
+        public yearISO: string,
+        public scheduledHour: string,
+        public hourISO: string,
+        public minutesISO: string
     ){}
 }
 
-export class ScheduleCreateDTO implements Omit<Schedule, '_id' | 'dateISO' | 'day' | 'dayOfWeek' | 'month' | 'monthName' | 'year' >{
+export class ScheduleCreateDTO implements Omit<Schedule, '_id' | 'dateISO' | 'dayISO' | 'dayOfWeek' | 'monthISO' | 'monthName' | 'yearISO' | 'hourISO' | 'minutesISO' >{
     constructor(
         public clientId: IdType,
         public hairdresserId: IdType,
         public serviceId: IdType,
-        public date: Date,
-        public hour: string
+        public scheduledDate: Date,
+        public scheduledHour: string
     ){}
 }

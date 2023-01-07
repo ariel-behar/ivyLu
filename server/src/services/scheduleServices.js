@@ -1,6 +1,6 @@
 import Schedule from '../models/Schedule.js'
 
-export const create = ({clientId, hairdresserId, serviceId, date, hour}) => Schedule.create({clientId, hairdresserId, serviceId, date, hour})
+export const create = ({clientId, hairdresserId, serviceId, scheduledDate, scheduledHour}) => Schedule.create({clientId, hairdresserId, serviceId, scheduledDate, scheduledHour})
 
 export const getHairdresserSchedule = (hairdresserId) => Schedule.find({hairdresserId}, {dateISO: 1, hour: 1, hairdresserId: 1}).populate('hairdresserId',['firstName', 'lastName'])
 

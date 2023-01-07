@@ -17,44 +17,52 @@ const scheduleSchema = new mongoose.Schema({
         ref: 'Service',
         required: true
     },
-    date: {
+    scheduledDate: {
         type: Date, 
         required: true
     },
     dateISO: {
         type: String,
     },
-    day: {
+    dayISO: {
         type: String,
     },
     dayOfWeek: {
         type: String,
     },
-    month: {
+    monthISO: {
         type: String,
     },
     monthName: {
         type: String,
     },
-    year: {
+    yearISO: {
         type: String,
     },
-    hour: {
+    scheduledHour: {
         type: String,
         required: true
+    },
+    hourISO: {
+        type: String,
+    },
+    minutesISO: {
+        type: String
     }
 },{
     timestamps: true
 });
 
 scheduleSchema.pre('save', function (next) {
-    this.dateISO = format(this.date, "dd/MM/yyyy")
-    this.day = format(this.date, 'dd')
-    this.dayOfWeek = format(this.date, 'EEEE')
-    this.month = format(this.date, 'MM')
-    this.monthName = format(this.date, 'MMMM')
-    this.year = format(this.date, 'yyyy')
-
+    this.dateISO = format(this.scheduledDate, "dd/MM/yyyy")
+    this.dayISO = format(this.scheduledDate, 'd')
+    this.dayOfWeek = format(this.scheduledDate, 'EEEE')
+    this.monthISO = format(this.scheduledDate, 'M')
+    this.monthName = format(this.scheduledDate, 'MMMM')
+    this.yearISO = format(this.scheduledDate, 'yyyy')
+    
+    this.hourISO = this.scheduledHour.substring(0,2)
+    this.minutesISO = this.scheduledHour.substring(3,5)
     next()
 });
 

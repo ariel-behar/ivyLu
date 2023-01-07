@@ -13,6 +13,9 @@ router.get('/', isAuth, isHairdresserOperatorAdmin, async (req, res) => {
             let structuredScheduleResponse = scheduleResponse.map(scheduleItem => {
                 let structuredScheduleItem = {
                     _id: scheduleItem._id,
+                    title: `${scheduleItem.hairdresserId.firstName} ${scheduleItem.hairdresserId.lastName}: ${scheduleItem.serviceId.title}`,
+                    start: scheduleItem.date,
+                    end: scheduleItem.date,
                     client: {
                         firstName: scheduleItem.clientId.firstName,
                         lastName: scheduleItem.clientId.lastName,
@@ -35,15 +38,16 @@ router.get('/', isAuth, isHairdresserOperatorAdmin, async (req, res) => {
                         duration: scheduleItem.serviceId.duration,
                     },
                     appointmentDetails: {
-                        createdAt: scheduleItem.createdAt,
-                        hour: scheduleItem.hour,
-                        date: scheduleItem.date,
+                        scheduledDate: scheduleItem.scheduledDate,
                         dateISO: scheduleItem.dateISO,
-                        day: scheduleItem.day,
+                        dayISO: scheduleItem.dayISO,
                         dayOfWeek: scheduleItem.dayOfWeek,
-                        month: scheduleItem.month,
+                        monthISO: scheduleItem.monthISO,
                         monthName: scheduleItem.monthName,
-                        year: scheduleItem.year
+                        yearISO: scheduleItem.yearISO,
+                        scheduledHour: scheduleItem.scheduledHour,
+                        hourISO: scheduleItem.hourISO,
+                        minutesISO: scheduleItem.minutesISO
                     }
                 }
 
@@ -103,7 +107,7 @@ router.post('/create', isAuth, isClient, async (req, res) => {
             throw { statusCode: 403, message: "An appointment on this Date and Hour already exists. Please pick another time" }
         } else {
             try {
-                let createScheduleItemResponse = await scheduleServices.create({ clientId, hairdresserId, serviceId, date, hour })
+                let createScheduleItemResponse = await scheduleServices.create({ clientId, hairdresserId, serviceId, scheduledDate: date , scheduledHour: hour })
 
                 if (createScheduleItemResponse) {
                     let scheduledItemId = createScheduleItemResponse._id;
@@ -135,14 +139,16 @@ router.post('/create', isAuth, isClient, async (req, res) => {
                                 duration: scheduledItemResponse.serviceId.duration,
                             },
                             appointmentDetails: {
-                                hour: scheduledItemResponse.hour,
-                                date: scheduledItemResponse.date,
+                                scheduledDate: scheduledItemResponse.scheduledDate,
                                 dateISO: scheduledItemResponse.dateISO,
-                                day: scheduledItemResponse.day,
+                                dayISO: scheduledItemResponse.dayISO,
                                 dayOfWeek: scheduledItemResponse.dayOfWeek,
-                                month: scheduledItemResponse.month,
+                                monthISO: scheduledItemResponse.monthISO,
                                 monthName: scheduledItemResponse.monthName,
-                                year: scheduledItemResponse.year
+                                yearISO: scheduledItemResponse.yearISO,
+                                scheduledHour: scheduledItemResponse.scheduledHour,
+                                hourISO: scheduledItemResponse.hourISO,
+                                minutesISO: scheduledItemResponse.minutesISO
                             }
                         }
                         res.json(scheduledItem)

@@ -133,8 +133,8 @@ function ServiceDetailsView() {
 			clientId: user.userId,
 			hairdresserId: data.hairdresser,
 			serviceId: service._id,
-			date: selectedAppointmentDate,
-			hour: data.appointmentHour
+			scheduledDate: selectedAppointmentDate,
+			scheduledHour: data.appointmentHour
 		}
 
 		try {
