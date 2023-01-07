@@ -2,7 +2,7 @@ import Staff from '../models/Staff.js'
 import Client from '../models/Client.js'
 import mongoose from 'mongoose';
 
-const selectedFields = {firstName: 1, lastName: 1, email: 1, phone: 1, gender: 1, role: 1, imgUrl: 1}
+const selectedFields = {firstName: 1, lastName: 1, email: 1, phone: 1, gender: 1, role: 1, imgUrl: 1, about: 1}
 
 export const getOneByEmail = (userEntityModel, email) => mongoose.model(userEntityModel).findOne({email: email});
 
