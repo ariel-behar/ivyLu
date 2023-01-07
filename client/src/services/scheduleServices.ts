@@ -8,7 +8,7 @@ export interface ApiSchedule<I, E extends Identifiable<I>, A extends AuthTokenTy
     getHairdresserSchedule(hairdresserId: I): Promise<E | E[]>
 
     // getOne(entityId: I): Promise<E>;
-    // getAll(): Promise<E[]>;
+    getAll(authToken: A): Promise<E[]>;
     create(appointmentWithoutId: Omit<E, 'id'>, authToken: A): Promise<E>;
     // update(entityId: I, entity: E, authToken: A): Promise<E>;
     // deleteOne(entityId: I, entity: undefined, authToken: A): Promise<string>;
@@ -29,9 +29,9 @@ export class ApiScheduleImpl<I, E extends Identifiable<I>, A extends AuthTokenTy
     // getOne(entityId: I): Promise<E> {
     //     return request(`${baseUrl}/${this.apiCollectionSuffix}/${entityId}`, 'GET');
     // }
-    // getAll(): Promise<E[]> {
-    //     return request(`${baseUrl}/${this.apiCollectionSuffix}`, 'GET');
-    // }
+    getAll(authToken: A): Promise<E[]> {
+        return request(`${baseUrl}/${this.apiCollectionSuffix}`, 'GET', undefined, authToken);
+    }
     // create(entityWithoutId: Omit<E, "id">, userId: I, authToken: A): Promise<E> {
     //     return request(`${baseUrl}/${this.apiCollectionSuffix}/create`, 'POST', {...entityWithoutId, userId}, authToken);
     // }

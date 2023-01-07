@@ -8,5 +8,8 @@ export const getOne = (scheduledItemId) => Schedule.find({_id: scheduledItemId})
 
 export const getOneAndPopulate = (scheduledItemId) => Schedule.findById(scheduledItemId).populate('hairdresserId').populate('clientId').populate('serviceId')
 
+export const getAll = () => Schedule.find({}).populate('hairdresserId').populate('clientId').populate('serviceId').lean()
+
 export const findOneByHairdresserDateAndHour = (hairdresserId, dateISO, hour) => Schedule.findOne({hairdresserId: hairdresserId, dateISO: dateISO, hour: hour})
+
 

@@ -32,6 +32,7 @@ import { getAllHairdressers, getAllStaffLoader } from "../data-loaders/staffLoad
 import StaffAdminView from "../views/AuthorizedViews/UsersViews/StaffAdminView";
 import ScheduleManagementView from "../views/AuthorizedViews/Schedule/ScheduleManagementView";
 import ServicesGuestCustomerView from "../views/ServiceViews/ServicesGuestCustomerView";
+import { getScheduleForAllLoader } from "../data-loaders/scheduleLoader";
 
 const router = createBrowserRouter([
 	{
@@ -104,7 +105,9 @@ const router = createBrowserRouter([
 					},
 					{
 						path: 'schedule',
+						loader: getScheduleForAllLoader,
 						element: <ScheduleManagementView />
+						
 					},
 					{
 						path: 'services',

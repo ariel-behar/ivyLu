@@ -35,10 +35,20 @@ export const isAdmin = function (req, res, next) {
     }
 }
 
+export const isHairdresserOperatorAdmin = function (req, res, next) {
+    let userRole = res.locals.user.role;
+    
+    if(userRole === 2 || userRole === 3 || userRole === 4) {
+        next()
+    } else {
+        return res.status(401).json({ message: 'Unauthorized request' })
+    }
+}
+
 export const isOperatorAdmin = function (req, res, next) {
     let userRole = res.locals.user.role;
     
-    if(userRole === 4 || userRole === 3) {
+    if(userRole === 3 || userRole === 4) {
         next()
     } else {
         return res.status(401).json({ message: 'Unauthorized request' })
