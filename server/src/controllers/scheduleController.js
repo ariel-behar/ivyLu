@@ -13,9 +13,6 @@ router.get('/', isAuth, isHairdresserOperatorAdmin, async (req, res) => {
             let structuredScheduleResponse = scheduleResponse.map(scheduleItem => {
                 let structuredScheduleItem = {
                     _id: scheduleItem._id,
-                    title: `${scheduleItem.hairdresserId.firstName} ${scheduleItem.hairdresserId.lastName}: ${scheduleItem.serviceId.title}`,
-                    start: scheduleItem.date,
-                    end: scheduleItem.date,
                     client: {
                         firstName: scheduleItem.clientId.firstName,
                         lastName: scheduleItem.clientId.lastName,

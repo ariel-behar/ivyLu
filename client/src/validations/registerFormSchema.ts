@@ -1,6 +1,6 @@
 import * as yup from 'yup'
 
-import { LATIN_CHARACTERS_REGEX, PHONE_PATTERN_REGEX, PASSWORD_PATTERN_REGEX } from '../utils/regex'
+import { LATIN_CHARACTERS_REGEX, PHONE_PATTERN_REGEX } from '../utils/regex'
 
 export const registerFormSchemaShape = {
         firstName: yup

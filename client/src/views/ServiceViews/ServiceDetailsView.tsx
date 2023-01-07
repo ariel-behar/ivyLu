@@ -23,13 +23,12 @@ import MenuItem from '@mui/material/MenuItem'
 
 import format from 'date-fns/format'
 import isToday from 'date-fns/isToday'
-import 'react-big-calendar/lib/css/react-big-calendar.css'
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import { useAuthContext } from '../../contexts/AuthContext';
 import { useNotificationContext } from '../../contexts/NotificationContext';
 import ConfirmationView from '../ConfirmationView';
-import { ScheduledItemConfirmationResponseInterface } from '../../types/common/scheduleTypes';
+import { ScheduleConfirmationResponseInterface } from '../../types/common/scheduleTypes';
 import BackToButton from '../../components/BackToButton';
 
 
@@ -52,7 +51,7 @@ function ServiceDetailsView() {
 	const [selectedAppointmentHour, setSelectedAppointmentHour] = useState<AvailableSchedulingHoursType>(filteredAvailableShedulingHours[0])
 	const [isCalendarOpen, setIsCalendarOpen] = useState(false);
 	const [showConfirmationView, setShowConfirmationView] = useState<boolean>(false)
-	const [createdScheduledItem, setCreatedScheduledItem] = useState<object | ScheduledItemConfirmationResponseInterface>({})
+	const [createdScheduledItem, setCreatedScheduledItem] = useState<object | ScheduleConfirmationResponseInterface>({})
 
 	const { register, handleSubmit, formState: { errors, isValid } } = useForm<FormData>({
 		mode: 'onChange',
@@ -157,7 +156,7 @@ function ServiceDetailsView() {
 
 			{
 				showConfirmationView
-					? <ConfirmationView entity={createdScheduledItem as ScheduledItemConfirmationResponseInterface} entityType='service' />
+					? <ConfirmationView entity={createdScheduledItem as ScheduleConfirmationResponseInterface} entityType='service' />
 					:
 					<>
 						<Stack direction='row' justifyContent='right' mb={3}>

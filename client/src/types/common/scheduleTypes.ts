@@ -3,7 +3,7 @@ import { Service } from "../../models/Service";
 import { User } from "../../models/User";
 import { IdType } from "./commonTypes";
 
-export interface ScheduledItemConfirmationResponseInterface {
+export interface ScheduleConfirmationResponseInterface {
     _id: IdType,
     client: User,
     hairdresser: User,

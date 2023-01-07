@@ -5,10 +5,10 @@ import Typography from "@mui/material/Typography"
 import BackToButton from "../components/BackToButton"
 import GoToDashboardButton from "../components/GoToDashboardButton"
 import ServiceAppointmentConfirmationCard from "../components/ServiceAppointmentConfirmationCard"
-import { ScheduledItemConfirmationResponseInterface } from "../types/common/scheduleTypes"
+import { ScheduleConfirmationResponseInterface } from "../types/common/scheduleTypes"
 
 interface ConfirmationViewProps {
-    entity?: ScheduledItemConfirmationResponseInterface
+    entity?: ScheduleConfirmationResponseInterface
     entityType?: 'service' | 'product'
 }
 
@@ -36,7 +36,7 @@ function ConfirmationView({ entity, entityType }: ConfirmationViewProps) {
 
                     <Paper elevation={5} >
                         { entityType === 'service' 
-                        && <ServiceAppointmentConfirmationCard service={entity as ScheduledItemConfirmationResponseInterface} /> }
+                        && <ServiceAppointmentConfirmationCard service={entity as ScheduleConfirmationResponseInterface} /> }
                     </Paper>
                 </Stack>
             </Container>

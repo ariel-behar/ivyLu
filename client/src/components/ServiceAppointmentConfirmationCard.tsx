@@ -1,10 +1,10 @@
 import Box from "@mui/material/Box"
 import Stack from "@mui/material/Stack"
 import Typography from "@mui/material/Typography"
-import { ScheduledItemConfirmationResponseInterface } from "../types/common/scheduleTypes"
+import { ScheduleConfirmationResponseInterface } from "../types/common/scheduleTypes"
 
 interface ServiceAppointmentConfirmationCardProps {
-	service: ScheduledItemConfirmationResponseInterface
+	service: ScheduleConfirmationResponseInterface
 }
 
 function ServiceAppointmentConfirmationCard({ service }: ServiceAppointmentConfirmationCardProps) {
