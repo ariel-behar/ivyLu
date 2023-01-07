@@ -20,7 +20,7 @@ const commonUserSchema = {
         validate: [regex.EMAIL_PATTERN, 'Input should be an e-mail address in a valid format'],
     },
     phone: {
-        type: Number,
+        type: String,
         required: [true, 'Phone Number is required'],
         validate: [regex.PHONE_PATTERN, 'The input should be a valid phone number'],
         minLength: [6, "Phone number should be at least 6 characters long"],

@@ -28,7 +28,7 @@ type FormData = {
 	firstName: string,
 	lastName: string,
 	email: string,
-	phone: number,
+	phone: string,
 	gender: "male" | "female",
 	password: string,
 	confirmPassword: string
@@ -56,8 +56,11 @@ function RegisterView() {
 
 	const onFormSubmit = async (data: FormData, e: React.BaseSyntheticEvent<object, any, any> | undefined) => {
 		e?.preventDefault();
+		
 
 		const { firstName, lastName, email, phone, gender, password } = data;
+
+		console.log(typeof phone);
 
 		const user = new UserRegisterDTO(firstName, lastName, email, phone, gender, password)
 
@@ -104,7 +107,6 @@ function RegisterView() {
 						error={errors.lastName ? true : false}
 						helperText={errors.lastName ? errors.lastName.message : ''}
 					/>
-
 
 					<TextField
 						required

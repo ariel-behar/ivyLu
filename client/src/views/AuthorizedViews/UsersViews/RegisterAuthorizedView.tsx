@@ -31,7 +31,7 @@ type FormData = {
 	firstName: string,
 	lastName: string,
 	email: string,
-	phone: number,
+	phone: string,
 	gender: "male" | "female",
 	imgUrl: string,
 	role: 2 | 3 | 4,
