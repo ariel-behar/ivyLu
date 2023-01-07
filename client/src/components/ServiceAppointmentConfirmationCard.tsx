@@ -8,7 +8,6 @@ interface ServiceAppointmentConfirmationCardProps {
 }
 
 function ServiceAppointmentConfirmationCard({ service }: ServiceAppointmentConfirmationCardProps) {
-	console.log('service:', service)
 	return (
 		<>
 			<Box p={2}>
@@ -25,7 +24,7 @@ function ServiceAppointmentConfirmationCard({ service }: ServiceAppointmentConfi
 						</Box>
 						<Box>
 
-							<Typography variant="body1">Duration: <b>{service.service.duration} hrs</b></Typography>
+							<Typography variant="body1">Duration: <b>{service.service.duration} minutes</b></Typography>
 							<Typography variant="body1">Price: <b>{service.service.price} BGN</b></Typography>
 						</Box>
 					</Stack>

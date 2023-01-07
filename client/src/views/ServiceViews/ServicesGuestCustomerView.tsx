@@ -62,7 +62,7 @@ function ServicesGuestCustomerView() {
                                 <Button variant="contained" to={isLoggedIn ? `/services/${service._id}/schedule` : `/login`} component={RouterLink}>Schedule</Button>
 
                                 <Stack direction='column'>
-                                    <Typography variant="body1" sx={{ color: 'common.white' }}>Duration: <b> {service.duration} hrs</b></Typography>
+                                    <Typography variant="body1" sx={{ color: 'common.white' }}>Duration: <b> {service.duration} minutes</b></Typography>
                                     <Typography variant="body1" sx={{ color: 'common.white' }}>Price: <b>{service.price} BGN</b></Typography>
 
                                 </Stack>

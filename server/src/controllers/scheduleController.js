@@ -95,19 +95,18 @@ router.get('/:hairdresserId', async (req, res) => {
 })
 
 router.post('/create', isAuth, isClient, async (req, res) => {
-    const { clientId, hairdresserId, serviceId, date, hour } = req.body;
+    const { clientId, hairdresserId, serviceId, scheduledDate, scheduledHour } = req.body;
 
     try {
-        let formattedDateISO = format(new Date(date), "dd/MM/yyyy")
+        let formattedDateISO = format(new Date(scheduledDate), "dd/MM/yyyy")
 
-        let appointmentExists = await scheduleServices.findOneByHairdresserDateAndHour(hairdresserId, formattedDateISO, hour)
-        console.log('appointmentExists:', appointmentExists)
+        let appointmentExists = await scheduleServices.findOneByHairdresserDateAndHour(hairdresserId, formattedDateISO, scheduledHour)
 
         if (appointmentExists) {
             throw { statusCode: 403, message: "An appointment on this Date and Hour already exists. Please pick another time" }
         } else {
             try {
-                let createScheduleItemResponse = await scheduleServices.create({ clientId, hairdresserId, serviceId, scheduledDate: date , scheduledHour: hour })
+                let createScheduleItemResponse = await scheduleServices.create({ clientId, hairdresserId, serviceId, scheduledDate , scheduledHour })
 
                 if (createScheduleItemResponse) {
                     let scheduledItemId = createScheduleItemResponse._id;

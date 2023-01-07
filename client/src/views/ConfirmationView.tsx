@@ -18,37 +18,28 @@ function ConfirmationView({ entity, entityType }: ConfirmationViewProps) {
         <>
             <div>ConfirmationView</div>
             <Container>
-                <Stack direction='row' justifyContent='right' mb={5}>
+                <Stack direction='row' justifyContent='space-between' mb={5}>
                     <BackToButton whereTo="services" />
-
-                    <Box width='50px' ></Box>
 
                     <GoToDashboardButton />
                 </Stack>
                 <Stack >
-                    {
-                        entityType === 'service'
-                        && <Typography variant="h4" textAlign='center'>You have successfully made your appointment!</Typography>
-                    }
+                    {entityType === 'service' 
+                    && <Typography variant="h4" textAlign='center'>You have successfully made your appointment!</Typography> }
 
-                    {
-                        entityType === 'product'
-                        && <Typography variant="body1">You have successfully ordererd your product!</Typography>
-                    }
+                    {entityType === 'product' 
+                    && <Typography variant="body1">You have successfully ordererd your product!</Typography>}
+                        
 
                     <Stack direction='row' justifyContent='space-between' mt={5} mb={1}>
                         <Typography variant="h6">Here are the confirmation details:</Typography>
                     </Stack>
 
                     <Paper elevation={5} >
-                        {
-                            entityType === 'service'
-                            && <ServiceAppointmentConfirmationCard service={entity as ScheduledItemConfirmationResponseInterface} />
-                        }
+                        { entityType === 'service' 
+                        && <ServiceAppointmentConfirmationCard service={entity as ScheduledItemConfirmationResponseInterface} /> }
                     </Paper>
                 </Stack>
-
-
             </Container>
         </>
     )
