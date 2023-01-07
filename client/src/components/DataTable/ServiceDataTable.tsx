@@ -56,7 +56,7 @@ function ServiceDataTable({
                             <TableCell>{service.title}</TableCell>
                             <TableCell>{service.description}</TableCell>
                             <TableCell>{service.additionalComments}</TableCell>
-                            <TableCell >{service.duration} hrs</TableCell>
+                            <TableCell >{service.duration} minutes</TableCell>
                             <TableCell >{service.price} BGN</TableCell>
 
 
