@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
 import * as env from 'dotenv'
-import commonUserSchema from './commonUserSchema.js';
+import commonUserSchema from './common-schemas/commonUserSchema.js';
 import * as regex from '../utils/regex.js'
 
 

@@ -1,4 +1,4 @@
-import * as regex from '../utils/regex.js'
+import * as regex from '../../utils/regex.js'
 
 const commonUserSchema = {
     firstName: {
