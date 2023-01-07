@@ -13,6 +13,7 @@ export class User implements Identifiable<IdType> {
         public gender: "male" | "female",
         public password: string,
         public role: UserRole = UserRole.Client,
+        public about?: string,
         public imgUrl?: string
     ){}
 }
@@ -37,6 +38,7 @@ export class AuthUserRegisterDTO implements Omit<User, '_id'> {
         public gender: "male" | "female",
         public password: string,
         public role: number,
+        public about?: string,
         public imgUrl?: string,
     ){}
 }

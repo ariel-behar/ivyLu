@@ -104,7 +104,7 @@ function EditProduct() {
 
         if (productId) {
             try {
-                let editProductResponse = await clientServices.update(productId, product as Product, user.AUTH_TOKEN)
+                let editProductResponse = await clientServices.update(productId, product as Product, user.authToken)
                 console.log('editProductResponse:', editProductResponse)
 
                 if (editProductResponse) {

@@ -103,7 +103,7 @@ function CreateProduct() {
 		try {
 			let creatorId = user.userId
 
-			let createProductResponse = await clientServices.create(product as Product, creatorId, user.AUTH_TOKEN)
+			let createProductResponse = await clientServices.create(product as Product, creatorId, user.authToken)
 
 			if(createProductResponse) {
 				displayNotification({message: 'Record has succesfully been created'}, 'success')

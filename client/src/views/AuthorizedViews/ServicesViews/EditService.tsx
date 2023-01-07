@@ -99,7 +99,7 @@ function EditService() {
 
         if (serviceId) {
             try {
-                let editServiceResponse = await clientServices.update(serviceId, service as Service, user.AUTH_TOKEN)
+                let editServiceResponse = await clientServices.update(serviceId, service as Service, user.authToken)
 
                 if (editServiceResponse) {
                     displayNotification({message: 'Record has successfully been modified'}, 'success')

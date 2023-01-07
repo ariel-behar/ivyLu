@@ -35,6 +35,7 @@ type FormData = {
 	gender: "male" | "female",
 	imgUrl: string,
 	role: 2 | 3 | 4,
+	about: string,
 	password: string,
 	confirmPassword: string
 }
@@ -58,6 +59,7 @@ function RegisterAuthorizedView() {
 			gender: 'female',
 			imgUrl: '',
 			role: 2,
+			about: '',
 			password: '',
 			confirmPassword: ''
 		}
@@ -67,13 +69,14 @@ function RegisterAuthorizedView() {
 		e?.preventDefault();
 
 		let { firstName, lastName, email, phone, gender, role, password } = data;
-		let imgUrl: string = '';
+		let imgUrl = '';
+		let about = ''
 
-		if(data.hasOwnProperty('imgUrl')) {
+		if (data.hasOwnProperty('about')) {
 			imgUrl = data.imgUrl
+			about = data.about
 		}
-
-		const newUser = new AuthUserRegisterDTO(firstName, lastName, email, phone, gender, password, role, imgUrl)
+		const newUser = new AuthUserRegisterDTO(firstName, lastName, email, phone, gender, password, role, about, imgUrl)
 
 		try {
 			let registerUserResponse = await userServices.register(newUser as User, user.authToken)
@@ -189,7 +192,8 @@ function RegisterAuthorizedView() {
 							<Box width='100%' component='div' onBlur={handlePreviewImage}>
 								<TextField
 									fullWidth
-									label="User Image"
+									required={role === 2}
+									label={role === 2 ? "Hairdresser Image" : 'User Image'}
 									placeholder='https://...'
 									variant="outlined"
 									size="small"
@@ -198,6 +202,21 @@ function RegisterAuthorizedView() {
 									helperText={errors.imgUrl ? errors.imgUrl.message : ''}
 								/>
 							</Box>
+
+							{
+								role === 2
+								&& <TextField
+									fullWidth
+									required={role === 2}
+									label="About Hairdresser"
+									variant="outlined"
+									size="small"
+									{...register('about')}
+									error={errors.about ? true : false}
+									helperText={errors.about ? errors.about.message : ''}
+								/>
+							}
+
 
 
 							<TextField

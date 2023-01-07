@@ -31,12 +31,6 @@ const commonUserSchema = {
         required: [true, 'Gender is required'],
         enum: { values: ['male', 'female'], message: 'Gender should be either Male or Female'},
     },
-
-    imgUrl: {
-        type: String,
-        required: false,
-        validate: [regex.IMAGE_URL, 'Image URL should start with "http://" or "https://" and end with either .jpg|.jpeg|.png|.gif|.svg'],
-    },
     password: {
         type: String,
         required: [true, 'Password is required'],

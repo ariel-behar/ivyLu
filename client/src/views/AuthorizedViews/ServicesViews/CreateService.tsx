@@ -99,7 +99,7 @@ function CreateService() {
 		try {
 			let creatorId = user.userId
 
-			let createServiceResponse = await clientServices.create(service as Service, creatorId, user.AUTH_TOKEN)
+			let createServiceResponse = await clientServices.create(service as Service, creatorId, user.authToken)
 
 			if(createServiceResponse) {
 				displayNotification({message: 'Record has succesfully been created'}, 'success')

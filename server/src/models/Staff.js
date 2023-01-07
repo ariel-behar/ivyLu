@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
 import * as env from 'dotenv'
 import commonUserSchema from './commonUserSchema.js';
+import * as regex from '../utils/regex.js'
 
 
 env.config()
@@ -13,6 +14,19 @@ const staffSchema = new mongoose.Schema({
         required: [true, 'User Role is required'],
         enum: [2, 3, 4]
     },
+    about: {
+        type: String,
+        required: true,
+        minLength: [30, 'About Hairdresser needs to be at least 30 characters long'],
+        maxLength: [250, 'About Hairdresser needs to be at most 250 characters long'],
+        validate: [regex.LATIN_CHARACTERS, 'About Hairdresser should include only characters from the latin alphabet'],
+    },
+    imgUrl: {
+        type: String,
+        required: [true, 'Hairdresser Image is required'],
+        validate: [regex.IMAGE_URL, 'Image URL should start with "http://" or "https://" and end with either .jpg|.jpeg|.png|.gif|.svg'],
+    }
+
 }, {
     timestamps: true
 });

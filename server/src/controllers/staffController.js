@@ -33,7 +33,7 @@ router.get('/', async (req, res) => {
 })
 
 router.post('/register', isAuth, isAdmin, async (req, res) => {
-    let { firstName, lastName, email, phone, gender, role, imgUrl, password } = req.body;
+    let { firstName, lastName, email, phone, gender, password, role,about, imgUrl } = req.body;
 
     try {
         let userExists = await userServices.getOneByEmail('Client', email);
@@ -48,10 +48,10 @@ router.post('/register', isAuth, isAdmin, async (req, res) => {
             try {
                 let userResponse;
 
-                if (imgUrl) {
-                    userResponse = await userServices.register('Staff', { firstName, lastName, email, phone, gender, role, imgUrl, password });
+                if (role == 2) {
+                    userResponse = await userServices.register('Staff', { firstName, lastName, email, phone, gender, password, role, imgUrl, about });
                 } else {
-                    userResponse = await userServices.register('Staff', { firstName, lastName, email, phone, gender, role, password });
+                    userResponse = await userServices.register('Staff', { firstName, lastName, email, phone, gender, password, role });
                 }
 
                 if (userResponse) {
