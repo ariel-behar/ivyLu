@@ -56,7 +56,7 @@ function ScheduleManagementView() {
 			let hour = Number(scheduleItem.appointmentDetails.hourISO)
 			let minutes = Number(scheduleItem.appointmentDetails.minutesISO)
 
-			let appointmentDuration = Number(scheduleItem.service.duration.substring(2,5))
+			let appointmentDuration = Number(scheduleItem.service.duration)
 
 			let startDate = new Date(year, month, day, hour, minutes)
 			let endDate = new Date(year, month, day, hour, minutes + appointmentDuration)
