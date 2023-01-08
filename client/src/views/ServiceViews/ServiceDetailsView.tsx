@@ -129,9 +129,9 @@ function ServiceDetailsView() {
 		e?.preventDefault()
 
 		const appointment: ScheduleCreateDTO = {
-			clientId: user.userId,
-			hairdresserId: data.hairdresser,
-			serviceId: service._id,
+			client: user.userId,
+			hairdresser: data.hairdresser,
+			service: service._id,
 			scheduledDate: selectedAppointmentDate,
 			scheduledHour: data.appointmentHour
 		}

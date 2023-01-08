@@ -2,17 +2,17 @@ import mongoose from 'mongoose'
 import format from 'date-fns/format/index.js'
 
 const scheduleSchema = new mongoose.Schema({
-    clientId: {
+    client: {
         type: mongoose.Types.ObjectId,
         ref: 'Client',
         required: true
     },
-    hairdresserId: {
+    hairdresser: {
         type: mongoose.Types.ObjectId,
         ref: 'Staff',
         required: true
     },
-    serviceId: {
+    service: {
         type: mongoose.Types.ObjectId,
         ref: 'Service',
         required: true

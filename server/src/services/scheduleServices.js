@@ -1,15 +1,15 @@
 import Schedule from '../models/Schedule.js'
 
-export const create = ({clientId, hairdresserId, serviceId, scheduledDate, scheduledHour}) => Schedule.create({clientId, hairdresserId, serviceId, scheduledDate, scheduledHour})
+export const create = ({client, hairdresser, service, scheduledDate, scheduledHour}) => Schedule.create({client, hairdresser, service, scheduledDate, scheduledHour})
 
-export const getHairdresserSchedule = (hairdresserId) => Schedule.find({hairdresserId}, {dateISO: 1, hour: 1, hairdresserId: 1}).populate('hairdresserId',['firstName', 'lastName'])
+export const getHairdresserSchedule = (hairdresserId) => Schedule.find({hairdresserId}, {dateISO: 1, hour: 1, hairdresser: 1}).populate('hairdresserId',['firstName', 'lastName'])
 
 export const getOne = (scheduledItemId) => Schedule.find({_id: scheduledItemId})
 
-export const getOneAndPopulate = (scheduledItemId) => Schedule.findById(scheduledItemId).populate('hairdresserId').populate('clientId').populate('serviceId')
+export const getOneAndPopulate = (scheduledItemId) => Schedule.findById(scheduledItemId).populate('hairdresser').populate('client').populate('service')
 
-export const getAll = () => Schedule.find({}).populate('hairdresserId').populate('clientId').populate('serviceId').lean()
+export const getAll = () => Schedule.find({}).populate('hairdresser').populate('client').populate('service').lean()
 
-export const findOneByHairdresserDateAndHour = (hairdresserId, dateISO, hour) => Schedule.findOne({hairdresserId: hairdresserId, dateISO: dateISO, hour: hour})
+export const findOneByHairdresserDateAndHour = (hairdresser, dateISO, hour) => Schedule.findOne({hairdresser: hairdresser, dateISO: dateISO, hour: hour})
 
 

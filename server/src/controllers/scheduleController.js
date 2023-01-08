@@ -14,25 +14,25 @@ router.get('/', isAuth, isHairdresserOperatorAdmin, async (req, res) => {
                 let structuredScheduleItem = {
                     _id: scheduleItem._id,
                     client: {
-                        firstName: scheduleItem.clientId.firstName,
-                        lastName: scheduleItem.clientId.lastName,
-                        phone: scheduleItem.clientId.phone,
-                        gender: scheduleItem.clientId.gender,
-                        email: scheduleItem.clientId.email,
+                        firstName: scheduleItem.client.firstName,
+                        lastName: scheduleItem.client.lastName,
+                        phone: scheduleItem.client.phone,
+                        gender: scheduleItem.client.gender,
+                        email: scheduleItem.client.email,
                     },
                     hairdresser: {
-                        firstName: scheduleItem.hairdresserId.firstName,
-                        lastName: scheduleItem.hairdresserId.lastName,
-                        phone: scheduleItem.hairdresserId.phone,
-                        gender: scheduleItem.hairdresserId.gender,
-                        imgUrl: scheduleItem.hairdresserId.imgUrl
+                        firstName: scheduleItem.hairdresser.firstName,
+                        lastName: scheduleItem.hairdresser.lastName,
+                        phone: scheduleItem.hairdresser.phone,
+                        gender: scheduleItem.hairdresser.gender,
+                        imgUrl: scheduleItem.hairdresser.imgUrl
                     },
                     service: {
-                        title: scheduleItem.serviceId.title,
-                        description: scheduleItem.serviceId.description,
-                        imgUrl: scheduleItem.serviceId.imgUrl,
-                        price: scheduleItem.serviceId.price,
-                        duration: scheduleItem.serviceId.duration,
+                        title: scheduleItem.service.title,
+                        description: scheduleItem.service.description,
+                        imgUrl: scheduleItem.service.imgUrl,
+                        price: scheduleItem.service.price,
+                        duration: scheduleItem.service.duration,
                     },
                     appointmentDetails: {
                         scheduledDate: scheduleItem.scheduledDate,
@@ -92,18 +92,19 @@ router.get('/:hairdresserId', async (req, res) => {
 })
 
 router.post('/create', isAuth, isClient, async (req, res) => {
-    const { clientId, hairdresserId, serviceId, scheduledDate, scheduledHour } = req.body;
+    console.log(req.body);
+    const { client, hairdresser, service, scheduledDate, scheduledHour } = req.body;
 
     try {
         let formattedDateISO = format(new Date(scheduledDate), "dd/MM/yyyy")
 
-        let appointmentExists = await scheduleServices.findOneByHairdresserDateAndHour(hairdresserId, formattedDateISO, scheduledHour)
+        let appointmentExists = await scheduleServices.findOneByHairdresserDateAndHour(hairdresser, formattedDateISO, scheduledHour)
 
         if (appointmentExists) {
             throw { statusCode: 403, message: "An appointment on this Date and Hour already exists. Please pick another time" }
         } else {
             try {
-                let createScheduleItemResponse = await scheduleServices.create({ clientId, hairdresserId, serviceId, scheduledDate , scheduledHour })
+                let createScheduleItemResponse = await scheduleServices.create({ client, hairdresser, service, scheduledDate , scheduledHour })
 
                 if (createScheduleItemResponse) {
                     let scheduledItemId = createScheduleItemResponse._id;
@@ -114,25 +115,25 @@ router.post('/create', isAuth, isClient, async (req, res) => {
                         let scheduledItem = {
                             _id: scheduledItemResponse._id,
                             client: {
-                                firstName: scheduledItemResponse.clientId.firstName,
-                                lastName: scheduledItemResponse.clientId.lastName,
-                                phone: scheduledItemResponse.clientId.phone,
-                                gender: scheduledItemResponse.clientId.gender,
-                                email: scheduledItemResponse.clientId.email,
+                                firstName: scheduledItemResponse.client.firstName,
+                                lastName: scheduledItemResponse.client.lastName,
+                                phone: scheduledItemResponse.client.phone,
+                                gender: scheduledItemResponse.client.gender,
+                                email: scheduledItemResponse.client.email,
                             },
                             hairdresser: {
-                                firstName: scheduledItemResponse.hairdresserId.firstName,
-                                lastName: scheduledItemResponse.hairdresserId.lastName,
-                                phone: scheduledItemResponse.hairdresserId.phone,
-                                gender: scheduledItemResponse.hairdresserId.gender,
-                                imgUrl: scheduledItemResponse.hairdresserId.imgUrl
+                                firstName: scheduledItemResponse.hairdresser.firstName,
+                                lastName: scheduledItemResponse.hairdresser.lastName,
+                                phone: scheduledItemResponse.hairdresser.phone,
+                                gender: scheduledItemResponse.hairdresser.gender,
+                                imgUrl: scheduledItemResponse.hairdresser.imgUrl
                             },
                             service: {
-                                title: scheduledItemResponse.serviceId.title,
-                                description: scheduledItemResponse.serviceId.description,
-                                imgUrl: scheduledItemResponse.serviceId.imgUrl,
-                                price: scheduledItemResponse.serviceId.price,
-                                duration: scheduledItemResponse.serviceId.duration,
+                                title: scheduledItemResponse.service.title,
+                                description: scheduledItemResponse.service.description,
+                                imgUrl: scheduledItemResponse.service.imgUrl,
+                                price: scheduledItemResponse.service.price,
+                                duration: scheduledItemResponse.service.duration,
                             },
                             appointmentDetails: {
                                 scheduledDate: scheduledItemResponse.scheduledDate,
