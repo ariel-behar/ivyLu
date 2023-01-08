@@ -6,8 +6,8 @@ import { isAuth, isClient } from '../middlewares/authMiddleware.js'
 const router = Router()
 
 router.post('/create', isAuth, isClient, async (req, res) => {
-    let { clientId: client, productId: product, status } = req.body;
-    console.log('body:', req.body)
+    let { client, product, status } = req.body;
+    console.log('client:', client)
 
     try {
         let orderCreateResponse = await ordersServices.create({client, product, status})
@@ -17,6 +17,8 @@ router.post('/create', isAuth, isClient, async (req, res) => {
 
             let order = {
                 _id: populatedOrder._id,
+                createdAt: populatedOrder.createdAt,
+                status: populatedOrder.status,
                 client: {
                     firstName: populatedOrder.client.firstName,
                     lastName: populatedOrder.client.lastName,
@@ -31,6 +33,7 @@ router.post('/create', isAuth, isClient, async (req, res) => {
                     price: populatedOrder.product.price,
                     volume: populatedOrder.product.volume,
                     volumeMeasurementUnit: populatedOrder.product.volumeMeasurementUnit,
+                    productCategory: populatedOrder.product.productCategory,
                     createdAt: populatedOrder.product.createdAt
                 }
             };

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useLoaderData } from 'react-router-dom';
 
-import { ScheduleConfirmationResponseInterface } from '../../../types/common/scheduleTypes';
+import { ScheduleConfirmationResponseInterface } from '../../../types/scheduleTypes';
 
 import format from 'date-fns/format'
 import parse from 'date-fns/parse'

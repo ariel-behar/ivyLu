@@ -27,7 +27,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useAuthContext } from '../../contexts/AuthContext';
 import { useNotificationContext } from '../../contexts/NotificationContext';
 import ConfirmationView from '../ConfirmationView';
-import { ScheduleConfirmationResponseInterface } from '../../types/common/scheduleTypes';
+import { ScheduleConfirmationResponseInterface } from '../../types/scheduleTypes';
 import BackToButton from '../../components/BackToButton';
 import { availableSchedulingHours, AvailableSchedulingHoursType } from '../../utils/constants';
 

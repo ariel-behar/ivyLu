@@ -15,7 +15,6 @@ router.get('/', async (req, res) => {
         try {
 
             let users = await userServices.getManyFilteredBy('Staff', filters);
-            console.log('users:', users)
 
             res.json(users)
         } catch (err) {
