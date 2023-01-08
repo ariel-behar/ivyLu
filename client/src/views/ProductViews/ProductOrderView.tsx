@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useLoaderData } from 'react-router-dom'
 
+import * as orderServices from '../../services/orderServices'
 import { useAuthContext } from '../../contexts/AuthContext';
 import { Product } from '../../models/Product';
 import { getMeasurementUnit } from '../../utils/getMeasurementUnit';
@@ -13,16 +14,38 @@ import Typography from '@mui/material/Typography';
 import BackToButton from '../../components/BackToButton';
 import { Button } from '@mui/material';
 import ConfirmationView from '../ConfirmationView';
+import ConfirmDialog from '../../components/ConfirmDialog';
+import { User } from '../../models/User';
+import { OrderCreateDTO } from '../../models/Order';
+import { useNotificationContext } from '../../contexts/NotificationContext';
 
 function ProductOrderView() {
 	const product = useLoaderData() as Product;
-	const { user } = useAuthContext() as any;
+	const { user } = useAuthContext() as {user:User};
+	const { displayNotification } = useNotificationContext() as any;
 	const [showConfirmationView, setShowConfirmationView] = useState<boolean>(false)
+	const [showConfirmationDialog, setShowConfirmationDialog] = useState<boolean>(false)
 
 	const onOrderButtonClick = () => {
-		setShowConfirmationView(true)
+		setShowConfirmationDialog(true)
 	}
 
+	const closeConfirmDialog = (): void => {
+		setShowConfirmationDialog(false)
+	}
+
+	const onConfirmDialogConfirmClick = (): void => {
+		try {
+			let orderResponse = orderServices.order({clientId: user._id , productId: product._id}, user.authToken)
+			console.log('orderResponse:', orderResponse)
+
+		} catch (err) {
+			displayNotification(err, 'error')
+		}
+
+		setShowConfirmationDialog(false)
+		setShowConfirmationView(true)
+	}
 
 	return (
 		<>
@@ -71,10 +94,19 @@ function ProductOrderView() {
 							</Grid>
 						</Paper>
 					</>
-
-
 			}
 
+			{
+				showConfirmationDialog
+					? <ConfirmDialog
+						entity={product}
+						entityType='product'
+						showConfirmationDialog={showConfirmationDialog}
+						closeConfirmDialog={closeConfirmDialog}
+						onConfirmDialogConfirmClick={onConfirmDialogConfirmClick}
+					/>
+					: ''
+			}
 
 		</>
 	)

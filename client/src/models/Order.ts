@@ -9,7 +9,7 @@ export class Order implements Identifiable<IdType>{
         public _id: IdType,
         public clientId: IdType,
         public productId: IdType,
-        public status: OrderStatus.Pending,
+        public status: OrderStatus = OrderStatus.Pending,
         public createdAd: Date,
         public comments: string[]
     ){}
