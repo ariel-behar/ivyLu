@@ -22,8 +22,6 @@ function Notification() {
         }
     });
 
-
-
     return (
         <ToastContainer
             position="bottom-right"

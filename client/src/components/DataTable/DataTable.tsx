@@ -5,7 +5,7 @@ import { Service } from "../../models/Service"
 import { User } from "../../models/User"
 import { IdType } from "../../types/common/commonTypes"
 
-import ConfirmationDialog from "../Common/ConfirmationDialog"
+import ConfirmDeleteDialog from "../ConfirmDeleteDialog"
 import ProductDataTable from "./ProductDataTable"
 import ServiceDataTable from "./ServiceDataTable"
 import UserDataTable from "./UserDataTable"
@@ -65,8 +65,8 @@ function DataTable({ entityType, entities }: DataTableInterface) {
 
             {
                 showConfirmationDialog
-                    ? <ConfirmationDialog
-                        itemToDelete={{ _id: deleteItem._id, entity: deleteItem.entity as 'client' | 'service' | 'product' | 'staff' }}
+                    ? <ConfirmDeleteDialog
+                        itemToDelete={{ _id: deleteItem._id, entityType: deleteItem.entity as 'client' | 'service' | 'product' | 'staff' }}
                         showConfirmationDialog={showConfirmationDialog}
                         closeConfirmationDialog={closeConfirmationDialog}
                     />
