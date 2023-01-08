@@ -1,4 +1,6 @@
 import { Identifiable, IdType } from "../types/common/commonTypes";
+import { Product } from "./Product";
+import { User } from "./User";
 
 const enum OrderStatus {
     Pending = 1, InProgress, Shipped, Completed, CanceledByClient, CanceledByManagement
@@ -7,18 +9,18 @@ const enum OrderStatus {
 export class Order implements Identifiable<IdType>{
     constructor(
         public _id: IdType,
-        public client: IdType,
-        public product: IdType,
+        public client: User,
+        public product: Product,
         public status: OrderStatus = OrderStatus.Pending,
-        public createdAd: Date,
+        public createdAt: string,
         public comments: string[]
     ){}
 }
 
-export class OrderCreateDTO implements Omit<Order, '_id' | 'createdAd' | 'comments'>{
+export class OrderCreateDTO implements Omit<Order, '_id' | 'client' | 'product' | 'createdAt' | 'comments' >{
     constructor(
-        public client: IdType,
-        public product: IdType,
+        public clientId: IdType,
+        public productId: IdType,
         public status: OrderStatus = OrderStatus.Pending
     ){
     }

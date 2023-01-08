@@ -1,9 +1,17 @@
-import React from 'react'
+import { useLoaderData } from 'react-router-dom'
+import DataTable from '../../../components/DataTable/DataTable'
+import { Order } from '../../../models/Order';
 
 function OrdersManagementView() {
-  return (
-    <div>OrdersManagementView</div>
-  )
+	const orders = useLoaderData() as Order[];
+
+	return (
+		<>
+			<div>OrdersManagementView</div>
+
+			<DataTable entityType='order' entities={orders} />
+		</>
+	)
 }
 
 export default OrdersManagementView

@@ -4,11 +4,11 @@ import parseISO from 'date-fns/parseISO'
 import Box from "@mui/material/Box"
 import Stack from "@mui/material/Stack"
 import Typography from "@mui/material/Typography"
-import { OrderConfirmationResponseInterface } from "../types/orderTypes"
 import getOrderStatus from '../utils/getOrderStatus'
+import { Order } from '../models/Order'
 
 interface ProductOrderConfirmationCardProps {
-	confirmationResponse: OrderConfirmationResponseInterface
+	confirmationResponse: Order
 }
 
 function ProductOrderConfirmationCard({ confirmationResponse }: ProductOrderConfirmationCardProps) {
@@ -44,7 +44,6 @@ function ProductOrderConfirmationCard({ confirmationResponse }: ProductOrderConf
 						<Typography variant="body1">Name: <b>{confirmationResponse.client.firstName} {confirmationResponse.client.lastName}</b></Typography>
 						<Typography variant="body1">Phone Number: <b>{confirmationResponse.client.phone} </b></Typography>
 						<Typography variant="body1">Email: <b>{confirmationResponse.client.email}</b></Typography>
-
 					</Box>
 
 					<Box>

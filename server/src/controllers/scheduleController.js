@@ -11,7 +11,7 @@ router.get('/', isAuth, isHairdresserOperatorAdmin, async (req, res) => {
 
         if (scheduleResponse) {
             let structuredScheduleResponse = scheduleResponse.map(scheduleItem => {
-                let structuredScheduleItem = {
+                return {
                     _id: scheduleItem._id,
                     client: {
                         firstName: scheduleItem.client.firstName,
@@ -48,7 +48,7 @@ router.get('/', isAuth, isHairdresserOperatorAdmin, async (req, res) => {
                     }
                 }
 
-                return structuredScheduleItem
+                
             })
 
             res.json(structuredScheduleResponse)

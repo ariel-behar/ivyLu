@@ -35,6 +35,7 @@ import ServicesView from "../views/ServiceViews/ServicesView";
 import { getScheduleForAllLoader } from "../data-loaders/scheduleLoader";
 import ProductsRootView from "../views/ProductViews/ProductsRootView";
 import ProductOrderView from "../views/ProductViews/ProductOrderView";
+import { getAllOrdersLoader } from "../data-loaders/ordersLoader";
 
 const router = createBrowserRouter([
 	{
@@ -115,6 +116,7 @@ const router = createBrowserRouter([
 					},
 					{
 						path: 'orders',
+						loader: getAllOrdersLoader,
 						element: <OrdersManagementView />
 					},
 					{

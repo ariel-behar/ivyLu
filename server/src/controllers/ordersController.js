@@ -1,13 +1,51 @@
 import { Router } from 'express';
 
 import * as ordersServices from '../services/ordersServices.js'
-import { isAuth, isClient } from '../middlewares/authMiddleware.js'
+import { isAuth, isClient, isHairdresserOperatorAdmin } from '../middlewares/authMiddleware.js'
 
 const router = Router()
 
+router.get('/', isAuth, isHairdresserOperatorAdmin, async (req, res) => {
+    try {
+        let orderResponse = await ordersServices.getAll()
+
+        if (orderResponse) {
+            let structuredOrderResponse = orderResponse.map(orderItem => {
+                return {
+                    _id: orderItem._id,
+                    createdAt: orderItem.createdAt,
+                    status: orderItem.status,
+                    comments: orderItem.comments,
+                    client: {
+                        firstName: orderItem.client.firstName,
+                        lastName: orderItem.client.lastName,
+                        phone: orderItem.client.phone,
+                        gender: orderItem.client.gender,
+                        email: orderItem.client.email,
+                    },
+                    product: {
+                        title: orderItem.product.title,
+                        description: orderItem.product.description,
+                        imgUrl: orderItem.product.imgUrl,
+                        price: orderItem.product.price,
+                        volume: orderItem.product.volume,
+                        volumeMeasurementUnit: orderItem.product.volumeMeasurementUnit,
+                        productCategory: orderItem.product.productCategory,
+                        createdAt: orderItem.product.createdAt,
+                        productCode: orderItem.product.productCode
+                    }
+                }
+            })
+
+            res.json(structuredOrderResponse)
+        }
+    } catch (err) {
+        res.status(500).send(err.message)
+    }
+})
+
 router.post('/create', isAuth, isClient, async (req, res) => {
     let { client, product, status } = req.body;
-    console.log('client:', client)
 
     try {
         let orderCreateResponse = await ordersServices.create({client, product, status})
