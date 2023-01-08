@@ -1,8 +1,6 @@
 import { AuthTokenType, Identifiable } from "../types/common/commonTypes";
 import request from "../utils/request";
-
-let baseUrl = 'http://localhost:3030'
-
+import { baseUrl } from "./api";
 export interface ApiEntity<I, E extends Identifiable<I>, A extends AuthTokenType> {
     getOne(entityId: I): Promise<E>;
     getAll(): Promise<E[]>;
@@ -10,7 +8,6 @@ export interface ApiEntity<I, E extends Identifiable<I>, A extends AuthTokenType
     update(entityId: I, entity: E, authToken: A): Promise<E>;
     deleteOne(entityId: I, entity: undefined, authToken: A): Promise<string>;
 }
-
 export class ApiEntityImpl<I, E extends Identifiable<I>, A extends AuthTokenType> implements ApiEntity<I,E,A> {
     constructor(public apiCollectionSuffix: string) {}
 

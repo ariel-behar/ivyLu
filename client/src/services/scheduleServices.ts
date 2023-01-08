@@ -1,8 +1,6 @@
 import { AuthTokenType, Identifiable } from "../types/common/commonTypes";
 import request from "../utils/request";
-
-let baseUrl = 'http://localhost:3030'
-
+import { baseUrl } from "./api";
 export interface ApiSchedule<I, E extends Identifiable<I>, A extends AuthTokenType> {
 
     getHairdresserSchedule(hairdresserId: I): Promise<E | E[]>
