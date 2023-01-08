@@ -1,7 +1,12 @@
+import { lazy, Suspense } from "react";
+
 import { createBrowserRouter } from "react-router-dom";
 import { getAllServicesLoader, getOneServicesAndHairdressersLoader, getOneServicesLoader } from '../data-loaders/servicesLoader'
 import { getAllProductsLoader, getOneProductLoader } from "../data-loaders/productsLoader";
 import { getAllClientsLoader } from "../data-loaders/clientsLoader";
+import { getAllOrdersLoader } from "../data-loaders/ordersLoader";
+import { getAllHairdressers, getAllStaffLoader } from "../data-loaders/staffLoader";
+import { getScheduleForAllLoader } from "../data-loaders/scheduleLoader";
 
 import RootView from "../views/RootView";
 import DashboardView from "../views/DashboardView";
@@ -13,7 +18,7 @@ import LogoutView from "../views/LogoutView";
 import ErrorView from "../views/ErrorView";
 import ServicesOperatorAdminView from "../views/AuthorizedViews/ServicesViews/ServicesOperatorAdminView";
 import CreateService from "../views/AuthorizedViews/ServicesViews/CreateService";
-import ManagementRootView from "../views/AuthorizedViews/ManagementRootView";
+
 import ProductsManagementView from "../views/AuthorizedViews/ProductViews/ProductsManagementView";
 import UsersManagementView from "../views/AuthorizedViews/UsersViews/UsersManagementView";
 import OrdersManagementView from "../views/AuthorizedViews/OrdersViews/OrdersManagementView";
@@ -28,14 +33,13 @@ import ProductsOperatorAdminView from "../views/AuthorizedViews/ProductViews/Pro
 import OurTeamView from "../views/OurTeamView";
 import ClientsAdminView from "../views/AuthorizedViews/UsersViews/ClientsAdminView";
 import RegisterAuthorizedView from "../views/AuthorizedViews/UsersViews/RegisterAuthorizedView";
-import { getAllHairdressers, getAllStaffLoader } from "../data-loaders/staffLoader";
 import StaffAdminView from "../views/AuthorizedViews/UsersViews/StaffAdminView";
 import ScheduleManagementView from "../views/AuthorizedViews/Schedule/ScheduleManagementView";
 import ServicesView from "../views/ServiceViews/ServicesView";
-import { getScheduleForAllLoader } from "../data-loaders/scheduleLoader";
 import ProductsRootView from "../views/ProductViews/ProductsRootView";
 import ProductOrderView from "../views/ProductViews/ProductOrderView";
-import { getAllOrdersLoader } from "../data-loaders/ordersLoader";
+
+const LazyManagementRootView = lazy(() => import('../views/AuthorizedViews/ManagementRootView'))
 
 const router = createBrowserRouter([
 	{
@@ -108,7 +112,9 @@ const router = createBrowserRouter([
 
 			{ // /management
 				path: "/management",
-				element: <ManagementRootView />,
+				element: <Suspense fallback='loading...'>
+							<LazyManagementRootView />
+						</Suspense>,
 				children: [
 					{
 						index: true,
