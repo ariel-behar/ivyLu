@@ -25,10 +25,20 @@ export const isAuth = function (req, res, next) {
     }
 }
 
-export const isAdmin = function (req, res, next) {
+export const isGuest = function (req, res, next) {
+    let userAuthToken = req.headers['auth-token']
+
+    if (!userAuthToken) {
+        return next()
+    }
+
+    return res.status(401).json({ message: 'You need to log out in order to be able to log in.' })
+}
+
+export const isClient = function (req, res, next) {
     let userRole = res.locals.user.role;
     
-    if(userRole === 4) {
+    if(userRole === 1) {
         next()
     } else {
         return res.status(401).json({ message: 'Unauthorized request' })
@@ -55,22 +65,12 @@ export const isOperatorAdmin = function (req, res, next) {
     }
 }
 
-export const isClient = function (req, res, next) {
+export const isAdmin = function (req, res, next) {
     let userRole = res.locals.user.role;
     
-    if(userRole === 1) {
+    if(userRole === 4) {
         next()
     } else {
         return res.status(401).json({ message: 'Unauthorized request' })
     }
-}
-
-export const isGuest = function (req, res, next) {
-    let userAuthToken = req.headers['auth-token']
-
-    if (!userAuthToken) {
-        return next()
-    }
-
-    return res.status(401).json({ message: 'You need to log out in order to be able to log in.' })
 }

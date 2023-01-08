@@ -1,7 +1,7 @@
 import { Identifiable, IdType } from "../types/common/commonTypes";
 
 const enum OrderStatus {
-    Pending = 'Pending', InProgress='In Progress', Dispatched = 'Dispatched', Completed = 'Completed', CanceledByClient = 'Canceled by Client', CanceledByManagement = 'Canceled by Management'
+    Pending = 1, InProgress, Dispatched, Completed, CanceledByClient, CanceledByManagement
 }
 
 export class Order implements Identifiable<IdType>{
@@ -15,9 +15,11 @@ export class Order implements Identifiable<IdType>{
     ){}
 }
 
-export class OrderCreateDTO implements Omit<Order, '_id' | 'status' | 'createdAd' | 'comments'>{
+export class OrderCreateDTO implements Omit<Order, '_id' | 'createdAd' | 'comments'>{
     constructor(
         public clientId: IdType,
         public productId: IdType,
-    ){}
+        public status: OrderStatus = OrderStatus.Pending
+    ){
+    }
 }

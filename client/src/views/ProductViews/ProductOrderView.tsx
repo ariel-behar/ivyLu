@@ -21,7 +21,7 @@ import { useNotificationContext } from '../../contexts/NotificationContext';
 
 function ProductOrderView() {
 	const product = useLoaderData() as Product;
-	const { user } = useAuthContext() as {user:User};
+	const { user, isClient } = useAuthContext() as any;
 	const { displayNotification } = useNotificationContext() as any;
 	const [showConfirmationView, setShowConfirmationView] = useState<boolean>(false)
 	const [showConfirmationDialog, setShowConfirmationDialog] = useState<boolean>(false)
@@ -34,9 +34,11 @@ function ProductOrderView() {
 		setShowConfirmationDialog(false)
 	}
 
-	const onConfirmDialogConfirmClick = (): void => {
+	const onConfirmDialogConfirmClick = async () => {
+		const order = new OrderCreateDTO(user.userId , product._id)
+
 		try {
-			let orderResponse = orderServices.order({clientId: user._id , productId: product._id}, user.authToken)
+			let orderResponse = await orderServices.order(order, user.authToken)
 			console.log('orderResponse:', orderResponse)
 
 		} catch (err) {
@@ -89,7 +91,9 @@ function ProductOrderView() {
 										</Typography>
 									</Stack>
 
-									<Button variant='contained' onClick={onOrderButtonClick}>Order Product</Button>
+
+								
+								{ isClient && <Button variant='contained' onClick={onOrderButtonClick}>Order Product</Button>}
 								</Grid>
 							</Grid>
 						</Paper>
