@@ -32,7 +32,7 @@ function ServiceDataTable({
                     <StyledTableCell></StyledTableCell>
                     <StyledTableCell>Title</StyledTableCell>
                     <StyledTableCell>Description</StyledTableCell>
-                    <StyledTableCell>Additional Comments</StyledTableCell>
+                    <StyledTableCell>Comments</StyledTableCell>
                     <StyledTableCell>Duration</StyledTableCell>
                     <StyledTableCell>Price</StyledTableCell>
 

@@ -32,10 +32,11 @@ function ProductDataTable({
             <TableHead>
                 <TableRow>
                     <StyledTableCell ></StyledTableCell>
-                    <StyledTableCell >Product Code</StyledTableCell>
+                    <StyledTableCell >Code</StyledTableCell>
+                    <StyledTableCell >Category</StyledTableCell>
                     <StyledTableCell >Title</StyledTableCell>
                     <StyledTableCell >Description</StyledTableCell>
-                    <StyledTableCell >Additional Comments</StyledTableCell>
+                    <StyledTableCell >Comments</StyledTableCell>
                     <StyledTableCell >Volume</StyledTableCell>
                     <StyledTableCell >Price</StyledTableCell>
 
@@ -59,6 +60,7 @@ function ProductDataTable({
                         >
                             <TableCell align='center'><img height='50px' src={product.imgUrl} alt={`${product.title}`} /></TableCell>
                             <TableCell>{product.productCode}</TableCell>
+                            <TableCell>{product.productCategory.substring(0, 1).toUpperCase()}{product.productCategory.substring(1,)}</TableCell>
                             <TableCell>{product.title}</TableCell>
                             <TableCell>{product.description}</TableCell>
                             <TableCell>{product.additionalComments}</TableCell>

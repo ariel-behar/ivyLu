@@ -6,11 +6,11 @@ import BackToButton from "../components/BackToButton"
 import GoToDashboardButton from "../components/GoToDashboardButton"
 import ProductOrderConfirmationCard from "../components/ProductOrderConfirmationCard"
 import ServiceAppointmentConfirmationCard from "../components/ServiceAppointmentConfirmationCard"
-import { OrderConfirmationResponseInterface } from "../types/orderTypes"
+import { Order } from "../models/Order"
 import { ScheduleConfirmationResponseInterface } from "../types/scheduleTypes"
 
 interface ConfirmationViewProps {
-    entity: ScheduleConfirmationResponseInterface | OrderConfirmationResponseInterface | null
+    entity: ScheduleConfirmationResponseInterface | Order | null
     entityType: 'service' | 'product'
 }
 
@@ -42,7 +42,7 @@ function ConfirmationView({ entity, entityType }: ConfirmationViewProps) {
                             && <ServiceAppointmentConfirmationCard confirmationResponse={entity as ScheduleConfirmationResponseInterface} />}
 
                         {entityType === 'product'
-                            && <ProductOrderConfirmationCard confirmationResponse={(entity as OrderConfirmationResponseInterface)} />}
+                            && <ProductOrderConfirmationCard confirmationResponse={(entity as Order)} />}
                     </Paper>
                 </Stack>
             </Container>

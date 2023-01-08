@@ -15,9 +15,8 @@ import BackToButton from '../../components/BackToButton';
 import { Button } from '@mui/material';
 import ConfirmationView from '../ConfirmationView';
 import ConfirmDialog from '../../components/ConfirmDialog';
-import { OrderCreateDTO } from '../../models/Order';
+import { Order, OrderCreateDTO } from '../../models/Order';
 import { useNotificationContext } from '../../contexts/NotificationContext';
-import { OrderConfirmationResponseInterface } from '../../types/orderTypes';
 
 function ProductOrderView() {
 	const product = useLoaderData() as Product;
@@ -25,7 +24,7 @@ function ProductOrderView() {
 	const { displayNotification } = useNotificationContext() as any;
 	const [showConfirmationView, setShowConfirmationView] = useState<boolean>(false)
 	const [showConfirmationDialog, setShowConfirmationDialog] = useState<boolean>(false)
-	const [ orderedProduct, setOrderedProduct] = useState<OrderConfirmationResponseInterface | null>(null)
+	const [ orderedProduct, setOrderedProduct] = useState<Order | null>(null)
 
 	const onOrderButtonClick = () => {
 		setShowConfirmationDialog(true)

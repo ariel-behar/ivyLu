@@ -1,20 +1,15 @@
-import { Link as RouterLink } from 'react-router-dom'
+import { Order } from '../../models/Order'
+import getOrderStatus from '../../utils/getOrderStatus'
 
-import { getMeasurementUnit } from '../../utils/getMeasurementUnit'
+import format from 'date-fns/format'
+import parseISO from 'date-fns/parseISO'
 
-import Button from "@mui/material/Button"
 import TableBody from "@mui/material/TableBody"
 import TableCell from "@mui/material/TableCell"
 import TableHead from "@mui/material/TableHead"
 import TableRow from "@mui/material/TableRow"
 import StyledTableCell from './StyledTableCell'
 import StyledTableRow from './StyledTableRow'
-import { useAuthContext } from '../../contexts/AuthContext'
-import { Order } from '../../models/Order'
-import getOrderStatus from '../../utils/getOrderStatus'
-import format from 'date-fns/format'
-import parseISO from 'date-fns/parseISO'
-
 
 interface OrderDataTableInterface {
     entities: Order[],
@@ -23,7 +18,7 @@ interface OrderDataTableInterface {
 function OrderDataTable({
     entities,
 }: OrderDataTableInterface) {
-    const { isAdmin, isOperator } = useAuthContext() as any;
+
     return (
         <>
             <TableHead>
