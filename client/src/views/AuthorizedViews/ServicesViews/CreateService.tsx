@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 import createServiceFormSchema from "../../../validations/createServiceFormSchema";
 import { Service, ServiceCreateDTO } from "../../../models/Service";
-import { ApiClient, ApiClientImpl } from "../../../services/clientServices";
+import { ApiEntity, ApiEntityImpl } from "../../../services/entityServices";
 import { AuthTokenType, IdType } from "../../../types/common/commonTypes";
 import { useAuthContext } from "../../../contexts/AuthContext";
 import { useNotificationContext } from "../../../contexts/NotificationContext";
@@ -30,7 +30,7 @@ import FormLabel from '@mui/material/FormLabel';
 import FormHelperText from '@mui/material/FormHelperText';
 import { serviceDuration } from "../../../utils/constants";
 
-const clientServices: ApiClient<IdType, Service, AuthTokenType> = new ApiClientImpl<IdType, Service, AuthTokenType>('services');
+const entityServices: ApiEntity<IdType, Service, AuthTokenType> = new ApiEntityImpl<IdType, Service, AuthTokenType>('services');
 
 type FormData = {
 	title: string,
@@ -96,7 +96,7 @@ function CreateService() {
 		try {
 			let creatorId = user.userId
 
-			let createServiceResponse = await clientServices.create(service as Service, creatorId, user.authToken)
+			let createServiceResponse = await entityServices.create(service as Service, creatorId, user.authToken)
 
 			if(createServiceResponse) {
 				displayNotification({message: 'Record has succesfully been created'}, 'success')

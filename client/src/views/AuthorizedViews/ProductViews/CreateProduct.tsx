@@ -10,7 +10,7 @@ import { Product, ProductCreateDTO } from "../../../models/Product";
 import { useAuthContext } from "../../../contexts/AuthContext";
 import { useNotificationContext } from "../../../contexts/NotificationContext";
 import { IMAGE_URL_REGEX } from "../../../utils/regex";
-import { ApiClient, ApiClientImpl } from "../../../services/clientServices";
+import { ApiEntity, ApiEntityImpl } from "../../../services/entityServices";
 import { AuthTokenType, IdType } from "../../../types/common/commonTypes";
 import { getMeasurementUnit, measurementUnits } from "../../../utils/getMeasurementUnit";
 import { isOperatorAdminRouteGuard } from "../../../hoc/isOperatorAdminRouteGuard";
@@ -45,7 +45,7 @@ type FormData = {
 	status: 'active' | 'inactive'
 }
 
-const clientServices: ApiClient<IdType, Product, AuthTokenType> = new ApiClientImpl<IdType, Product, AuthTokenType>('products');
+const entityServices: ApiEntity<IdType, Product, AuthTokenType> = new ApiEntityImpl<IdType, Product, AuthTokenType>('products');
 
 function CreateProduct() {
 	const [productCategory, setProductCategory] = useState<productCategorieseType>()
@@ -112,7 +112,7 @@ function CreateProduct() {
 		try {
 			let creatorId = user.userId
 
-			let createProductResponse = await clientServices.create(product as Product, creatorId, user.authToken)
+			let createProductResponse = await entityServices.create(product as Product, creatorId, user.authToken)
 
 			if (createProductResponse) {
 				displayNotification({ message: 'Record has succesfully been created' }, 'success')

@@ -3,7 +3,7 @@ import request from "../utils/request";
 
 let baseUrl = 'http://localhost:3030'
 
-export interface ApiClient<I, E extends Identifiable<I>, A extends AuthTokenType> {
+export interface ApiEntity<I, E extends Identifiable<I>, A extends AuthTokenType> {
     getOne(entityId: I): Promise<E>;
     getAll(): Promise<E[]>;
     create(entityWithoutId: Omit<E, 'id'>, userId: I, authToken: A): Promise<E>;
@@ -11,7 +11,7 @@ export interface ApiClient<I, E extends Identifiable<I>, A extends AuthTokenType
     deleteOne(entityId: I, entity: undefined, authToken: A): Promise<string>;
 }
 
-export class ApiClientImpl<I, E extends Identifiable<I>, A extends AuthTokenType> implements ApiClient<I,E,A> {
+export class ApiEntityImpl<I, E extends Identifiable<I>, A extends AuthTokenType> implements ApiEntity<I,E,A> {
     constructor(public apiCollectionSuffix: string) {}
 
     getOne(entityId: I): Promise<E> {

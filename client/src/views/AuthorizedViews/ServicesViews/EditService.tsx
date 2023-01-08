@@ -7,7 +7,7 @@ import uniqid from 'uniqid';
 import createServiceFormSchema from "../../../validations/createServiceFormSchema";
 import { Service } from "../../../models/Service";
 import { useNotificationContext } from "../../../contexts/NotificationContext";
-import { ApiClient, ApiClientImpl } from "../../../services/clientServices";
+import { ApiEntity, ApiEntityImpl } from "../../../services/entityServices";
 import { AuthTokenType, IdType } from "../../../types/common/commonTypes";
 import { useAuthContext } from "../../../contexts/AuthContext";
 import { IMAGE_URL_REGEX } from "../../../utils/regex";
@@ -31,7 +31,7 @@ import FormHelperText from '@mui/material/FormHelperText';
 import { serviceDuration } from "../../../utils/constants";
 
 
-const clientServices: ApiClient<IdType, Service, AuthTokenType> = new ApiClientImpl<IdType, Service, AuthTokenType>('services');
+const entityServices: ApiEntity<IdType, Service, AuthTokenType> = new ApiEntityImpl<IdType, Service, AuthTokenType>('services');
 
 type FormData = {
     title: string,
@@ -98,7 +98,7 @@ function EditService() {
 
         if (serviceId) {
             try {
-                let editServiceResponse = await clientServices.update(serviceId, service as Service, user.authToken)
+                let editServiceResponse = await entityServices.update(serviceId, service as Service, user.authToken)
 
                 if (editServiceResponse) {
                     displayNotification({message: 'Record has successfully been modified'}, 'success')

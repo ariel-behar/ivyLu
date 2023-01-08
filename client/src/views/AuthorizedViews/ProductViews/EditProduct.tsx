@@ -7,7 +7,7 @@ import uniqid from 'uniqid';
 import createProductFormSchema from "../../../validations/createProductFormSchema";
 
 import { AuthTokenType, IdType } from "../../../types/common/commonTypes";
-import { ApiClient, ApiClientImpl } from "../../../services/clientServices";
+import { ApiEntity, ApiEntityImpl } from "../../../services/entityServices";
 import { Product } from "../../../models/Product";
 
 import { useAuthContext } from "../../../contexts/AuthContext";
@@ -47,7 +47,7 @@ type FormData = {
 	status: 'active' | 'inactive'
 }
 
-const clientServices: ApiClient<IdType, Product, AuthTokenType> = new ApiClientImpl<IdType, Product, AuthTokenType>('products');
+const entityServices: ApiEntity<IdType, Product, AuthTokenType> = new ApiEntityImpl<IdType, Product, AuthTokenType>('products');
 
 function EditProduct() {
     let product = useLoaderData() as Product;
@@ -116,7 +116,7 @@ function EditProduct() {
 
         if (productId) {
             try {
-                let editProductResponse = await clientServices.update(productId, product as Product, user.authToken)
+                let editProductResponse = await entityServices.update(productId, product as Product, user.authToken)
                 console.log('editProductResponse:', editProductResponse)
 
                 if (editProductResponse) {

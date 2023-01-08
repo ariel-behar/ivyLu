@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom'
 
 import { useAuthContext } from '../contexts/AuthContext'
 import { useNotificationContext } from '../contexts/NotificationContext'
-import { ApiClient, ApiClientImpl } from '../services/clientServices'
+import { ApiEntity, ApiEntityImpl } from '../services/entityServices'
 import { Service } from '../models/Service'
 import { AuthTokenType, IdType } from '../types/common/commonTypes'
 
@@ -30,7 +30,7 @@ function ConfirmDeleteDialog({
 }: ConfirmDeleteDialogProps) {
     const { user } = useAuthContext() as any
     const { displayNotification } = useNotificationContext() as any;
-    const clientServices: ApiClient<IdType, Service, AuthTokenType> = new ApiClientImpl<IdType, Service, AuthTokenType>(`${itemToDelete.entityType}s`);
+    const entityServices: ApiEntity<IdType, Service, AuthTokenType> = new ApiEntityImpl<IdType, Service, AuthTokenType>(`${itemToDelete.entityType}s`);
     const userServices: ApiUser<IdType, User, AuthTokenType> = new ApiUserImpl<IdType, User, AuthTokenType>(itemToDelete.entityType === 'client' ? 'clients' : 'staff');
     const navigate = useNavigate();
 
@@ -40,10 +40,10 @@ function ConfirmDeleteDialog({
             let navigateTo = ''
 
             if (itemToDelete.entityType === 'service') {
-                deleteResponse = await clientServices.deleteOne(itemToDelete._id, undefined, user.authToken);
+                deleteResponse = await entityServices.deleteOne(itemToDelete._id, undefined, user.authToken);
                 navigateTo = 'services';
             } else if (itemToDelete.entityType === 'product') {
-                deleteResponse = await clientServices.deleteOne(itemToDelete._id, undefined, user.authToken);
+                deleteResponse = await entityServices.deleteOne(itemToDelete._id, undefined, user.authToken);
                 navigateTo = 'products';
             } else if (itemToDelete.entityType === 'client' || itemToDelete.entityType === 'staff') {
                 deleteResponse = await userServices.deleteOne(itemToDelete._id, undefined, user.authToken);

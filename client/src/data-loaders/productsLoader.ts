@@ -1,19 +1,19 @@
 import { LoaderFunctionArgs } from 'react-router-dom';
 import { Product } from '../models/Product';
-import { ApiClient, ApiClientImpl } from '../services/clientServices';
+import { ApiEntity, ApiEntityImpl } from '../services/entityServices';
 import { AuthTokenType, IdType } from '../types/common/commonTypes';
 
-const clientServices: ApiClient<IdType, Product, AuthTokenType> = new ApiClientImpl<IdType, Product, AuthTokenType>('products');
+const entityServices: ApiEntity<IdType, Product, AuthTokenType> = new ApiEntityImpl<IdType, Product, AuthTokenType>('products');
 
 export async function getAllProductsLoader() {
-    const products = await clientServices.getAll()
+    const products = await entityServices.getAll()
 
     return products;
 }
 
 export async function getOneProductLoader({params}: LoaderFunctionArgs) {
     if(typeof params.productId === 'string') {
-        const product = await clientServices.getOne(params.productId)
+        const product = await entityServices.getOne(params.productId)
 
         return product;
     }
