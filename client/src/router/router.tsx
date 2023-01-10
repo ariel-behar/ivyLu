@@ -37,6 +37,8 @@ import ScheduleManagementView from "../views/AuthorizedViews/Schedule/ScheduleMa
 import ServicesView from "../views/ServiceViews/ServicesView";
 import ProductsRootView from "../views/ProductViews/ProductsRootView";
 import ProductOrderView from "../views/ProductViews/ProductOrderView";
+import ShoppingCartView from "../views/ShoppingCartView";
+import GalleryView from "../views/GalleryView";
 
 const LazyDashboardView = lazy(() => import('../views/DashboardView'))
 const LazyManagementRootView = lazy(() => import('../views/AuthorizedViews/ManagementRootView'))
@@ -63,7 +65,7 @@ const router = createBrowserRouter([
 				path: "/logout",
 				element: <LogoutView />
 			},
-			{
+			{ // products
 				path: "/products",
 				element: <ProductsRootView />,
 				children: [
@@ -97,6 +99,10 @@ const router = createBrowserRouter([
 				]
 			},
 			{
+				path: "/gallery",
+				element: <GalleryView />
+			},
+			{
 				path: "/our-team",
 				loader: getAllHairdressers,
 				element: <OurTeamView />
@@ -106,12 +112,15 @@ const router = createBrowserRouter([
 				element: <AboutView />
 			},
 			{
+				path: "/shopping-cart",
+				element: <ShoppingCartView />
+			},
+			{
 				path: "/dashboard",
 				element: <Suspense fallback='loading...'>
 							<LazyDashboardView />
 						</Suspense>
 			},
-
 			{ // /management
 				path: "/management",
 				element: <Suspense fallback='loading...'>

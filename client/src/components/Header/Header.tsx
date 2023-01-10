@@ -42,12 +42,38 @@ function Header() {
                             </RouterNavLink>
                         </Toolbar>
                         <Toolbar>
-                            <Button to='/our-team' color='inherit' component={RouterNavLink} sx={{ '&.active': { fontWeight: 'fontWeightBold' } }}>Our Team</Button>
+                            <Button
+                                to='/gallery'
+                                color='inherit'
+                                component={RouterNavLink}
+                                sx={{ '&.active': { fontWeight: 'fontWeightBold' } }}
+                            >
+                                Gallery
+                            </Button>
+                            <Button
+                                to='/our-team'
+                                color='inherit'
+                                component={RouterNavLink}
+                                sx={{ '&.active': { fontWeight: 'fontWeightBold' } }}
+                            >
+                                Our Team
+                            </Button>
 
+                            <Button
+                                to='/about'
+                                color='inherit'
+                                component={RouterNavLink}
+                                sx={{ '&.active': { fontWeight: 'fontWeightBold' } }}
+                            >
+                                About
+                            </Button>
 
-                            <Button to='/about' color='inherit' component={RouterNavLink} sx={{ '&.active': { fontWeight: 'fontWeightBold' } }}>About</Button>
-
-                            <Button to='/shopping-card' color='inherit' component={RouterNavLink} sx={{ '&.active': { fontWeight: 'fontWeightBold' } }}>
+                            <Button
+                                to='/shopping-cart'
+                                color='inherit'
+                                component={RouterNavLink}
+                                sx={{ '&.active': { fontWeight: 'fontWeightBold' } }}
+                            >
                                 <Badge badgeContent={0} showZero>
                                     <ShoppingCartIcon />
                                 </Badge>
@@ -58,7 +84,7 @@ function Header() {
                 </Container>
             </AppBar>
 
-            <BottomHeaderBar isLoggedIn={isLoggedIn}/>
+            <BottomHeaderBar isLoggedIn={isLoggedIn} />
 
             <Box height='40px'></Box>
 
