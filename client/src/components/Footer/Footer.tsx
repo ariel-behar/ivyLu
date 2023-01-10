@@ -8,7 +8,7 @@ function Footer() {
     return (
         <Paper
             square
-            component='header'
+            component='footer'
             elevation={10}
             sx={{
                 backgroundColor: 'main.black',
