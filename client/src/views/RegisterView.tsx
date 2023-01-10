@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link as RouterLink } from "react-router-dom";
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
@@ -21,6 +21,7 @@ import { AuthTokenType, IdType } from '../types/common/commonTypes';
 import { useNotificationContext } from '../contexts/NotificationContext';
 import { ApiUser, ApiUserImpl } from '../services/userServices';
 import { isGuestRouteGuard } from '../hoc/isGuestRouteGuard';
+import Typography from '@mui/material/Typography';
 
 const userServices: ApiUser<IdType, User, AuthTokenType> = new ApiUserImpl<IdType, User, AuthTokenType>('clients');
 
@@ -168,6 +169,10 @@ function RegisterView() {
 					<Button variant="contained" type='submit' disabled={!(isDirty && isValid)}>REGISTER</Button>
 				</Stack>
 			</form>
+
+			<Stack mt={2} direction='row' justifyContent='center'>
+				<Typography variant="body1">Already registered? <RouterLink to="/login">Login here </RouterLink></Typography>
+			</Stack>
 		</>
 	)
 }
