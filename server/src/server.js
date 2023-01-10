@@ -5,7 +5,7 @@ import logger from 'morgan/index.js'
 import initDatabase  from './config/initDatabase.js'
 import routes from "./routes/routes.js"
 
-const dbName = 'ivy-lu';
+const dbName = process.env.DB_NAME
 const PORT = process.env.PORT || '3030';
 
 const app = express();
