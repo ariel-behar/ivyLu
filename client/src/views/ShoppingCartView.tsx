@@ -1,4 +1,5 @@
 import React from 'react'
+import { isAuthRouteGuard } from '../hoc/isAuthRouteGuard'
 
 function ShoppingCartView() {
   return (
@@ -6,4 +7,4 @@ function ShoppingCartView() {
   )
 }
 
-export default ShoppingCartView
+export default isAuthRouteGuard(ShoppingCartView)
