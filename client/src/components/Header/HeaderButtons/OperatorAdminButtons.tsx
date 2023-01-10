@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { NavLink as RouterNavLink } from 'react-router-dom'
+import { NavLink as RouterNavLink, Link as RouterLink } from 'react-router-dom'
 
 import { useAuthContext } from '../../../contexts/AuthContext';
 
@@ -10,6 +10,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Button from '@mui/material/Button';
 
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import Box from '@mui/material/Box';
 
 function OperatorAdminButtons() {
     const { isAdmin } = useAuthContext() as any;
@@ -25,7 +26,9 @@ function OperatorAdminButtons() {
         setAnchorEl(null)
     }
     return (
-        <>
+        <Box>
+            <Button to='/dashboard' color='inherit' component={RouterNavLink} sx={{ '&.active': { fontWeight: 'fontWeightBold' } }}>Dashboard</Button>
+
             <Button
                 color='inherit'
                 id='management-button'
@@ -50,13 +53,13 @@ function OperatorAdminButtons() {
                     vertical: 'bottom',
                     horizontal: 'center'
                 }}
-                
+
             >
                 <MenuItem
                     onClick={handleClose}
                     component={RouterNavLink}
                     to='/management/orders'
-                    sx={{ '&.active': { fontWeight: 'fontWeightBold' }}}
+                    sx={{ '&.active': { fontWeight: 'fontWeightBold' } }}
                 >
                     Orders
                 </MenuItem>
@@ -64,7 +67,7 @@ function OperatorAdminButtons() {
                     onClick={handleClose}
                     component={RouterNavLink}
                     to='/management/schedule'
-                    sx={{ '&.active': { fontWeight: 'fontWeightBold' }}}
+                    sx={{ '&.active': { fontWeight: 'fontWeightBold' } }}
                 >
                     Schedule
                 </MenuItem>
@@ -85,12 +88,14 @@ function OperatorAdminButtons() {
                     Products
                 </MenuItem>
 
-                { isAdmin
-                    ? <AdminButtons handleClose={handleClose}/>
+                {isAdmin
+                    ? <AdminButtons handleClose={handleClose} />
                     : ''
                 }
             </Menu>
-        </>
+
+            <Button to='/logout' color='inherit' component={RouterLink} sx={{ '&.active': { fontWeight: 'fontWeightBold' } }}>Logout</Button>
+        </Box>
     )
 }
 

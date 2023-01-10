@@ -1,26 +1,32 @@
-import IsLoggedInTopBarButtons from './IsLoggedInTopBarButtons';
-import IsLoggedInBottomBarButtons from './IsLoggedInBottomBarButtons';
+import { useAuthContext } from '../../../contexts/AuthContext';
 
-interface IsLoggedInButtonsProps {
-    bar: 'top' | 'bottom',
-}
+import getUserRole from '../../../utils/getUserRole';
 
-function IsLoggedInButtons({bar}:IsLoggedInButtonsProps) {
-    
+import OperatorAdminButtons from './OperatorAdminButtons';
+
+import Typography from '@mui/material/Typography';
+import Stack from '@mui/material/Stack';
+
+
+function IsLoggedInButtons() {
+    const { user, isHairdresser, isOperator, isAdmin } = useAuthContext() as any;
+    const userRole = getUserRole(user.role)
+
     return (
         <>
-            {
-                bar === 'top' 
-                ? <IsLoggedInTopBarButtons />
-                : ''
-            }
+            <Stack direction='row' spacing={2} justifyContent='space-between' alignItems='center' p={0}>
 
-            {   
-                bar === 'bottom' 
-                ? <IsLoggedInBottomBarButtons />
-                : ''
-            }
+                <Typography variant='body1'>
+                    Hello, {user.firstName}
+                    <i>{isAdmin || isOperator || isHairdresser ? ` (${userRole.capitalized})` : ''}</i>
+                </Typography>
 
+                {
+                    (isAdmin || isOperator || isHairdresser)
+                        ? <OperatorAdminButtons />
+                        : ''
+                }
+            </Stack>
         </>
     )
 }
