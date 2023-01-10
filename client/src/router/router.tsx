@@ -9,7 +9,7 @@ import { getAllHairdressers, getAllStaffLoader } from "../data-loaders/staffLoad
 import { getScheduleForAllLoader } from "../data-loaders/scheduleLoader";
 
 import RootView from "../views/RootView";
-import DashboardView from "../views/DashboardView";
+
 import LoginView from "../views/LoginView";
 import ProductsView from "../views/ProductViews/ProductsView";
 import RegisterView from "../views/RegisterView";
@@ -18,7 +18,6 @@ import LogoutView from "../views/LogoutView";
 import ErrorView from "../views/ErrorView";
 import ServicesOperatorAdminView from "../views/AuthorizedViews/ServicesViews/ServicesOperatorAdminView";
 import CreateService from "../views/AuthorizedViews/ServicesViews/CreateService";
-
 import ProductsManagementView from "../views/AuthorizedViews/ProductViews/ProductsManagementView";
 import UsersManagementView from "../views/AuthorizedViews/UsersViews/UsersManagementView";
 import OrdersManagementView from "../views/AuthorizedViews/OrdersViews/OrdersManagementView";
@@ -39,6 +38,7 @@ import ServicesView from "../views/ServiceViews/ServicesView";
 import ProductsRootView from "../views/ProductViews/ProductsRootView";
 import ProductOrderView from "../views/ProductViews/ProductOrderView";
 
+const LazyDashboardView = lazy(() => import('../views/DashboardView'))
 const LazyManagementRootView = lazy(() => import('../views/AuthorizedViews/ManagementRootView'))
 
 const router = createBrowserRouter([
@@ -107,7 +107,9 @@ const router = createBrowserRouter([
 			},
 			{
 				path: "/dashboard",
-				element: <DashboardView />
+				element: <Suspense fallback='loading...'>
+							<LazyDashboardView />
+						</Suspense>
 			},
 
 			{ // /management
