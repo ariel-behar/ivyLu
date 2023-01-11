@@ -40,6 +40,7 @@ function LoginView() {
 
 		try {
 			let loginUserResponse = await userServices.login(user as User)
+			console.log('loginUserResponse:', loginUserResponse)
 
 			login(loginUserResponse)
 			navigate('/')

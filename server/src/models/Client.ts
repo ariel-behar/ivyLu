@@ -2,8 +2,35 @@ import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
 import * as env from 'dotenv'
 import commonUserSchema from './common-schemas/commonUserSchema.js';
+import { IdType } from '../types/common-types.js';
 
 env.config()
+
+export interface IClientLogin {
+    email: string,
+    password: string
+}
+
+export interface IClientRegister {
+    firstName: string,
+    lastName: string,
+    email: string,
+    phone: string,
+    gender: "male" | "female",
+    password: string,
+    role: number
+}
+
+export interface IClientDocument {
+    _id: IdType,
+    firstName: string,
+    lastName: string,
+    email: string,
+    phone: string,
+    gender: "male" | "female",
+    password: string,
+    role: number,
+}
 
 const clientSchema = new mongoose.Schema({
     ...commonUserSchema,
@@ -16,7 +43,7 @@ const clientSchema = new mongoose.Schema({
     timestamps: true
 });
 
-clientSchema.pre('save', function (next) {
+clientSchema.pre('save', function (this: IClientRegister, next: (err?: Error) => void) {
     return bcrypt
         .hash(this.password, Number(process.env.JWT_SALT))
         .then(hash => {
@@ -31,6 +58,6 @@ clientSchema.pre('save', function (next) {
         });
 });
 
-const User = mongoose.model('Client', clientSchema);
+const Client = mongoose.model<IClientDocument>('Client', clientSchema);
 
-export default User;
+export default Client;

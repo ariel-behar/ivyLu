@@ -4,7 +4,7 @@ import useLocalStorage from '../hooks/useLocalStorage';
 export const AuthContext = createContext<object | null>(null);
 
 const initialUserState = {
-    userId: '',
+    _id: '',
     firstName: '',
     lastName: '',
     email: '',
@@ -39,7 +39,7 @@ export const AuthProvider = ({
         }
     }
 
-    const isLoggedIn = user.userId ? true : false;
+    const isLoggedIn = user._id ? true : false;
 
     const isClient = user.role === 1 ? true: false;
 

@@ -1,16 +1,23 @@
+import { Request, Response, NextFunction } from 'express'
 import jwt from 'jsonwebtoken'
 import * as env from 'dotenv'
+import { AuthTokenType } from '../types/common-types'
+import User from '../models/User'
 env.config()
 
-export const isAuth = function (req, res, next) {
-    let userAuthToken = req.headers['auth-token']
+interface IUserRequest extends Request {
+    user: any
+}
 
+export const isAuth = function (req: IUserRequest, res: Response, next: NextFunction ) {
+    let userAuthToken = req.headers['auth-token']
+    
     if (!userAuthToken) {
         return res.status(401).json({ message: 'A problem occurred during User authentication' })
     }
     
     try {
-        jwt.verify(userAuthToken, process.env.AUTH_TOKEN_SECRET, function (err, decodedToken) {
+        jwt.verify(userAuthToken as AuthTokenType, process.env.AUTH_TOKEN_SECRET, function (err, decodedToken) {
             if (err) {
                 throw { message: 'A problem occurred during User authentication' };
             } else {
@@ -20,12 +27,12 @@ export const isAuth = function (req, res, next) {
                 next();
             }
         })
-    } catch (err) {
+    } catch (err: any ) {
         res.status(401).json({ message: err.message });
     }
 }
 
-export const isGuest = function (req, res, next) {
+export const isGuest = function (req: Request, res: Response, next: NextFunction ) {
     let userAuthToken = req.headers['auth-token']
 
     if (!userAuthToken) {
@@ -35,7 +42,7 @@ export const isGuest = function (req, res, next) {
     return res.status(401).json({ message: 'You need to log out in order to be able to log in.' })
 }
 
-export const isClient = function (req, res, next) {
+export const isClient = function (req: Request, res: Response, next: NextFunction ) {
     let userRole = res.locals.user.role;
     
     if(userRole === 1) {
@@ -45,7 +52,7 @@ export const isClient = function (req, res, next) {
     }
 }
 
-export const isHairdresserOperatorAdmin = function (req, res, next) {
+export const isHairdresserOperatorAdmin = function (req: Request, res: Response, next: NextFunction ) {
     let userRole = res.locals.user.role;
     
     if(userRole === 2 || userRole === 3 || userRole === 4) {
@@ -55,7 +62,7 @@ export const isHairdresserOperatorAdmin = function (req, res, next) {
     }
 }
 
-export const isOperatorAdmin = function (req, res, next) {
+export const isOperatorAdmin = function (req: Request, res: Response, next: NextFunction ) {
     let userRole = res.locals.user.role;
     
     if(userRole === 3 || userRole === 4) {
@@ -65,7 +72,7 @@ export const isOperatorAdmin = function (req, res, next) {
     }
 }
 
-export const isAdmin = function (req, res, next) {
+export const isAdmin = function (req: Request, res: Response, next: NextFunction ) {
     let userRole = res.locals.user.role;
     
     if(userRole === 4) {
