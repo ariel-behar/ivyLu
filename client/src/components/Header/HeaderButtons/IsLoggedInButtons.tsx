@@ -1,11 +1,15 @@
+import { NavLink as RouterNavLink, Link as RouterLink } from 'react-router-dom'
+
 import { useAuthContext } from '../../../contexts/AuthContext';
 
 import getUserRole from '../../../utils/getUserRole';
 
-import OperatorAdminButtons from './OperatorAdminButtons';
+import ManagementMenuButton from './ManagementMenuButton';
 
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
 
 
 function IsLoggedInButtons() {
@@ -21,11 +25,13 @@ function IsLoggedInButtons() {
                     <i>{isAdmin || isOperator || isHairdresser ? ` (${userRole.capitalized})` : ''}</i>
                 </Typography>
 
-                {
-                    (isAdmin || isOperator || isHairdresser)
-                        ? <OperatorAdminButtons />
-                        : ''
-                }
+                <Box>
+                    <Button to='/dashboard' color='inherit' component={RouterNavLink} sx={{ '&.active': { fontWeight: 'fontWeightBold' } }}>Dashboard</Button>
+
+                    { (isAdmin || isOperator || isHairdresser) && <ManagementMenuButton /> }
+
+                    <Button to='/logout' color='inherit' component={RouterLink} sx={{ '&.active': { fontWeight: 'fontWeightBold' } }}>Logout</Button>
+                </Box>
             </Stack>
         </>
     )
