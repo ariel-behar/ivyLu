@@ -7,3 +7,5 @@ export const serviceDuration = ['5', '10', '15', '20', '25', '30', '35', '40', '
 export type productCategorieseType = 'shampoo' | 'conditioner' | 'spray' | 'serum' | 'foam'  | 'oil' | 'butter' | 'cream' | 'gel' | 'paste' | 'cleanser' | 'facial mask' | 'balm'
 
 export const productCategories: productCategorieseType[] = ['shampoo', 'conditioner', 'spray', 'serum', 'foam' , 'oil', 'butter', 'cream', 'gel', 'paste', 'cleanser', 'facial mask', 'balm']
+
+export const volumeMeasurementUnits = ['grams', 'milliliters']

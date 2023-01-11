@@ -1,11 +1,11 @@
-import { Router } from 'express'
+import { Router, Request, Response } from 'express'
 import { isAuth, isOperatorAdmin } from '../middlewares/authMiddleware.js';
 
 import * as productServices from '../services/productServices.js'
 
 const router = Router();
 
-router.get('/', async (req, res) => {
+router.get('/', async (req: Request, res: Response) => {
     try {
         let products = await productServices.getAll();
 
@@ -15,7 +15,7 @@ router.get('/', async (req, res) => {
     }
 })
 
-router.get('/:productId', async (req, res) => {
+router.get('/:productId', async (req: Request, res: Response) => {
     let productId = req.params.productId;
 
     try {
@@ -27,7 +27,7 @@ router.get('/:productId', async (req, res) => {
     }
 })
 
-router.post('/create', isAuth, isOperatorAdmin, async (req, res) => {
+router.post('/create', isAuth, isOperatorAdmin, async (req: Request, res: Response) => {
     let { title, description, productCategory, additionalComments, imgUrl, price, volume, volumeMeasurementUnit, productCode, status, creatorId } = req.body;
 
     try {
@@ -60,12 +60,12 @@ router.post('/create', isAuth, isOperatorAdmin, async (req, res) => {
                 res.status(400).send(err)
             }
         }
-    } catch (err) {
+    } catch (err: any) {
         res.status(err.statusCode ? err.statusCode : 500).json(err)
     }
 })
 
-router.post('/:productId/edit',isAuth, isOperatorAdmin, async (req, res) => {
+router.post('/:productId/edit',isAuth, isOperatorAdmin, async (req: Request, res: Response) => {
     let productId = req.params.productId
     let { title, description,productCategory, additionalComments, imgUrl, price, volume, volumeMeasurementUnit, productCode, status } = req.body;
 
@@ -93,12 +93,12 @@ router.post('/:productId/edit',isAuth, isOperatorAdmin, async (req, res) => {
         } else {
             throw {statusCode: 401, message: 'Bad request'}
         }
-    } catch (err) {
+    } catch (err: any) {
         res.status(err.statusCode ? err.statusCode : 500).json(err)
     }
 })
 
-router.get('/:productId/delete',isAuth, isOperatorAdmin, async (req, res) => {
+router.get('/:productId/delete',isAuth, isOperatorAdmin, async (req: Request, res: Response) => {
     let productId = req.params.productId
 
     try {
@@ -107,7 +107,7 @@ router.get('/:productId/delete',isAuth, isOperatorAdmin, async (req, res) => {
         if (deleteProductResponse) {
             res.json({message: 'Record has successfully been deleted'});
         }
-    } catch (err) {
+    } catch (err: any) {
         res.status(err.statusCode ? err.statusCode : 500).json(err)
     }
 
