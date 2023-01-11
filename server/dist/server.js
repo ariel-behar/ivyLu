@@ -1,6 +1,7 @@
 import express from "express";
+import initDatabase from './config/initDatabase.js';
 // import routes from "./routes/routes.js"
-// const dbName:string = process.env.DB_NAME
+const dbName = process.env.DB_NAME;
 const PORT = process.env.PORT || '3030';
 const app = express();
 // app.use(express.urlencoded({ extended: true }));
@@ -12,14 +13,14 @@ const app = express();
 // }));
 // app.use(logger('dev'))
 // app.use("/api", routes)
-// initDatabase(dbName)
-//     .then(() =>{
-//         console.log(`Succesfully connected to database: ${dbName}`);        
-app.listen(PORT, () => {
-    console.log(`App is running on: http://localhost:${PORT}`);
+initDatabase(dbName)
+    .then(() => {
+    console.log(`Succesfully connected to database: ${dbName}`);
+    app.listen(PORT, () => {
+        console.log(`App is running on: http://localhost:${PORT}`);
+    });
+})
+    .catch(error => {
+    console.log(`An error occurred while connecting to database: ${error}`);
 });
-// })
-// .catch(error => {
-//     console.log(`An error occurred while connecting to database: ${error}`)
-// })
 //# sourceMappingURL=server.js.map
