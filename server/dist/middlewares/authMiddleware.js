@@ -13,7 +13,6 @@ export const isAuth = function (req, res, next) {
             }
             else {
                 res.locals.user = decodedToken;
-                req.user = decodedToken;
                 next();
             }
         });

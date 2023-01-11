@@ -11,14 +11,14 @@ import { Router } from 'express';
 import bcrypt from 'bcrypt';
 import * as staffServices from '../services/staffServices.js';
 import * as clientServices from '../services/clientServices.js';
-import { isGuest } from '../middlewares/authMiddleware.js';
 import generateAuthToken from '../utils/generateAuthToken.js';
+import { isAuth, isAdmin, isGuest } from '../middlewares/authMiddleware.js';
 const router = Router();
 router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     if (Object.entries(req.query).length > 0) {
         let filters = req.query;
         try {
-            let users = yield clientServices.getManyFilteredBy(filters);
+            let users = yield staffServices.getManyFilteredBy(filters);
             res.json(users);
         }
         catch (err) {
@@ -27,7 +27,7 @@ router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
     else {
         try {
-            let users = yield clientServices.getAll();
+            let users = yield staffServices.getAll();
             res.json(users);
         }
         catch (err) {
@@ -35,8 +35,8 @@ router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         }
     }
 }));
-router.post('/register', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    let { firstName, lastName, email, phone, gender, role, password } = req.body;
+router.post('/register', isAuth, isAdmin, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    let { firstName, lastName, email, phone, gender, password, role, about, imgUrl } = req.body;
     try {
         let userExistsResponse;
         //Check clients
@@ -50,19 +50,26 @@ router.post('/register', (req, res) => __awaiter(void 0, void 0, void 0, functio
         }
         else {
             try {
-                let clientRegisterResponse = yield clientServices.register({ firstName, lastName, email, phone, gender, role: Number(role), password });
-                if (clientRegisterResponse) {
-                    let client = {
-                        _id: clientRegisterResponse._id,
-                        firstName: clientRegisterResponse.firstName,
-                        lastName: clientRegisterResponse.lastName,
-                        email: clientRegisterResponse.email,
-                        phone: clientRegisterResponse.phone,
-                        gender: clientRegisterResponse.gender,
-                        role: clientRegisterResponse.role,
+                let userResponse;
+                if (role == 2) {
+                    userResponse = yield staffServices.register({ firstName, lastName, email, phone, gender, password, role, imgUrl, about });
+                }
+                else {
+                    userResponse = yield staffServices.register({ firstName, lastName, email, phone, gender, password, role });
+                }
+                if (userResponse) {
+                    let user = {
+                        userId: userResponse._id,
+                        firstName: userResponse.firstName,
+                        lastName: userResponse.lastName,
+                        email: userResponse.email,
+                        gender: userResponse.gender,
+                        phone: userResponse.phone,
+                        role: userResponse.role,
+                        imgUrl: userResponse.imgUrl
                     };
-                    let authToken = generateAuthToken(client);
-                    return res.json(Object.assign(Object.assign({}, client), { authToken }));
+                    let authToken = generateAuthToken(user);
+                    return res.json(Object.assign(Object.assign({}, user), { authToken }));
                 }
             }
             catch (err) {
@@ -88,7 +95,7 @@ router.post('/login', isGuest, (req, res) => __awaiter(void 0, void 0, void 0, f
             let isValidPassword = yield bcrypt.compare(password, userLoginResponse.password);
             if (isValidPassword) {
                 let user = {
-                    _id: userLoginResponse._id,
+                    userId: userLoginResponse._id,
                     firstName: userLoginResponse.firstName,
                     lastName: userLoginResponse.lastName,
                     email: userLoginResponse.email,
@@ -117,10 +124,10 @@ router.post('/login', isGuest, (req, res) => __awaiter(void 0, void 0, void 0, f
         }
     }
 }));
-router.get('/:userId/delete', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.get('/:userId/delete', isAuth, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let userId = req.params.userId;
     try {
-        let deleteUserResponse = yield clientServices.deleteOne(userId);
+        let deleteUserResponse = yield staffServices.deleteOne(userId);
         if (deleteUserResponse) {
             res.json({ message: 'Record has successfully been deleted' });
         }
@@ -130,4 +137,4 @@ router.get('/:userId/delete', (req, res) => __awaiter(void 0, void 0, void 0, fu
     }
 }));
 export default router;
-//# sourceMappingURL=clientController.js.map
+//# sourceMappingURL=staffController.js.map

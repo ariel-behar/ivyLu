@@ -61,8 +61,6 @@ function RegisterView() {
 
 		const { firstName, lastName, email, phone, gender, password } = data;
 
-		console.log(typeof phone);
-
 		const user = new UserRegisterDTO(firstName, lastName, email, phone, gender, password)
 
 		try {

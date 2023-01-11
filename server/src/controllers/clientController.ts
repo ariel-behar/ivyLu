@@ -18,7 +18,7 @@ router.get('/', async (req: Request, res: Response) => {
         let filters = req.query;
 
         try {
-            let users = await staffServices.getManyFilteredBy(filters);
+            let users = await clientServices.getManyFilteredBy(filters);
     
             res.json(users)
         } catch (err) {
@@ -26,7 +26,7 @@ router.get('/', async (req: Request, res: Response) => {
         }
     }  else {
         try {
-            let users = await staffServices.getAll();
+            let users = await clientServices.getAll();
     
             res.json(users)
         } catch (err) {
@@ -54,10 +54,10 @@ router.post('/register', async (req: Request, res: Response) => {
            throw {statusCode: 403, message: "This email address is already being used by another user."}
         } else {
             try {
-                let  clientRegisterResponse = await staffServices.register({firstName, lastName,email, phone, gender, role, password });
+                let clientRegisterResponse = await clientServices.register({firstName, lastName,email, phone, gender, role: Number(role), password });
 
                 if (clientRegisterResponse) {
-                    let user = {
+                    let client = {
                         _id: clientRegisterResponse._id,
                         firstName: clientRegisterResponse.firstName,
                         lastName: clientRegisterResponse.lastName,
@@ -65,12 +65,11 @@ router.post('/register', async (req: Request, res: Response) => {
                         phone: clientRegisterResponse.phone,
                         gender: clientRegisterResponse.gender,
                         role: clientRegisterResponse.role,
-                        imgUrl: clientRegisterResponse.imgUrl
                     };
         
-                    let authToken = generateAuthToken(user);
+                    let authToken = generateAuthToken(client);
 
-                    return res.json({ ...user, authToken });
+                    return res.json({ ...client, authToken });
                 }
             } catch(err) {
                 res.status(400).send(err)
@@ -134,7 +133,7 @@ router.get('/:userId/delete', async (req: Request, res: Response) => {
     let userId = req.params.userId
 
     try {
-        let deleteUserResponse = await staffServices.deleteOne(userId);
+        let deleteUserResponse = await clientServices.deleteOne(userId);
 
         if (deleteUserResponse) {
             res.json({message: 'Record has successfully been deleted'});

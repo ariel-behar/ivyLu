@@ -19,7 +19,9 @@ export interface IStaffRegister {
     phone: string,
     gender: "male" | "female",
     password: string,
-    role: number
+    role: number,
+    about?: string,
+    imgUrl?: string,
 }
 
 export interface IStaffDocument {
