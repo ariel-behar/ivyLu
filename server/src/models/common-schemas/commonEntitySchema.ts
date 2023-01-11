@@ -42,8 +42,7 @@ const commonEntitySchema = {
     creatorId: {
         type: mongoose.Types.ObjectId,
         ref: 'User',
-    },
+    }
 }
-
 
 export default commonEntitySchema;

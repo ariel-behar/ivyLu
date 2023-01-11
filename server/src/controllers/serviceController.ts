@@ -1,11 +1,12 @@
-import {Router} from 'express'
+import {Router, Request, Response} from 'express'
 import { isAuth, isOperatorAdmin } from '../middlewares/authMiddleware.js';
+import { IServiceCreate, IServiceDocument } from '../models/Service.js';
 
 import * as serviceServices from '../services/serviceServices.js'
 
 const router = Router();
 
-router.get('/', async (req, res) => {
+router.get('/', async (req: Request, res: Response) => {
     try {
         let services = await serviceServices.getAll();
 
@@ -15,7 +16,7 @@ router.get('/', async (req, res) => {
     }
 })
 
-router.get('/:serviceId', async (req, res) => {
+router.get('/:serviceId', async (req: Request, res: Response) => {
     let serviceId = req.params.serviceId;
 
     try {
@@ -27,7 +28,7 @@ router.get('/:serviceId', async (req, res) => {
     }
 })
 
-router.post('/create', isAuth, isOperatorAdmin, async (req, res) => {
+router.post('/create', isAuth, isOperatorAdmin, async (req: Request, res: Response) => {
     let { title, description, additionalComments, imgUrl, price, duration, status, creatorId } = req.body;
 
     try {
@@ -56,16 +57,16 @@ router.post('/create', isAuth, isOperatorAdmin, async (req, res) => {
                 res.status(400).send(err)
             }
         }
-    } catch (err) {
+    } catch (err: any) {
         res.status(err.statusCode ? err.statusCode : 500).json(err)
     }
 })
 
-router.post('/:serviceId/edit',isAuth, isOperatorAdmin, async (req, res) => {
+router.post('/:serviceId/edit',isAuth, isOperatorAdmin, async (req: Request, res: Response) => {
     let serviceId = req.params.serviceId
     let { title, description, additionalComments, imgUrl, price, duration, status } = req.body;
 
-    let service = { title, description, additionalComments, imgUrl, price, duration, status }
+    let service: Omit<IServiceCreate, "creatorId"> = { title, description, additionalComments, imgUrl, price, duration, status }
 
     try {
         let editServiceResponse = await serviceServices.updateOne(serviceId, service);
@@ -86,13 +87,13 @@ router.post('/:serviceId/edit',isAuth, isOperatorAdmin, async (req, res) => {
             throw {statusCode: 401, message: 'Bad request'}
         }
 
-    } catch (err) {
+    } catch (err: any) {
         res.status(err.statusCode ? err.statusCode : 500).json(err)
     }
 
 })
 
-router.get('/:serviceId/delete',isAuth, isOperatorAdmin, async (req, res) => {
+router.get('/:serviceId/delete',isAuth, isOperatorAdmin, async (req: Request, res: Response) => {
     let serviceId = req.params.serviceId
 
     try {
@@ -101,7 +102,7 @@ router.get('/:serviceId/delete',isAuth, isOperatorAdmin, async (req, res) => {
         if (deleteServiceResponse) {
             res.json({message: 'Record has successfully been deleted'});
         }
-    } catch (err) {
+    } catch (err: any) {
         res.status(err.statusCode ? err.statusCode : 500).json(err)
     }
 
