@@ -1,4 +1,4 @@
-import { AuthTokenType, Identifiable } from "../types/common/commonTypes";
+import { AuthTokenType, Identifiable } from "../types/common/common-types";
 import request from "../utils/request";
 import { baseUrl } from "./api";
 export interface ApiUser<I, E extends Identifiable<I>, A extends AuthTokenType> {

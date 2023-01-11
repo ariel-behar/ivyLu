@@ -3,7 +3,7 @@ import { useState } from "react"
 import { Product } from "../../models/Product"
 import { Service } from "../../models/Service"
 import { User } from "../../models/User"
-import { IdType } from "../../types/common/commonTypes"
+import { IdType } from "../../types/common/common-types"
 
 import ConfirmDeleteDialog from "../ConfirmDeleteDialog"
 import ProductDataTable from "./ProductDataTable"

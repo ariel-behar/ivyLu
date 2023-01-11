@@ -1,7 +1,7 @@
 import { Schedule } from "../models/Schedule";
 import { Service } from "../models/Service";
 import { User } from "../models/User";
-import { IdType } from "./common/commonTypes";
+import { IdType } from "./common/common-types";
 
 export interface ScheduleConfirmationResponseInterface {
     _id: IdType,

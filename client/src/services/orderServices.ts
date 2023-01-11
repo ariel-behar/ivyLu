@@ -1,6 +1,6 @@
 
 import { OrderCreateDTO } from "../models/Order";
-import { AuthTokenType } from "../types/common/commonTypes";
+import { AuthTokenType } from "../types/common/common-types";
 import request from "../utils/request";
 import { baseUrl } from "./api";
 

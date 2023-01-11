@@ -6,7 +6,7 @@ import uniqid from 'uniqid';
 
 import createProductFormSchema from "../../../validations/createProductFormSchema";
 
-import { AuthTokenType, IdType } from "../../../types/common/commonTypes";
+import { AuthTokenType, IdType } from "../../../types/common/common-types";
 import { ApiEntity, ApiEntityImpl } from "../../../services/entityServices";
 import { Product } from "../../../models/Product";
 

@@ -4,7 +4,7 @@ import { useNavigate, Link as RouterLink } from "react-router-dom";
 import { useAuthContext } from "../contexts/AuthContext";
 import { useNotificationContext } from "../contexts/NotificationContext";
 
-import { AuthTokenType, IdType } from "../types/common/commonTypes";
+import { AuthTokenType, IdType } from "../types/common/common-types";
 import { User, UserLoginDTO } from "../models/User";
 
 import TextField from "@mui/material/TextField";

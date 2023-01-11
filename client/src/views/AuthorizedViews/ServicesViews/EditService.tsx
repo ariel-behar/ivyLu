@@ -8,7 +8,7 @@ import createServiceFormSchema from "../../../validations/createServiceFormSchem
 import { Service } from "../../../models/Service";
 import { useNotificationContext } from "../../../contexts/NotificationContext";
 import { ApiEntity, ApiEntityImpl } from "../../../services/entityServices";
-import { AuthTokenType, IdType } from "../../../types/common/commonTypes";
+import { AuthTokenType, IdType } from "../../../types/common/common-types";
 import { useAuthContext } from "../../../contexts/AuthContext";
 import { IMAGE_URL_REGEX } from "../../../utils/regex";
 import { isOperatorAdminRouteGuard } from "../../../hoc/isOperatorAdminRouteGuard";

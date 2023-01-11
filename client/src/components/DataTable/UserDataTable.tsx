@@ -3,7 +3,7 @@ import { Link as RouterLink } from 'react-router-dom'
 import { User } from "../../models/User"
 import getUserRole from "../../utils/getUserRole"
 
-import { IdType } from "../../types/common/commonTypes"
+import { IdType } from "../../types/common/common-types"
 
 import maleAvatar from '../../assets/img/male-avatar.png'
 import femaleAvatar from '../../assets/img/female-avatar.png'

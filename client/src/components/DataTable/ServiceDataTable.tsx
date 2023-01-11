@@ -1,7 +1,7 @@
 import { Link as RouterLink } from 'react-router-dom'
 
 import { Service } from '../../models/Service'
-import { IdType } from '../../types/common/commonTypes'
+import { IdType } from '../../types/common/common-types'
 import { useAuthContext } from '../../contexts/AuthContext'
 
 import Button from "@mui/material/Button"

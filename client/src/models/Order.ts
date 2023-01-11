@@ -1,4 +1,4 @@
-import { Identifiable, IdType } from "../types/common/commonTypes";
+import { Identifiable, IdType } from "../types/common/common-types";
 import { Product } from "./Product";
 import { User } from "./User";
 

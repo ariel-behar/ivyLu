@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import createServiceFormSchema from "../../../validations/createServiceFormSchema";
 import { Service, ServiceCreateDTO } from "../../../models/Service";
 import { ApiEntity, ApiEntityImpl } from "../../../services/entityServices";
-import { AuthTokenType, IdType } from "../../../types/common/commonTypes";
+import { AuthTokenType, IdType } from "../../../types/common/common-types";
 import { useAuthContext } from "../../../contexts/AuthContext";
 import { useNotificationContext } from "../../../contexts/NotificationContext";
 import { IMAGE_URL_REGEX } from "../../../utils/regex";

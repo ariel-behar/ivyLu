@@ -4,7 +4,7 @@ import { useAuthContext } from '../contexts/AuthContext'
 import { useNotificationContext } from '../contexts/NotificationContext'
 import { ApiEntity, ApiEntityImpl } from '../services/entityServices'
 import { Service } from '../models/Service'
-import { AuthTokenType, IdType } from '../types/common/commonTypes'
+import { AuthTokenType, IdType } from '../types/common/common-types'
 
 import Button from '@mui/material/Button'
 import Dialog from '@mui/material/Dialog'

@@ -11,7 +11,7 @@ import { useAuthContext } from "../../../contexts/AuthContext";
 import { useNotificationContext } from "../../../contexts/NotificationContext";
 import { IMAGE_URL_REGEX } from "../../../utils/regex";
 import { ApiEntity, ApiEntityImpl } from "../../../services/entityServices";
-import { AuthTokenType, IdType } from "../../../types/common/commonTypes";
+import { AuthTokenType, IdType } from "../../../types/common/common-types";
 import { getMeasurementUnit, measurementUnits } from "../../../utils/getMeasurementUnit";
 import { isOperatorAdminRouteGuard } from "../../../hoc/isOperatorAdminRouteGuard";
 

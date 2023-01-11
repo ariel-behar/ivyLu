@@ -1,7 +1,7 @@
 import { LoaderFunctionArgs } from 'react-router-dom';
 import { Service } from '../models/Service';
 import { ApiEntity, ApiEntityImpl } from '../services/entityServices';
-import { AuthTokenType, IdType } from '../types/common/commonTypes';
+import { AuthTokenType, IdType } from '../types/common/common-types';
 import { getAllHairdressers } from './staffLoader';
 
 const entityServices: ApiEntity<IdType, Service, AuthTokenType> = new ApiEntityImpl<IdType, Service, AuthTokenType>('services');

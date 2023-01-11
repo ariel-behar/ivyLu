@@ -6,7 +6,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 
 import registerAuthorizedFormSchema from '../../../validations/registerAuthorizedFormSchema';
 import { ApiUser, ApiUserImpl } from '../../../services/userServices';
-import { AuthTokenType, IdType } from '../../../types/common/commonTypes';
+import { AuthTokenType, IdType } from '../../../types/common/common-types';
 import { AuthUserRegisterDTO, User } from '../../../models/User';
 import { useNotificationContext } from '../../../contexts/NotificationContext';
 

@@ -1,4 +1,4 @@
-import { IdType, Identifiable } from "../types/common/commonTypes";
+import { IdType, Identifiable } from "../types/common/common-types";
 import { productCategorieseType } from "../utils/constants";
 
 export class Product implements Identifiable<IdType>{

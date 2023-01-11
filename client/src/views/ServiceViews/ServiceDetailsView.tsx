@@ -8,7 +8,7 @@ import { Service } from "../../models/Service"
 import { User } from '../../models/User'
 import { Schedule, ScheduleCreateDTO } from '../../models/Schedule';
 import { ApiSchedule, ApiScheduleImpl } from '../../services/scheduleServices';
-import { AuthTokenType, IdType } from '../../types/common/commonTypes';
+import { AuthTokenType, IdType } from '../../types/common/common-types';
 import addScheduleFormSchema from '../../validations/addScheduleFormSchema';
 
 import Grid from "@mui/material/Grid"

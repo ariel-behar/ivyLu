@@ -1,6 +1,6 @@
 import { Schedule } from "../models/Schedule";
 import { ApiSchedule, ApiScheduleImpl } from "../services/scheduleServices";
-import { AuthTokenType, IdType } from "../types/common/commonTypes";
+import { AuthTokenType, IdType } from "../types/common/common-types";
 
 const scheduleServices: ApiSchedule<IdType, Schedule, AuthTokenType> = new ApiScheduleImpl<IdType, Schedule, AuthTokenType>('schedule');
 

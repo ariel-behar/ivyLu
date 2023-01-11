@@ -3,7 +3,7 @@ import { Link as RouterLink } from 'react-router-dom'
 import { Product } from '../../models/Product'
 
 import { getMeasurementUnit } from '../../utils/getMeasurementUnit'
-import { IdType } from '../../types/common/commonTypes'
+import { IdType } from '../../types/common/common-types'
 
 import Button from "@mui/material/Button"
 import TableBody from "@mui/material/TableBody"

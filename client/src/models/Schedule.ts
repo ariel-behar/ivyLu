@@ -1,4 +1,4 @@
-import { IdType, Identifiable } from "../types/common/commonTypes";
+import { IdType, Identifiable } from "../types/common/common-types";
 export class Schedule implements Identifiable<IdType>{
     constructor(
         public _id: IdType,

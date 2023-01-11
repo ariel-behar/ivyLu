@@ -17,7 +17,7 @@ import FormHelperText from '@mui/material/FormHelperText';
 import registerFormSchema from '../validations/registerFormSchema';
 import { User, UserRegisterDTO } from '../models/User';
 import { useAuthContext } from '../contexts/AuthContext';
-import { AuthTokenType, IdType } from '../types/common/commonTypes';
+import { AuthTokenType, IdType } from '../types/common/common-types';
 import { useNotificationContext } from '../contexts/NotificationContext';
 import { ApiUser, ApiUserImpl } from '../services/userServices';
 import { isGuestRouteGuard } from '../hoc/isGuestRouteGuard';

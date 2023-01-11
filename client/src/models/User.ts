@@ -1,4 +1,4 @@
-import { Identifiable, IdType } from "../types/common/commonTypes"
+import { Identifiable, IdType } from "../types/common/common-types"
 
 export const enum UserRole {
     Client = 1, Hairdresser, Operator, Admin
