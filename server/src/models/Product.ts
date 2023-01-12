@@ -31,7 +31,8 @@ export interface IProductDocument {
     volumeMeasurementUnit: 'milliliters' | 'grams',
     productCode: string,
     status: 'active' | 'inactive',
-    creatorId: IdType
+    creatorId: IdType,
+    createdAt: NativeDate
 }
 
 const productSchema = new mongoose.Schema({

@@ -5,12 +5,6 @@ import commonUserSchema from './common-schemas/commonUserSchema.js';
 import { IdType } from '../types/common-types.js';
 
 env.config()
-
-export interface IClientLogin {
-    email: string,
-    password: string
-}
-
 export interface IClientRegister {
     firstName: string,
     lastName: string,

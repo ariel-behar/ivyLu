@@ -7,11 +7,6 @@ import { IdType } from '../types/common-types.js';
 
 env.config()
 
-export interface IStaffLogin {
-    email: string,
-    password: string
-}
-
 export interface IStaffRegister {
     firstName: string,
     lastName: string,
