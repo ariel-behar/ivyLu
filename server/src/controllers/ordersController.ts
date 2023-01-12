@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import { Router, Request, Response } from 'express';
 
 import * as ordersServices from '../services/ordersServices.js'
 import { isAuth, isClient, isHairdresserOperatorAdmin } from '../middlewares/authMiddleware.js'
@@ -7,7 +7,7 @@ import { LeanDocument } from 'mongoose';
 
 const router = Router()
 
-router.get('/', isAuth, isHairdresserOperatorAdmin, async (req, res) => {
+router.get('/', isAuth, isHairdresserOperatorAdmin, async (req: Request, res: Response) => {
     try {
         let orderResponse: LeanDocument<IOrderDocument>[]= await ordersServices.getAll()
 
@@ -44,7 +44,6 @@ router.get('/', isAuth, isHairdresserOperatorAdmin, async (req, res) => {
                     _id: order._id,
                     createdAt: order.createdAt,
                     status: order.status,
-                    comments: order.comments,
                     client,
                     product
                 }
@@ -57,11 +56,11 @@ router.get('/', isAuth, isHairdresserOperatorAdmin, async (req, res) => {
     }
 })
 
-router.post('/create', isAuth, isClient, async (req, res) => {
-    let { clientId, productId, status, comments, quantity } = req.body;
+router.post('/create', isAuth, isClient, async (req: Request, res: Response) => {
+    let { clientId, productId, status } = req.body;
 
     try {
-        let orderCreateResponse: IOrderDocument = await ordersServices.create({client: clientId, product: productId, status, comments, quantity})
+        let orderCreateResponse: IOrderDocument = await ordersServices.create({client: clientId, product: productId, status})
 
         if (orderCreateResponse) {
             let populatedOrder: LeanDocument<IOrderDocument> | null = await ordersServices.getOne(orderCreateResponse._id)

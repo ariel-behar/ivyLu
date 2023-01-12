@@ -44,7 +44,6 @@ router.get('/', isAuth, isHairdresserOperatorAdmin, (req, res) => __awaiter(void
                     _id: order._id,
                     createdAt: order.createdAt,
                     status: order.status,
-                    comments: order.comments,
                     client,
                     product
                 };
@@ -57,9 +56,9 @@ router.get('/', isAuth, isHairdresserOperatorAdmin, (req, res) => __awaiter(void
     }
 }));
 router.post('/create', isAuth, isClient, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    let { clientId, productId, status, comments, quantity } = req.body;
+    let { clientId, productId, status } = req.body;
     try {
-        let orderCreateResponse = yield ordersServices.create({ client: clientId, product: productId, status, comments, quantity });
+        let orderCreateResponse = yield ordersServices.create({ client: clientId, product: productId, status });
         if (orderCreateResponse) {
             let populatedOrder = yield ordersServices.getOne(orderCreateResponse._id);
             if (populatedOrder) {

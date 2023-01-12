@@ -13,7 +13,6 @@ export class Order implements Identifiable<IdType>{
         public product: Product,
         public status: OrderStatus = OrderStatus.Pending,
         public createdAt: string,
-        public comments: string[]
     ){}
 }
 
@@ -21,7 +20,7 @@ export class OrderCreateDTO implements Omit<Order, '_id' | 'client' | 'product' 
     constructor(
         public clientId: IdType,
         public productId: IdType,
-        public status: OrderStatus = OrderStatus.Pending
+        public status: OrderStatus = OrderStatus.Pending, 
     ){
     }
 }

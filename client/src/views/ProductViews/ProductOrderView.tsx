@@ -35,10 +35,10 @@ function ProductOrderView() {
 	}
 
 	const onConfirmDialogConfirmClick = async () => {
-		const order = new OrderCreateDTO(user.userId , product._id)
+		const order = new OrderCreateDTO(user._id , product._id)
 
 		try {
-			let orderResponse = await orderServices.order(order, user.authToken)
+			let orderResponse = await orderServices.create(order, user.authToken)
 
 			if(orderResponse) {
 				displayNotification({message: 'Your order has successfully been submitted'}, 'success')
@@ -94,8 +94,6 @@ function ProductOrderView() {
 											Volume: <b> {product.volume} {getMeasurementUnit(product.volumeMeasurementUnit).abbreviated} </b>
 										</Typography>
 									</Stack>
-
-
 								
 								{ isClient && <Button variant='contained' onClick={onOrderButtonClick}>Order Product</Button>}
 								</Grid>
