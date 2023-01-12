@@ -1,13 +1,14 @@
+import { IScheduleConfirmationResponse } from "../types/scheduleTypes"
+
 import Box from "@mui/material/Box"
 import Stack from "@mui/material/Stack"
 import Typography from "@mui/material/Typography"
-import { ScheduleConfirmationResponseInterface } from "../types/scheduleTypes"
 
-interface ServiceAppointmentConfirmationCardProps {
-	confirmationResponse: ScheduleConfirmationResponseInterface
+interface Props {
+	confirmationResponse: IScheduleConfirmationResponse
 }
 
-function ServiceAppointmentConfirmationCard({ confirmationResponse }: ServiceAppointmentConfirmationCardProps) {
+function ServiceAppointmentConfirmationCard({ confirmationResponse }: Props) {
 	return (
 		<>
 			<Box p={2}>

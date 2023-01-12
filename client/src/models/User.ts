@@ -19,7 +19,7 @@ export class User implements Identifiable<IdType> {
     ){}
 }
 
-export class UserRegisterDTO implements Omit<User, '_id' | 'imgUrl' | 'about' | 'authToken'> {
+export class ClientRegisterDTO implements Omit<User, '_id' | 'imgUrl' | 'about' | 'authToken'> {
     constructor(
         public firstName: string,
         public lastName: string,
@@ -30,7 +30,7 @@ export class UserRegisterDTO implements Omit<User, '_id' | 'imgUrl' | 'about' | 
         public role: UserRole = UserRole.Client
     ){}
 }
-export class AuthUserRegisterDTO implements Omit<User, '_id' | 'authToken'> {
+export class StaffRegisterDTO implements Omit<User, '_id' | 'authToken'> {
     constructor(
         public firstName: string,
         public lastName: string,

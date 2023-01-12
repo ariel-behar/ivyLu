@@ -2,8 +2,11 @@ import { useNavigate } from 'react-router-dom'
 
 import { useAuthContext } from '../contexts/AuthContext'
 import { useNotificationContext } from '../contexts/NotificationContext'
-import { ApiEntity, ApiEntityImpl } from '../services/entityServices'
+
+import { ApiUser, ApiUserImpl } from '../services/userServices'
+import { User } from '../models/User'
 import { Service } from '../models/Service'
+import { ApiEntity, ApiEntityImpl } from '../services/entityServices'
 import { AuthTokenType, IdType } from '../types/common/common-types'
 
 import Button from '@mui/material/Button'
@@ -13,11 +16,8 @@ import DialogContent from '@mui/material/DialogContent'
 import DialogContentText from '@mui/material/DialogContentText'
 import DialogActions from '@mui/material/DialogActions'
 import Stack from '@mui/material/Stack'
-import { ApiUser, ApiUserImpl } from '../services/userServices'
-import { User } from '../models/User'
 
-
-interface ConfirmDeleteDialogProps {
+interface Props {
     itemToDelete: {_id: IdType, entityType: 'client' | 'service' | 'product' | 'staff'},
     showConfirmationDialog: boolean,
     closeConfirmationDialog: () => void,
@@ -27,8 +27,8 @@ function ConfirmDeleteDialog({
     itemToDelete, 
     showConfirmationDialog, 
     closeConfirmationDialog,
-}: ConfirmDeleteDialogProps) {
-    const { user } = useAuthContext() as any
+}: Props) {
+    const { user } = useAuthContext() as {user: User}
     const { displayNotification } = useNotificationContext() as any;
     const entityServices: ApiEntity<IdType, Service, AuthTokenType> = new ApiEntityImpl<IdType, Service, AuthTokenType>(`${itemToDelete.entityType}s`);
     const userServices: ApiUser<IdType, User, AuthTokenType> = new ApiUserImpl<IdType, User, AuthTokenType>(itemToDelete.entityType === 'client' ? 'clients' : 'staff');

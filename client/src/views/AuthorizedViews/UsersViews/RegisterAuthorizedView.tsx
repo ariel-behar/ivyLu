@@ -7,7 +7,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import registerAuthorizedFormSchema from '../../../validations/registerAuthorizedFormSchema';
 import { ApiUser, ApiUserImpl } from '../../../services/userServices';
 import { AuthTokenType, IdType } from '../../../types/common/common-types';
-import { AuthUserRegisterDTO, User } from '../../../models/User';
+import { StaffRegisterDTO, User } from '../../../models/User';
 import { useNotificationContext } from '../../../contexts/NotificationContext';
 
 import TextField from '@mui/material/TextField';
@@ -76,7 +76,7 @@ function RegisterAuthorizedView() {
 			imgUrl = data.imgUrl
 			about = data.about
 		}
-		const newUser = new AuthUserRegisterDTO(firstName, lastName, email, phone, gender, password, role, about, imgUrl)
+		const newUser = new StaffRegisterDTO(firstName, lastName, email, phone, gender, password, role, about, imgUrl)
 
 		try {
 			let registerUserResponse = await userServices.register(newUser as User, user.authToken)

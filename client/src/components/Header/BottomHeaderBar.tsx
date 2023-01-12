@@ -1,15 +1,15 @@
 import IsNotloggedInButtons from './HeaderButtons/IsNotloggedInButtons';
+import IsLoggedInButtons from './HeaderButtons/IsLoggedInButtons';
 
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
-import IsLoggedInButtons from './HeaderButtons/IsLoggedInButtons';
 import Paper from '@mui/material/Paper';
 
-interface BottomHeaderBarProps {
+interface Props {
     isLoggedIn: boolean
 }
 
-function BottomHeaderBar({ isLoggedIn }: BottomHeaderBarProps) {
+function BottomHeaderBar({ isLoggedIn }: Props) {
     return (
         <Box
             sx={{ backgroundColor: 'main.beige', position: 'fixed', width: '100%', zIndex: 100 }}

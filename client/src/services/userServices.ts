@@ -1,5 +1,7 @@
-import { AuthTokenType, Identifiable } from "../types/common/common-types";
 import request from "../utils/request";
+
+import { AuthTokenType, Identifiable } from "../types/common/common-types";
+
 import { baseUrl } from "./api";
 export interface ApiUser<I, E extends Identifiable<I>, A extends AuthTokenType> {
     register(userWithoutId: Omit<E, 'id'>, authToken?: A): Promise<E>;

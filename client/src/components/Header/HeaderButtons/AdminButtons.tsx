@@ -2,11 +2,11 @@ import { NavLink as RouterNavLink } from 'react-router-dom'
 
 import MenuItem from '@mui/material/MenuItem';
 
-interface AdminButtonsProps {
+interface Props {
     handleClose: () => void
 }
 
-function AdminButtons({ handleClose }: AdminButtonsProps) {
+function AdminButtons({ handleClose }: Props) {
     return (
         <>
             <MenuItem

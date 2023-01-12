@@ -10,7 +10,7 @@ import Stack from '@mui/material/Stack';
 
 function ProductsOperatorAdminView() {
     const products = useLoaderData() as Product[];
-    const { isOperator, isAdmin } = useAuthContext() as any;
+    const { isOperator, isAdmin } = useAuthContext() as {isOperator: boolean, isAdmin: boolean};
 
     return (
         <>

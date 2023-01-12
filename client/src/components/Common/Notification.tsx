@@ -1,10 +1,10 @@
-import { InitialNotificationStateType, useNotificationContext } from "../../contexts/NotificationContext";
+import { TInitialNotificationState, useNotificationContext } from "../../contexts/NotificationContext";
 import { ToastContainer, toast, Flip } from 'react-toastify';
 
 function Notification() {
     const { notifications } = useNotificationContext() as any;
 
-    notifications.forEach((notification: InitialNotificationStateType) => {
+    notifications.forEach((notification: TInitialNotificationState) => {
         if (!notification.show) {
             return null;
         }

@@ -3,20 +3,20 @@ import { NavLink as RouterNavLink } from 'react-router-dom'
 import { useAuthContext } from '../../contexts/AuthContext'
 import logo from '../../assets/img/logo.png'
 
+import BottomHeaderBar from './BottomHeaderBar';
+
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
+import Badge from '@mui/material/Badge';
+import Box from '@mui/material/Box';
 
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
-import BottomHeaderBar from './BottomHeaderBar';
-import Badge from '@mui/material/Badge';
-import { Box } from '@mui/material';
-
 function Header() {
-    const { isLoggedIn } = useAuthContext() as any;
+    const { isLoggedIn } = useAuthContext() as {isLoggedIn: boolean};
 
     return (
         <>

@@ -16,8 +16,7 @@ import TableRow from "@mui/material/TableRow"
 import StyledTableCell from "./StyledTableCell"
 import StyledTableRow from "./StyledTableRow"
 
-
-interface UserDataTableInterface {
+interface Props {
     entityType: 'client' | 'staff',
     entities: Omit<User, 'password'>[],
     onDeleteButtonClickHandler: (_id: IdType, entityType: 'client' | 'staff') => void
@@ -27,7 +26,7 @@ function UserDataTable({
     entityType,
     entities,
     onDeleteButtonClickHandler
-}: UserDataTableInterface) {
+}: Props) {
     return (
         <>
             <TableHead>

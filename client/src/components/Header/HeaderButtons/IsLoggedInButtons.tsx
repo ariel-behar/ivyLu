@@ -3,6 +3,7 @@ import { NavLink as RouterNavLink, Link as RouterLink } from 'react-router-dom'
 import { useAuthContext } from '../../../contexts/AuthContext';
 
 import getUserRole from '../../../utils/getUserRole';
+import { User } from '../../../models/User';
 
 import ManagementMenuButton from './ManagementMenuButton';
 
@@ -11,9 +12,8 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 
-
 function IsLoggedInButtons() {
-    const { user, isHairdresser, isOperator, isAdmin } = useAuthContext() as any;
+    const { user, isHairdresser, isOperator, isAdmin } = useAuthContext() as {user: User, isHairdresser: boolean, isOperator: boolean, isAdmin: boolean};
     const userRole = getUserRole(user.role)
 
     return (

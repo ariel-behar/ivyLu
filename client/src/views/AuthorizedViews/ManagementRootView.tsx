@@ -1,14 +1,15 @@
 import { Outlet, NavLink as RouterNavLink } from "react-router-dom"
 
+import { useAuthContext } from "../../contexts/AuthContext";
+import { isAuthRouteGuard } from "../../hoc/isAuthRouteGuard";
 
 import Stack from "@mui/material/Stack"
 import Breadcrumbs from "@mui/material/Breadcrumbs"
 import Link from "@mui/material/Link"
-import { useAuthContext } from "../../contexts/AuthContext";
-import { isAuthRouteGuard } from "../../hoc/isAuthRouteGuard";
+
 
 function ManagementRootView() {
-    const { isAdmin } = useAuthContext() as any;
+    const { isAdmin } = useAuthContext() as {isAdmin: boolean};
 
     return (
         <>

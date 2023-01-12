@@ -9,12 +9,11 @@ import TableBody from "@mui/material/TableBody"
 import TableCell from "@mui/material/TableCell"
 import TableHead from "@mui/material/TableHead"
 import TableRow from "@mui/material/TableRow"
+
 import StyledTableCell from './StyledTableCell'
 import StyledTableRow from './StyledTableRow'
 
-
-
-interface ServiceDataTableInterface {
+interface Props {
     entities: Service[],
     onDeleteButtonClickHandler: (_id: IdType, entity: 'service') => void
 }
@@ -22,7 +21,7 @@ interface ServiceDataTableInterface {
 function ServiceDataTable({
     entities,
     onDeleteButtonClickHandler
-}: ServiceDataTableInterface) {
+}: Props) {
     const { isAdmin, isOperator } = useAuthContext() as any;
 
     return (

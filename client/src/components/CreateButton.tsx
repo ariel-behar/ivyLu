@@ -3,7 +3,7 @@ import { Link as RouterLink, } from 'react-router-dom';
 
 import AddIcon from '@mui/icons-material/Add';
 
-type CreateButtonProps = {
+interface Props {
 	text: string,
 	whereTo: 'services' | 'products' | 'staff'
 }
@@ -11,7 +11,7 @@ type CreateButtonProps = {
 function CreateButton({
 	text,
 	whereTo
-}: CreateButtonProps) {
+}: Props) {
 
 	return (
 		<Button

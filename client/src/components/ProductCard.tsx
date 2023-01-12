@@ -1,6 +1,7 @@
 import { Link as RouterLink } from 'react-router-dom'
 
 import { Product } from '../models/Product';
+import { getMeasurementUnit } from '../utils/getMeasurementUnit';
 import { useAuthContext } from '../contexts/AuthContext';
 
 import Card from '@mui/material/Card';
@@ -10,16 +11,15 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
-import { getMeasurementUnit } from '../utils/getMeasurementUnit';
 
-interface ProductCardProps {
+interface Props {
 	product: Product,
 }
 
 export default function ProductCard({
 	product,
-}: ProductCardProps) {
-	const { isLoggedIn } = useAuthContext() as any;
+}: Props) {
+	const { isLoggedIn } = useAuthContext() as {isLoggedIn: boolean};
 
 	return (
 		<Card elevation={3} sx={{ maxWidth: '345', minHeight: '400px', display: 'flex', flexDirection: 'column' }}>

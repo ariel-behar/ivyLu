@@ -31,13 +31,13 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import FormHelperText from '@mui/material/FormHelperText';
-import { productCategories, productCategorieseType } from "../../../utils/constants";
+import { productCategories, TProductCategories } from "../../../utils/constants";
 
 
 type FormData = {
 	title: string,
 	description: string,
-	productCategory: productCategorieseType | '',
+	productCategory: TProductCategories | '',
 	additionalComments: string | null,
 	imgUrl: string,
 	price: number,
@@ -52,7 +52,7 @@ const entityServices: ApiEntity<IdType, Product, AuthTokenType> = new ApiEntityI
 function EditProduct() {
     let product = useLoaderData() as Product;
     let { productId } = useParams<string>()
-    const [productCategory, setProductCategory] = useState<productCategorieseType>(product.productCategory)
+    const [productCategory, setProductCategory] = useState<TProductCategories>(product.productCategory)
     const [measurementUnit, setMeasurementUnit] = useState<object>(measurementUnits[product.volumeMeasurementUnit as keyof typeof measurementUnits])
     const [priceValue, setPriceValue] = useState<string>(product.price.toString())
     const [status, setStatus] = useState<string>(product.status)
@@ -79,7 +79,7 @@ function EditProduct() {
     })
 
     const handleProductCategoryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setProductCategory(e.target.value as productCategorieseType)
+		setProductCategory(e.target.value as TProductCategories)
 	}
 
     const handleVolumeMeasurementUnitChange = (e: React.ChangeEvent<HTMLInputElement>) => {

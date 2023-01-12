@@ -2,13 +2,13 @@ import mongoose from 'mongoose'
 
 import commonEntitySchema from './common-schemas/commonEntitySchema.js';
 
-import {productCategories, productCategorieseType, volumeMeasurementUnits} from '../utils/constants.js'
+import {productCategories, TProductCategories, volumeMeasurementUnits} from '../utils/constants.js'
 import { IdType } from '../types/common-types.js';
 
 export interface IProductCreate {
     title: string,
     description: string,
-    productCategory: productCategorieseType,
+    productCategory: TProductCategories,
     additionalComments: string | null,
     imgUrl: string,
     price: number,
@@ -23,7 +23,7 @@ export interface IProductDocument {
     _id: IdType,
     title: string,
     description: string,
-    productCategory: productCategorieseType,
+    productCategory: TProductCategories,
     additionalComments: string | null,
     imgUrl: string,
     price: number,

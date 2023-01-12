@@ -15,7 +15,7 @@ import Stack from '@mui/system/Stack';
 import FormHelperText from '@mui/material/FormHelperText';
 
 import registerFormSchema from '../validations/registerFormSchema';
-import { User, UserRegisterDTO } from '../models/User';
+import { User, ClientRegisterDTO } from '../models/User';
 import { useAuthContext } from '../contexts/AuthContext';
 import { AuthTokenType, IdType } from '../types/common/common-types';
 import { useNotificationContext } from '../contexts/NotificationContext';
@@ -61,7 +61,7 @@ function RegisterView() {
 
 		const { firstName, lastName, email, phone, gender, password } = data;
 
-		const user = new UserRegisterDTO(firstName, lastName, email, phone, gender, password)
+		const user = new ClientRegisterDTO(firstName, lastName, email, phone, gender, password)
 
 		try {
 			let registerUserResponse = await userServices.register(user as User)

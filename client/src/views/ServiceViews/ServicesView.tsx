@@ -13,7 +13,7 @@ import { useAuthContext } from "../../contexts/AuthContext";
 
 function ServicesView() {
     const services = useLoaderData() as Service[];
-    const { isLoggedIn } = useAuthContext() as any;
+    const { isLoggedIn } = useAuthContext() as {isLoggedIn: boolean};
 
     return (
         <>

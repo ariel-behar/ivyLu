@@ -8,16 +8,17 @@ import TableBody from "@mui/material/TableBody"
 import TableCell from "@mui/material/TableCell"
 import TableHead from "@mui/material/TableHead"
 import TableRow from "@mui/material/TableRow"
+
 import StyledTableCell from './StyledTableCell'
 import StyledTableRow from './StyledTableRow'
 
-interface OrderDataTableInterface {
+interface Props {
     entities: Order[],
 }
 
 function OrderDataTable({
     entities,
-}: OrderDataTableInterface) {
+}: Props) {
 
     return (
         <>

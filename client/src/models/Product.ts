@@ -1,12 +1,12 @@
 import { IdType, Identifiable } from "../types/common/common-types";
-import { productCategorieseType } from "../utils/constants";
+import { TProductCategories } from "../utils/constants";
 
 export class Product implements Identifiable<IdType>{
     constructor(
         public _id: IdType,
         public title: string,
         public description: string,
-        public productCategory: productCategorieseType,
+        public productCategory: TProductCategories,
         public additionalComments: string | null,
         public imgUrl: string,
         public price: number,
@@ -22,7 +22,7 @@ export class ProductCreateDTO implements Omit<Product, '_id' | 'creatorId'>{
     constructor(
         public title: string,
         public description: string,
-        public productCategory: productCategorieseType,
+        public productCategory: TProductCategories,
         public additionalComments: string | null,
         public imgUrl: string,
         public price: number,

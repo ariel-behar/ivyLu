@@ -14,7 +14,7 @@ import Box from '@mui/material/Box'
 
 
 
-interface ConfirmDialogProps {
+interface Props {
     entity: Product | Service,
     entityType: 'product' | 'service',
     showConfirmationDialog: boolean,
@@ -28,7 +28,7 @@ function ConfirmDialog({
     showConfirmationDialog,
     closeConfirmDialog,
     onConfirmDialogConfirmClick
-}: ConfirmDialogProps) {
+}: Props) {
 
     return (
         <>

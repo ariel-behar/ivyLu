@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useLoaderData } from 'react-router-dom';
 
-import { ScheduleConfirmationResponseInterface } from '../../../types/scheduleTypes';
+import { IScheduleConfirmationResponse } from '../../../types/scheduleTypes';
 
 import format from 'date-fns/format'
 import parse from 'date-fns/parse'
@@ -25,18 +25,18 @@ const localizer = dateFnsLocalizer({
 	locales
 })
 
-interface ScheduledItemInterface {
+interface IScheduledItem {
 	title: string
 	start: Date
 	end: Date
 }
 
 function ScheduleManagementView() {
-	const schedule = useLoaderData() as ScheduleConfirmationResponseInterface[]
-	const [allScheduledItems, setAllScheduledItems] = useState<ScheduledItemInterface[]>([]);
+	const schedule = useLoaderData() as IScheduleConfirmationResponse[]
+	const [allScheduledItems, setAllScheduledItems] = useState<IScheduledItem[]>([]);
 
 	useEffect(() => {
-		let filteredScheduleData = schedule.map((scheduleItem: ScheduleConfirmationResponseInterface) => {
+		let filteredScheduleData = schedule.map((scheduleItem: IScheduleConfirmationResponse) => {
 			let title = `${scheduleItem.hairdresser.firstName} ${scheduleItem.hairdresser.lastName} - ${scheduleItem.service.title} - ${scheduleItem.client.firstName} ${scheduleItem.client.lastName} (${scheduleItem.client.phone})`
 
 			let year = Number(scheduleItem.appointmentDetails.yearISO)

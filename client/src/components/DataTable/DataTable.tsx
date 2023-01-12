@@ -2,6 +2,7 @@ import { useState } from "react"
 
 import { Product } from "../../models/Product"
 import { Service } from "../../models/Service"
+import { Order } from "../../models/Order"
 import { User } from "../../models/User"
 import { IdType } from "../../types/common/common-types"
 
@@ -9,28 +10,26 @@ import ConfirmDeleteDialog from "../ConfirmDeleteDialog"
 import ProductDataTable from "./ProductDataTable"
 import ServiceDataTable from "./ServiceDataTable"
 import UserDataTable from "./UserDataTable"
+import OrderDataTable from "./OrderDataTable"
 
 import Paper from "@mui/material/Paper"
 import Table from "@mui/material/Table"
 import TableContainer from "@mui/material/TableContainer"
-import { Order } from "../../models/Order"
-import OrderDataTable from "./OrderDataTable"
 
-
-type EntityTypeType = 'client' | 'staff' | 'service' | 'product' | 'order'
-interface DataTableInterface {
-    entityType: EntityTypeType,
+type TEntityType = 'client' | 'staff' | 'service' | 'product' | 'order'
+interface Props {
+    entityType: TEntityType,
     entities: Omit<User, 'password'>[] | Product[] | Service[] | Order[]
 }
 
-function DataTable({ entityType, entities }: DataTableInterface) {
+function DataTable({ entityType, entities }: Props) {
     const [showConfirmationDialog, setShowConfirmationDialog] = useState<boolean>(false)
-    const [deleteItem, setDeleteItem] = useState<{ _id: string, entity: EntityTypeType | '' }>({
+    const [deleteItem, setDeleteItem] = useState<{ _id: string, entity: TEntityType | '' }>({
         _id: '',
         entity: ''
     })
 
-    const onDeleteButtonClickHandler = (_id: IdType, entity: EntityTypeType): void => {
+    const onDeleteButtonClickHandler = (_id: IdType, entity: TEntityType): void => {
         setShowConfirmationDialog(true)
         setDeleteItem({ _id, entity })
     }

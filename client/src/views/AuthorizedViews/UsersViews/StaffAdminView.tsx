@@ -1,8 +1,11 @@
-import Stack from "@mui/material/Stack"
 import { useLoaderData } from "react-router-dom"
+
+import { User } from "../../../models/User"
+
 import CreateButton from "../../../components/CreateButton"
 import DataTable from "../../../components/DataTable/DataTable"
-import { User } from "../../../models/User"
+
+import Stack from "@mui/material/Stack"
 
 function StaffAdminView() {
     const staffMembers = useLoaderData() as Omit<User, 'password'>[]

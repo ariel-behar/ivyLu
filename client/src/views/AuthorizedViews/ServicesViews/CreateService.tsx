@@ -12,6 +12,7 @@ import { useAuthContext } from "../../../contexts/AuthContext";
 import { useNotificationContext } from "../../../contexts/NotificationContext";
 import { IMAGE_URL_REGEX } from "../../../utils/regex";
 import { isOperatorAdminRouteGuard } from "../../../hoc/isOperatorAdminRouteGuard";
+import { serviceDuration } from "../../../utils/constants";
 
 import TextField from "@mui/material/TextField"
 import Stack from "@mui/material/Stack"
@@ -28,7 +29,8 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import FormHelperText from '@mui/material/FormHelperText';
-import { serviceDuration } from "../../../utils/constants";
+import { User } from "../../../models/User";
+
 
 const entityServices: ApiEntity<IdType, Service, AuthTokenType> = new ApiEntityImpl<IdType, Service, AuthTokenType>('services');
 
@@ -47,7 +49,7 @@ function CreateService() {
 	const [priceValue, setPriceValue] = useState<string>('1')
 	const [status, setStatus] = useState<string>('active')
 	const [previewImgUrl, setPreviewImageUrl] = useState<string>('')
-	const { user } = useAuthContext() as any;
+	const { user } = useAuthContext() as {user: User};
 	const { displayNotification } = useNotificationContext() as any;
 	const navigate = useNavigate()
 
@@ -94,7 +96,7 @@ function CreateService() {
 		const service = new ServiceCreateDTO(title, description, additionalComments, imgUrl, price, duration, status)
 
 		try {
-			let creatorId = user.userId
+			let creatorId = user._id
 
 			let createServiceResponse = await entityServices.create(service as Service, creatorId, user.authToken)
 

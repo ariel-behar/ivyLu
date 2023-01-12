@@ -1,19 +1,19 @@
+import { Order } from '../models/Order'
+import getOrderStatus from '../utils/getOrderStatus'
+
 import format from 'date-fns/format'
 import parseISO from 'date-fns/parseISO'
 
 import Box from "@mui/material/Box"
 import Stack from "@mui/material/Stack"
 import Typography from "@mui/material/Typography"
-import getOrderStatus from '../utils/getOrderStatus'
-import { Order } from '../models/Order'
 
-interface ProductOrderConfirmationCardProps {
+
+interface Props {
 	confirmationResponse: Order
 }
 
-function ProductOrderConfirmationCard({ confirmationResponse }: ProductOrderConfirmationCardProps) {
-
-	console.log(confirmationResponse );
+function ProductOrderConfirmationCard({ confirmationResponse }: Props) {
 
 	return (
 		<>

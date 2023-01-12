@@ -30,12 +30,13 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import FormHelperText from '@mui/material/FormHelperText';
-import { productCategories, productCategorieseType } from "../../../utils/constants";
+import { productCategories, TProductCategories } from "../../../utils/constants";
+import { User } from "../../../models/User";
 
 type FormData = {
 	title: string,
 	description: string,
-	productCategory: productCategorieseType | '',
+	productCategory: TProductCategories | '',
 	additionalComments: string | null,
 	imgUrl: string,
 	price: number,
@@ -48,12 +49,12 @@ type FormData = {
 const entityServices: ApiEntity<IdType, Product, AuthTokenType> = new ApiEntityImpl<IdType, Product, AuthTokenType>('products');
 
 function CreateProduct() {
-	const [productCategory, setProductCategory] = useState<productCategorieseType>()
+	const [productCategory, setProductCategory] = useState<TProductCategories>()
 	const [measurementUnit, setMeasurementUnit] = useState<object>(getMeasurementUnit('milliliters'))
 	const [priceValue, setPriceValue] = useState<string>('1')
 	const [status, setStatus] = useState<string>('active')
 	const [previewImgUrl, setPreviewImageUrl] = useState<string>('')
-	const { user } = useAuthContext() as any;
+	const { user } = useAuthContext() as {user: User};
 	const { displayNotification } = useNotificationContext() as any;
 	const navigate = useNavigate()
 
@@ -75,7 +76,7 @@ function CreateProduct() {
 	})
 
 	const handleProductCategoryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setProductCategory(e.target.value as productCategorieseType)
+		setProductCategory(e.target.value as TProductCategories)
 	}
 
 	const handleVolumeMeasurementUnitChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -110,7 +111,7 @@ function CreateProduct() {
 		}
 
 		try {
-			let creatorId = user.userId
+			let creatorId = user._id
 
 			let createProductResponse = await entityServices.create(product as Product, creatorId, user.authToken)
 

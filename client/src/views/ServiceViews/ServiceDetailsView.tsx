@@ -27,9 +27,9 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useAuthContext } from '../../contexts/AuthContext';
 import { useNotificationContext } from '../../contexts/NotificationContext';
 import ConfirmationView from '../ConfirmationView';
-import { ScheduleConfirmationResponseInterface } from '../../types/scheduleTypes';
+import { IScheduleConfirmationResponse } from '../../types/scheduleTypes';
 import BackToButton from '../../components/BackToButton';
-import { availableSchedulingHours, AvailableSchedulingHoursType } from '../../utils/constants';
+import { availableSchedulingHours, TAvailableSchedulingHours } from '../../utils/constants';
 
 interface IHairdresserSchedule {
 	_id: IdType,
@@ -43,21 +43,21 @@ interface IHairdresserSchedule {
 type FormData = {
 	hairdresser: string,
 	appointmentDate: string | Date,
-	appointmentHour: AvailableSchedulingHoursType,
+	appointmentHour: TAvailableSchedulingHours,
 }
 
 function ServiceDetailsView() {
 	const { service, hairdressers } = useLoaderData() as { service: Service, hairdressers: User[] };
-	const { user, isClient } = useAuthContext() as any;
+	const { user, isClient } = useAuthContext() as {user: User, isClient: boolean};
 	const { displayNotification } = useNotificationContext() as any;
 	const [ selectedHairdresser, setSelectedHairdresser] = useState<User | ''>('')
 	const [ hairdresserSchedule, setHairdresserSchedule] = useState<IHairdresserSchedule | null>(null);
 	const [ selectedAppointmentDate, setSelectedAppointmentDate] = useState<Date>(new Date());
-	const [ filteredAvailableShedulingHours, setFilteredAvailableShedulingHours] = useState<AvailableSchedulingHoursType[] | []>(availableSchedulingHours)
-	const [ selectedAppointmentHour, setSelectedAppointmentHour] = useState<AvailableSchedulingHoursType>(filteredAvailableShedulingHours[0])
+	const [ filteredAvailableShedulingHours, setFilteredAvailableShedulingHours] = useState<TAvailableSchedulingHours[] | []>(availableSchedulingHours)
+	const [ selectedAppointmentHour, setSelectedAppointmentHour] = useState<TAvailableSchedulingHours>(filteredAvailableShedulingHours[0])
 	const [ isCalendarOpen, setIsCalendarOpen] = useState(false);
 	const [ showConfirmationView, setShowConfirmationView] = useState<boolean>(false)
-	const [ createdScheduledItem, setCreatedScheduledItem] = useState<object | ScheduleConfirmationResponseInterface>({})
+	const [ createdScheduledItem, setCreatedScheduledItem] = useState<object | IScheduleConfirmationResponse>({})
 
 	const { register, handleSubmit, formState: { errors, isValid } } = useForm<FormData>({
 		mode: 'onChange',
@@ -98,18 +98,18 @@ function ServiceDetailsView() {
 	}
 
 	const onHourChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setSelectedAppointmentHour(e.target.value as AvailableSchedulingHoursType)
+		setSelectedAppointmentHour(e.target.value as TAvailableSchedulingHours)
 	}
 
 	const updateAvailableAppointmentHours = () => {
 		const currentFormatedSelectedDate = format(selectedAppointmentDate, "dd/MM/yyyy")
-		let filteredAvailableHaidresserHours: AvailableSchedulingHoursType[] = availableSchedulingHours;
+		let filteredAvailableHaidresserHours: TAvailableSchedulingHours[] = availableSchedulingHours;
 
 		if (isToday(selectedAppointmentDate)) {
 			let currentHour = Number(format(new Date(), 'H'))
 			let currentMinutes = Number(format(new Date(), 'm'))
 
-			filteredAvailableHaidresserHours = filteredAvailableHaidresserHours.filter((hour: AvailableSchedulingHoursType) => {
+			filteredAvailableHaidresserHours = filteredAvailableHaidresserHours.filter((hour: TAvailableSchedulingHours) => {
 				let availableScheduleHour = Number(hour.substring(0, 2))
 				let availableScheduleMinutes = Number(hour.substring(3, 5))
 
@@ -123,8 +123,8 @@ function ServiceDetailsView() {
 
 		if (hairdresserSchedule !== null && hairdresserSchedule.appointments.hasOwnProperty(currentFormatedSelectedDate)) {
 
-			filteredAvailableHaidresserHours = filteredAvailableHaidresserHours.filter((hour: AvailableSchedulingHoursType) => {
-				return !(hairdresserSchedule.appointments[currentFormatedSelectedDate as keyof typeof hairdresserSchedule] as AvailableSchedulingHoursType[]).includes(hour)
+			filteredAvailableHaidresserHours = filteredAvailableHaidresserHours.filter((hour: TAvailableSchedulingHours) => {
+				return !(hairdresserSchedule.appointments[currentFormatedSelectedDate as keyof typeof hairdresserSchedule] as TAvailableSchedulingHours[]).includes(hour)
 			})
 		}
 
@@ -163,7 +163,7 @@ function ServiceDetailsView() {
 
 			{
 				showConfirmationView
-					? <ConfirmationView entity={createdScheduledItem as ScheduleConfirmationResponseInterface} entityType='service' />
+					? <ConfirmationView entity={createdScheduledItem as IScheduleConfirmationResponse} entityType='service' />
 					:
 					<>
 						<Stack direction='row' justifyContent='right' mb={3}>

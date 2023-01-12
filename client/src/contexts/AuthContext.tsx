@@ -1,5 +1,6 @@
 import { createContext, useContext } from 'react';
 import useLocalStorage from '../hooks/useLocalStorage';
+import { User } from '../models/User';
 
 export const AuthContext = createContext<object | null>(null);
 
@@ -14,16 +15,16 @@ const initialUserState = {
     authToken: '',
 };
 
-type AuthProviderProps = {
+interface Props {
     children: React.ReactNode
 }
 
 export const AuthProvider = ({
     children
-}:AuthProviderProps) => {
+}:Props) => {
     const [user, setUser] = useLocalStorage('user', initialUserState);
 
-    const login = (userData: object) => {
+    const login = (userData: User) => {
         try {
             setUser(userData)
         } catch (err) {
@@ -50,7 +51,7 @@ export const AuthProvider = ({
     const isAdmin = user.role === 4 ? true: false;
     
     return (
-        <AuthContext.Provider value={{user, login, logout, isLoggedIn, isHairdresser, isClient, isOperator, isAdmin}}>
+        <AuthContext.Provider value={{user: user as User, login, logout, isLoggedIn, isHairdresser, isClient, isOperator, isAdmin}}>
             {children}
         </AuthContext.Provider>
     )

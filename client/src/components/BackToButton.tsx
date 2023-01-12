@@ -3,11 +3,11 @@ import { useNavigate } from "react-router-dom"
 import Button from "@mui/material/Button/Button";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
-type BackToButtonProps = {
+interface Props {
     whereTo: 'services' | 'products'
 }
 
-function BackToButton({ whereTo }: BackToButtonProps) {
+function BackToButton({ whereTo }: Props) {
     const navigate = useNavigate()
 
     const onBackButtonClickHandler = () => {

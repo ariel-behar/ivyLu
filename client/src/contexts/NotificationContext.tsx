@@ -3,45 +3,44 @@ import { createContext, useCallback, useContext, useState } from "react";
 export const NotificationContext = createContext<object | null>(null);
 
 
-type TypesType = {
+type TNotificationsTypes = {
     error: string,
     warning: string,
     info: string,
     success: string
 }
 
-export const types: TypesType = {
+export const nofiticationTypes: TNotificationsTypes = {
     error: 'error',
     warning: 'warn',
     info: 'info',
     success: 'success',
 };
 
-export type InitialNotificationStateType = {
+export type TInitialNotificationState = {
     show: boolean,
     message: string,
     type: string,
 };
 
-const initialNotificationState: InitialNotificationStateType[] = [
+const initialNotificationState: TInitialNotificationState[] = [
     { 
         show: false, 
         message: '', 
-        type: types.error 
+        type: nofiticationTypes.error 
     }
 ];
 
-
-interface NotificationProviderProps {
+interface Props {
     children: React.ReactNode
 }
 
 export const NotificationProvider = ({
     children
-}:NotificationProviderProps) => {
-    const [notifications, setNotifications] = useState<InitialNotificationStateType[]>(initialNotificationState);
+}:Props) => {
+    const [notifications, setNotifications] = useState<TInitialNotificationState[]>(initialNotificationState);
 
-    const displayNotification = useCallback(async (errObj: object, type = types.error) => {
+    const displayNotification = useCallback(async (errObj: object, type = nofiticationTypes.error) => {
         let newNotificationContentObj: object; 
 
         if(errObj instanceof Error) {
@@ -51,7 +50,7 @@ export const NotificationProvider = ({
         }
 
         if(newNotificationContentObj.hasOwnProperty('errors')) {
-            let newErrors: InitialNotificationStateType[] = [];
+            let newErrors: TInitialNotificationState[] = [];
 
             Object.keys(newNotificationContentObj['errors' as keyof typeof newNotificationContentObj]).forEach(err => {
                 let message = `${newNotificationContentObj['errors' as keyof typeof newNotificationContentObj][err]['message' as keyof typeof err]}`

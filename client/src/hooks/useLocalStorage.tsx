@@ -22,7 +22,6 @@ const useLocalStorage = (key: string, initialValue: object) => {
         } catch (err) {
             console.log(err);
         }
-        
     }
 
     return [ state, setItem ]

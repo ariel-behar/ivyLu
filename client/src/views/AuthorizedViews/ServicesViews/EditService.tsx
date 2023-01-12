@@ -1,9 +1,9 @@
 import React, { useState } from "react"
-import { useNavigate, useLoaderData, useParams } from "react-router-dom";
 import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
 import uniqid from 'uniqid';
 
+import { useNavigate, useLoaderData, useParams } from "react-router-dom";
+import { yupResolver } from '@hookform/resolvers/yup';
 import createServiceFormSchema from "../../../validations/createServiceFormSchema";
 import { Service } from "../../../models/Service";
 import { useNotificationContext } from "../../../contexts/NotificationContext";
@@ -12,6 +12,8 @@ import { AuthTokenType, IdType } from "../../../types/common/common-types";
 import { useAuthContext } from "../../../contexts/AuthContext";
 import { IMAGE_URL_REGEX } from "../../../utils/regex";
 import { isOperatorAdminRouteGuard } from "../../../hoc/isOperatorAdminRouteGuard";
+import { serviceDuration } from "../../../utils/constants";
+import { User } from "../../../models/User";
 
 import TextField from "@mui/material/TextField"
 import Stack from "@mui/material/Stack"
@@ -28,8 +30,6 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import FormHelperText from '@mui/material/FormHelperText';
-import { serviceDuration } from "../../../utils/constants";
-
 
 const entityServices: ApiEntity<IdType, Service, AuthTokenType> = new ApiEntityImpl<IdType, Service, AuthTokenType>('services');
 
@@ -45,11 +45,11 @@ type FormData = {
 
 function EditService() {
     let service = useLoaderData() as Service;
-    let { serviceId } = useParams<string>()
+    let { serviceId } = useParams<IdType>()
     const [duration, setDuration] = useState<string>(service.duration)
     const [previewImgUrl, setPreviewImageUrl] = useState<string>(service.imgUrl)
     const [status, setStatus] = useState<string>('active')
-    const { user } = useAuthContext() as any;
+    const { user } = useAuthContext() as {user: User};
     const { displayNotification } = useNotificationContext() as any;
     const navigate = useNavigate()
 

@@ -3,24 +3,30 @@ import { useLoaderData } from 'react-router-dom'
 
 import * as orderServices from '../../services/orderServices'
 import { useAuthContext } from '../../contexts/AuthContext';
+import { useNotificationContext } from '../../contexts/NotificationContext';
+
 import { Product } from '../../models/Product';
+import { User } from '../../models/User';
+import { Order, OrderCreateDTO } from '../../models/Order';
+
 import { getMeasurementUnit } from '../../utils/getMeasurementUnit';
+
+import ConfirmationView from '../ConfirmationView';
+import ConfirmDialog from '../../components/ConfirmDialog';
+import BackToButton from '../../components/BackToButton';
 
 import Grid from '@mui/material/Grid';
 import ImageListItem from '@mui/material/ImageListItem';
 import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-import BackToButton from '../../components/BackToButton';
-import { Button } from '@mui/material';
-import ConfirmationView from '../ConfirmationView';
-import ConfirmDialog from '../../components/ConfirmDialog';
-import { Order, OrderCreateDTO } from '../../models/Order';
-import { useNotificationContext } from '../../contexts/NotificationContext';
+import Button from '@mui/material/Button';
+
+
 
 function ProductOrderView() {
 	const product = useLoaderData() as Product;
-	const { user, isClient } = useAuthContext() as any;
+	const { user, isClient } = useAuthContext() as {user: User, isClient: boolean};
 	const { displayNotification } = useNotificationContext() as any;
 	const [showConfirmationView, setShowConfirmationView] = useState<boolean>(false)
 	const [showConfirmationDialog, setShowConfirmationDialog] = useState<boolean>(false)

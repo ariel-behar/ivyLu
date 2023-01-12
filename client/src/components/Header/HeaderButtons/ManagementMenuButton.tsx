@@ -12,7 +12,7 @@ import Button from '@mui/material/Button';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 function ManagementMenuButton() {
-    const { isAdmin } = useAuthContext() as any;
+    const { isAdmin } = useAuthContext() as {isAdmin: boolean};
 
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl)

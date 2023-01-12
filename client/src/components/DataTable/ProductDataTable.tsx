@@ -1,5 +1,7 @@
 import { Link as RouterLink } from 'react-router-dom'
 
+import { useAuthContext } from '../../contexts/AuthContext'
+
 import { Product } from '../../models/Product'
 
 import { getMeasurementUnit } from '../../utils/getMeasurementUnit'
@@ -10,13 +12,10 @@ import TableBody from "@mui/material/TableBody"
 import TableCell from "@mui/material/TableCell"
 import TableHead from "@mui/material/TableHead"
 import TableRow from "@mui/material/TableRow"
+
 import StyledTableCell from './StyledTableCell'
 import StyledTableRow from './StyledTableRow'
-import { useAuthContext } from '../../contexts/AuthContext'
-
-
-
-interface ProductDataTableInterface {
+interface Props {
     entities: Product[],
     onDeleteButtonClickHandler: (_id: IdType, entity: 'product') => void
 }
@@ -24,7 +23,7 @@ interface ProductDataTableInterface {
 function ProductDataTable({
     entities,
     onDeleteButtonClickHandler
-}: ProductDataTableInterface) {
+}: Props) {
     const { isAdmin, isOperator } = useAuthContext() as any;
 
     return (
