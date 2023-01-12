@@ -6,5 +6,6 @@ export const sendErrorResponse = function (req, res, status = 500, message, err 
         code: status,
         message,
         error: err
-    })
-}
+    });
+};
+//# sourceMappingURL=sendErrorResponse.js.map
