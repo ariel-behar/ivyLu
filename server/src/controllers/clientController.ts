@@ -85,7 +85,7 @@ router.post('/login', isGuest, async (req: Request, res: Response) => {
     const {email, password} = req.body;
     
     try {
-        let userLoginResponse: LeanDocument<IClientDocument & Required<{ _id: string; }>> & LeanDocument<IStaffDocument & Required<{ _id: string; }>> | null; 
+        let userLoginResponse: LeanDocument<IClientDocument> & LeanDocument<IStaffDocument> | null; 
 
         //Check clients
         userLoginResponse = await clientServices.login(email)

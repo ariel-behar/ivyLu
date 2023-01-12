@@ -129,15 +129,15 @@ function ServiceDetailsView() {
 		e?.preventDefault()
 
 		const appointment: ScheduleCreateDTO = {
-			client: user.userId,
-			hairdresser: data.hairdresser,
-			service: service._id,
+			clientId: user._id,
+			hairdresserId: data.hairdresser,
+			serviceId: service._id,
 			scheduledDate: selectedAppointmentDate,
 			scheduledHour: data.appointmentHour
 		}
 
 		try {
-			let createScheduleItemResponse = await scheduleServices.create(appointment as Schedule, user.authToken)
+			let createScheduleItemResponse = await scheduleServices.create(appointment, user.authToken)
 
 			if (createScheduleItemResponse) {
 				displayNotification({ message: 'Appointment has successfully been created' }, 'success')

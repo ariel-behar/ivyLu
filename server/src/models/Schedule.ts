@@ -1,5 +1,34 @@
 import mongoose from 'mongoose'
 import format from 'date-fns/format/index.js'
+import { IdType } from '../types/common-types';
+import { IClientDocument } from './Client';
+import { IStaffDocument } from './Staff';
+import { IServiceDocument } from './Service';
+
+export interface IScheduleCreate {
+    client: IdType,
+    hairdresser: IdType,
+    service: IdType,
+    scheduledDate: Date,
+    scheduledHour: string,
+}
+
+export interface IScheduleDocument {
+    _id: IdType,
+    client: IdType | IClientDocument,
+    hairdresser: IdType | IStaffDocument,
+    service: IdType | IServiceDocument,
+    scheduledDate: Date,
+    dateISO: string,
+    dayISO: string,
+    dayOfWeek: string,
+    monthISO: string,
+    monthName: string,
+    yearISO: string,
+    scheduledHour: string,
+    hourISO: string,
+    minutesISO: string
+}
 
 const scheduleSchema = new mongoose.Schema({
     client: {
@@ -53,7 +82,7 @@ const scheduleSchema = new mongoose.Schema({
     timestamps: true
 });
 
-scheduleSchema.pre('save', function (next) {
+scheduleSchema.pre('save', function (next: (err?: Error) => void) {
     this.dateISO = format(this.scheduledDate, "dd/MM/yyyy")
     this.dayISO = format(this.scheduledDate, 'd')
     this.dayOfWeek = format(this.scheduledDate, 'EEEE')
@@ -66,6 +95,6 @@ scheduleSchema.pre('save', function (next) {
     next()
 });
 
-const Schedule = mongoose.model('Schedule', scheduleSchema, 'schedule');
+const Schedule = mongoose.model<IScheduleDocument>('Schedule', scheduleSchema, 'schedule');
 
 export default Schedule;

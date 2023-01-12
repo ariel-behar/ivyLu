@@ -18,11 +18,11 @@ export class Schedule implements Identifiable<IdType>{
     ){}
 }
 
-export class ScheduleCreateDTO implements Omit<Schedule, '_id' | 'dateISO' | 'dayISO' | 'dayOfWeek' | 'monthISO' | 'monthName' | 'yearISO' | 'hourISO' | 'minutesISO' >{
+export class ScheduleCreateDTO implements Omit<Schedule, '_id' |'client' | 'hairdresser' | 'service' | 'dateISO' | 'dayISO' | 'dayOfWeek' | 'monthISO' | 'monthName' | 'yearISO' | 'hourISO' | 'minutesISO' >{
     constructor(
-        public client: IdType,
-        public hairdresser: IdType,
-        public service: IdType,
+        public clientId: IdType,
+        public hairdresserId: IdType,
+        public serviceId: IdType,
         public scheduledDate: Date,
         public scheduledHour: string
     ){}
