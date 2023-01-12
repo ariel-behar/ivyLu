@@ -1,5 +1,7 @@
+import * as env from 'dotenv';
+env.config();
 export const sendErrorResponse = function (req, res, status = 500, message, err = null) {
-    if (req.get('env') === 'production') {
+    if (process.env.NODE_ENV === 'production') {
         err = undefined;
     }
     res.status(status).json({

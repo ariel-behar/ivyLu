@@ -1,45 +1,47 @@
-import { Router, Request, Response } from 'express';
+import { Router, Request, Response, NextFunction } from 'express';
+import { LeanDocument } from 'mongoose';
 import bcrypt from 'bcrypt'
 
 import * as staffServices from '../services/staffServices.js'
 import * as clientServices from '../services/clientServices.js'
 
-import generateAuthToken from '../utils/generateAuthToken.js'
-import { isAuth, isAdmin, isGuest } from '../middlewares/authMiddleware.js';
 import { IClientDocument } from '../models/Client.js';
 import { IStaffDocument } from '../models/Staff.js';
-import { LeanDocument } from 'mongoose';
+import { AuthenticationError, InvalidDataError } from '../models/Errors.js';
+
+import { isAuth, isAdmin, isGuest } from '../middlewares/authMiddleware.js';
+
+import generateAuthToken from '../utils/generateAuthToken.js'
 
 const router = Router()
 
-router.get('/', async (req: Request, res: Response) => {
+router.get('/', isAuth, async (req: Request, res: Response, next: NextFunction) => {
     if (Object.entries(req.query).length > 0) {
         let filters = req.query;
         try {
+            let filteredStaffMembers = await staffServices.getManyFilteredBy(filters);
 
-            let users = await staffServices.getManyFilteredBy(filters);
-
-            res.json(users)
-        } catch (err) {
-            res.status(500).send(err)
+            res.json(filteredStaffMembers)
+        } catch (err: any) {
+            next(err)
         }
     } else {
         try {
-            let users = await staffServices.getAll();
+            let staffMembers = await staffServices.getAll();
 
-            res.json(users)
-        } catch (err) {
-
-            res.status(500).send(err)
+            res.json(staffMembers)
+        } catch (err: any) {
+            next(err)
         }
     }
 })
 
-router.post('/register', isAuth, isAdmin, async (req: Request, res: Response) => {
+router.post('/register', isAuth, isAdmin, async (req: Request, res: Response, next: NextFunction) => {
     let { firstName, lastName, email, phone, gender, password, role, about, imgUrl } = req.body;
+
     try {
         let userExistsResponse: LeanDocument<IClientDocument> | LeanDocument<IStaffDocument> | null;
-
+        
         //Check clients
         userExistsResponse = await clientServices.getOneByEmail(email)
 
@@ -49,7 +51,7 @@ router.post('/register', isAuth, isAdmin, async (req: Request, res: Response) =>
         }
 
         if (userExistsResponse) {
-            throw { statusCode: 403, message: "This email address is already being used by another user." }
+            next(new InvalidDataError(`Email address "${userExistsResponse.email}" is already taken.`));
         } else {
             try {
                 let userResponse;
@@ -77,16 +79,16 @@ router.post('/register', isAuth, isAdmin, async (req: Request, res: Response) =>
                     return res.json({ ...user, authToken });
                 }
             } catch (err) {
-                res.status(400).send(err)
+                next(err)
             }
         }
     } catch (err) {
-        res.status(400).send(err)
+        next(err)
     }
 
 })
 
-router.post('/login', isGuest, async (req: Request, res: Response) => {
+router.post('/login', isGuest, async (req: Request, res: Response, next: NextFunction) => {
     const { email, password } = req.body;
 
     try {
@@ -120,31 +122,27 @@ router.post('/login', isGuest, async (req: Request, res: Response) => {
                 return res.json({ ...user, authToken });
 
             } else {
-                throw { statusCode: 401, message: 'Username or password are incorrect.' }
+                next(new AuthenticationError(`Username or password are incorrect.`));
             }
         } else {
-            throw { statusCode: 401, message: 'Username or password are incorrect.' }
+            next(new AuthenticationError(`Username or password are incorrect.`));
         }
     } catch (err: any) {
-        if (err.hasOwnProperty('statusCode')) {
-            res.status(err.statusCode).send(err)
-        } else {
-            res.status(400).send(err)
-        }
+        next(err)
     }
 })
 
-router.get('/:userId/delete', isAuth, async (req: Request, res: Response) => {
+router.get('/:userId/delete', isAuth, async (req: Request, res: Response, next: NextFunction) => {
     let userId = req.params.userId
 
     try {
         let deleteUserResponse = await staffServices.deleteOne(userId);
 
         if (deleteUserResponse) {
-            res.json({ message: 'Record has successfully been deleted' });
+            res.json({ message: 'Staff member record has successfully been deleted' });
         }
     } catch (err: any) {
-        res.status(err.statusCode ? err.statusCode : 500).json(err)
+        next(err)
     }
 
 })

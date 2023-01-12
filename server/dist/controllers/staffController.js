@@ -11,31 +11,32 @@ import { Router } from 'express';
 import bcrypt from 'bcrypt';
 import * as staffServices from '../services/staffServices.js';
 import * as clientServices from '../services/clientServices.js';
-import generateAuthToken from '../utils/generateAuthToken.js';
+import { AuthenticationError, InvalidDataError } from '../models/Errors.js';
 import { isAuth, isAdmin, isGuest } from '../middlewares/authMiddleware.js';
+import generateAuthToken from '../utils/generateAuthToken.js';
 const router = Router();
-router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.get('/', isAuth, (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     if (Object.entries(req.query).length > 0) {
         let filters = req.query;
         try {
-            let users = yield staffServices.getManyFilteredBy(filters);
-            res.json(users);
+            let filteredStaffMembers = yield staffServices.getManyFilteredBy(filters);
+            res.json(filteredStaffMembers);
         }
         catch (err) {
-            res.status(500).send(err);
+            next(err);
         }
     }
     else {
         try {
-            let users = yield staffServices.getAll();
-            res.json(users);
+            let staffMembers = yield staffServices.getAll();
+            res.json(staffMembers);
         }
         catch (err) {
-            res.status(500).send(err);
+            next(err);
         }
     }
 }));
-router.post('/register', isAuth, isAdmin, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.post('/register', isAuth, isAdmin, (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     let { firstName, lastName, email, phone, gender, password, role, about, imgUrl } = req.body;
     try {
         let userExistsResponse;
@@ -46,7 +47,7 @@ router.post('/register', isAuth, isAdmin, (req, res) => __awaiter(void 0, void 0
             userExistsResponse = yield staffServices.getOneByEmail(email);
         }
         if (userExistsResponse) {
-            throw { statusCode: 403, message: "This email address is already being used by another user." };
+            next(new InvalidDataError(`Email address "${userExistsResponse.email}" is already taken.`));
         }
         else {
             try {
@@ -73,15 +74,15 @@ router.post('/register', isAuth, isAdmin, (req, res) => __awaiter(void 0, void 0
                 }
             }
             catch (err) {
-                res.status(400).send(err);
+                next(err);
             }
         }
     }
     catch (err) {
-        res.status(400).send(err);
+        next(err);
     }
 }));
-router.post('/login', isGuest, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.post('/login', isGuest, (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { email, password } = req.body;
     try {
         let userLoginResponse;
@@ -108,32 +109,27 @@ router.post('/login', isGuest, (req, res) => __awaiter(void 0, void 0, void 0, f
                 return res.json(Object.assign(Object.assign({}, user), { authToken }));
             }
             else {
-                throw { statusCode: 401, message: 'Username or password are incorrect.' };
+                next(new AuthenticationError(`Username or password are incorrect.`));
             }
         }
         else {
-            throw { statusCode: 401, message: 'Username or password are incorrect.' };
+            next(new AuthenticationError(`Username or password are incorrect.`));
         }
     }
     catch (err) {
-        if (err.hasOwnProperty('statusCode')) {
-            res.status(err.statusCode).send(err);
-        }
-        else {
-            res.status(400).send(err);
-        }
+        next(err);
     }
 }));
-router.get('/:userId/delete', isAuth, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.get('/:userId/delete', isAuth, (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     let userId = req.params.userId;
     try {
         let deleteUserResponse = yield staffServices.deleteOne(userId);
         if (deleteUserResponse) {
-            res.json({ message: 'Record has successfully been deleted' });
+            res.json({ message: 'Staff member record has successfully been deleted' });
         }
     }
     catch (err) {
-        res.status(err.statusCode ? err.statusCode : 500).json(err);
+        next(err);
     }
 }));
 export default router;

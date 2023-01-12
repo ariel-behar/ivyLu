@@ -37,7 +37,7 @@ app.use(function (err: any, req: Request, res: Response, next: NextFunction) {
     } else if(err instanceof InvalidDataError) {
         status = 400;
     } 
-    sendErrorResponse(req, res, err.status || status, `Error: ${err.message}`, err);
+    sendErrorResponse(req, res, err.status || status, `${err.message}`, err);
 });
 
 initDatabase(dbName)
