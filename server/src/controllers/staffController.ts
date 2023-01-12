@@ -38,7 +38,7 @@ router.get('/', async (req: Request, res: Response) => {
 router.post('/register', isAuth, isAdmin, async (req: Request, res: Response) => {
     let { firstName, lastName, email, phone, gender, password, role, about, imgUrl } = req.body;
     try {
-        let userExistsResponse: IClientDocument | IStaffDocument | null;
+        let userExistsResponse: LeanDocument<IClientDocument> | LeanDocument<IStaffDocument> | null;
 
         //Check clients
         userExistsResponse = await clientServices.getOneByEmail(email)

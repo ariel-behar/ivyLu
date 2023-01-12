@@ -92,20 +92,20 @@ router.get('/:hairdresserId', (req, res) => __awaiter(void 0, void 0, void 0, fu
                 };
             }
             for (const scheduledItem of hairdresserScheduleResponse) {
-                if (hairdresserScheduleResponse.hasOwnProperty(scheduledItem.dateISO)) {
+                if (appointments.hasOwnProperty(scheduledItem.dateISO)) {
                     appointments[scheduledItem.dateISO].push(scheduledItem.scheduledHour);
                 }
                 else {
                     appointments[scheduledItem.dateISO] = [scheduledItem.scheduledHour];
                 }
             }
-            console.log(hairdresserSchedule, appointments);
             return res.json(Object.assign(Object.assign({}, hairdresserSchedule), { appointments }));
         }
     }
     catch (err) {
-        if (err.message.includes('Cannot read properties of undefined')) {
-            res.status(200).send({});
+        if (err.message.includes("Cannot read properties of undefined")) {
+            // In case no scheduled items have been found in the collection
+            res.status(200);
         }
         else {
             return res.status(500).json(err);
@@ -113,7 +113,6 @@ router.get('/:hairdresserId', (req, res) => __awaiter(void 0, void 0, void 0, fu
     }
 }));
 router.post('/create', isAuth, isClient, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log(req.body);
     const { clientId, hairdresserId, serviceId, scheduledDate, scheduledHour } = req.body;
     try {
         let formattedDateISO = format(new Date(scheduledDate), "dd/MM/yyyy");

@@ -6,9 +6,9 @@ import { useLoaderData } from 'react-router-dom'
 
 import { Service } from "../../models/Service"
 import { User } from '../../models/User'
-import { Schedule, ScheduleCreateDTO } from '../../models/Schedule';
-import { ApiSchedule, ApiScheduleImpl } from '../../services/scheduleServices';
-import { AuthTokenType, IdType } from '../../types/common/common-types';
+import {ScheduleCreateDTO } from '../../models/Schedule';
+import * as scheduleServices from '../../services/scheduleServices';
+import { IdType } from '../../types/common/common-types';
 import addScheduleFormSchema from '../../validations/addScheduleFormSchema';
 
 import Grid from "@mui/material/Grid"
@@ -31,38 +31,44 @@ import { ScheduleConfirmationResponseInterface } from '../../types/scheduleTypes
 import BackToButton from '../../components/BackToButton';
 import { availableSchedulingHours, AvailableSchedulingHoursType } from '../../utils/constants';
 
+interface IHairdresserSchedule {
+	_id: IdType,
+	firstName: string,
+	lastName: string,
+	appointments: {
+		[key: string]: string[]
+	}
+}
 
 type FormData = {
 	hairdresser: string,
-	appointmentDate: Date,
+	appointmentDate: string | Date,
 	appointmentHour: AvailableSchedulingHoursType,
 }
-
-const scheduleServices: ApiSchedule<IdType, Schedule, AuthTokenType> = new ApiScheduleImpl<IdType, Schedule, AuthTokenType>('schedule');
 
 function ServiceDetailsView() {
 	const { service, hairdressers } = useLoaderData() as { service: Service, hairdressers: User[] };
 	const { user, isClient } = useAuthContext() as any;
 	const { displayNotification } = useNotificationContext() as any;
-	const [selectedHairdresser, setSelectedHairdresser] = useState<User | ''>('')
-	const [hairdresserSchedule, setHairdresserSchedule] = useState<object | null>(null);
-	const [selectedAppointmentDate, setSelectedAppointmentDate] = useState<Date>(new Date());
-	const [filteredAvailableShedulingHours, setFilteredAvailableShedulingHours] = useState<AvailableSchedulingHoursType[] | []>(availableSchedulingHours)
-	const [selectedAppointmentHour, setSelectedAppointmentHour] = useState<AvailableSchedulingHoursType>(filteredAvailableShedulingHours[0])
-	const [isCalendarOpen, setIsCalendarOpen] = useState(false);
-	const [showConfirmationView, setShowConfirmationView] = useState<boolean>(false)
-	const [createdScheduledItem, setCreatedScheduledItem] = useState<object | ScheduleConfirmationResponseInterface>({})
+	const [ selectedHairdresser, setSelectedHairdresser] = useState<User | ''>('')
+	const [ hairdresserSchedule, setHairdresserSchedule] = useState<IHairdresserSchedule | null>(null);
+	const [ selectedAppointmentDate, setSelectedAppointmentDate] = useState<Date>(new Date());
+	const [ filteredAvailableShedulingHours, setFilteredAvailableShedulingHours] = useState<AvailableSchedulingHoursType[] | []>(availableSchedulingHours)
+	const [ selectedAppointmentHour, setSelectedAppointmentHour] = useState<AvailableSchedulingHoursType>(filteredAvailableShedulingHours[0])
+	const [ isCalendarOpen, setIsCalendarOpen] = useState(false);
+	const [ showConfirmationView, setShowConfirmationView] = useState<boolean>(false)
+	const [ createdScheduledItem, setCreatedScheduledItem] = useState<object | ScheduleConfirmationResponseInterface>({})
 
 	const { register, handleSubmit, formState: { errors, isValid } } = useForm<FormData>({
 		mode: 'onChange',
 		resolver: yupResolver(addScheduleFormSchema),
 		defaultValues: {
 			hairdresser: '',
-			appointmentDate: new Date(),
+			appointmentDate: format(new Date(), "d MMMM, yyyy"),
 			appointmentHour: filteredAvailableShedulingHours[0]
 		}
 	})
-
+ 
 	useEffect(() => {
 		if (selectedHairdresser !== '') {
 			scheduleServices.getHairdresserSchedule(selectedHairdresser._id)
@@ -115,9 +121,10 @@ function ServiceDetailsView() {
 			})
 		}
 
-		if (hairdresserSchedule !== null && hairdresserSchedule.hasOwnProperty(currentFormatedSelectedDate)) {
+		if (hairdresserSchedule !== null && hairdresserSchedule.appointments.hasOwnProperty(currentFormatedSelectedDate)) {
+
 			filteredAvailableHaidresserHours = filteredAvailableHaidresserHours.filter((hour: AvailableSchedulingHoursType) => {
-				return !(hairdresserSchedule[currentFormatedSelectedDate as keyof typeof hairdresserSchedule] as AvailableSchedulingHoursType[]).includes(hour)
+				return !(hairdresserSchedule.appointments[currentFormatedSelectedDate as keyof typeof hairdresserSchedule] as AvailableSchedulingHoursType[]).includes(hour)
 			})
 		}
 

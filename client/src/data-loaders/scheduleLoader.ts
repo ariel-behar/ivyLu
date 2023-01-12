@@ -1,8 +1,4 @@
-import { Schedule } from "../models/Schedule";
-import { ApiSchedule, ApiScheduleImpl } from "../services/scheduleServices";
-import { AuthTokenType, IdType } from "../types/common/common-types";
-
-const scheduleServices: ApiSchedule<IdType, Schedule, AuthTokenType> = new ApiScheduleImpl<IdType, Schedule, AuthTokenType>('schedule');
+import * as scheduleServices from "../services/scheduleServices";
 
 export async function getScheduleForAllLoader() {
     let user = await localStorage.getItem('user')

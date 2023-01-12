@@ -108,20 +108,20 @@ router.get('/:hairdresserId', async (req: Request, res: Response) => {
             }
 
             for (const scheduledItem of hairdresserScheduleResponse) {
-                if (hairdresserScheduleResponse.hasOwnProperty(scheduledItem.dateISO)) {
-                    appointments[scheduledItem.dateISO as keyof typeof scheduledItem].push(scheduledItem.scheduledHour)
+                if (appointments.hasOwnProperty(scheduledItem.dateISO)) {
+                    appointments[scheduledItem.dateISO].push(scheduledItem.scheduledHour)
                 } else {
-                    appointments[scheduledItem.dateISO as keyof typeof scheduledItem] = [scheduledItem.scheduledHour]
+                    appointments[scheduledItem.dateISO] = [scheduledItem.scheduledHour]
                 }
             }
-            console.log(hairdresserSchedule, appointments);
 
             return res.json({...hairdresserSchedule, appointments})
         }
 
     } catch (err: any) {
-        if (err.message.includes('Cannot read properties of undefined')) {
-            res.status(200).send({})
+        if (err.message.includes("Cannot read properties of undefined")) {
+            // In case no scheduled items have been found in the collection
+            res.status(200)
         } else {
             return res.status(500).json(err)
         }
@@ -129,7 +129,6 @@ router.get('/:hairdresserId', async (req: Request, res: Response) => {
 })
 
 router.post('/create', isAuth, isClient, async (req: Request, res: Response) => {
-    console.log(req.body);
     const { clientId, hairdresserId, serviceId, scheduledDate, scheduledHour } = req.body;
 
     try {
