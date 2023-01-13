@@ -40,7 +40,7 @@ type FormData = {
 	confirmPassword: string
 }
 
-function RegisterAuthorizedView() {
+function RegisterAuthorizedUserView() {
 	const [gender, setGender] = useState<string>('female')
 	const [role, setRole] = useState<number>(2)
 	const { displayNotification } = useNotificationContext() as any;
@@ -268,4 +268,4 @@ function RegisterAuthorizedView() {
 
 }
 
-export default RegisterAuthorizedView;
+export default RegisterAuthorizedUserView;

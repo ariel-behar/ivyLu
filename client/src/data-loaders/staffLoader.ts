@@ -1,3 +1,4 @@
+import { LoaderFunctionArgs } from 'react-router-dom';
 import { User } from '../models/User';
 import { ApiUser, ApiUserImpl } from '../services/userServices';
 import { AuthTokenType, IdType } from '../types/common/common-types';
@@ -8,16 +9,16 @@ export async function getAllStaffLoader() {
     let user = await localStorage.getItem('user')
     let parsedUser: object | null;
     let authToken: string;
-    let staff;
+    let staffMembers;
 
     if(user) {
         parsedUser = JSON.parse(user)
         if(parsedUser) {
             try {
                 authToken = parsedUser['authToken' as keyof typeof parsedUser]
-                staff = await userServices.getAll(authToken)
+                staffMembers = await userServices.getAll(authToken)
     
-                return staff;
+                return staffMembers;
             } catch (err) {
                 let error;
                 if(err instanceof Error) {
@@ -36,4 +37,26 @@ export async function getAllHairdressers() {
     const hairdressers = await userServices.getManyFilteredBy({role: 2})
 
     return hairdressers;
+}
+
+export async function getOneStaffMemberLoader({params}: LoaderFunctionArgs) {
+    let user = await localStorage.getItem('user')
+    let parsedUser: object | null;
+    let authToken: string;
+    
+    if(typeof params.userId === 'string') {
+        if(user) {
+            parsedUser = JSON.parse(user)
+            if(parsedUser) {
+                authToken = parsedUser['authToken' as keyof typeof parsedUser]
+                try {
+                    const staffMember = await userServices.getOne(params.userId, authToken)
+
+                    return staffMember;
+                } catch (err) {
+                    console.log(err);
+                }
+            }
+        }
+    }
 }

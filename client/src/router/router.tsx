@@ -5,7 +5,7 @@ import { getAllServicesLoader, getOneServicesAndHairdressersLoader, getOneServic
 import { getAllProductsLoader, getOneProductLoader } from "../data-loaders/productsLoader";
 import { getAllClientsLoader } from "../data-loaders/clientsLoader";
 import { getAllOrdersLoader } from "../data-loaders/ordersLoader";
-import { getAllHairdressers, getAllStaffLoader } from "../data-loaders/staffLoader";
+import { getAllHairdressers, getAllStaffLoader, getOneStaffMemberLoader } from "../data-loaders/staffLoader";
 import { getScheduleForAllLoader } from "../data-loaders/scheduleLoader";
 
 import RootView from "../views/RootView";
@@ -31,7 +31,7 @@ import ServicesManagementView from "../views/AuthorizedViews/ServicesViews/Servi
 import ProductsOperatorAdminView from "../views/AuthorizedViews/ProductViews/ProductsOperatorAdminView";
 import OurTeamView from "../views/OurTeamView";
 import ClientsAdminView from "../views/AuthorizedViews/UsersViews/ClientsAdminView";
-import RegisterAuthorizedView from "../views/AuthorizedViews/UsersViews/RegisterAuthorizedView";
+import RegisterAuthorizedUserView from "../views/AuthorizedViews/UsersViews/RegisterAuthorizedUserView";
 import StaffAdminView from "../views/AuthorizedViews/UsersViews/StaffAdminView";
 import ScheduleManagementView from "../views/AuthorizedViews/Schedule/ScheduleManagementView";
 import ServicesView from "../views/ServiceViews/ServicesView";
@@ -39,6 +39,7 @@ import ProductsRootView from "../views/ProductViews/ProductsRootView";
 import ProductOrderView from "../views/ProductViews/ProductOrderView";
 import ShoppingCartView from "../views/ShoppingCartView";
 import GalleryView from "../views/GalleryView";
+import EditAuthorizedViewView from "../views/AuthorizedViews/UsersViews/EditAuthorizedUserView";
 
 const LazyDashboardView = lazy(() => import('../views/DashboardView'))
 const LazyManagementRootView = lazy(() => import('../views/AuthorizedViews/ManagementRootView'))
@@ -204,7 +205,12 @@ const router = createBrowserRouter([
 							},
 							{
 								path: 'create',
-								element: <RegisterAuthorizedView />
+								element: <RegisterAuthorizedUserView />
+							},
+							{
+								path: ':userId/edit',
+								loader: getOneStaffMemberLoader,
+								element: <EditAuthorizedViewView formType="edit" />
 							}
 						]
 					}
