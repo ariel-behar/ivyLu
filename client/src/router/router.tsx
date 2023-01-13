@@ -31,7 +31,6 @@ import ServicesManagementView from "../views/AuthorizedViews/ServicesViews/Servi
 import ProductsOperatorAdminView from "../views/AuthorizedViews/ProductViews/ProductsOperatorAdminView";
 import OurTeamView from "../views/OurTeamView";
 import ClientsAdminView from "../views/AuthorizedViews/UsersViews/ClientsAdminView";
-import RegisterAuthorizedUserView from "../views/AuthorizedViews/UsersViews/RegisterAuthorizedUserView";
 import StaffAdminView from "../views/AuthorizedViews/UsersViews/StaffAdminView";
 import ScheduleManagementView from "../views/AuthorizedViews/Schedule/ScheduleManagementView";
 import ServicesView from "../views/ServiceViews/ServicesView";
@@ -39,7 +38,7 @@ import ProductsRootView from "../views/ProductViews/ProductsRootView";
 import ProductOrderView from "../views/ProductViews/ProductOrderView";
 import ShoppingCartView from "../views/ShoppingCartView";
 import GalleryView from "../views/GalleryView";
-import EditAuthorizedViewView from "../views/AuthorizedViews/UsersViews/EditAuthorizedUserView";
+import RegisterEditAuthorizedUserView from "../views/AuthorizedViews/UsersViews/RegisterEditAuthorizedUserView";
 
 const LazyDashboardView = lazy(() => import('../views/DashboardView'))
 const LazyManagementRootView = lazy(() => import('../views/AuthorizedViews/ManagementRootView'))
@@ -204,13 +203,13 @@ const router = createBrowserRouter([
 								element: <StaffAdminView />,
 							},
 							{
-								path: 'create',
-								element: <RegisterAuthorizedUserView />
+								path: 'register',
+								element: <RegisterEditAuthorizedUserView formType="register"/>
 							},
 							{
 								path: ':userId/edit',
 								loader: getOneStaffMemberLoader,
-								element: <EditAuthorizedViewView formType="edit" />
+								element: <RegisterEditAuthorizedUserView formType="edit" />
 							}
 						]
 					}

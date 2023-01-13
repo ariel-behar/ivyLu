@@ -18,7 +18,7 @@ function ServicesOperatorAdminView() {
 
             {(isOperator || isAdmin)
                 && <Stack direction='row' justifyContent='end'>
-                    <CreateButton text='Create new Service' whereTo='services' />
+                    <CreateButton text='Create new Service' entity='services' />
                 </Stack>
             }
             

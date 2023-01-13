@@ -15,7 +15,7 @@ function StaffAdminView() {
             <div>StaffAdminView</div>
 
             <Stack direction='row' justifyContent='end'>
-                <CreateButton text='Register new Staff Member' whereTo="staff" />
+                <CreateButton text='Register new Staff Member' entity="staff" />
             </Stack>
 
 

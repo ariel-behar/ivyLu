@@ -1,13 +1,13 @@
 
 import React, { useState } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import registerAuthorizedFormSchema from '../../../validations/registerAuthorizedFormSchema';
 import { ApiUser, ApiUserImpl } from '../../../services/userServices';
 import { AuthTokenType, IdType } from '../../../types/common/common-types';
-import { StaffRegisterDTO, User } from '../../../models/User';
+import { StaffRegisterDTO, User, UserRole } from '../../../models/User';
 import { useNotificationContext } from '../../../contexts/NotificationContext';
 
 import TextField from '@mui/material/TextField';
@@ -34,32 +34,38 @@ type FormData = {
 	phone: string,
 	gender: "male" | "female",
 	imgUrl: string,
-	role: 2 | 3 | 4,
+	role: UserRole,
 	about: string,
 	password: string,
 	confirmPassword: string
 }
 
-function RegisterAuthorizedUserView() {
-	const [gender, setGender] = useState<string>('female')
-	const [role, setRole] = useState<number>(2)
+interface Props {
+	formType: 'register' | 'edit'
+}
+
+function RegisterEditAuthorizedUserView({ formType }: Props) {
+	const staffMember = useLoaderData() as User || {};
+
+	const [gender, setGender] = useState<"male" | "female">(staffMember.gender || 'female')
+	const [role, setRole] = useState<UserRole>(staffMember.role || 2)
 	const { displayNotification } = useNotificationContext() as any;
-	const { user } = useAuthContext() as any;
-	const [previewImgUrl, setPreviewImageUrl] = useState<string>('')
+	const { user } = useAuthContext() as { user: User };
+	const [previewImgUrl, setPreviewImageUrl] = useState<string>(staffMember.imgUrl || '')
 	const navigate = useNavigate();
 
 	const { register, handleSubmit, formState: { errors, isDirty, isValid } } = useForm<FormData>({
 		mode: 'onBlur',
 		resolver: yupResolver(registerAuthorizedFormSchema),
 		defaultValues: {
-			firstName: '',
-			lastName: '',
-			email: '',
-			phone: undefined,
-			gender: 'female',
-			imgUrl: '',
-			role: 2,
-			about: '',
+			firstName: staffMember.firstName || '',
+			lastName: staffMember.lastName || '',
+			email: staffMember.email || '',
+			phone: staffMember.phone || undefined,
+			gender: staffMember.gender || 'female',
+			imgUrl: staffMember.imgUrl || '',
+			role: staffMember.role || 2,
+			about: staffMember.about || '',
 			password: '',
 			confirmPassword: ''
 		}
@@ -79,21 +85,32 @@ function RegisterAuthorizedUserView() {
 		const newUser = new StaffRegisterDTO(firstName, lastName, email, phone, gender, password, role, about, imgUrl)
 
 		try {
-			let registerUserResponse = await userServices.register(newUser as User, user.authToken)
+			if (formType === 'register') {
+				let registerUserResponse = await userServices.register(newUser as User, user.authToken)
 
-			if (registerUserResponse) {
-				displayNotification({ message: 'Record has succesfully been created' }, 'success')
-				navigate('/management/staff')
+				if (registerUserResponse) {
+					displayNotification({ message: 'Staff member has succesfully been created' }, 'success')
+					navigate('/management/staff')
+				}
 			}
 
+			if (formType === 'edit') {
+				let editUserResponse = await userServices.update(staffMember._id, newUser as User, user.authToken)
+
+				if (editUserResponse) {
+					displayNotification({ message: 'Staff Member has succesfully been modified' }, 'success')
+					navigate('/management/staff')
+				}
+			}
 		} catch (err) {
 			displayNotification(err, 'error')
 
 		}
+
 	}
 
 	const onGenderChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-		setGender((e.target as HTMLInputElement).value)
+		setGender(e.target.value as 'male' | 'female')
 	}
 
 	const onRoleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -217,8 +234,6 @@ function RegisterAuthorizedUserView() {
 								/>
 							}
 
-
-
 							<TextField
 								required
 								id="password"
@@ -246,7 +261,7 @@ function RegisterAuthorizedUserView() {
 						</Stack>
 
 						<Stack direction='row' justifyContent='space-around' mt={3}>
-							<Button variant="contained" type='submit' disabled={!(isDirty && isValid)}>REGISTER</Button>
+							<Button variant="contained" type='submit' disabled={!(isDirty && isValid)}>{formType === 'register' ? 'REGISTER' : 'EDIT'}</Button>
 							<Button variant="contained" color="error" onClick={onClickCancelButton}>Cancel </Button>
 						</Stack>
 					</form>
@@ -268,4 +283,4 @@ function RegisterAuthorizedUserView() {
 
 }
 
-export default RegisterAuthorizedUserView;
+export default RegisterEditAuthorizedUserView;
