@@ -125,7 +125,7 @@ router.get('/:userId/delete', isAuth, (req, res, next) => __awaiter(void 0, void
     try {
         let deleteUserResponse = yield staffServices.deleteOne(userId);
         if (deleteUserResponse) {
-            res.json({ message: 'Staff member record has successfully been deleted' });
+            res.json({ message: 'Staff member has successfully been deleted' });
         }
     }
     catch (err) {

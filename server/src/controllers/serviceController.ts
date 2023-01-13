@@ -100,7 +100,7 @@ router.get('/:serviceId/delete',isAuth, isOperatorAdmin, async (req: Request, re
         let deleteServiceResponse = await serviceServices.deleteOne(serviceId);
 
         if (deleteServiceResponse) {
-            res.json({message: 'Record has successfully been deleted'});
+            res.json({message: 'Service record has successfully been deleted'});
         }
     } catch (err: any) {
         next(err)

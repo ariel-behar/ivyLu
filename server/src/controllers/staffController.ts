@@ -139,7 +139,7 @@ router.get('/:userId/delete', isAuth, async (req: Request, res: Response, next: 
         let deleteUserResponse = await staffServices.deleteOne(userId);
 
         if (deleteUserResponse) {
-            res.json({ message: 'Staff member record has successfully been deleted' });
+            res.json({ message: 'Staff member has successfully been deleted' });
         }
     } catch (err: any) {
         next(err)

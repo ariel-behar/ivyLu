@@ -91,7 +91,7 @@ router.get('/:serviceId/delete', isAuth, isOperatorAdmin, (req, res, next) => __
     try {
         let deleteServiceResponse = yield serviceServices.deleteOne(serviceId);
         if (deleteServiceResponse) {
-            res.json({ message: 'Record has successfully been deleted' });
+            res.json({ message: 'Service record has successfully been deleted' });
         }
     }
     catch (err) {

@@ -134,7 +134,7 @@ router.get('/:userId/delete', async (req: Request, res: Response, next: NextFunc
         let deleteClientResponse = await clientServices.deleteOne(userId);
 
         if (deleteClientResponse) {
-            res.json({message: 'Client record has successfully been deleted'});
+            res.json({message: 'Client has successfully been deleted'});
         }
     } catch (err: any) {
         next(err)
