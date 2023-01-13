@@ -1,17 +1,18 @@
-import { Router, Request, Response } from 'express'
-import * as scheduleServices from '../services/scheduleServices.js'
-import { isAuth, isClient, isHairdresserOperatorAdmin } from '../middlewares/authMiddleware.js'
+import { Router, Request, Response, NextFunction } from 'express'
+import { LeanDocument } from 'mongoose';
 import format from 'date-fns/format/index.js'
+
+import * as scheduleServices from '../services/scheduleServices.js'
+
 import { IStaffDocument } from '../models/Staff.js';
-import { Document, LeanDocument } from 'mongoose';
 import { IScheduleDocument } from '../models/Schedule.js';
-import { IClientDocument } from '../models/Client.js';
-import { IServiceDocument } from '../models/Service.js';
-import { IdType } from '../types/common-types.js';
+import { InvalidDataError } from '../models/Errors.js';
+
+import { isAuth, isClient, isHairdresserOperatorAdmin } from '../middlewares/authMiddleware.js'
 
 const router = Router();
 
-router.get('/', isAuth, isHairdresserOperatorAdmin, async (req: Request, res: Response) => {
+router.get('/', isAuth, isHairdresserOperatorAdmin, async (req: Request, res: Response, next: NextFunction) => {
     try {
         let scheduleResponse: LeanDocument<IScheduleDocument>[] | null = await scheduleServices.getAll()
 
@@ -73,12 +74,12 @@ router.get('/', isAuth, isHairdresserOperatorAdmin, async (req: Request, res: Re
 
             res.json(structuredScheduleResponse)
         }
-    } catch (err) {
-        res.status(500).send(err)
+    } catch (err: any) {
+        next(err)
     }
 })
 
-router.get('/:hairdresserId', async (req: Request, res: Response) => {
+router.get('/:hairdresserId', async (req: Request, res: Response, next: NextFunction) => {
     const hairdresserId = req.params.hairdresserId;
 
     try {
@@ -116,19 +117,19 @@ router.get('/:hairdresserId', async (req: Request, res: Response) => {
             }
 
             return res.json({...hairdresserSchedule, appointments})
-        }
+        } 
 
     } catch (err: any) {
         if (err.message.includes("Cannot read properties of undefined")) {
             // In case no scheduled items have been found in the collection
             res.status(200)
         } else {
-            return res.status(500).json(err)
+            next(err)
         }
     }
 })
 
-router.post('/create', isAuth, isClient, async (req: Request, res: Response) => {
+router.post('/create', isAuth, isClient, async (req: Request, res: Response, next: NextFunction) => {
     const { clientId, hairdresserId, serviceId, scheduledDate, scheduledHour } = req.body;
 
     try {
@@ -137,7 +138,7 @@ router.post('/create', isAuth, isClient, async (req: Request, res: Response) => 
         let appointmentExists = await scheduleServices.findOneByHairdresserDateAndHour(hairdresserId, formattedDateISO, scheduledHour)
 
         if (appointmentExists) {
-            throw { statusCode: 403, message: "An appointment on this Date and Hour already exists. Please pick another time" }
+            next(new InvalidDataError(`An appointment on ${formattedDateISO} at ${scheduledHour} already exists. Please pick another time`));
         } else {
             try {
                 let createScheduleItemResponse: IScheduleDocument | null= await scheduleServices.create({ client: clientId, hairdresser: hairdresserId, service: serviceId, scheduledDate, scheduledHour })
@@ -206,15 +207,15 @@ router.post('/create', isAuth, isClient, async (req: Request, res: Response) => 
                         }
                       
                     } catch (err: any) {
-                        res.status(err.statusCode ? err.statusCode : 500).json(err)
+                        next(err)
                     }
                 }
             } catch (err: any) {
-                res.status(err.statusCode ? err.statusCode : 500).json(err)
+                next(err)
             }
         }
     } catch (err: any) {
-        res.status(err.statusCode ? err.statusCode : 500).json(err)
+        next(err)
     }
 })
 

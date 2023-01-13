@@ -1,13 +1,15 @@
-import { Router, Request, Response } from 'express';
+import { Router, Request, Response, NextFunction } from 'express';
+import { LeanDocument } from 'mongoose';
 
 import * as ordersServices from '../services/ordersServices.js'
-import { isAuth, isClient, isHairdresserOperatorAdmin } from '../middlewares/authMiddleware.js'
+
 import { IOrderDocument } from '../models/Order.js';
-import { LeanDocument } from 'mongoose';
+
+import { isAuth, isClient, isHairdresserOperatorAdmin } from '../middlewares/authMiddleware.js'
 
 const router = Router()
 
-router.get('/', isAuth, isHairdresserOperatorAdmin, async (req: Request, res: Response) => {
+router.get('/', isAuth, isHairdresserOperatorAdmin, async (req: Request, res: Response, next: NextFunction) => {
     try {
         let orderResponse: LeanDocument<IOrderDocument>[]= await ordersServices.getAll()
 
@@ -50,13 +52,13 @@ router.get('/', isAuth, isHairdresserOperatorAdmin, async (req: Request, res: Re
             })
 
             res.json(structuredOrderResponse)
-        }
+        } 
     } catch (err: any) {
-        res.status(500).send(err.message)
+        next(err)
     }
 })
 
-router.post('/create', isAuth, isClient, async (req: Request, res: Response) => {
+router.post('/create', isAuth, isClient, async (req: Request, res: Response, next: NextFunction) => {
     let { clientId, productId, status } = req.body;
 
     try {
@@ -102,10 +104,9 @@ router.post('/create', isAuth, isClient, async (req: Request, res: Response) => 
     
                 return res.json(order)
             }
-           
         }
     } catch (err) {
-        res.status(400).send(err)
+        next(err)
     }
 })
 

@@ -1,21 +1,24 @@
-import { Router, Request, Response } from 'express'
-import { isAuth, isOperatorAdmin } from '../middlewares/authMiddleware.js';
+import { Router, Request, Response, NextFunction } from 'express'
 
 import * as productServices from '../services/productServices.js'
 
+import { InvalidDataError } from '../models/Errors.js';
+
+import { isAuth, isOperatorAdmin } from '../middlewares/authMiddleware.js';
+
 const router = Router();
 
-router.get('/', async (req: Request, res: Response) => {
+router.get('/', async (req: Request, res: Response, next: NextFunction) => {
     try {
         let products = await productServices.getAll();
 
         res.json(products)
     } catch (err) {
-        res.status(500).send(err)
+        next(err)
     }
 })
 
-router.get('/:productId', async (req: Request, res: Response) => {
+router.get('/:productId', async (req: Request, res: Response, next: NextFunction) => {
     let productId = req.params.productId;
 
     try {
@@ -23,18 +26,18 @@ router.get('/:productId', async (req: Request, res: Response) => {
 
         res.json(product)
     } catch (err) {
-        res.status(400).send(err)
+        next(err)
     }
 })
 
-router.post('/create', isAuth, isOperatorAdmin, async (req: Request, res: Response) => {
+router.post('/create', isAuth, isOperatorAdmin, async (req: Request, res: Response, next: NextFunction) => {
     let { title, description, productCategory, additionalComments, imgUrl, price, volume, volumeMeasurementUnit, productCode, status, creatorId } = req.body;
 
     try {
         let productExists = await productServices.getOneByTitle(title);
 
         if (productExists) {
-            throw {statusCode: 403, message: "A product with this Title already exists"}
+            next(new InvalidDataError(`A product with title "${title}" already exists`))
         } else {
             try {
                 let createProductResponse = await productServices.create({ title, description,productCategory, additionalComments, imgUrl, price, volume, volumeMeasurementUnit, productCode, status, creatorId });
@@ -57,15 +60,15 @@ router.post('/create', isAuth, isOperatorAdmin, async (req: Request, res: Respon
                     res.json(product);
                 }
             } catch (err) {
-                res.status(400).send(err)
+                next(err)
             }
         }
     } catch (err: any) {
-        res.status(err.statusCode ? err.statusCode : 500).json(err)
+        next(err)
     }
 })
 
-router.post('/:productId/edit',isAuth, isOperatorAdmin, async (req: Request, res: Response) => {
+router.post('/:productId/edit',isAuth, isOperatorAdmin, async (req: Request, res: Response, next: NextFunction) => {
     let productId = req.params.productId
     let { title, description,productCategory, additionalComments, imgUrl, price, volume, volumeMeasurementUnit, productCode, status } = req.body;
 
@@ -90,25 +93,23 @@ router.post('/:productId/edit',isAuth, isOperatorAdmin, async (req: Request, res
             };
 
             res.json(product);
-        } else {
-            throw {statusCode: 401, message: 'Bad request'}
-        }
+        } 
     } catch (err: any) {
-        res.status(err.statusCode ? err.statusCode : 500).json(err)
+        next(err)
     }
 })
 
-router.get('/:productId/delete',isAuth, isOperatorAdmin, async (req: Request, res: Response) => {
+router.get('/:productId/delete',isAuth, isOperatorAdmin, async (req: Request, res: Response, next: NextFunction) => {
     let productId = req.params.productId
 
     try {
         let deleteProductResponse = await productServices.deleteOne(productId);
 
         if (deleteProductResponse) {
-            res.json({message: 'Record has successfully been deleted'});
+            res.json({message: 'Product has successfully been deleted'});
         }
     } catch (err: any) {
-        res.status(err.statusCode ? err.statusCode : 500).json(err)
+        next(err)
     }
 
 })

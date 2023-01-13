@@ -8,34 +8,35 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import { Router } from 'express';
-import { isAuth, isOperatorAdmin } from '../middlewares/authMiddleware.js';
 import * as serviceServices from '../services/serviceServices.js';
+import { InvalidDataError } from '../models/Errors.js';
+import { isAuth, isOperatorAdmin } from '../middlewares/authMiddleware.js';
 const router = Router();
-router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.get('/', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         let services = yield serviceServices.getAll();
         res.json(services);
     }
     catch (err) {
-        res.status(500).send(err);
+        next(err);
     }
 }));
-router.get('/:serviceId', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.get('/:serviceId', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     let serviceId = req.params.serviceId;
     try {
         let service = yield serviceServices.getOne(serviceId);
         res.json(service);
     }
     catch (err) {
-        res.status(400).send(err);
+        next(err);
     }
 }));
-router.post('/create', isAuth, isOperatorAdmin, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.post('/create', isAuth, isOperatorAdmin, (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     let { title, description, additionalComments, imgUrl, price, duration, status, creatorId } = req.body;
     try {
         let serviceExists = yield serviceServices.getOneByTitle(title);
         if (serviceExists) {
-            throw { statusCode: 403, message: "A service with this Title already exists" };
+            next(new InvalidDataError(`A service with title "${title}" already exists`));
         }
         else {
             try {
@@ -54,15 +55,15 @@ router.post('/create', isAuth, isOperatorAdmin, (req, res) => __awaiter(void 0, 
                 }
             }
             catch (err) {
-                res.status(400).send(err);
+                next(err);
             }
         }
     }
     catch (err) {
-        res.status(err.statusCode ? err.statusCode : 500).json(err);
+        next(err);
     }
 }));
-router.post('/:serviceId/edit', isAuth, isOperatorAdmin, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.post('/:serviceId/edit', isAuth, isOperatorAdmin, (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     let serviceId = req.params.serviceId;
     let { title, description, additionalComments, imgUrl, price, duration, status } = req.body;
     let service = { title, description, additionalComments, imgUrl, price, duration, status };
@@ -80,15 +81,12 @@ router.post('/:serviceId/edit', isAuth, isOperatorAdmin, (req, res) => __awaiter
             };
             res.json(service);
         }
-        else {
-            throw { statusCode: 401, message: 'Bad request' };
-        }
     }
     catch (err) {
-        res.status(err.statusCode ? err.statusCode : 500).json(err);
+        next(err);
     }
 }));
-router.get('/:serviceId/delete', isAuth, isOperatorAdmin, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.get('/:serviceId/delete', isAuth, isOperatorAdmin, (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     let serviceId = req.params.serviceId;
     try {
         let deleteServiceResponse = yield serviceServices.deleteOne(serviceId);
@@ -97,7 +95,7 @@ router.get('/:serviceId/delete', isAuth, isOperatorAdmin, (req, res) => __awaite
         }
     }
     catch (err) {
-        res.status(err.statusCode ? err.statusCode : 500).json(err);
+        next(err);
     }
 }));
 export default router;

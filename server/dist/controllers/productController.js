@@ -8,34 +8,35 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import { Router } from 'express';
-import { isAuth, isOperatorAdmin } from '../middlewares/authMiddleware.js';
 import * as productServices from '../services/productServices.js';
+import { InvalidDataError } from '../models/Errors.js';
+import { isAuth, isOperatorAdmin } from '../middlewares/authMiddleware.js';
 const router = Router();
-router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.get('/', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         let products = yield productServices.getAll();
         res.json(products);
     }
     catch (err) {
-        res.status(500).send(err);
+        next(err);
     }
 }));
-router.get('/:productId', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.get('/:productId', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     let productId = req.params.productId;
     try {
         let product = yield productServices.getOne(productId);
         res.json(product);
     }
     catch (err) {
-        res.status(400).send(err);
+        next(err);
     }
 }));
-router.post('/create', isAuth, isOperatorAdmin, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.post('/create', isAuth, isOperatorAdmin, (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     let { title, description, productCategory, additionalComments, imgUrl, price, volume, volumeMeasurementUnit, productCode, status, creatorId } = req.body;
     try {
         let productExists = yield productServices.getOneByTitle(title);
         if (productExists) {
-            throw { statusCode: 403, message: "A product with this Title already exists" };
+            next(new InvalidDataError(`A product with title "${title}" already exists`));
         }
         else {
             try {
@@ -58,15 +59,15 @@ router.post('/create', isAuth, isOperatorAdmin, (req, res) => __awaiter(void 0, 
                 }
             }
             catch (err) {
-                res.status(400).send(err);
+                next(err);
             }
         }
     }
     catch (err) {
-        res.status(err.statusCode ? err.statusCode : 500).json(err);
+        next(err);
     }
 }));
-router.post('/:productId/edit', isAuth, isOperatorAdmin, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.post('/:productId/edit', isAuth, isOperatorAdmin, (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     let productId = req.params.productId;
     let { title, description, productCategory, additionalComments, imgUrl, price, volume, volumeMeasurementUnit, productCode, status } = req.body;
     let product = { title, description, productCategory, additionalComments, imgUrl, price, volume, volumeMeasurementUnit, productCode, status };
@@ -88,24 +89,21 @@ router.post('/:productId/edit', isAuth, isOperatorAdmin, (req, res) => __awaiter
             };
             res.json(product);
         }
-        else {
-            throw { statusCode: 401, message: 'Bad request' };
-        }
     }
     catch (err) {
-        res.status(err.statusCode ? err.statusCode : 500).json(err);
+        next(err);
     }
 }));
-router.get('/:productId/delete', isAuth, isOperatorAdmin, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.get('/:productId/delete', isAuth, isOperatorAdmin, (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     let productId = req.params.productId;
     try {
         let deleteProductResponse = yield productServices.deleteOne(productId);
         if (deleteProductResponse) {
-            res.json({ message: 'Record has successfully been deleted' });
+            res.json({ message: 'Product has successfully been deleted' });
         }
     }
     catch (err) {
-        res.status(err.statusCode ? err.statusCode : 500).json(err);
+        next(err);
     }
 }));
 export default router;

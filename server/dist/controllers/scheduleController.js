@@ -8,11 +8,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import { Router } from 'express';
-import * as scheduleServices from '../services/scheduleServices.js';
-import { isAuth, isClient, isHairdresserOperatorAdmin } from '../middlewares/authMiddleware.js';
 import format from 'date-fns/format/index.js';
+import * as scheduleServices from '../services/scheduleServices.js';
+import { InvalidDataError } from '../models/Errors.js';
+import { isAuth, isClient, isHairdresserOperatorAdmin } from '../middlewares/authMiddleware.js';
 const router = Router();
-router.get('/', isAuth, isHairdresserOperatorAdmin, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.get('/', isAuth, isHairdresserOperatorAdmin, (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         let scheduleResponse = yield scheduleServices.getAll();
         if (scheduleResponse) {
@@ -70,10 +71,10 @@ router.get('/', isAuth, isHairdresserOperatorAdmin, (req, res) => __awaiter(void
         }
     }
     catch (err) {
-        res.status(500).send(err);
+        next(err);
     }
 }));
-router.get('/:hairdresserId', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.get('/:hairdresserId', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const hairdresserId = req.params.hairdresserId;
     try {
         let hairdresserScheduleResponse = yield scheduleServices.getHairdresserSchedule(hairdresserId);
@@ -108,17 +109,17 @@ router.get('/:hairdresserId', (req, res) => __awaiter(void 0, void 0, void 0, fu
             res.status(200);
         }
         else {
-            return res.status(500).json(err);
+            next(err);
         }
     }
 }));
-router.post('/create', isAuth, isClient, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.post('/create', isAuth, isClient, (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { clientId, hairdresserId, serviceId, scheduledDate, scheduledHour } = req.body;
     try {
         let formattedDateISO = format(new Date(scheduledDate), "dd/MM/yyyy");
         let appointmentExists = yield scheduleServices.findOneByHairdresserDateAndHour(hairdresserId, formattedDateISO, scheduledHour);
         if (appointmentExists) {
-            throw { statusCode: 403, message: "An appointment on this Date and Hour already exists. Please pick another time" };
+            next(new InvalidDataError(`An appointment on ${formattedDateISO} at ${scheduledHour} already exists. Please pick another time`));
         }
         else {
             try {
@@ -180,17 +181,17 @@ router.post('/create', isAuth, isClient, (req, res) => __awaiter(void 0, void 0,
                         }
                     }
                     catch (err) {
-                        res.status(err.statusCode ? err.statusCode : 500).json(err);
+                        next(err);
                     }
                 }
             }
             catch (err) {
-                res.status(err.statusCode ? err.statusCode : 500).json(err);
+                next(err);
             }
         }
     }
     catch (err) {
-        res.status(err.statusCode ? err.statusCode : 500).json(err);
+        next(err);
     }
 }));
 export default router;

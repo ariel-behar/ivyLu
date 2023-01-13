@@ -1,41 +1,44 @@
-import {Router, Request, Response} from 'express'
-import { isAuth, isOperatorAdmin } from '../middlewares/authMiddleware.js';
-import { IServiceCreate, IServiceDocument } from '../models/Service.js';
+import {Router, Request, Response, NextFunction} from 'express'
 
 import * as serviceServices from '../services/serviceServices.js'
 
+import { InvalidDataError } from '../models/Errors.js';
+import { IServiceCreate } from '../models/Service.js';
+
+import { isAuth, isOperatorAdmin } from '../middlewares/authMiddleware.js';
+
 const router = Router();
 
-router.get('/', async (req: Request, res: Response) => {
+router.get('/', async (req: Request, res: Response, next: NextFunction) => {
     try {
         let services = await serviceServices.getAll();
 
         res.json(services)
-    } catch (err) {
-        res.status(500).send(err)
+    } catch (err: any) {
+        next(err)
     }
 })
 
-router.get('/:serviceId', async (req: Request, res: Response) => {
+router.get('/:serviceId', async (req: Request, res: Response, next: NextFunction) => {
     let serviceId = req.params.serviceId;
 
     try {
         let service = await serviceServices.getOne(serviceId);
 
         res.json(service)
-    } catch (err) {
-        res.status(400).send(err)
+    } catch (err: any) {
+        next(err)
     }
 })
 
-router.post('/create', isAuth, isOperatorAdmin, async (req: Request, res: Response) => {
+router.post('/create', isAuth, isOperatorAdmin, async (req: Request, res: Response, next: NextFunction) => {
     let { title, description, additionalComments, imgUrl, price, duration, status, creatorId } = req.body;
 
     try {
         let serviceExists = await serviceServices.getOneByTitle(title);
 
         if (serviceExists) {
-            throw {statusCode: 403, message: "A service with this Title already exists" }
+            next(new InvalidDataError(`A service with title "${title}" already exists`))
         } else {
             try {
                 let createServiceResponse = await serviceServices.create({ title, description, additionalComments, imgUrl, price, duration, status, creatorId });
@@ -53,16 +56,16 @@ router.post('/create', isAuth, isOperatorAdmin, async (req: Request, res: Respon
 
                     res.json(service);
                 }
-            } catch (err) {
-                res.status(400).send(err)
+            } catch (err: any) {
+                next(err)
             }
         }
     } catch (err: any) {
-        res.status(err.statusCode ? err.statusCode : 500).json(err)
+        next(err)
     }
 })
 
-router.post('/:serviceId/edit',isAuth, isOperatorAdmin, async (req: Request, res: Response) => {
+router.post('/:serviceId/edit',isAuth, isOperatorAdmin, async (req: Request, res: Response, next: NextFunction) => {
     let serviceId = req.params.serviceId
     let { title, description, additionalComments, imgUrl, price, duration, status } = req.body;
 
@@ -83,17 +86,14 @@ router.post('/:serviceId/edit',isAuth, isOperatorAdmin, async (req: Request, res
             };
 
             res.json(service);
-        } else {
-            throw {statusCode: 401, message: 'Bad request'}
-        }
-
+        } 
     } catch (err: any) {
-        res.status(err.statusCode ? err.statusCode : 500).json(err)
+        next(err)
     }
 
 })
 
-router.get('/:serviceId/delete',isAuth, isOperatorAdmin, async (req: Request, res: Response) => {
+router.get('/:serviceId/delete',isAuth, isOperatorAdmin, async (req: Request, res: Response, next: NextFunction) => {
     let serviceId = req.params.serviceId
 
     try {
@@ -103,7 +103,7 @@ router.get('/:serviceId/delete',isAuth, isOperatorAdmin, async (req: Request, re
             res.json({message: 'Record has successfully been deleted'});
         }
     } catch (err: any) {
-        res.status(err.statusCode ? err.statusCode : 500).json(err)
+        next(err)
     }
 
 })

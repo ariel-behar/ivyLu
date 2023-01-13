@@ -15,7 +15,7 @@ import generateAuthToken from '../utils/generateAuthToken.js'
 
 const router = Router()
 
-router.get('/', isAuth, async (req: Request, res: Response, next: NextFunction) => {
+router.get('/', async (req: Request, res: Response, next: NextFunction) => {
     if (Object.entries(req.query).length > 0) {
         let filters = req.query;
         try {

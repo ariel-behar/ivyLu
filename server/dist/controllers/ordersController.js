@@ -11,7 +11,7 @@ import { Router } from 'express';
 import * as ordersServices from '../services/ordersServices.js';
 import { isAuth, isClient, isHairdresserOperatorAdmin } from '../middlewares/authMiddleware.js';
 const router = Router();
-router.get('/', isAuth, isHairdresserOperatorAdmin, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.get('/', isAuth, isHairdresserOperatorAdmin, (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         let orderResponse = yield ordersServices.getAll();
         if (orderResponse) {
@@ -52,10 +52,10 @@ router.get('/', isAuth, isHairdresserOperatorAdmin, (req, res) => __awaiter(void
         }
     }
     catch (err) {
-        res.status(500).send(err.message);
+        next(err);
     }
 }));
-router.post('/create', isAuth, isClient, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.post('/create', isAuth, isClient, (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     let { clientId, productId, status } = req.body;
     try {
         let orderCreateResponse = yield ordersServices.create({ client: clientId, product: productId, status });
@@ -98,7 +98,7 @@ router.post('/create', isAuth, isClient, (req, res) => __awaiter(void 0, void 0,
         }
     }
     catch (err) {
-        res.status(400).send(err);
+        next(err);
     }
 }));
 export default router;

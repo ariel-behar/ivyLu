@@ -15,7 +15,7 @@ import { AuthenticationError, InvalidDataError } from '../models/Errors.js';
 import { isAuth, isAdmin, isGuest } from '../middlewares/authMiddleware.js';
 import generateAuthToken from '../utils/generateAuthToken.js';
 const router = Router();
-router.get('/', isAuth, (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+router.get('/', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     if (Object.entries(req.query).length > 0) {
         let filters = req.query;
         try {
