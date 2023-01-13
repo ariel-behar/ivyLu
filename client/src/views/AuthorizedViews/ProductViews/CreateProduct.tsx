@@ -116,7 +116,7 @@ function CreateProduct() {
 			let createProductResponse = await entityServices.create(product as Product, creatorId, user.authToken)
 
 			if (createProductResponse) {
-				displayNotification({ message: 'Record has succesfully been created' }, 'success')
+				displayNotification({ message: `Product "${createProductResponse.title}" has successfully been created` }, 'success')
 				navigate('/management/products')
 			}
 

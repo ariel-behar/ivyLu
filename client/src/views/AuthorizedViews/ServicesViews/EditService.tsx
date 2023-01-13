@@ -101,7 +101,7 @@ function EditService() {
                 let editServiceResponse = await entityServices.update(serviceId, service as Service, user.authToken)
 
                 if (editServiceResponse) {
-                    displayNotification({message: 'Record has successfully been modified'}, 'success')
+                    displayNotification({message: `Service "${editServiceResponse.title}" has successfully been modified`}, 'success')
                     navigate('/management/services')
                 }
             } catch (err) {

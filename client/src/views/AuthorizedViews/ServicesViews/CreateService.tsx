@@ -101,7 +101,7 @@ function CreateService() {
 			let createServiceResponse = await entityServices.create(service as Service, creatorId, user.authToken)
 
 			if(createServiceResponse) {
-				displayNotification({message: 'Record has succesfully been created'}, 'success')
+				displayNotification({message: `Service "${createServiceResponse.title}" has successfully been created`}, 'success')
 				navigate('/management/services')
 			}
 

@@ -117,10 +117,9 @@ function EditProduct() {
         if (productId) {
             try {
                 let editProductResponse = await entityServices.update(productId, product as Product, user.authToken)
-                console.log('editProductResponse:', editProductResponse)
 
                 if (editProductResponse) {
-                    displayNotification({ message: 'Record has successfully been modified' }, 'success')
+                    displayNotification({ message: `Product "${editProductResponse.title}" has successfully been modified` }, 'success')
                     navigate('/management/products')
                 }
             } catch (err) {
