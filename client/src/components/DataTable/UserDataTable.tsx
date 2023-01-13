@@ -15,6 +15,7 @@ import TableHead from "@mui/material/TableHead"
 import TableRow from "@mui/material/TableRow"
 import StyledTableCell from "./StyledTableCell"
 import StyledTableRow from "./StyledTableRow"
+import { useAuthContext } from '../../contexts/AuthContext'
 
 interface Props {
     entityType: 'client' | 'staff',
@@ -27,6 +28,8 @@ function UserDataTable({
     entities,
     onDeleteButtonClickHandler
 }: Props) {
+    let { isAdmin } = useAuthContext() as {isAdmin: boolean};
+
     return (
         <>
             <TableHead>
@@ -66,7 +69,7 @@ function UserDataTable({
 
                             <TableCell align='center'>{user.email}</TableCell>
 
-                            {entityType === 'staff' &&
+                            {(entityType === 'staff' && isAdmin) &&
                                 <TableCell align='center'>
                                     <Button
                                         variant="text"
