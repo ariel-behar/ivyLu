@@ -6,13 +6,14 @@ import { isAuthRouteGuard } from "../../hoc/isAuthRouteGuard";
 import Stack from "@mui/material/Stack"
 import Breadcrumbs from "@mui/material/Breadcrumbs"
 import Link from "@mui/material/Link"
+import Container from "@mui/material/Container";
 
 
 function ManagementRootView() {
     const { isAdmin } = useAuthContext() as {isAdmin: boolean};
 
     return (
-        <>
+        <Container>
             <div>ManagementRootView</div>
 
             <Stack direction='row' justifyContent='center'>
@@ -86,7 +87,7 @@ function ManagementRootView() {
             </Stack>
 
             <Outlet />
-        </>
+        </Container>
     )
 }
 

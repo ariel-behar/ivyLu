@@ -1,3 +1,4 @@
+import React from "react";
 import { lazy, Suspense } from "react";
 
 import { createBrowserRouter } from "react-router-dom";
@@ -39,6 +40,7 @@ import ProductOrderView from "../views/ProductViews/ProductOrderView";
 import ShoppingCartView from "../views/ShoppingCartView";
 import GalleryView from "../views/GalleryView";
 import RegisterEditAuthorizedUserView from "../views/AuthorizedViews/UsersViews/RegisterEditAuthorizedUserView";
+
 
 const LazyDashboardView = lazy(() => import('../views/DashboardView'))
 const LazyManagementRootView = lazy(() => import('../views/AuthorizedViews/ManagementRootView'))

@@ -4,15 +4,17 @@ import { useNavigate, Link as RouterLink } from "react-router-dom";
 import { useAuthContext } from "../contexts/AuthContext";
 import { useNotificationContext } from "../contexts/NotificationContext";
 
-import { AuthTokenType, IdType } from "../types/common/common-types";
-import { User, UserLoginDTO } from "../models/User";
+import { ApiUser, ApiUserImpl } from "../services/userServices";
 
+import { User, UserLoginDTO } from "../models/User";
+import { isGuestRouteGuard } from "../hoc/isGuestRouteGuard";
+import { AuthTokenType, IdType } from "../types/common/common-types";
+
+import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
-import { ApiUser, ApiUserImpl } from "../services/userServices";
-import { isGuestRouteGuard } from "../hoc/isGuestRouteGuard";
-import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
 
 const userServices: ApiUser<IdType, User, AuthTokenType> = new ApiUserImpl<IdType, User, AuthTokenType>('clients');
 
@@ -50,7 +52,7 @@ function LoginView() {
 	}
 
 	return (
-		<>
+		<Container>
 			<div> LoginView</div>
 
 			<form onSubmit={handleSubmit(onFormSubmit)}>
@@ -86,7 +88,7 @@ function LoginView() {
 			<Stack mt={2} direction='row' justifyContent='center'>
 				<Typography variant="body1">Not a member of IvyLu yet? <RouterLink to="/register">Register here </RouterLink></Typography>
 			</Stack>
-		</>
+		</Container>
 	)
 }
 

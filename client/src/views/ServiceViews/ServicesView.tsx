@@ -2,14 +2,13 @@ import uniqid from "uniqid";
 import { Link as RouterLink, useLoaderData } from "react-router-dom";
 
 import { Service } from "../../models/Service";
+import { useAuthContext } from "../../contexts/AuthContext";
 
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import { useAuthContext } from "../../contexts/AuthContext";
-
 
 function ServicesView() {
     const services = useLoaderData() as Service[];

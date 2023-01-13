@@ -1,4 +1,4 @@
-interface measurementUnitsInterface {
+interface IMeasurementUnits {
     milliliters: {
         capitalized: string,
         abbreviated: string,
@@ -11,7 +11,7 @@ interface measurementUnitsInterface {
     }
 }
 
-export const measurementUnits: measurementUnitsInterface = {
+export const measurementUnitsObj: IMeasurementUnits = {
     milliliters: {
         capitalized: 'Milliliters',
         abbreviated: 'ml',
@@ -27,9 +27,9 @@ export const measurementUnits: measurementUnitsInterface = {
 export const getMeasurementUnit = (unit: string) => {
     switch (unit) {
         case 'milliliters':
-            return measurementUnits['milliliters'] 
+            return measurementUnitsObj['milliliters'] 
         case 'grams':
-            return measurementUnits['grams'] 
+            return measurementUnitsObj['grams'] 
         default:
             return {
                 capitalized: 'Invalid unit input',

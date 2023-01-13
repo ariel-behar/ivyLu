@@ -1,9 +1,12 @@
+import Container from "@mui/material/Container"
 
 function DashboardView() {
-	
+
 	return (
-		<div>DashboardView</div>
-		
+		<Container>
+			<div>DashboardView</div>
+			<h1>Under Construction</h1>
+		</Container>
 	)
 }
 

@@ -1,13 +1,16 @@
-import Container from "@mui/material/Container"
-import Paper from "@mui/material/Paper"
-import Stack from "@mui/material/Stack"
-import Typography from "@mui/material/Typography"
+import { Order } from "../models/Order"
+
+import { IScheduleConfirmationResponse } from "../types/scheduleTypes"
+
 import BackToButton from "../components/BackToButton"
 import GoToDashboardButton from "../components/GoToDashboardButton"
 import ProductOrderConfirmationCard from "../components/ProductOrderConfirmationCard"
 import ServiceAppointmentConfirmationCard from "../components/ServiceAppointmentConfirmationCard"
-import { Order } from "../models/Order"
-import { IScheduleConfirmationResponse } from "../types/scheduleTypes"
+
+import Container from "@mui/material/Container"
+import Paper from "@mui/material/Paper"
+import Stack from "@mui/material/Stack"
+import Typography from "@mui/material/Typography"
 
 interface Props {
     entity: IScheduleConfirmationResponse | Order | null
@@ -16,7 +19,7 @@ interface Props {
 
 function ConfirmationView({ entity, entityType }: Props) {
     return (
-        <>
+        <Container>
             <div>ConfirmationView</div>
 
             <Container>
@@ -46,7 +49,7 @@ function ConfirmationView({ entity, entityType }: Props) {
                     </Paper>
                 </Stack>
             </Container>
-        </>
+        </Container>
     )
 }
 

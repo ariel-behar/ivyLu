@@ -14,7 +14,7 @@ import { useAuthContext } from "../../../contexts/AuthContext";
 import { useNotificationContext } from "../../../contexts/NotificationContext";
 import { IMAGE_URL_REGEX } from "../../../utils/regex";
 import { isOperatorAdminRouteGuard } from "../../../hoc/isOperatorAdminRouteGuard";
-import { getMeasurementUnit, measurementUnits } from "../../../utils/getMeasurementUnit";
+import { getMeasurementUnit, measurementUnitsObj } from "../../../utils/getMeasurementUnit";
 
 import TextField from "@mui/material/TextField"
 import Stack from "@mui/material/Stack"
@@ -53,7 +53,7 @@ function EditProduct() {
     let product = useLoaderData() as Product;
     let { productId } = useParams<string>()
     const [productCategory, setProductCategory] = useState<TProductCategories>(product.productCategory)
-    const [measurementUnit, setMeasurementUnit] = useState<object>(measurementUnits[product.volumeMeasurementUnit as keyof typeof measurementUnits])
+    const [measurementUnit, setMeasurementUnit] = useState<object>(measurementUnitsObj[product.volumeMeasurementUnit as keyof typeof measurementUnitsObj])
     const [priceValue, setPriceValue] = useState<string>(product.price.toString())
     const [status, setStatus] = useState<string>(product.status)
     const [previewImgUrl, setPreviewImageUrl] = useState<string>(product.imgUrl)
@@ -227,7 +227,7 @@ function EditProduct() {
                                 helperText={errors.volumeMeasurementUnit ? errors.volumeMeasurementUnit.message : ''}
                             >
                                 {
-                                    Object.values(measurementUnits).map(unit => (
+                                    Object.values(measurementUnitsObj).map(unit => (
                                         <MenuItem key={uniqid()} value={unit.lowerCase}>{unit.capitalized}</MenuItem>
                                     ))
                                 }

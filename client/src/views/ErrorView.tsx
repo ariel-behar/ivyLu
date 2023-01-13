@@ -8,8 +8,11 @@ function ErrorView() {
 	return (
 		<>
 			<Header />
+
 			<Container>
 				<div>ErrorView</div>
+
+				<h1>Under Construction</h1>
 
 				<h1>{error?.message}</h1>
 			</Container>

@@ -1,4 +1,3 @@
-import Container from '@mui/material/Container'
 import Box from '@mui/material/Box'
 import { Outlet } from 'react-router-dom'
 import Notification from '../components/Common/Notification'
@@ -14,15 +13,13 @@ function RootView() {
 
             <Header />
 
-            <Box height='20px'></Box>
+            <Box height='38px'></Box>
 
-            <Container >
-                <Stack flexGrow={1}>
-                    <Outlet />
-                </Stack>
-            </Container>
+            <Stack flexGrow={1}>
+                <Outlet />
+            </Stack>
 
-            <Box height='80px'></Box>
+            <Box height='50px'></Box>
 
             <Footer />
         </>

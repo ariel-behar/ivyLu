@@ -4,16 +4,21 @@ import uniqid from 'uniqid';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigate } from "react-router-dom";
 
+import { ApiEntity, ApiEntityImpl } from "../../../services/entityServices";
+import { isOperatorAdminRouteGuard } from "../../../hoc/isOperatorAdminRouteGuard";
+
 import createProductFormSchema from "../../../validations/createProductFormSchema";
+
 import { Product, ProductCreateDTO } from "../../../models/Product";
+import { User } from "../../../models/User";
 
 import { useAuthContext } from "../../../contexts/AuthContext";
 import { useNotificationContext } from "../../../contexts/NotificationContext";
 import { IMAGE_URL_REGEX } from "../../../utils/regex";
-import { ApiEntity, ApiEntityImpl } from "../../../services/entityServices";
 import { AuthTokenType, IdType } from "../../../types/common/common-types";
-import { getMeasurementUnit, measurementUnits } from "../../../utils/getMeasurementUnit";
-import { isOperatorAdminRouteGuard } from "../../../hoc/isOperatorAdminRouteGuard";
+import { getMeasurementUnit, measurementUnitsObj } from "../../../utils/getMeasurementUnit";
+import { productCategories, TProductCategories } from "../../../utils/constants";
+
 
 import TextField from "@mui/material/TextField"
 import Stack from "@mui/material/Stack"
@@ -30,8 +35,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import FormHelperText from '@mui/material/FormHelperText';
-import { productCategories, TProductCategories } from "../../../utils/constants";
-import { User } from "../../../models/User";
+
 
 type FormData = {
 	title: string,
@@ -49,7 +53,7 @@ type FormData = {
 const entityServices: ApiEntity<IdType, Product, AuthTokenType> = new ApiEntityImpl<IdType, Product, AuthTokenType>('products');
 
 function CreateProduct() {
-	const [productCategory, setProductCategory] = useState<TProductCategories>()
+	const [productCategory, setProductCategory] = useState<TProductCategories>(productCategories[0])
 	const [measurementUnit, setMeasurementUnit] = useState<object>(getMeasurementUnit('milliliters'))
 	const [priceValue, setPriceValue] = useState<string>('1')
 	const [status, setStatus] = useState<string>('active')
@@ -64,7 +68,7 @@ function CreateProduct() {
 		defaultValues: {
 			title: '',
 			description: '',
-			productCategory: '',
+			productCategory: productCategories[0],
 			additionalComments: '',
 			imgUrl: '',
 			price: 0,
@@ -225,7 +229,7 @@ function CreateProduct() {
 								helperText={errors.volumeMeasurementUnit ? errors.volumeMeasurementUnit.message : ''}
 							>
 								{
-									Object.values(measurementUnits).map(unit => (
+									Object.values(measurementUnitsObj).map(unit => (
 										<MenuItem key={uniqid()} value={unit.lowerCase}>{unit.capitalized}</MenuItem>
 									))
 								}

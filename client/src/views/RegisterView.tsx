@@ -22,6 +22,7 @@ import { useNotificationContext } from '../contexts/NotificationContext';
 import { ApiUser, ApiUserImpl } from '../services/userServices';
 import { isGuestRouteGuard } from '../hoc/isGuestRouteGuard';
 import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
 
 const userServices: ApiUser<IdType, User, AuthTokenType> = new ApiUserImpl<IdType, User, AuthTokenType>('clients');
 
@@ -80,7 +81,7 @@ function RegisterView() {
 	}
 
 	return (
-		<>
+		<Container>
 			<div>RegisterView</div>
 
 			<form onSubmit={handleSubmit(onFormSubmit)}>
@@ -171,7 +172,7 @@ function RegisterView() {
 			<Stack mt={2} direction='row' justifyContent='center'>
 				<Typography variant="body1">Already registered? <RouterLink to="/login">Login here </RouterLink></Typography>
 			</Stack>
-		</>
+		</Container>
 	)
 }
 

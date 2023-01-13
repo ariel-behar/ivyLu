@@ -1,18 +1,19 @@
+import { useLoaderData } from "react-router-dom"
+import uniqid from "uniqid";
+
+import { User } from "../models/User";
+
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
-import { useLoaderData } from "react-router-dom"
-import uniqid from "uniqid";
-import { User } from "../models/User";
 
 function OurTeamView() {
 	const hairdressers = useLoaderData() as User[];
 
 	return (
-		<>
+		<Container>
 			<div>OurTeamView</div>
 
-			<Container>
 				{
 					hairdressers.map((hairdresser: User) => {
 						return (
@@ -28,8 +29,7 @@ function OurTeamView() {
 						)
 					})
 				}
-			</Container>
-		</>
+		</Container>
 	)
 }
 

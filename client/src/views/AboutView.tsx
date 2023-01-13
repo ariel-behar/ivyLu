@@ -1,7 +1,11 @@
+import Container from "@mui/material/Container"
 
 function AboutView() {
 	return (
-		<div>AboutView</div>
+		<Container>
+			<div>AboutView</div>
+			<h1>Under Construction</h1>
+		</Container>
 	)
 }
 

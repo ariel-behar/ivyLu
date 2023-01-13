@@ -85,9 +85,6 @@ function Header() {
             </AppBar>
 
             <BottomHeaderBar isLoggedIn={isLoggedIn} />
-
-            <Box height='40px'></Box>
-
         </>
     )
 }
