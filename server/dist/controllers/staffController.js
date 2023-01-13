@@ -36,6 +36,16 @@ router.get('/', (req, res, next) => __awaiter(void 0, void 0, void 0, function* 
         }
     }
 }));
+router.get('/:userId', isAuth, isAdmin, (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    let userId = req.params.userId;
+    try {
+        let staffMember = yield staffServices.getOne(userId);
+        res.json(staffMember);
+    }
+    catch (err) {
+        next(err);
+    }
+}));
 router.post('/register', isAuth, isAdmin, (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     let { firstName, lastName, email, phone, gender, password, role, about, imgUrl } = req.body;
     try {

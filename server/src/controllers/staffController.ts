@@ -36,6 +36,18 @@ router.get('/', async (req: Request, res: Response, next: NextFunction) => {
     }
 })
 
+router.get('/:userId', isAuth, isAdmin, async (req: Request, res: Response, next: NextFunction) => {
+    let userId = req.params.userId;
+
+    try {
+        let staffMember = await staffServices.getOne(userId);
+
+        res.json(staffMember)
+    } catch (err) {
+        next(err)
+    }
+})
+
 router.post('/register', isAuth, isAdmin, async (req: Request, res: Response, next: NextFunction) => {
     let { firstName, lastName, email, phone, gender, password, role, about, imgUrl } = req.body;
 

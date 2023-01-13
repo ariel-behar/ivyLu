@@ -7,6 +7,8 @@ export const getOneByEmail = (email: IStaffDocument['email']) => Staff.findOne({
 
 export const getAll = () => Staff.find({}, selectedFields ).lean();
 
+export const getOne = (userId: IdType) => Staff.findById(userId).lean()
+
 export const getManyFilteredBy = (filters: object) => Staff.find(filters, selectedFields).lean();
 
 export const register = (user: IStaffRegister) => Staff.create(user);
