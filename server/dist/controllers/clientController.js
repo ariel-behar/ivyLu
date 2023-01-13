@@ -40,10 +40,10 @@ router.post('/register', (req, res, next) => __awaiter(void 0, void 0, void 0, f
     let { firstName, lastName, email, phone, gender, role, password } = req.body;
     try {
         let userExistsResponse;
-        //Check clients
+        //Check if user exists in clients
         userExistsResponse = yield clientServices.getOneByEmail(email);
         if (!userExistsResponse) {
-            // Check staff
+            //Check if user exists in staff
             userExistsResponse = yield staffServices.getOneByEmail(email);
         }
         if (userExistsResponse) {

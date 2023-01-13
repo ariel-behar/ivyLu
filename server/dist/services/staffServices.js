@@ -7,4 +7,5 @@ export const getManyFilteredBy = (filters) => Staff.find(filters, selectedFields
 export const register = (user) => Staff.create(user);
 export const login = (email) => Staff.findOne({ email }).lean();
 export const deleteOne = (userId) => Staff.deleteOne({ _id: userId });
+export const update = (userId, user) => Staff.findByIdAndUpdate(userId, user, { new: true });
 //# sourceMappingURL=staffServices.js.map

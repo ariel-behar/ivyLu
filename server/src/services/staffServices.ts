@@ -16,3 +16,5 @@ export const register = (user: IStaffRegister) => Staff.create(user);
 export const login = (email: IStaffDocument['email']) => Staff.findOne({email}).lean()
 
 export const deleteOne = (userId: IdType) => Staff.deleteOne({_id: userId});
+
+export const update = (userId: IdType, user: IStaffRegister) => Staff.findByIdAndUpdate(userId, user, {new: true});

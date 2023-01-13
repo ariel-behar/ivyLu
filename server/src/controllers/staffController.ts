@@ -54,11 +54,11 @@ router.post('/register', isAuth, isAdmin, async (req: Request, res: Response, ne
     try {
         let userExistsResponse: LeanDocument<IClientDocument> | LeanDocument<IStaffDocument> | null;
         
-        //Check clients
+        //Check if user exists in clients
         userExistsResponse = await clientServices.getOneByEmail(email)
 
         if (!userExistsResponse) {
-            // Check staff
+            // Check if user exits in staff
             userExistsResponse = await staffServices.getOneByEmail(email)
         }
 
@@ -66,24 +66,24 @@ router.post('/register', isAuth, isAdmin, async (req: Request, res: Response, ne
             next(new InvalidDataError(`Email address "${userExistsResponse.email}" is already taken.`));
         } else {
             try {
-                let userResponse;
+                let staffRegisterResponse;
 
                 if (role == 2) {
-                    userResponse = await staffServices.register({ firstName, lastName, email, phone, gender, password, role, imgUrl, about });
+                    staffRegisterResponse = await staffServices.register({ firstName, lastName, email, phone, gender, password, role, imgUrl, about });
                 } else {
-                    userResponse = await staffServices.register({ firstName, lastName, email, phone, gender, password, role });
+                    staffRegisterResponse = await staffServices.register({ firstName, lastName, email, phone, gender, password, role });
                 }
 
-                if (userResponse) {
+                if (staffRegisterResponse) {
                     let user = {
-                        userId: userResponse._id,
-                        firstName: userResponse.firstName,
-                        lastName: userResponse.lastName,
-                        email: userResponse.email,
-                        gender: userResponse.gender,
-                        phone: userResponse.phone,
-                        role: userResponse.role,
-                        imgUrl: userResponse.imgUrl
+                        userId: staffRegisterResponse._id,
+                        firstName: staffRegisterResponse.firstName,
+                        lastName: staffRegisterResponse.lastName,
+                        email: staffRegisterResponse.email,
+                        gender: staffRegisterResponse.gender,
+                        phone: staffRegisterResponse.phone,
+                        role: staffRegisterResponse.role,
+                        imgUrl: staffRegisterResponse.imgUrl
                     };
 
                     let authToken = generateAuthToken(user);
@@ -140,6 +140,38 @@ router.post('/login', isGuest, async (req: Request, res: Response, next: NextFun
             next(new AuthenticationError(`Username or password are incorrect.`));
         }
     } catch (err: any) {
+        next(err)
+    }
+})
+
+router.post('/:userId/edit', isAuth, isAdmin, async (req: Request, res: Response, next: NextFunction) => {
+    let userId = req.params.userId;
+    let { firstName, lastName, email, phone, gender, password, role, about, imgUrl } = req.body;
+
+    try {
+        let staffEditResponse;
+
+        if (role == 2) {
+            staffEditResponse =await staffServices.update(userId, { firstName, lastName, email, phone, gender, password, role, imgUrl, about, });
+        } else {
+            staffEditResponse = await staffServices.update(userId, { firstName, lastName, email, phone, gender, password, role });
+        }
+
+        if (staffEditResponse) {
+            let user = {
+                userId: staffEditResponse._id,
+                firstName: staffEditResponse.firstName,
+                lastName: staffEditResponse.lastName,
+                email: staffEditResponse.email,
+                gender: staffEditResponse.gender,
+                phone: staffEditResponse.phone,
+                role: staffEditResponse.role,
+                imgUrl: staffEditResponse.imgUrl
+            };
+
+            return res.json(user);
+        }
+    } catch (err) {
         next(err)
     }
 })

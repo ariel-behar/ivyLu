@@ -44,11 +44,11 @@ router.post('/register', async (req: Request, res: Response, next: NextFunction)
     try {
         let userExistsResponse: IClientDocument | IStaffDocument | null; 
 
-        //Check clients
+        //Check if user exists in clients
         userExistsResponse = await clientServices.getOneByEmail(email)
 
         if(!userExistsResponse) {
-            // Check staff
+            //Check if user exists in staff
             userExistsResponse = await staffServices.getOneByEmail(email)
         }
         

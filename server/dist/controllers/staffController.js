@@ -50,10 +50,10 @@ router.post('/register', isAuth, isAdmin, (req, res, next) => __awaiter(void 0, 
     let { firstName, lastName, email, phone, gender, password, role, about, imgUrl } = req.body;
     try {
         let userExistsResponse;
-        //Check clients
+        //Check if user exists in clients
         userExistsResponse = yield clientServices.getOneByEmail(email);
         if (!userExistsResponse) {
-            // Check staff
+            // Check if user exits in staff
             userExistsResponse = yield staffServices.getOneByEmail(email);
         }
         if (userExistsResponse) {
@@ -61,23 +61,23 @@ router.post('/register', isAuth, isAdmin, (req, res, next) => __awaiter(void 0, 
         }
         else {
             try {
-                let userResponse;
+                let staffRegisterResponse;
                 if (role == 2) {
-                    userResponse = yield staffServices.register({ firstName, lastName, email, phone, gender, password, role, imgUrl, about });
+                    staffRegisterResponse = yield staffServices.register({ firstName, lastName, email, phone, gender, password, role, imgUrl, about });
                 }
                 else {
-                    userResponse = yield staffServices.register({ firstName, lastName, email, phone, gender, password, role });
+                    staffRegisterResponse = yield staffServices.register({ firstName, lastName, email, phone, gender, password, role });
                 }
-                if (userResponse) {
+                if (staffRegisterResponse) {
                     let user = {
-                        userId: userResponse._id,
-                        firstName: userResponse.firstName,
-                        lastName: userResponse.lastName,
-                        email: userResponse.email,
-                        gender: userResponse.gender,
-                        phone: userResponse.phone,
-                        role: userResponse.role,
-                        imgUrl: userResponse.imgUrl
+                        userId: staffRegisterResponse._id,
+                        firstName: staffRegisterResponse.firstName,
+                        lastName: staffRegisterResponse.lastName,
+                        email: staffRegisterResponse.email,
+                        gender: staffRegisterResponse.gender,
+                        phone: staffRegisterResponse.phone,
+                        role: staffRegisterResponse.role,
+                        imgUrl: staffRegisterResponse.imgUrl
                     };
                     let authToken = generateAuthToken(user);
                     return res.json(Object.assign(Object.assign({}, user), { authToken }));
@@ -124,6 +124,35 @@ router.post('/login', isGuest, (req, res, next) => __awaiter(void 0, void 0, voi
         }
         else {
             next(new AuthenticationError(`Username or password are incorrect.`));
+        }
+    }
+    catch (err) {
+        next(err);
+    }
+}));
+router.post('/:userId/edit', isAuth, isAdmin, (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    let userId = req.params.userId;
+    let { firstName, lastName, email, phone, gender, password, role, about, imgUrl } = req.body;
+    try {
+        let staffEditResponse;
+        if (role == 2) {
+            staffEditResponse = yield staffServices.update(userId, { firstName, lastName, email, phone, gender, password, role, imgUrl, about, });
+        }
+        else {
+            staffEditResponse = yield staffServices.update(userId, { firstName, lastName, email, phone, gender, password, role });
+        }
+        if (staffEditResponse) {
+            let user = {
+                userId: staffEditResponse._id,
+                firstName: staffEditResponse.firstName,
+                lastName: staffEditResponse.lastName,
+                email: staffEditResponse.email,
+                gender: staffEditResponse.gender,
+                phone: staffEditResponse.phone,
+                role: staffEditResponse.role,
+                imgUrl: staffEditResponse.imgUrl
+            };
+            return res.json(user);
         }
     }
     catch (err) {
