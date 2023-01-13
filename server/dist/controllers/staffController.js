@@ -70,7 +70,7 @@ router.post('/register', isAuth, isAdmin, (req, res, next) => __awaiter(void 0, 
                 }
                 if (staffRegisterResponse) {
                     let user = {
-                        userId: staffRegisterResponse._id,
+                        _id: staffRegisterResponse._id,
                         firstName: staffRegisterResponse.firstName,
                         lastName: staffRegisterResponse.lastName,
                         email: staffRegisterResponse.email,
@@ -106,7 +106,7 @@ router.post('/login', isGuest, (req, res, next) => __awaiter(void 0, void 0, voi
             let isValidPassword = yield bcrypt.compare(password, userLoginResponse.password);
             if (isValidPassword) {
                 let user = {
-                    userId: userLoginResponse._id,
+                    _id: userLoginResponse._id,
                     firstName: userLoginResponse.firstName,
                     lastName: userLoginResponse.lastName,
                     email: userLoginResponse.email,
@@ -143,7 +143,7 @@ router.post('/:userId/edit', isAuth, isAdmin, (req, res, next) => __awaiter(void
         }
         if (staffEditResponse) {
             let user = {
-                userId: staffEditResponse._id,
+                _id: staffEditResponse._id,
                 firstName: staffEditResponse.firstName,
                 lastName: staffEditResponse.lastName,
                 email: staffEditResponse.email,
@@ -162,8 +162,8 @@ router.post('/:userId/edit', isAuth, isAdmin, (req, res, next) => __awaiter(void
 router.get('/:userId/delete', isAuth, (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     let userId = req.params.userId;
     try {
-        let deleteUserResponse = yield staffServices.deleteOne(userId);
-        if (deleteUserResponse) {
+        let deleteStaffResponse = yield staffServices.deleteOne(userId);
+        if (deleteStaffResponse) {
             res.json({ message: 'Staff member has successfully been deleted' });
         }
     }

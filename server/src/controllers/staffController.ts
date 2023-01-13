@@ -76,7 +76,7 @@ router.post('/register', isAuth, isAdmin, async (req: Request, res: Response, ne
 
                 if (staffRegisterResponse) {
                     let user = {
-                        userId: staffRegisterResponse._id,
+                        _id: staffRegisterResponse._id,
                         firstName: staffRegisterResponse.firstName,
                         lastName: staffRegisterResponse.lastName,
                         email: staffRegisterResponse.email,
@@ -119,7 +119,7 @@ router.post('/login', isGuest, async (req: Request, res: Response, next: NextFun
 
             if (isValidPassword) {
                 let user = {
-                    userId: userLoginResponse._id,
+                    _id: userLoginResponse._id,
                     firstName: userLoginResponse.firstName,
                     lastName: userLoginResponse.lastName,
                     email: userLoginResponse.email,
@@ -159,7 +159,7 @@ router.post('/:userId/edit', isAuth, isAdmin, async (req: Request, res: Response
 
         if (staffEditResponse) {
             let user = {
-                userId: staffEditResponse._id,
+                _id: staffEditResponse._id,
                 firstName: staffEditResponse.firstName,
                 lastName: staffEditResponse.lastName,
                 email: staffEditResponse.email,
@@ -180,9 +180,9 @@ router.get('/:userId/delete', isAuth, async (req: Request, res: Response, next: 
     let userId = req.params.userId
 
     try {
-        let deleteUserResponse = await staffServices.deleteOne(userId);
+        let deleteStaffResponse = await staffServices.deleteOne(userId);
 
-        if (deleteUserResponse) {
+        if (deleteStaffResponse) {
             res.json({ message: 'Staff member has successfully been deleted' });
         }
     } catch (err: any) {
