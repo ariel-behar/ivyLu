@@ -28,7 +28,7 @@ import { useAuthContext } from '../../contexts/AuthContext';
 import { useNotificationContext } from '../../contexts/NotificationContext';
 import ConfirmationView from '../ConfirmationView';
 import { IScheduleConfirmationResponse } from '../../types/scheduleTypes';
-import BackToButton from '../../components/BackToButton';
+import BackToButton from '../../components/Buttons/BackToButton';
 import { availableSchedulingHours, TAvailableSchedulingHours } from '../../utils/constants';
 
 interface IHairdresserSchedule {

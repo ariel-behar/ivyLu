@@ -13,7 +13,7 @@ import { getMeasurementUnit } from '../../utils/getMeasurementUnit';
 
 import ConfirmationView from '../ConfirmationView';
 import ConfirmDialog from '../../components/ConfirmDialog';
-import BackToButton from '../../components/BackToButton';
+import BackToButton from '../../components/Buttons/BackToButton';
 
 import Grid from '@mui/material/Grid';
 import ImageListItem from '@mui/material/ImageListItem';

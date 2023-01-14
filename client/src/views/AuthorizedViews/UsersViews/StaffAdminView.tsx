@@ -2,7 +2,7 @@ import { useLoaderData } from "react-router-dom"
 
 import { User } from "../../../models/User"
 
-import CreateButton from "../../../components/CreateButton"
+import CreateButton from "../../../components/Buttons/CreateButton"
 import DataTable from "../../../components/DataTable/DataTable"
 
 import Stack from "@mui/material/Stack"

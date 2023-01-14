@@ -2,8 +2,8 @@ import { Order } from "../models/Order"
 
 import { IScheduleConfirmationResponse } from "../types/scheduleTypes"
 
-import BackToButton from "../components/BackToButton"
-import GoToDashboardButton from "../components/GoToDashboardButton"
+import BackToButton from "../components/Buttons/BackToButton"
+import GoToDashboardButton from "../components/Buttons/GoToDashboardButton"
 import ProductOrderConfirmationCard from "../components/ProductOrderConfirmationCard"
 import ServiceAppointmentConfirmationCard from "../components/ServiceAppointmentConfirmationCard"
 

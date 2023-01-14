@@ -3,7 +3,7 @@ import { useLoaderData } from 'react-router-dom'
 import { useAuthContext } from '../../../contexts/AuthContext';
 import { Product } from '../../../models/Product';
 
-import CreateButton from '../../../components/CreateButton';
+import CreateButton from '../../../components/Buttons/CreateButton';
 import DataTable from '../../../components/DataTable/DataTable'
 
 import Stack from '@mui/material/Stack';

@@ -4,7 +4,7 @@ import { useAuthContext } from "../../../contexts/AuthContext";
 
 import DataTable from "../../../components/DataTable/DataTable";
 import Stack from "@mui/material/Stack";
-import CreateButton from "../../../components/CreateButton";
+import CreateButton from "../../../components/Buttons/CreateButton";
 import { Service } from "../../../models/Service";
 
 function ServicesOperatorAdminView() {

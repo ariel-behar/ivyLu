@@ -10,6 +10,7 @@ import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import { useState } from 'react';
+import YellowHoverableButton from './Buttons/YellowHoverableButton';
 
 interface Props {
 	product: Product,
@@ -80,27 +81,10 @@ export default function ProductCard({
 						<Typography variant="body1" sx={{ color: 'common.white' }}>Price: <b>{product.price} BGN</b></Typography>
 					</Stack>
 					
-					<Button
-						variant="contained"
-						size='large'
-						color='inherit'
-						to={isLoggedIn ? `/products/${product._id}/order` : `/login`}
-						sx={{
-							backgroundColor: 'main.yellow.primary', 
-							color: 'black', 
-							'&:hover': {
-								transform: hovered ? 'scale(1.1)' : 'scale(1.0)',
-								backgroundColor: 'main.yellow.dark', 
-							}
-						}}
 
-						onMouseOver={() => setHovered(true)}
-						onMouseOut={() => setHovered(false)}
+					<YellowHoverableButton entity={product} entityType='product' text='Order now' />
 
-						component={RouterLink}
-					>
-						Order
-					</Button>
+				
 				</Stack>
 			</Box>
 		</Stack>

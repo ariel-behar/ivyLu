@@ -1,23 +1,25 @@
-import { Link as RouterLink } from "react-router-dom";
+
 import uniqid from 'uniqid'
 
-import { useAuthContext } from '../../contexts/AuthContext'
+import { useAuthContext } from '../contexts/AuthContext'
 
-import { Service } from '../../models/Service'
+import { Service } from '../models/Service'
 
-import Button from '@mui/material/Button'
 import ImageListItem from '@mui/material/ImageListItem'
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
+import YellowHoverableButton from './Buttons/YellowHoverableButton'
 
 interface Props {
     service: Service
 }
 
-function ServiceCard({service}: Props) {
-    const { isLoggedIn } = useAuthContext() as {isLoggedIn: boolean};
+function ServiceCard({ service }: Props) {
+    const { isLoggedIn } = useAuthContext() as { isLoggedIn: boolean };
+
+
     return (
-        <ImageListItem key={uniqid()}>
+        <ImageListItem key={uniqid()} sx={{ margin: '20px 0' }}>
             <img style={{ width: 'auto', height: '400px' }}
                 src={`${service.imgUrl}`}
                 alt={service.title}
@@ -50,13 +52,16 @@ function ServiceCard({service}: Props) {
                     backgroundColor: 'rgba(30, 30, 30, 0.5)'
                 }}
             >
-                <Button variant="contained" to={isLoggedIn ? `/services/${service._id}/schedule` : `/login`} component={RouterLink}>Schedule</Button>
+
 
                 <Stack direction='column'>
                     <Typography variant="body1" sx={{ color: 'common.white' }}>Duration: <b> {service.duration} minutes</b></Typography>
                     <Typography variant="body1" sx={{ color: 'common.white' }}>Price: <b>{service.price} BGN</b></Typography>
 
                 </Stack>
+
+                <YellowHoverableButton entity={service} entityType='service' text='Schedule now' />
+
             </Stack>
         </ImageListItem>
     )
