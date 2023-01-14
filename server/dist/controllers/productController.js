@@ -13,12 +13,24 @@ import { InvalidDataError } from '../models/Errors.js';
 import { isAuth, isOperatorAdmin } from '../middlewares/authMiddleware.js';
 const router = Router();
 router.get('/', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        let products = yield productServices.getAll();
-        res.json(products);
+    if (Object.entries(req.query).length > 0) {
+        let filters = req.query;
+        try {
+            let filteredProducts = yield productServices.getManyFilteredBy(filters);
+            res.json(filteredProducts);
+        }
+        catch (err) {
+            next(err);
+        }
     }
-    catch (err) {
-        next(err);
+    else {
+        try {
+            let products = yield productServices.getAll();
+            res.json(products);
+        }
+        catch (err) {
+            next(err);
+        }
     }
 }));
 router.get('/:productId', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {

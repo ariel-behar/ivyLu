@@ -9,6 +9,8 @@ export const getAll = () => Product.find({}).lean()
 
 export const getOne = (productId:IdType) => Product.findById(productId)
 
+export const getManyFilteredBy = (filters: object) => Product.find(filters).lean();
+
 export const updateOne = (productId: IdType, product: Omit<IProductCreate, "creatorId"> ) => Product.findByIdAndUpdate(productId, product, { new: true });
 
 export const deleteOne = (productId: IdType) => Product.deleteOne({_id: productId});

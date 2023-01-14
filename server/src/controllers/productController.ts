@@ -9,12 +9,24 @@ import { isAuth, isOperatorAdmin } from '../middlewares/authMiddleware.js';
 const router = Router();
 
 router.get('/', async (req: Request, res: Response, next: NextFunction) => {
-    try {
-        let products = await productServices.getAll();
+    if (Object.entries(req.query).length > 0) {
+        let filters = req.query;
 
-        res.json(products)
-    } catch (err) {
-        next(err)
+        try {
+            let filteredProducts = await productServices.getManyFilteredBy(filters);
+
+            res.json(filteredProducts)
+        } catch (err: any) {
+            next(err)
+        }
+    } else {
+        try {
+            let products = await productServices.getAll();
+    
+            res.json(products)
+        } catch (err) {
+            next(err)
+        }
     }
 })
 

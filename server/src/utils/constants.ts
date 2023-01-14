@@ -4,8 +4,8 @@ export const availableSchedulingHours: TAvailableSchedulingHours[] = ['10:00', '
 
 export const serviceDuration = ['5', '10', '15', '20', '25', '30', '35', '40', '45', '50', '55', '60', '65','70','75','80','85','90','95','100','105','110','115','120']
 
-export type TProductCategories = 'shampoo' | 'conditioner' | 'spray' | 'serum' | 'foam'  | 'oil' | 'butter' | 'cream' | 'gel' | 'paste' | 'cleanser' | 'facial mask' | 'balm'
+export type TProductCategories = 'shampoo' | 'conditioner' | 'spray' | 'serum' | 'foam'  | 'oil' | 'butter' | 'cream' | 'gel' | 'paste' | 'cleanser' | 'mask' | 'balm'
 
-export const productCategories: TProductCategories[] = ['shampoo', 'conditioner', 'spray', 'serum', 'foam' , 'oil', 'butter', 'cream', 'gel', 'paste', 'cleanser', 'facial mask', 'balm']
+export const productCategories: TProductCategories[] = ['shampoo', 'conditioner', 'spray', 'serum', 'foam' , 'oil', 'butter', 'cream', 'gel', 'paste', 'cleanser', 'mask', 'balm']
 
 export const volumeMeasurementUnits = ['grams', 'milliliters']
