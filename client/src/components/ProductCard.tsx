@@ -81,10 +81,18 @@ export default function ProductCard({
 					</Stack>
 					
 					<Button
-						variant="outlined"
+						variant="contained"
 						size='large'
+						color='inherit'
 						to={isLoggedIn ? `/products/${product._id}/order` : `/login`}
-						sx={{ '&:hover': {transform: hovered ? 'scale(1.1)' : 'scale(1.0)'}}}
+						sx={{
+							backgroundColor: 'main.yellow.primary', 
+							color: 'black', 
+							'&:hover': {
+								transform: hovered ? 'scale(1.1)' : 'scale(1.0)',
+								backgroundColor: 'main.yellow.dark', 
+							}
+						}}
 
 						onMouseOver={() => setHovered(true)}
 						onMouseOut={() => setHovered(false)}

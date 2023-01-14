@@ -24,7 +24,12 @@ declare module '@mui/material/styles' {
                 primary: PaletteColor,
                 light: PaletteColor,
                 dark: PaletteColor
-            }
+            },
+            yellow: {
+                primary: PaletteColor,
+                light: PaletteColor,
+                dark: PaletteColor
+            },
         }
     }
 
@@ -38,7 +43,12 @@ declare module '@mui/material/styles' {
                 primary: string | PaletteColorOptions,
                 light: string | PaletteColorOptions,
                 dark: string | PaletteColorOptions
-            }
+            },
+            yellow: {
+                primary: string | PaletteColorOptions,
+                light: string | PaletteColorOptions,
+                dark: string | PaletteColorOptions
+            },
             
             
         }

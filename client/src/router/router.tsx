@@ -90,7 +90,6 @@ const router = createBrowserRouter([
 				children: [
 					{
 						index: true,
-						loader: getAllServicesLoader,
 						element: <ServicesView />
 					},
 					{
