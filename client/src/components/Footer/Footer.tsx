@@ -1,38 +1,33 @@
 import logoIvyLu from '../../assets/img/logo-ivylu.png'
 
-import Container from "@mui/material/Container"
-import Paper from "@mui/material/Paper"
-import Toolbar from "@mui/material/Toolbar"
+import Box from '@mui/material/Box'
 
 function Footer() {
     return (
-        <Paper
-            square
+        <Box
             component='footer'
-            elevation={10}
             sx={{
                 backgroundColor: 'main.black',
                 position: 'fixed',
                 zIndex: 3,
                 bottom: 0,
                 width: '100%',
-                height:'50px'
+                height: '50px'
             }}
         >
-            <Container>
-                <Toolbar sx={{
-                    backgroundColor: 'main.black',
-                    borderRadius: '50%',
-                    position: "absolute",
-                    zIndex: '100',
-                    left: "50%",
-                    bottom: "5px",
-                    transform: "translate(-50%, 0)"
-                }}>
-                    <img src={logoIvyLu} alt="IvyLu Logo" style={{ maxWidth: "80px" }} />
-                </Toolbar>
-            </Container>
-        </Paper>
+            <Box sx={{
+                backgroundColor: 'main.black',
+                padding: '10px 20px',
+                borderRadius: '50%',
+                position: "absolute",
+                zIndex: 4,
+                left: "50%",
+                bottom: "5px",
+                transform: "translate(-50%, 0)"
+            }}>
+                <img src={logoIvyLu} alt="IvyLu Logo" style={{ maxWidth: "80px" }} />
+            </Box>
+        </Box>
     )
 }
 
