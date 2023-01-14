@@ -57,8 +57,8 @@ function ManagementRootView() {
                         Products
                     </Link>
 
-                    {isAdmin
-                        ? <Link
+                    {isAdmin &&
+                        <Link
                             mx={2}
                             underline="hover"
                             to="/management/clients"
@@ -67,10 +67,10 @@ function ManagementRootView() {
                         >
                             Clients
                         </Link>
-                        : ''
                     }
-                    {isAdmin
-                        ? <Link
+                    
+                    {isAdmin &&
+                         <Link
                             mx={2}
                             underline="hover"
                             to="/management/staff"
@@ -79,7 +79,6 @@ function ManagementRootView() {
                         >
                             Staff
                         </Link>
-                        : ''
                     }
 
                 </Breadcrumbs>

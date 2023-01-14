@@ -4,6 +4,7 @@ import { baseUrl } from "./api";
 export interface ApiEntity<I, E extends Identifiable<I>, A extends AuthTokenType> {
     getOne(entityId: I): Promise<E>;
     getAll(): Promise<E[]>;
+    getManyFilteredBy(filter: object): Promise<E[]>
     create(entityWithoutId: Omit<E, 'id'>, userId: I, authToken: A): Promise<E>;
     update(entityId: I, entity: E, authToken: A): Promise<E>;
     deleteOne(entityId: I, entity: undefined, authToken: A): Promise<string>;
@@ -17,6 +18,17 @@ export class ApiEntityImpl<I, E extends Identifiable<I>, A extends AuthTokenType
     getAll(): Promise<E[]> {
         return request(`${baseUrl}/${this.apiCollectionSuffix}`, 'GET');
     }
+
+    getManyFilteredBy(filter: object): Promise<E[]> {
+        let queryString = []
+
+        for (const key in filter) {
+            queryString.push(`${key}=${filter[key as keyof typeof filter]}`)
+        }
+
+        return request(`${baseUrl}/${this.apiCollectionSuffix}?${queryString.join('&')}`, 'GET');
+    }
+
     create(entityWithoutId: Omit<E, "id">, userId: I, authToken: A): Promise<E> {
         return request(`${baseUrl}/${this.apiCollectionSuffix}/create`, 'POST', {...entityWithoutId, userId}, authToken);
     }

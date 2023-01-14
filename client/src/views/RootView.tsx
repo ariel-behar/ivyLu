@@ -19,7 +19,7 @@ function RootView() {
                 <Outlet />
             </Stack>
 
-            <Box height='50px'></Box>
+            <Box height='80px'></Box>
 
             <Footer />
         </>

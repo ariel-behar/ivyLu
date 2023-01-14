@@ -45,7 +45,7 @@ const createProductFormSchemaShape = {
         .oneOf(['grams', 'milliliters'], 'You should pick the appropriate volume measurement unit'),
     productCode: yup
         .string()
-        .required()
+        .required('Product code is required')
         .matches(ONLY_DIGITS_REGEX, "Product code must be comprised of 5 digits")
         .min(5, 'Product code must be exactly 5 digits')
         .max(5, 'Product code must be exactly 5 digits'),
