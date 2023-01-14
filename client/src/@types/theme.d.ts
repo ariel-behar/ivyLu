@@ -20,7 +20,11 @@ declare module '@mui/material/styles' {
             beige?: PaletteColor,
             beigeLight: PaletteColor,
             darkGrey?: PaletteColor,
-            teal?: PaletteColor
+            teal?: {
+                primary: PaletteColor,
+                light: PaletteColor,
+                dark: PaletteColor
+            }
         }
     }
 
@@ -30,7 +34,13 @@ declare module '@mui/material/styles' {
             beige?: string | PaletteColorOptions,
             beigeLight?: string | PaletteColorOptions,
             darkGrey?: string | PaletteColorOptions,
-            teal?: string | PaletteColorOptions
+            teal?: {
+                primary: string | PaletteColorOptions,
+                light: string | PaletteColorOptions,
+                dark: string | PaletteColorOptions
+            }
+            
+            
         }
     }
 

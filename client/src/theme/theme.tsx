@@ -7,7 +7,12 @@ const theme = createTheme({
             beige: '#F3EFE0',
             beigeLight: '#faf8f2',
             darkGrey: '#434242',
-            teal: '#22A39F'
+            teal: {
+				primary: '#4bb5ab',
+				light: '#82e9de',
+				dark: '#00867d'
+			}
+			
 		}
 	}
 })

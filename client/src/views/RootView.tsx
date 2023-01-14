@@ -8,7 +8,7 @@ import Stack from '@mui/material/Stack'
 
 function RootView() {
     return (
-        <>
+        <Box sx={{backgroundColor: 'main.black'}}>
             <Notification />
 
             <Header />
@@ -22,7 +22,7 @@ function RootView() {
             <Box height='80px'></Box>
 
             <Footer />
-        </>
+        </Box>
     )
 }
 
