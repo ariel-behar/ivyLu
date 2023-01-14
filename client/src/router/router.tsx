@@ -69,11 +69,11 @@ const router = createBrowserRouter([
 			},
 			{ // products
 				path: "/products",
-				loader: getAllProductsLoader,
 				element: <ProductsRootView />,
 				children: [
 					{
 						index: true,
+						loader: getAllProductsLoader,
 						element: <ProductsView />,
 					},
 					{
