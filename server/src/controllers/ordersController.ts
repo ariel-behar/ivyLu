@@ -58,7 +58,7 @@ router.get('/', isAuth, isHairdresserOperatorAdmin, async (req: Request, res: Re
     }
 })
 
-router.get('/:userId', isAuth, isClient, async (req: Request, res: Response, next: NextFunction) => {
+router.get('/:userId', isAuth, async (req: Request, res: Response, next: NextFunction) => {
     let userId = req.params['userId']
 
     try {
