@@ -10,13 +10,12 @@ import Toolbar from '@mui/material/Toolbar';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
-import Badge from '@mui/material/Badge';
-import Box from '@mui/material/Box';
 
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import IsNotloggedInButtons from './HeaderButtons/IsNotloggedInButtons';
+import IsLoggedInButtons from './HeaderButtons/IsLoggedInButtons';
 
 function Header() {
-    const { isLoggedIn } = useAuthContext() as {isLoggedIn: boolean};
+    const { isLoggedIn } = useAuthContext() as { isLoggedIn: boolean, isClient: boolean };
 
     return (
         <>
@@ -27,6 +26,14 @@ function Header() {
                             <Button to='/' color='inherit' component={RouterNavLink} sx={{ '&.active': { fontWeight: 'fontWeightBold' } }}>Home</Button>
                             <Button to='/products' color='inherit' component={RouterNavLink} sx={{ '&.active': { fontWeight: 'fontWeightBold' } }}>Products</Button>
                             <Button to='/services' color='inherit' component={RouterNavLink} sx={{ '&.active': { fontWeight: 'fontWeightBold' } }}>Services</Button>
+                            <Button
+                                to='/gallery'
+                                color='inherit'
+                                component={RouterNavLink}
+                                sx={{ '&.active': { fontWeight: 'fontWeightBold' } }}
+                            >
+                                Gallery
+                            </Button>
                         </Toolbar>
                         <Toolbar sx={{
                             backgroundColor: 'main.black',
@@ -42,14 +49,7 @@ function Header() {
                             </RouterNavLink>
                         </Toolbar>
                         <Toolbar>
-                            <Button
-                                to='/gallery'
-                                color='inherit'
-                                component={RouterNavLink}
-                                sx={{ '&.active': { fontWeight: 'fontWeightBold' } }}
-                            >
-                                Gallery
-                            </Button>
+
                             <Button
                                 to='/our-team'
                                 color='inherit'
@@ -68,23 +68,19 @@ function Header() {
                                 About
                             </Button>
 
-                            <Button
-                                to='/shopping-cart'
-                                color='inherit'
-                                component={RouterNavLink}
-                                sx={{ '&.active': { fontWeight: 'fontWeightBold' } }}
-                            >
-                                <Badge badgeContent={0} showZero>
-                                    <ShoppingCartIcon />
-                                </Badge>
-                            </Button>
+                            {
+                                isLoggedIn
+                                    ? <IsLoggedInButtons whichHeaderBar='top' />
+                                    : <IsNotloggedInButtons />
+                            }
 
                         </Toolbar>
                     </Stack>
                 </Container>
             </AppBar>
 
-            <BottomHeaderBar isLoggedIn={isLoggedIn} />
+            {isLoggedIn && <BottomHeaderBar isLoggedIn={isLoggedIn} />}
+
         </>
     )
 }

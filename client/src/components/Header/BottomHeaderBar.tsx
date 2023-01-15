@@ -1,4 +1,3 @@
-import IsNotloggedInButtons from './HeaderButtons/IsNotloggedInButtons';
 import IsLoggedInButtons from './HeaderButtons/IsLoggedInButtons';
 
 import Container from '@mui/material/Container';
@@ -16,11 +15,7 @@ function BottomHeaderBar({ isLoggedIn }: Props) {
             component={Paper}
         >
             <Container>
-                {
-                    isLoggedIn
-                        ? <IsLoggedInButtons />
-                        : <IsNotloggedInButtons />
-                }
+                <IsLoggedInButtons whichHeaderBar='bottom'/>
             </Container>
         </Box >
     )
