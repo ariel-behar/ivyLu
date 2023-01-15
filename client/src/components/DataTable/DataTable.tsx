@@ -19,10 +19,11 @@ import TableContainer from "@mui/material/TableContainer"
 type TEntityType = 'client' | 'staff' | 'service' | 'product' | 'order'
 interface Props {
     entityType: TEntityType,
-    entities: Omit<User, 'password'>[] | Product[] | Service[] | Order[] | null
+    entities: Omit<User, 'password'>[] | Product[] | Service[] | Order[] | null,
+    requester?: 'client' | 'staff'
 }
 
-function DataTable({ entityType, entities }: Props) {
+function DataTable({ entityType, entities, requester }: Props) {
     const [showConfirmationDialog, setShowConfirmationDialog] = useState<boolean>(false)
     const [deleteItem, setDeleteItem] = useState<{ _id: string, entity: TEntityType | '' }>({
         _id: '',
@@ -65,6 +66,7 @@ function DataTable({ entityType, entities }: Props) {
                     {entityType === 'order'
                         && <OrderDataTable
                             entities={entities as Order[]}
+                            requester={requester}
                             />
                     }
 

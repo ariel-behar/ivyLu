@@ -13,12 +13,12 @@ function DashboardView() {
     const location = useLocation();
     const navigate = useNavigate()
 	
-	useEffect(() => {
-        if (location.pathname === '/dashboard') {
+	// useEffect(() => {
+    //     if (location.pathname === '/dashboard') {
 
-            navigate('/dashboard/profile')
-        }
-    }, [])
+    //         navigate('/dashboard/orders')
+    //     }
+    // }, [])
 
 
 	const [value, setValue] = useState(0);
@@ -34,9 +34,9 @@ function DashboardView() {
 			<Box sx={{ width: '100%' }}>
 				<Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
 					<Tabs value={value} onChange={handleChange}>
-						<Tab label="Profile" value={0} component={RouterNavLink} to='/dashboard/profile' sx={{ '&.active': { fontWeight: 'fontWeightBold' } }} />
-						<Tab label="My Orders"  value={1} component={RouterNavLink} to='/dashboard/orders' sx={{ '&.active': { fontWeight: 'fontWeightBold' } }} />
-						<Tab label="My Appointments"  value={2} component={RouterNavLink} to='/dashboard/appointments' sx={{ '&.active': { fontWeight: 'fontWeightBold' } }} />
+						<Tab label="My Orders"  value={0} component={RouterNavLink} to='/dashboard/orders' sx={{ '&.active': { fontWeight: 'fontWeightBold' } }} />
+						<Tab label="My Appointments"  value={1} component={RouterNavLink} to='/dashboard/appointments' sx={{ '&.active': { fontWeight: 'fontWeightBold' } }} />
+						<Tab label="Profile" value={2} component={RouterNavLink} to='/dashboard/profile' sx={{ '&.active': { fontWeight: 'fontWeightBold' } }} />
 					</Tabs>
 				</Box>
 			</Box>
