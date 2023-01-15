@@ -55,6 +55,52 @@ router.get('/', isAuth, isHairdresserOperatorAdmin, (req, res, next) => __awaite
         next(err);
     }
 }));
+router.get('/:userId', isAuth, isClient, (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    let userId = req.params['userId'];
+    try {
+        let orderResponse = yield ordersServices.getAllClientsOrders(userId);
+        console.log('orderResponse:', orderResponse);
+        if (orderResponse) {
+            let structuredOrderResponse = orderResponse.map((order) => {
+                let client;
+                let product;
+                if (typeof order.client != 'string') {
+                    client = {
+                        firstName: order.client.firstName,
+                        lastName: order.client.lastName,
+                        phone: order.client.phone,
+                        gender: order.client.gender,
+                        email: order.client.email,
+                    };
+                }
+                if (typeof order.product != 'string') {
+                    product = {
+                        title: order.product.title,
+                        description: order.product.description,
+                        imgUrl: order.product.imgUrl,
+                        price: order.product.price,
+                        volume: order.product.volume,
+                        volumeMeasurementUnit: order.product.volumeMeasurementUnit,
+                        productCategory: order.product.productCategory,
+                        createdAt: order.product.createdAt,
+                        productCode: order.product.productCode
+                    };
+                }
+                return {
+                    _id: order._id,
+                    createdAt: order.createdAt,
+                    status: order.status,
+                    client,
+                    product
+                };
+            });
+            res.json(structuredOrderResponse);
+        }
+    }
+    catch (err) {
+        next(err);
+    }
+}));
 router.post('/create', isAuth, isClient, (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     let { clientId, productId, status } = req.body;
     try {

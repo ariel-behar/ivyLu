@@ -1,13 +1,31 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { NavLink as RouterNavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
+
+import { isAuthRouteGuard } from "../../../hoc/isAuthRouteGuard";
 
 import Box from "@mui/material/Box"
 import Container from "@mui/material/Container"
 import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
-import { isAuthRouteGuard } from "../../../hoc/isAuthRouteGuard";
-import { NavLink as RouterNavLink, Outlet } from "react-router-dom";
+
 
 function DashboardView() {
+    const location = useLocation();
+    const navigate = useNavigate()
+	
+	useEffect(() => {
+        if (location.pathname === '/dashboard') {
+
+            navigate('/dashboard/profile')
+        }
+    }, [])
+
+
+	const [value, setValue] = useState(0);
+
+	const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+	  setValue(newValue);
+	};
 
 	return (
 		<Container>
@@ -15,10 +33,10 @@ function DashboardView() {
 
 			<Box sx={{ width: '100%' }}>
 				<Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-					<Tabs aria-label="basic tabs example">
-						<Tab label="Profile" component={RouterNavLink} to='/dashboard/profile' sx={{ '&.active': { fontWeight: 'fontWeightBold' } }} />
-						<Tab label="Orders" component={RouterNavLink} to='/dashboard/orders' sx={{ '&.active': { fontWeight: 'fontWeightBold' } }} />
-						<Tab label="Appointments" component={RouterNavLink} to='/dashboard/appointments' sx={{ '&.active': { fontWeight: 'fontWeightBold' } }} />
+					<Tabs value={value} onChange={handleChange}>
+						<Tab label="Profile" value={0} component={RouterNavLink} to='/dashboard/profile' sx={{ '&.active': { fontWeight: 'fontWeightBold' } }} />
+						<Tab label="My Orders"  value={1} component={RouterNavLink} to='/dashboard/orders' sx={{ '&.active': { fontWeight: 'fontWeightBold' } }} />
+						<Tab label="My Appointments"  value={2} component={RouterNavLink} to='/dashboard/appointments' sx={{ '&.active': { fontWeight: 'fontWeightBold' } }} />
 					</Tabs>
 				</Box>
 			</Box>

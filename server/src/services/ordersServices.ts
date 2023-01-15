@@ -7,3 +7,5 @@ export const getOne = (orderId: IdType) => Order.findById(orderId).populate('cli
 
 export const getAll = () => Order.find({}).populate('client').populate('product').lean();
 
+export const getAllClientsOrders = (userId: IdType) => Order.find({client: userId}).populate('product').lean();
+

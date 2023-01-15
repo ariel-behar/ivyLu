@@ -5,7 +5,7 @@ import { createBrowserRouter } from "react-router-dom";
 import { getAllServicesLoader, getOneServicesAndHairdressersLoader, getOneServicesLoader } from '../data-loaders/servicesLoader'
 import { getAllProductsLoader, getOneProductLoader } from "../data-loaders/productsLoader";
 import { getAllClientsLoader } from "../data-loaders/clientsLoader";
-import { getAllOrdersLoader } from "../data-loaders/ordersLoader";
+import { getAllOrdersLoader, getClientOrdersLoader } from "../data-loaders/ordersLoader";
 import { getAllHairdressers, getAllStaffLoader, getOneStaffMemberLoader } from "../data-loaders/staffLoader";
 import { getScheduleForAllLoader } from "../data-loaders/scheduleLoader";
 
@@ -41,8 +41,8 @@ import ShoppingCartView from "../views/ShoppingCartView";
 import GalleryView from "../views/GalleryView";
 import RegisterEditAuthorizedUserView from "../views/AuthorizedViews/UsersViews/RegisterEditAuthorizedUserView";
 import ProfileView from "../views/AuthorizedViews/DashboardView/ProfileView";
-import ClientOrdersView from "../views/AuthorizedViews/DashboardView/ClientOrdersView";
-import ClientAppointmentsView from "../views/AuthorizedViews/DashboardView/ClientAppointmentsView";
+import MyOrdersView from "../views/AuthorizedViews/DashboardView/MyOrdersView";
+import MyAppointmentsView from "../views/AuthorizedViews/DashboardView/MyAppointmentsView";
 
 const LazyDashboardView = lazy(() => import('../views/AuthorizedViews/DashboardView/DashboardView'))
 const LazyManagementRootView = lazy(() => import('../views/AuthorizedViews/ManagementRootView'))
@@ -134,11 +134,12 @@ const router = createBrowserRouter([
 					},
 					{
 						path: 'orders',
-						element: <ClientOrdersView />
+						loader: getClientOrdersLoader,
+						element: <MyOrdersView />
 					},
 					{
 						path: 'appointments',
-						element: <ClientAppointmentsView />
+						element: <MyAppointmentsView />
 					}
 				]
 			},

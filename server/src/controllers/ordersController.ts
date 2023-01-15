@@ -58,6 +58,63 @@ router.get('/', isAuth, isHairdresserOperatorAdmin, async (req: Request, res: Re
     }
 })
 
+router.get('/:userId', isAuth, isClient, async (req: Request, res: Response, next: NextFunction) => {
+    let userId = req.params['userId']
+
+    try {
+        let orderResponse: LeanDocument<IOrderDocument>[]= await ordersServices.getAllClientsOrders(userId)
+        console.log('orderResponse:', orderResponse)
+
+        if (orderResponse) {
+            let structuredOrderResponse = orderResponse.map((order: IOrderDocument) => {
+                let client;
+                let product;
+
+                if (typeof order.client != 'string') {
+                    client = {
+                        firstName: order.client.firstName,
+                        lastName: order.client.lastName,
+                        phone: order.client.phone,
+                        gender: order.client.gender,
+                        email: order.client.email,
+                    }
+                }
+                
+                if (typeof order.product != 'string') {
+                    product = {
+                        title: order.product.title,
+                        description: order.product.description,
+                        imgUrl: order.product.imgUrl,
+                        price: order.product.price,
+                        volume: order.product.volume,
+                        volumeMeasurementUnit: order.product.volumeMeasurementUnit,
+                        productCategory: order.product.productCategory,
+                        createdAt: order.product.createdAt,
+                        productCode: order.product.productCode
+                    }
+                }
+
+                return {
+                    _id: order._id,
+                    createdAt: order.createdAt,
+                    status: order.status,
+                    client,
+                    product
+                }
+            })
+
+            res.json(structuredOrderResponse)
+        } 
+    } catch (err: any) {
+        next(err)
+    }
+})
+
+
+
+
+
+
 router.post('/create', isAuth, isClient, async (req: Request, res: Response, next: NextFunction) => {
     let { clientId, productId, status } = req.body;
 
