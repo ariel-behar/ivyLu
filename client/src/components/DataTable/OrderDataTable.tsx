@@ -41,7 +41,8 @@ function OrderDataTable({
             </TableHead>
             <TableBody>
 
-                {
+                {entities.length > 0
+                    ?
                     (entities as Order[]).map((order: Order) => (
 
                         <StyledTableRow
@@ -67,13 +68,16 @@ function OrderDataTable({
                             <TableCell> - </TableCell>
 
                             <TableCell> - </TableCell>
-                            
-                            <TableCell sx={{color: order.status === 1? 'warning.main' : ''}}>
+
+                            <TableCell sx={{ color: order.status === 1 ? 'warning.main' : '' }}>
                                 {`${getOrderStatus(Number(order.status))}`}
                             </TableCell>
 
                         </StyledTableRow>
                     ))
+                    : <StyledTableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                        <TableCell align='center'>There are no orders at the moment</TableCell>
+                    </StyledTableRow>
                 }
             </TableBody>
         </>
@@ -82,3 +86,4 @@ function OrderDataTable({
 }
 
 export default OrderDataTable
+

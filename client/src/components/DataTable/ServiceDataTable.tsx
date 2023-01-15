@@ -46,7 +46,8 @@ function ServiceDataTable({
             </TableHead>
             <TableBody>
 
-                {
+                {entities.length > 0
+                    ?
                     (entities as Service[]).map((service) => (
                         <StyledTableRow
                             key={service._id}
@@ -84,6 +85,9 @@ function ServiceDataTable({
 
                         </StyledTableRow>
                     ))
+                    : <StyledTableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                        <TableCell align='center'>There are no registered services at the moment</TableCell>
+                    </StyledTableRow>
                 }
             </TableBody>
         </>

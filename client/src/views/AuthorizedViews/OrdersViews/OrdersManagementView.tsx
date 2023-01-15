@@ -3,7 +3,7 @@ import DataTable from '../../../components/DataTable/DataTable'
 import { Order } from '../../../models/Order';
 
 function OrdersManagementView() {
-	const orders = useLoaderData() as Order[];
+	const orders = useLoaderData() as Order[] | null;
 
 	return (
 		<>

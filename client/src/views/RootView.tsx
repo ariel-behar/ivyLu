@@ -8,18 +8,14 @@ import Stack from '@mui/material/Stack'
 
 function RootView() {
     return (
-        <Box sx={{backgroundColor: 'main.black'}}>
+        <Box sx={{backgroundColor: '#424242', minHeight:'100vh'}}>
             <Notification />
 
             <Header />
 
-            <Box height='38px'></Box>
-
-            <Stack flexGrow={1}>
+            <Stack flexGrow={1} height='100%' sx={{paddingTop: '38px', paddingBottom: '50px'}}>
                 <Outlet />
             </Stack>
-
-            <Box height='80px'></Box>
 
             <Footer />
         </Box>

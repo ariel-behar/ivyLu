@@ -19,7 +19,7 @@ import TableContainer from "@mui/material/TableContainer"
 type TEntityType = 'client' | 'staff' | 'service' | 'product' | 'order'
 interface Props {
     entityType: TEntityType,
-    entities: Omit<User, 'password'>[] | Product[] | Service[] | Order[]
+    entities: Omit<User, 'password'>[] | Product[] | Service[] | Order[] | null
 }
 
 function DataTable({ entityType, entities }: Props) {

@@ -5,6 +5,7 @@ import { Service } from "../../models/Service";
 import ImageList from "@mui/material/ImageList";
 import ServiceCard from "../../components/ServiceCard";
 import Typography from "@mui/material/Typography";
+import uniqid from "uniqid";
 
 function ServicesView() {
     const services = useOutletContext() as Service[];
@@ -23,7 +24,7 @@ function ServicesView() {
             >
                 {
                     services.map(service => (
-                        <ServiceCard service={service} />
+                        <ServiceCard service={service} key={uniqid()} />
                     ))
                 }
             </ImageList>

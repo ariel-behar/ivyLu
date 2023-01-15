@@ -1,15 +1,11 @@
-import { Link as RouterLink } from 'react-router-dom'
 import { motion } from "framer-motion"
 
 import { Product } from '../models/Product';
 import { getMeasurementUnit } from '../utils/getMeasurementUnit';
-import { useAuthContext } from '../contexts/AuthContext';
 
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
-import { useState } from 'react';
 import YellowHoverableButton from './Buttons/YellowHoverableButton';
 
 interface Props {
@@ -19,8 +15,7 @@ interface Props {
 export default function ProductCard({
 	product,
 }: Props) {
-	const { isLoggedIn } = useAuthContext() as { isLoggedIn: boolean };
-	const [hovered, setHovered ] = useState<boolean>(false);
+
 
 	return (
 		<Stack
@@ -80,11 +75,9 @@ export default function ProductCard({
 						<Typography variant="body1" sx={{ color: 'common.white' }}>Volume: <b> {product.volume} {getMeasurementUnit(product.volumeMeasurementUnit).abbreviated} </b></Typography>
 						<Typography variant="body1" sx={{ color: 'common.white' }}>Price: <b>{product.price} BGN</b></Typography>
 					</Stack>
-					
 
 					<YellowHoverableButton entity={product} entityType='product' text='Order now' />
 
-				
 				</Stack>
 			</Box>
 		</Stack>

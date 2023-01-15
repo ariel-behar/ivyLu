@@ -23,7 +23,6 @@ const entityServices: ApiEntity<IdType, Product, AuthTokenType> = new ApiEntityI
 function ProductsView() {
 	const { displayNotification } = useNotificationContext() as any;
 	const [products, setProducts] = useState<Product[]>(useLoaderData() as Product[])
-	console.log('products:', products)
 	const [availableProductCategories, setAvailableProductCategories] = useState<TProductCategories[] | []>([])
 	const [currentlySelectedCategory, setCurrentlySelectedCategory] = useState<TProductCategories | 'all'>('all')
 

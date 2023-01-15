@@ -51,7 +51,8 @@ function ProductDataTable({
             </TableHead>
             <TableBody>
 
-                {
+                {entities.length > 0
+                    ?
                     (entities as Product[]).map((product) => (
                         <StyledTableRow
                             key={product._id}
@@ -93,6 +94,9 @@ function ProductDataTable({
 
                         </StyledTableRow>
                     ))
+                    : <StyledTableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                        <TableCell align='center'>There are no registered products at the moment</TableCell>
+                    </StyledTableRow>
                 }
             </TableBody>
         </>

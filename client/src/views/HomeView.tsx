@@ -11,7 +11,7 @@ function HomeView() {
 			backgroundImage: `url('${womanDarkHair}')`,
 			backgroundRepeat: 'no-repeat',
 			backgroundSize: 'cover',
-			height: '100vh'
+			minHeight: '100vh'
 		}}
 		>
 			<Container>

@@ -12,6 +12,8 @@ import 'react-big-calendar/lib/css/react-big-calendar.css'
 
 import { Calendar, dateFnsLocalizer } from 'react-big-calendar'
 import { Views } from 'react-big-calendar';
+import { Paper } from '@mui/material';
+import { Box } from '@mui/system';
 
 const locales = {
 	"en-US": require('date-fns/locale/en-US')
@@ -63,16 +65,16 @@ function ScheduleManagementView() {
 		<>
 			<div>ScheduleManagementView</div>
 
-			<div className="App">
+			<Box sx={{backgroundColor: 'common.white'}}>
 				<Calendar
 					defaultView={Views.AGENDA}
 					localizer={localizer}
 					events={allScheduledItems}
 					startAccessor='start'
 					endAccessor='end'
-					style={{ minHeight: '600px', marginTop: '50px' }}
+					style={{ minHeight: '600px', marginTop: '50px', padding: '10px 5px' }}
 				/>
-			</div>
+			</Box>
 		</>
 	)
 
