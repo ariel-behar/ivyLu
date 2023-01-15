@@ -7,7 +7,7 @@ const userServices: ApiUser<IdType, User,AuthTokenType> = new ApiUserImpl<IdType
 
 export async function getAllStaffLoader() {
     let user = await localStorage.getItem('user')
-    let parsedUser: object | null;
+    let parsedUser: User | null;
     let authToken: string;
     let staffMembers;
 
@@ -15,7 +15,7 @@ export async function getAllStaffLoader() {
         parsedUser = JSON.parse(user)
         if(parsedUser) {
             try {
-                authToken = parsedUser['authToken' as keyof typeof parsedUser]
+                authToken = parsedUser.authToken
                 staffMembers = await userServices.getAll(authToken)
     
                 return staffMembers;
@@ -41,14 +41,14 @@ export async function getAllHairdressers() {
 
 export async function getOneStaffMemberLoader({params}: LoaderFunctionArgs) {
     let user = await localStorage.getItem('user')
-    let parsedUser: object | null;
+    let parsedUser: User | null;
     let authToken: string;
     
     if(typeof params.userId === 'string') {
         if(user) {
             parsedUser = JSON.parse(user)
             if(parsedUser) {
-                authToken = parsedUser['authToken' as keyof typeof parsedUser]
+                authToken = parsedUser.authToken
                 try {
                     const staffMember = await userServices.getOne(params.userId, authToken)
 

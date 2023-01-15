@@ -1,8 +1,9 @@
+import { User } from "../models/User";
 import * as scheduleServices from "../services/scheduleServices";
 
 export async function getScheduleForAllLoader() {
     let user = await localStorage.getItem('user')
-    let parsedUser: object | null;
+    let parsedUser: User | null;
     let authToken: string;
     let scheduleItems;
 
@@ -10,7 +11,7 @@ export async function getScheduleForAllLoader() {
         parsedUser = JSON.parse(user)
         if(parsedUser) {
             try {
-                authToken = parsedUser['authToken' as keyof typeof parsedUser]
+                authToken = parsedUser.authToken
                 scheduleItems = await scheduleServices.getAll(authToken)
     
                 return scheduleItems;

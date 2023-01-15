@@ -1,9 +1,10 @@
 
+import { User } from '../models/User';
 import * as orderServices from '../services/orderServices'
 
 export async function getAllOrdersLoader() {
     let user = localStorage.getItem('user')
-    let parsedUser: object | null;
+    let parsedUser: User | null;
     let authToken: string;
     let orders;
 
@@ -11,7 +12,7 @@ export async function getAllOrdersLoader() {
         parsedUser = JSON.parse(user)
         if(parsedUser) {
             try {
-                authToken = parsedUser['authToken' as keyof typeof parsedUser]
+                authToken = parsedUser.authToken
                 orders = await orderServices.getAll(authToken)
     
                 return orders;
