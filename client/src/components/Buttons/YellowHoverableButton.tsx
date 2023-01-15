@@ -12,7 +12,6 @@ interface Props {
     entity: Service | Product,
     entityType: 'service' | 'product',
     text: string
-
 }
 
 function YellowHoverableButton({
@@ -22,7 +21,6 @@ function YellowHoverableButton({
 }: Props) {
     const [hovered, setHovered] = useState<boolean>(false);
     const { isLoggedIn } = useAuthContext() as { isLoggedIn: boolean };
-
 
     return (
         <Button
