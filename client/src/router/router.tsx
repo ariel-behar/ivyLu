@@ -126,6 +126,9 @@ const router = createBrowserRouter([
 				children: [
 					{
 						index: true,
+						element: <ProfileView />
+					},
+					{
 						path: 'profile',
 						element: <ProfileView />
 					},
@@ -147,6 +150,7 @@ const router = createBrowserRouter([
 				children: [
 					{
 						index: true,
+						loader: getAllOrdersLoader,
 						element: <OrdersManagementView />
 					},
 					{

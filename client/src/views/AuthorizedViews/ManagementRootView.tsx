@@ -1,4 +1,4 @@
-import { Outlet, NavLink as RouterNavLink } from "react-router-dom"
+import { Outlet, NavLink as RouterNavLink, useLocation, useNavigate } from "react-router-dom"
 
 import { useAuthContext } from "../../contexts/AuthContext";
 import { isAuthRouteGuard } from "../../hoc/isAuthRouteGuard";
@@ -7,10 +7,20 @@ import Stack from "@mui/material/Stack"
 import Breadcrumbs from "@mui/material/Breadcrumbs"
 import Link from "@mui/material/Link"
 import Container from "@mui/material/Container";
+import { useEffect } from "react";
 
 
 function ManagementRootView() {
-    const { isAdmin } = useAuthContext() as {isAdmin: boolean};
+    const { isAdmin } = useAuthContext() as { isAdmin: boolean };
+    const location = useLocation();
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        if (location.pathname === '/management') {
+
+            navigate('/management/orders')
+        }
+    }, [])
 
     return (
         <Container>
@@ -68,9 +78,9 @@ function ManagementRootView() {
                             Clients
                         </Link>
                     }
-                    
+
                     {isAdmin &&
-                         <Link
+                        <Link
                             mx={2}
                             underline="hover"
                             to="/management/staff"
