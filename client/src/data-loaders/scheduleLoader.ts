@@ -9,7 +9,7 @@ export async function getScheduleForAllLoader() {
 
     if(user) {
         parsedUser = JSON.parse(user)
-        if(parsedUser) {
+        if(parsedUser?._id) {
             try {
                 authToken = parsedUser.authToken
                 scheduleItems = await scheduleServices.getAll(authToken)
@@ -26,5 +26,10 @@ export async function getScheduleForAllLoader() {
                 throw { message: `${error['message' as keyof typeof error]}` }
             }
         }
+        else {
+            return null;
+        }
+    } else {
+        return null;
     }
 }

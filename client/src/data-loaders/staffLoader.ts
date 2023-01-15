@@ -47,7 +47,7 @@ export async function getOneStaffMemberLoader({params}: LoaderFunctionArgs) {
     if(typeof params.userId === 'string') {
         if(user) {
             parsedUser = JSON.parse(user)
-            if(parsedUser) {
+            if(parsedUser?._id) {
                 authToken = parsedUser.authToken
                 try {
                     const staffMember = await userServices.getOne(params.userId, authToken)
@@ -58,5 +58,10 @@ export async function getOneStaffMemberLoader({params}: LoaderFunctionArgs) {
                 }
             }
         }
+        else {
+            return null;
+        }
+    } else {
+        return null;
     }
 }

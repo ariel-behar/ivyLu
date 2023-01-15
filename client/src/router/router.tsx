@@ -118,7 +118,7 @@ const router = createBrowserRouter([
 				path: "/shopping-cart",
 				element: <ShoppingCartView />
 			},
-			{
+			{ // /dashboard
 				path: "/dashboard",
 				element: <Suspense fallback='loading...'>
 							<LazyDashboardView />
@@ -126,11 +126,8 @@ const router = createBrowserRouter([
 				children: [
 					{
 						index: true,
-						element: <ProfileView />
-					},
-					{
-						path: 'profile',
-						element: <ProfileView />
+						loader: getClientOrdersLoader,
+						element: <MyOrdersView />
 					},
 					{
 						path: 'orders',
@@ -140,7 +137,11 @@ const router = createBrowserRouter([
 					{
 						path: 'appointments',
 						element: <MyAppointmentsView />
-					}
+					},
+					{
+						path: 'profile',
+						element: <ProfileView />
+					},
 				]
 			},
 			{ // /management

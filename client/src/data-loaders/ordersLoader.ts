@@ -11,7 +11,7 @@ export async function getAllOrdersLoader() {
 
     if(user) {
         parsedUser = JSON.parse(user)
-        if(parsedUser) {
+        if(parsedUser?._id) {
             try {
                 authToken = parsedUser.authToken
                 orders = await orderServices.getAll(authToken)
@@ -28,6 +28,11 @@ export async function getAllOrdersLoader() {
                 throw { message: `${error['message' as keyof typeof error]}` }
             }
         }
+        else {
+            return null;
+        }
+    } else {
+        return null;
     }
 }
 
@@ -40,7 +45,7 @@ export async function getClientOrdersLoader() {
 
     if(user) {
         parsedUser = JSON.parse(user)
-        if(parsedUser) {
+        if(parsedUser?._id) {
             try {
                 authToken = parsedUser.authToken
                 userId = parsedUser._id
@@ -59,5 +64,10 @@ export async function getClientOrdersLoader() {
                 throw { message: `${error['message' as keyof typeof error]}` }
             }
         }
+        else {
+            return null;
+        }
+    } else {
+        return null;
     }
 }
