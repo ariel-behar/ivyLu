@@ -40,9 +40,11 @@ import ProductOrderView from "../views/ProductViews/ProductOrderView";
 import ShoppingCartView from "../views/ShoppingCartView";
 import GalleryView from "../views/GalleryView";
 import RegisterEditAuthorizedUserView from "../views/AuthorizedViews/UsersViews/RegisterEditAuthorizedUserView";
+import ProfileView from "../views/AuthorizedViews/DashboardView/ProfileView";
+import ClientOrdersView from "../views/AuthorizedViews/DashboardView/ClientOrdersView";
+import ClientAppointmentsView from "../views/AuthorizedViews/DashboardView/ClientAppointmentsView";
 
-
-const LazyDashboardView = lazy(() => import('../views/DashboardView'))
+const LazyDashboardView = lazy(() => import('../views/AuthorizedViews/DashboardView/DashboardView'))
 const LazyManagementRootView = lazy(() => import('../views/AuthorizedViews/ManagementRootView'))
 
 const router = createBrowserRouter([
@@ -120,7 +122,22 @@ const router = createBrowserRouter([
 				path: "/dashboard",
 				element: <Suspense fallback='loading...'>
 							<LazyDashboardView />
-						</Suspense>
+						</Suspense>,
+				children: [
+					{
+						index: true,
+						path: 'profile',
+						element: <ProfileView />
+					},
+					{
+						path: 'orders',
+						element: <ClientOrdersView />
+					},
+					{
+						path: 'appointments',
+						element: <ClientAppointmentsView />
+					}
+				]
 			},
 			{ // /management
 				path: "/management",
