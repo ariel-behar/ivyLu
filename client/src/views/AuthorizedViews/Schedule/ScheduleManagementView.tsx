@@ -3,29 +3,7 @@ import { useLoaderData } from 'react-router-dom';
 
 import { IScheduleConfirmationResponse } from '../../../types/scheduleTypes';
 
-import format from 'date-fns/format'
-import parse from 'date-fns/parse'
-import startOfWeek from 'date-fns/startOfWeek';
-import getDay from 'date-fns/getDay';
-
-import 'react-big-calendar/lib/css/react-big-calendar.css'
-
-import { Calendar, dateFnsLocalizer } from 'react-big-calendar'
-import { Views } from 'react-big-calendar';
-
-import Box from '@mui/material/Box';
-
-const locales = {
-	"en-US": require('date-fns/locale/en-US')
-}
-
-const localizer = dateFnsLocalizer({
-	format,
-	parse,
-	startOfWeek,
-	getDay,
-	locales
-})
+import ScheduleCalendar from '../../../components/ScheduleCalendar';
 
 interface IScheduledItem {
 	title: string
@@ -35,19 +13,19 @@ interface IScheduledItem {
 
 function ScheduleManagementView() {
 	const schedule = useLoaderData() as IScheduleConfirmationResponse[]
-	const [allScheduledItems, setAllScheduledItems] = useState<IScheduledItem[]>([]);
+	const [scheduledItems, setScheduledItems] = useState<IScheduledItem[]>([]);
 
 	useEffect(() => {
-		let filteredScheduleData = schedule.map((scheduleItem: IScheduleConfirmationResponse) => {
-			let title = `${scheduleItem.hairdresser.firstName} ${scheduleItem.hairdresser.lastName} - ${scheduleItem.service.title} - ${scheduleItem.client.firstName} ${scheduleItem.client.lastName} (${scheduleItem.client.phone})`
+		let filteredScheduleData = schedule.map((item: IScheduleConfirmationResponse) => {
+			let title = `${item.hairdresser.firstName} ${item.hairdresser.lastName} - ${item.service.title} - ${item.client.firstName} ${item.client.lastName} (${item.client.phone})`
 
-			let year = Number(scheduleItem.appointmentDetails?.yearISO)
-			let month = Number(scheduleItem.appointmentDetails?.monthISO) - 1
-			let day = Number(scheduleItem.appointmentDetails?.dayISO)
-			let hour = Number(scheduleItem.appointmentDetails?.hourISO)
-			let minutes = Number(scheduleItem.appointmentDetails?.minutesISO)
+			let year = Number(item.appointmentDetails?.yearISO)
+			let month = Number(item.appointmentDetails?.monthISO) - 1
+			let day = Number(item.appointmentDetails?.dayISO)
+			let hour = Number(item.appointmentDetails?.hourISO)
+			let minutes = Number(item.appointmentDetails?.minutesISO)
 
-			let appointmentDuration = Number(scheduleItem.service.duration)
+			let appointmentDuration = Number(item.service.duration)
 
 			let start = new Date(year, month, day, hour, minutes)
 			let end = new Date(year, month, day, hour, minutes + appointmentDuration)
@@ -55,7 +33,7 @@ function ScheduleManagementView() {
 			return { title , start, end }
 		})
 
-		setAllScheduledItems(filteredScheduleData)
+		setScheduledItems(filteredScheduleData)
 		return () => {
 		}
 	}, [schedule])
@@ -65,16 +43,7 @@ function ScheduleManagementView() {
 		<>
 			<div>ScheduleManagementView</div>
 
-			<Box sx={{backgroundColor: 'common.white'}}>
-				<Calendar
-					defaultView={Views.AGENDA}
-					localizer={localizer}
-					events={allScheduledItems}
-					startAccessor='start'
-					endAccessor='end'
-					style={{ minHeight: '600px', marginTop: '50px', padding: '10px 5px' }}
-				/>
-			</Box>
+			<ScheduleCalendar scheduledItems={scheduledItems}/>
 		</>
 	)
 
