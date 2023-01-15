@@ -58,12 +58,11 @@ router.get('/', isAuth, isHairdresserOperatorAdmin, async (req: Request, res: Re
     }
 })
 
-router.get('/:userId', isAuth, async (req: Request, res: Response, next: NextFunction) => {
-    let userId = req.params['userId']
+router.get('/:clientId', isAuth, async (req: Request, res: Response, next: NextFunction) => {
+    let clientId = req.params['clientId']
 
     try {
-        let orderResponse: LeanDocument<IOrderDocument>[]= await ordersServices.getAllClientsOrders(userId)
-        console.log('orderResponse:', orderResponse)
+        let orderResponse: LeanDocument<IOrderDocument>[]= await ordersServices.getAllClientsOrders(clientId)
 
         if (orderResponse) {
             let structuredOrderResponse = orderResponse.map((order: IOrderDocument) => {

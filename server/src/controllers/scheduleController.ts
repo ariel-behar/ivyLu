@@ -9,6 +9,7 @@ import { IScheduleDocument } from '../models/Schedule.js';
 import { InvalidDataError } from '../models/Errors.js';
 
 import { isAuth, isClient, isHairdresserOperatorAdmin } from '../middlewares/authMiddleware.js'
+import { IClientDocument } from '../models/Client.js';
 
 const router = Router();
 
@@ -79,7 +80,7 @@ router.get('/', isAuth, isHairdresserOperatorAdmin, async (req: Request, res: Re
     }
 })
 
-router.get('/:hairdresserId', async (req: Request, res: Response, next: NextFunction) => {
+router.get('/hairdresser/:hairdresserId', async (req: Request, res: Response, next: NextFunction) => {
     const hairdresserId = req.params.hairdresserId;
 
     try {
@@ -117,6 +118,26 @@ router.get('/:hairdresserId', async (req: Request, res: Response, next: NextFunc
             }
 
             return res.json({...hairdresserSchedule, appointments})
+        } 
+
+    } catch (err: any) {
+        if (err.message.includes("Cannot read properties of undefined")) {
+            // In case no scheduled items have been found in the collection
+            res.status(200)
+        } else {
+            next(err)
+        }
+    }
+})
+
+router.get('/:clientId', async (req: Request, res: Response, next: NextFunction) => {
+    const clientId = req.params.clientId;
+
+    try {
+        let clientScheduleResponse: IScheduleDocument[] | null = await scheduleServices.getClientSchedule(clientId)
+
+        if (clientScheduleResponse) {
+            return res.json(clientScheduleResponse)
         } 
 
     } catch (err: any) {

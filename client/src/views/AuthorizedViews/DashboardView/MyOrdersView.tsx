@@ -4,15 +4,16 @@ import DataTable from '../../../components/DataTable/DataTable';
 import { Order } from '../../../models/Order';
 
 function MyOrdersView() {
-  let orders = useLoaderData() as Order[];
+	let orders = useLoaderData() as Order[];
+	console.log('orders:', orders)
 
-  return (
-    <>
-      <div>MyOrdersView</div>
+	return (
+		<>
+			<div>MyOrdersView</div>
 
-      <DataTable entities={orders} entityType='order' requester='client'/>
-    </>
-  )
+			<DataTable entities={orders} entityType='order' requester='client' />
+		</>
+	)
 }
 
 export default MyOrdersView

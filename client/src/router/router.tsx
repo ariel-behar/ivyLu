@@ -7,7 +7,7 @@ import { getAllProductsLoader, getOneProductLoader } from "../data-loaders/produ
 import { getAllClientsLoader } from "../data-loaders/clientsLoader";
 import { getAllOrdersLoader, getClientOrdersLoader } from "../data-loaders/ordersLoader";
 import { getAllHairdressers, getAllStaffLoader, getOneStaffMemberLoader } from "../data-loaders/staffLoader";
-import { getScheduleForAllLoader } from "../data-loaders/scheduleLoader";
+import { getClientScheduleLoader, getScheduleForAllLoader } from "../data-loaders/scheduleLoader";
 
 import RootView from "../views/RootView";
 
@@ -136,6 +136,7 @@ const router = createBrowserRouter([
 					},
 					{
 						path: 'appointments',
+						loader: getClientScheduleLoader,
 						element: <MyAppointmentsView />
 					},
 					{

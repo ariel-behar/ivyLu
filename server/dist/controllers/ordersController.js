@@ -55,11 +55,10 @@ router.get('/', isAuth, isHairdresserOperatorAdmin, (req, res, next) => __awaite
         next(err);
     }
 }));
-router.get('/:userId', isAuth, (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    let userId = req.params['userId'];
+router.get('/:clientId', isAuth, (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    let clientId = req.params['clientId'];
     try {
-        let orderResponse = yield ordersServices.getAllClientsOrders(userId);
-        console.log('orderResponse:', orderResponse);
+        let orderResponse = yield ordersServices.getAllClientsOrders(clientId);
         if (orderResponse) {
             let structuredOrderResponse = orderResponse.map((order) => {
                 let client;

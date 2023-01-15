@@ -19,8 +19,8 @@ function ServiceAppointmentConfirmationCard({ confirmationResponse }: Props) {
 					<Typography variant="h6"><u>Appointment Details:</u></Typography>
 					<Stack direction='row' justifyContent='space-between'>
 						<Box>
-							<Typography variant="body1">Date: <b>{confirmationResponse.appointmentDetails.dayISO} {confirmationResponse.appointmentDetails.monthName}, {confirmationResponse.appointmentDetails.yearISO} ({confirmationResponse.appointmentDetails.dateISO})</b></Typography>
-							<Typography variant="body1">Time: <b>{confirmationResponse.appointmentDetails.scheduledHour}</b></Typography>
+							<Typography variant="body1">Date: <b>{confirmationResponse.appointmentDetails?.dayISO} {confirmationResponse.appointmentDetails?.monthName}, {confirmationResponse.appointmentDetails?.yearISO} ({confirmationResponse.appointmentDetails?.dateISO})</b></Typography>
+							<Typography variant="body1">Time: <b>{confirmationResponse.appointmentDetails?.scheduledHour}</b></Typography>
 						</Box>
 						<Box>
 							<Typography variant="body1">Duration: <b>{confirmationResponse.service.duration} minutes</b></Typography>

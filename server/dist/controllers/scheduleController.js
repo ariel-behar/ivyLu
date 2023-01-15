@@ -74,7 +74,7 @@ router.get('/', isAuth, isHairdresserOperatorAdmin, (req, res, next) => __awaite
         next(err);
     }
 }));
-router.get('/:hairdresserId', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+router.get('/hairdresser/:hairdresserId', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const hairdresserId = req.params.hairdresserId;
     try {
         let hairdresserScheduleResponse = yield scheduleServices.getHairdresserSchedule(hairdresserId);
@@ -101,6 +101,24 @@ router.get('/:hairdresserId', (req, res, next) => __awaiter(void 0, void 0, void
                 }
             }
             return res.json(Object.assign(Object.assign({}, hairdresserSchedule), { appointments }));
+        }
+    }
+    catch (err) {
+        if (err.message.includes("Cannot read properties of undefined")) {
+            // In case no scheduled items have been found in the collection
+            res.status(200);
+        }
+        else {
+            next(err);
+        }
+    }
+}));
+router.get('/:clientId', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const clientId = req.params.clientId;
+    try {
+        let clientScheduleResponse = yield scheduleServices.getClientSchedule(clientId);
+        if (clientScheduleResponse) {
+            return res.json(clientScheduleResponse);
         }
     }
     catch (err) {

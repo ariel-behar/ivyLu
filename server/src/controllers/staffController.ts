@@ -36,7 +36,7 @@ router.get('/', async (req: Request, res: Response, next: NextFunction) => {
     }
 })
 
-router.get('/:userId', isAuth, isAdmin, async (req: Request, res: Response, next: NextFunction) => {
+router.get('/:clientId', isAuth, isAdmin, async (req: Request, res: Response, next: NextFunction) => {
     let userId = req.params.userId;
 
     try {

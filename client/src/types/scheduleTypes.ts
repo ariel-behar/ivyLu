@@ -8,5 +8,10 @@ export interface IScheduleConfirmationResponse {
     client: User,
     hairdresser: User,
     service: Service,
-    appointmentDetails: Schedule
+    appointmentDetails?: Schedule,
+    dayISO?: string,
+    monthISO?: string,
+    yearISO?: string,
+    hourISO?: string,
+    minutesISO?: string
 }

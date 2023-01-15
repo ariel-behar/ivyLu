@@ -36,7 +36,7 @@ router.get('/', (req, res, next) => __awaiter(void 0, void 0, void 0, function* 
         }
     }
 }));
-router.get('/:userId', isAuth, isAdmin, (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+router.get('/:clientId', isAuth, isAdmin, (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     let userId = req.params.userId;
     try {
         let staffMember = yield staffServices.getOne(userId);

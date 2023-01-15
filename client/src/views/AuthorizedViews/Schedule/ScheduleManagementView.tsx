@@ -12,8 +12,8 @@ import 'react-big-calendar/lib/css/react-big-calendar.css'
 
 import { Calendar, dateFnsLocalizer } from 'react-big-calendar'
 import { Views } from 'react-big-calendar';
-import { Paper } from '@mui/material';
-import { Box } from '@mui/system';
+
+import Box from '@mui/material/Box';
 
 const locales = {
 	"en-US": require('date-fns/locale/en-US')
@@ -41,11 +41,11 @@ function ScheduleManagementView() {
 		let filteredScheduleData = schedule.map((scheduleItem: IScheduleConfirmationResponse) => {
 			let title = `${scheduleItem.hairdresser.firstName} ${scheduleItem.hairdresser.lastName} - ${scheduleItem.service.title} - ${scheduleItem.client.firstName} ${scheduleItem.client.lastName} (${scheduleItem.client.phone})`
 
-			let year = Number(scheduleItem.appointmentDetails.yearISO)
-			let month = Number(scheduleItem.appointmentDetails.monthISO) - 1
-			let day = Number(scheduleItem.appointmentDetails.dayISO)
-			let hour = Number(scheduleItem.appointmentDetails.hourISO)
-			let minutes = Number(scheduleItem.appointmentDetails.minutesISO)
+			let year = Number(scheduleItem.appointmentDetails?.yearISO)
+			let month = Number(scheduleItem.appointmentDetails?.monthISO) - 1
+			let day = Number(scheduleItem.appointmentDetails?.dayISO)
+			let hour = Number(scheduleItem.appointmentDetails?.hourISO)
+			let minutes = Number(scheduleItem.appointmentDetails?.minutesISO)
 
 			let appointmentDuration = Number(scheduleItem.service.duration)
 
