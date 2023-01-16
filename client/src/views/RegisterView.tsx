@@ -4,6 +4,8 @@ import { useNavigate, Link as RouterLink } from "react-router-dom";
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
+import weAreOpenSign from '../assets/img/weareopen-sign.jpg'
+
 import TextField from '@mui/material/TextField';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
@@ -24,6 +26,8 @@ import { isGuestRouteGuard } from '../hoc/isGuestRouteGuard';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { Box } from '@mui/system';
+import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
 
 const userServices: ApiUser<IdType, User, AuthTokenType> = new ApiUserImpl<IdType, User, AuthTokenType>('clients');
 
@@ -42,6 +46,7 @@ function RegisterView() {
 	const { displayNotification } = useNotificationContext() as any;
 	const { login } = useAuthContext() as any;
 	const navigate = useNavigate();
+	const [hovered, setHovered] = useState<boolean>(false);
 
 	const { register, handleSubmit, formState: { errors, isDirty, isValid } } = useForm<FormData>({
 		mode: 'onBlur',
@@ -86,94 +91,180 @@ function RegisterView() {
 			<Container>
 				<div>RegisterView</div>
 
-				<form onSubmit={handleSubmit(onFormSubmit)}>
-					<Stack spacing={1}>
-						<TextField
-							required
-							id="first-name"
-							label="First Name"
-							variant="outlined"
-							size="small"
-							{...register('firstName')}
-							error={errors.firstName ? true : false}
-							helperText={errors.firstName ? errors.firstName.message : ''}
-						/>
-
-						<TextField
-							required
-							id="last-name"
-							label="Last Name"
-							variant="outlined"
-							size="small"
-							{...register('lastName')}
-							error={errors.lastName ? true : false}
-							helperText={errors.lastName ? errors.lastName.message : ''}
-						/>
-
-						<TextField
-							required
-							id="email"
-							label="E-mail"
-							placeholder='example@email.com'
-							variant="outlined"
-							size="small"
-							{...register('email')}
-							error={errors.email ? true : false}
-							helperText={errors.email ? errors.email.message : ''}
-						/>
-
-						<TextField
-							required
-							id="phone-number"
-							type='number'
-							label="Phone Number"
-							variant="outlined"
-							size="small"
-							{...register('phone')}
-							error={errors.phone ? true : false}
-							helperText={errors.phone ? errors.phone.message : ''}
-						/>
-
-						<FormControl required>
-							<FormLabel id="gender-select-group" >Gender</FormLabel>
-							<RadioGroup row aria-labelledby="gender-select-group" value={gender ?? ' '} onChange={onGenderChange} >
-								<FormControlLabel value="female" control={<Radio />} label="Female" {...register('gender')} />
-								<FormControlLabel value="male" control={<Radio />} label="Male" {...register('gender')} />
-							</RadioGroup>
-							<FormHelperText> {errors.gender ? errors.gender.message : ''} </FormHelperText>
-						</FormControl>
-
-						<TextField
-							required
-							id="password"
-							type="password"
-							label="Password"
-							variant="outlined"
-							size="small"
-							{...register('password')}
-							error={errors.password ? true : false}
-							helperText={errors.password ? errors.password.message : ''}
-						/>
-
-						<TextField
-							required
-							id="confirmPassword"
-							type="password"
-							label="Confirm Password"
-							variant="outlined"
-							size="small"
-							{...register('confirmPassword')}
-							error={errors.confirmPassword ? true : false}
-							helperText={errors.confirmPassword ? errors.confirmPassword.message : ''}
-						/>
-
-						<Button variant="contained" type='submit' disabled={!(isDirty && isValid)}>REGISTER</Button>
-					</Stack>
-				</form>
-
-				<Stack mt={2} direction='row' justifyContent='center'>
-					<Typography variant="body1">Already registered? <RouterLink to="/login">Login here </RouterLink></Typography>
+				<Stack direction='row' alignItems='center' sx={{ overflow: 'hidden', margin: '20px 0' }}>
+					<hr style={{ width: '100%', height: '2px' }} />
+					<Typography variant="h3" sx={{ color: 'common.white', marginLeft: '30px', marginRight: '30px', whiteSpace: 'nowrap' }}>Register</Typography>
+					<hr style={{ width: '100%', height: '2px' }} />
 				</Stack>
+
+
+				<Grid
+					container
+					height='60vh'
+					style={{
+						backgroundImage: `url('${weAreOpenSign}')`,
+						backgroundSize: 'cover',
+						backgroundRepeat: 'no-repeat',
+
+					}}>
+
+
+
+					<Grid item md={5} display='flex' direction='column' alignItems='center' justifyContent='center' height='100%'>
+						<Paper elevation={15} sx={{ borderRadius: "20px" }}>
+							<Stack
+								direction='column'
+								alignItems='center'
+								px={3}
+								py={5}
+								borderRadius="20px"
+
+								sx={{ backgroundColor: 'main.yellow.darkest', border: `1px solid #434242` }}
+							>
+								<form onSubmit={handleSubmit(onFormSubmit)}>
+									<Stack spacing={1}>
+										<TextField
+											sx={{background: "rgb(232, 241, 250)"}}
+											required
+											id="first-name"
+											label="First Name"
+											variant="outlined"
+											size="small"
+											{...register('firstName')}
+											error={errors.firstName ? true : false}
+											helperText={errors.firstName ? errors.firstName.message : ''}
+										/>
+
+										<TextField
+											sx={{background: "rgb(232, 241, 250)"}}
+											required
+											id="last-name"
+											label="Last Name"
+											variant="outlined"
+											size="small"
+											{...register('lastName')}
+											error={errors.lastName ? true : false}
+											helperText={errors.lastName ? errors.lastName.message : ''}
+										/>
+
+										<TextField
+											sx={{background: "rgb(232, 241, 250)"}}
+											required
+											id="email"
+											label="E-mail"
+											placeholder='example@email.com'
+											variant="outlined"
+											size="small"
+											{...register('email')}
+											error={errors.email ? true : false}
+											helperText={errors.email ? errors.email.message : ''}
+										/>
+
+										<TextField
+											sx={{background: "rgb(232, 241, 250)"}}
+											required
+											id="phone-number"
+											type='number'
+											label="Phone Number"
+											variant="outlined"
+											size="small"
+											{...register('phone')}
+											error={errors.phone ? true : false}
+											helperText={errors.phone ? errors.phone.message : ''}
+										/>
+
+										<FormControl required>
+											<FormLabel id="gender-select-group" >Gender</FormLabel>
+											<RadioGroup row aria-labelledby="gender-select-group" value={gender ?? ' '} onChange={onGenderChange} >
+												<FormControlLabel value="female" control={<Radio />} label="Female" {...register('gender')} />
+												<FormControlLabel value="male" control={<Radio />} label="Male" {...register('gender')} />
+											</RadioGroup>
+											<FormHelperText> {errors.gender ? errors.gender.message : ''} </FormHelperText>
+										</FormControl>
+
+										<TextField
+											sx={{background: "rgb(232, 241, 250)"}}
+											required
+											id="password"
+											type="password"
+											label="Password"
+											variant="outlined"
+											size="small"
+											{...register('password')}
+											error={errors.password ? true : false}
+											helperText={errors.password ? errors.password.message : ''}
+										/>
+
+										<TextField
+											sx={{background: "rgb(232, 241, 250)"}}
+											required
+											id="confirmPassword"
+											type="password"
+											label="Confirm Password"
+											variant="outlined"
+											size="small"
+											{...register('confirmPassword')}
+											error={errors.confirmPassword ? true : false}
+											helperText={errors.confirmPassword ? errors.confirmPassword.message : ''}
+										/>
+
+										<Button
+											onMouseOver={() => setHovered(true)}
+											onMouseOut={() => setHovered(false)}
+
+											sx={{
+												'&:hover': {
+													transform: hovered ? 'scale(1.1)' : 'scale(1.0)',
+												}
+											}}
+											color="primary"
+											variant="contained"
+											type='submit'
+											disabled={!(isDirty && isValid)}>REGISTER</Button>
+									</Stack>
+								</form>
+
+								<Stack mt={2} direction='row' justifyContent='center'>
+									<Typography variant="h6" component='p'>Already a member of IvyLu? <RouterLink to="/login">Login here </RouterLink></Typography>
+								</Stack>
+
+							</Stack>
+
+
+						</Paper>
+
+					</Grid>
+
+					<Grid item md={7}>
+
+					</Grid>
+				</Grid>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 			</Container>
 		</Box>
 	)
