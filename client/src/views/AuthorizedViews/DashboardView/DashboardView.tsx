@@ -25,7 +25,12 @@ function DashboardView() {
 
 				<Box sx={{ width: '100%' }}>
 					<Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-						<Tabs value={value} onChange={handleChange}>
+						<Tabs
+							TabIndicatorProps={{ style: { backgroundColor: "#2c2c2c" } }}
+							value={value}
+							onChange={handleChange}
+							sx={{ '& a.Mui-selected ': { color: 'main.black' }, backgroundColor: 'main.beige' }}
+						>
 							<Tab label="My Orders" value={0} component={RouterNavLink} to='/dashboard/orders' sx={{ '&.active': { fontWeight: 'fontWeightBold' } }} />
 							<Tab label="My Appointments" value={1} component={RouterNavLink} to='/dashboard/appointments' sx={{ '&.active': { fontWeight: 'fontWeightBold' } }} />
 							<Tab label="Profile" value={2} component={RouterNavLink} to='/dashboard/profile' sx={{ '&.active': { fontWeight: 'fontWeightBold' } }} />
