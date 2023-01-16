@@ -1,4 +1,5 @@
 import { RouterProvider } from "react-router-dom";
+import { ParallaxProvider } from 'react-scroll-parallax';
 
 import CssBaseline from '@mui/material/CssBaseline';
 
@@ -18,7 +19,9 @@ function App() {
 			<AuthProvider>
 				<NotificationProvider>
 					<ThemeProvider theme={theme}>
-						<RouterProvider router={router} />
+						<ParallaxProvider>
+							<RouterProvider router={router} />
+						</ParallaxProvider>
 					</ThemeProvider>
 				</NotificationProvider>
 			</AuthProvider>
