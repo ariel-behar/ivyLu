@@ -8,7 +8,7 @@ function AboutView() {
 		<Box py={3}>
 
 			<Container>
-				<div>AboutView</div>
+				{/* <div>AboutView</div> */}
 
 				<Stack direction='row' alignItems='center' sx={{ overflow: 'hidden' }}>
 					<Typography variant="h3" sx={{ color: 'common.white', marginRight: '30px', whiteSpace: 'nowrap' }}>About IvyLu</Typography>

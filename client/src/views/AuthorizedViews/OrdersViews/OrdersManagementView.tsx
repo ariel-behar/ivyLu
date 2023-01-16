@@ -8,7 +8,7 @@ function OrdersManagementView() {
 
 	return (
 		<>
-			<div>OrdersManagementView</div>
+			{/* <div>OrdersManagementView</div> */}
 
 			<Box height='70.75px' ></Box>
 

@@ -14,7 +14,7 @@ function ServicesOperatorAdminView() {
 
     return (
         <>
-            <div>ServicesOperatorAdminView</div>
+            {/* <div>ServicesOperatorAdminView</div> */}
 
             {(isOperator || isAdmin)
                 && <Stack direction='row' justifyContent='end'>

@@ -5,7 +5,7 @@ function GalleryView() {
 	return (
 		<Box py={3}>
 			<Container>
-				<div>GalleryView</div>
+				{/* <div>GalleryView</div> */}
 				<h1>Under Construction</h1>
 			</Container>
 		</Box>

@@ -63,7 +63,7 @@ function ProductOrderView() {
 
 	return (
 		<Box py={3}>
-			<div>ProductOrderView</div>
+			{/* <div>ProductOrderView</div> */}
 			{
 				showConfirmationView
 					? <ConfirmationView entity={orderedProduct} entityType='product' />

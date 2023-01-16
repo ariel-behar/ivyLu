@@ -161,7 +161,7 @@ function ServiceDetailsView() {
 
 	return (
 		<Box py={3}>
-			<div>ServiceDetailsView</div>
+			{/* <div>ServiceDetailsView</div> */}
 
 			{
 				showConfirmationView

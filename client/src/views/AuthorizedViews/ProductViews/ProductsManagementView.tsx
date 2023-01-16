@@ -4,7 +4,7 @@ function ProductsManagementView() {
 	
 	return (
 		<>
-			<div>ProductsManagementView</div>
+			{/* <div>ProductsManagementView</div> */}
 
 			<Outlet />
 		</>

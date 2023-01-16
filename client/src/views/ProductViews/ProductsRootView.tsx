@@ -7,7 +7,7 @@ function ProductsRootView() {
         <>
 
             <Container>
-                <div>ProductsRootView</div>
+                {/* <div>ProductsRootView</div> */}
 
                 <Outlet />
             </Container>
