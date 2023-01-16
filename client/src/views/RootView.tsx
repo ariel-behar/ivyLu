@@ -1,17 +1,21 @@
-import Box from '@mui/material/Box'
 import { Outlet } from 'react-router-dom'
 import Notification from '../components/Common/Notification'
+
+import { useAuthContext } from '../contexts/AuthContext'
+import pattern from '../assets/img/dark-background-pattern.jpg'
 
 import Header from '../components/Header/Header'
 import Footer from '../components/Footer/Footer'
 import Stack from '@mui/material/Stack'
-import { useAuthContext } from '../contexts/AuthContext'
+
 
 function RootView() {
     const { isLoggedIn } = useAuthContext() as {isLoggedIn: boolean}
 
     return (
-        <Stack direction='column' sx={{backgroundColor: 'main.black', minHeight:'100vh'}}>
+        <Stack 
+            direction='column' 
+            sx={{ background: `url('${pattern}')`, backgroundColor: '(0,0,0,0.5)', minHeight:'100vh'}}>
             <Notification />
 
             <Header />
