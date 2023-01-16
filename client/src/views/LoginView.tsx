@@ -15,6 +15,7 @@ import TextField from "@mui/material/TextField";
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import Container from "@mui/material/Container";
+import Box from "@mui/material/Box";
 
 const userServices: ApiUser<IdType, User, AuthTokenType> = new ApiUserImpl<IdType, User, AuthTokenType>('clients');
 
@@ -28,7 +29,7 @@ function LoginView() {
 	const { login } = useAuthContext() as any;
 	const { displayNotification } = useNotificationContext() as any;
 	const { handleSubmit, register, formState: { errors, isDirty } } = useForm<FormData>({
-		mode:'onBlur',
+		mode: 'onBlur',
 		defaultValues: {
 			email: '',
 			password: ''
@@ -52,43 +53,45 @@ function LoginView() {
 	}
 
 	return (
-		<Container>
-			<div> LoginView</div>
+		<Box py={3}>
+			<Container>
+				<div> LoginView</div>
 
-			<form onSubmit={handleSubmit(onFormSubmit)}>
-				<Stack direction='column'>
+				<form onSubmit={handleSubmit(onFormSubmit)}>
+					<Stack direction='column'>
 
-					<TextField
-						required
-						id="email"
-						label="E-mail"
-						variant="outlined"
-						size="small"
-						{...register('email')}
-						error={errors.email ? true : false}
-						helperText={errors.email ? errors.email.message : ''}
-					/>
+						<TextField
+							required
+							id="email"
+							label="E-mail"
+							variant="outlined"
+							size="small"
+							{...register('email')}
+							error={errors.email ? true : false}
+							helperText={errors.email ? errors.email.message : ''}
+						/>
 
-					<TextField
-						required
-						id="password"
-						type="password"
-						label="Password"
-						variant="outlined"
-						size="small"
-						{...register('password')}
-						error={errors.password ? true : false}
-						helperText={errors.password ? errors.password.message : ''}
-					/>
+						<TextField
+							required
+							id="password"
+							type="password"
+							label="Password"
+							variant="outlined"
+							size="small"
+							{...register('password')}
+							error={errors.password ? true : false}
+							helperText={errors.password ? errors.password.message : ''}
+						/>
 
-					<Button variant="contained" type='submit' disabled={!isDirty}>LOGIN</Button>
+						<Button variant="contained" type='submit' disabled={!isDirty}>LOGIN</Button>
+					</Stack>
+				</form>
+
+				<Stack mt={2} direction='row' justifyContent='center'>
+					<Typography variant="body1">Not a member of IvyLu yet? <RouterLink to="/register">Register here </RouterLink></Typography>
 				</Stack>
-			</form>
-
-			<Stack mt={2} direction='row' justifyContent='center'>
-				<Typography variant="body1">Not a member of IvyLu yet? <RouterLink to="/register">Register here </RouterLink></Typography>
-			</Stack>
-		</Container>
+			</Container>
+		</Box>
 	)
 }
 

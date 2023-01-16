@@ -42,7 +42,7 @@ function ScheduleCalendar({scheduledItems}: Props) {
                 events={scheduledItems}
                 startAccessor='start'
                 endAccessor='end'
-                style={{ minHeight: '600px', marginTop: '50px', padding: '10px 5px' }}
+                style={{ minHeight: '600px', padding: '10px 5px' }}
             />
         </Box>
     )
