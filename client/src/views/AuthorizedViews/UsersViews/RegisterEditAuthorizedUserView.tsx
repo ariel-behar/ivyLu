@@ -9,6 +9,8 @@ import { ApiUser, ApiUserImpl } from '../../../services/userServices';
 import { AuthTokenType, IdType } from '../../../types/common/common-types';
 import { StaffRegisterDTO, User, UserRole } from '../../../models/User';
 import { useNotificationContext } from '../../../contexts/NotificationContext';
+import { IMAGE_URL_REGEX } from '../../../utils/regex';
+import { useAuthContext } from '../../../contexts/AuthContext';
 
 import TextField from '@mui/material/TextField';
 import Radio from '@mui/material/Radio';
@@ -21,9 +23,9 @@ import Stack from '@mui/system/Stack';
 import FormHelperText from '@mui/material/FormHelperText';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import { CardMedia, Typography } from '@mui/material';
-import { IMAGE_URL_REGEX } from '../../../utils/regex';
-import { useAuthContext } from '../../../contexts/AuthContext';
+import CardMedia from '@mui/material/CardMedia';
+import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
 
 const userServices: ApiUser<IdType, User, AuthTokenType> = new ApiUserImpl<IdType, User, AuthTokenType>('staff');
 
@@ -130,10 +132,10 @@ function RegisterEditAuthorizedUserView({ formType }: Props) {
 	}
 
 	return (
-		<>
+		<Paper style={{ padding: '10px' }}>
 			<div>RegisterAuthorizedView</div>
 			<Grid container spacing={2} columnSpacing={1}>
-				<Grid item xs={12} sm={12} lg={8}>
+				<Grid item xs={12} sm={12} lg={7}>
 					<form onSubmit={handleSubmit(onFormSubmit)}>
 						<Stack spacing={1}>
 							<TextField
@@ -267,7 +269,7 @@ function RegisterEditAuthorizedUserView({ formType }: Props) {
 					</form>
 				</Grid>
 
-				<Grid item lg={4}>
+				<Grid item lg={5}>
 					<Stack maxHeight='320px' border='1px solid black' height='100%' width='100%' direction='column' justifyContent='center' alignItems='center'>
 						{
 							previewImgUrl
@@ -278,7 +280,7 @@ function RegisterEditAuthorizedUserView({ formType }: Props) {
 				</Grid>
 
 			</Grid>
-		</>
+		</Paper>
 	)
 
 }

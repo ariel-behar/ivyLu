@@ -13,6 +13,7 @@ import { useNotificationContext } from "../../../contexts/NotificationContext";
 import { IMAGE_URL_REGEX } from "../../../utils/regex";
 import { isOperatorAdminRouteGuard } from "../../../hoc/isOperatorAdminRouteGuard";
 import { serviceDuration } from "../../../utils/constants";
+import { User } from "../../../models/User";
 
 import TextField from "@mui/material/TextField"
 import Stack from "@mui/material/Stack"
@@ -29,7 +30,8 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import FormHelperText from '@mui/material/FormHelperText';
-import { User } from "../../../models/User";
+
+import Paper from "@mui/material/Paper";
 
 
 const entityServices: ApiEntity<IdType, Service, AuthTokenType> = new ApiEntityImpl<IdType, Service, AuthTokenType>('services');
@@ -49,7 +51,7 @@ function CreateService() {
 	const [priceValue, setPriceValue] = useState<string>('1')
 	const [status, setStatus] = useState<string>('active')
 	const [previewImgUrl, setPreviewImageUrl] = useState<string>('')
-	const { user } = useAuthContext() as {user: User};
+	const { user } = useAuthContext() as { user: User };
 	const { displayNotification } = useNotificationContext() as any;
 	const navigate = useNavigate()
 
@@ -84,8 +86,8 @@ function CreateService() {
 	}
 
 	const onClickCancelButton = (): void => {
-        navigate('/management/services')
-    }
+		navigate('/management/services')
+	}
 
 	const onFormSubmit = async (data: FormData, e: React.BaseSyntheticEvent<object, any, any> | undefined) => {
 		e?.preventDefault();
@@ -100,8 +102,8 @@ function CreateService() {
 
 			let createServiceResponse = await entityServices.create(service as Service, creatorId, user.authToken)
 
-			if(createServiceResponse) {
-				displayNotification({message: `Service "${createServiceResponse.title}" has successfully been created`}, 'success')
+			if (createServiceResponse) {
+				displayNotification({ message: `Service "${createServiceResponse.title}" has successfully been created` }, 'success')
 				navigate('/management/services')
 			}
 
@@ -112,120 +114,122 @@ function CreateService() {
 	}
 
 	return (
-		<Grid container spacing={2} columnSpacing={1}>
-			<Grid item xs={12} sm={12} lg={8}>
+		<Paper style={{ padding: '10px' }}>
+			<Grid container spacing={2} columnSpacing={1}>
+				<Grid item xs={12} sm={12} lg={7}>
 
-				<form onSubmit={handleSubmit(onFormSubmit)}>
-					<Stack spacing={2}>
-						<TextField
-							required
-							label="Service Title"
-							variant="outlined"
-							size="small"
-							{...register('title')}
-							error={errors.title ? true : false}
-							helperText={errors.title ? errors.title.message : ''}
-						/>
-
-						<TextField
-							required
-							label="Service Description"
-							variant="outlined"
-							size="small"
-							{...register('description')}
-							error={errors.description ? true : false}
-							helperText={errors.description ? errors.description.message : ''}
-						/>
-
-						<TextField
-							label="Additional Comments"
-							variant="outlined"
-							size="small"
-							{...register('additionalComments')}
-							error={errors.additionalComments ? true : false}
-							helperText={errors.additionalComments ? errors.additionalComments.message : ''}
-						/>
-
-						<Box width='100%' component='div' onBlur={handlePreviewImage}>
+					<form onSubmit={handleSubmit(onFormSubmit)}>
+						<Stack spacing={2}>
 							<TextField
 								required
-								fullWidth
-								label="Service Image"
-								placeholder='https://...'
+								label="Service Title"
 								variant="outlined"
 								size="small"
-								{...register('imgUrl')}
-								error={errors.imgUrl ? true : false}
-								helperText={errors.imgUrl ? errors.imgUrl.message : ''}
-							/>
-						</Box>
-
-						<Stack direction='row' spacing={2}>
-							<TextField
-								required
-								label="Price"
-								variant="outlined"
-								size="small"
-								type='number'
-								{...register('price')}
-								onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPriceValue(e.target.value)}
-								value={priceValue}
-								error={errors.price ? true : false}
-								helperText={errors.price ? errors.price.message : ''}
-								InputProps={{
-									endAdornment: <InputAdornment position='end'>BGN</InputAdornment>
-								}}
+								{...register('title')}
+								error={errors.title ? true : false}
+								helperText={errors.title ? errors.title.message : ''}
 							/>
 
 							<TextField
 								required
-								label='Select Duration'
-								select
-								value={duration}
-								{...register('duration')}
-								onChange={handleDurationChange}
+								label="Service Description"
 								variant="outlined"
 								size="small"
-								fullWidth
-								
-								error={errors.duration ? true : false}
-								helperText={errors.duration ? errors.duration.message : ''}
-							>
-								{
-									serviceDuration.map(duration => (
-										<MenuItem key={uniqid()} value={duration}>{duration} minutes</MenuItem>
-									))
-								}
-								
-							</TextField>
+								{...register('description')}
+								error={errors.description ? true : false}
+								helperText={errors.description ? errors.description.message : ''}
+							/>
+
+							<TextField
+								label="Additional Comments"
+								variant="outlined"
+								size="small"
+								{...register('additionalComments')}
+								error={errors.additionalComments ? true : false}
+								helperText={errors.additionalComments ? errors.additionalComments.message : ''}
+							/>
+
+							<Box width='100%' component='div' onBlur={handlePreviewImage}>
+								<TextField
+									required
+									fullWidth
+									label="Service Image"
+									placeholder='https://...'
+									variant="outlined"
+									size="small"
+									{...register('imgUrl')}
+									error={errors.imgUrl ? true : false}
+									helperText={errors.imgUrl ? errors.imgUrl.message : ''}
+								/>
+							</Box>
+
+							<Stack direction='row' spacing={2}>
+								<TextField
+									required
+									label="Price"
+									variant="outlined"
+									size="small"
+									type='number'
+									{...register('price')}
+									onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPriceValue(e.target.value)}
+									value={priceValue}
+									error={errors.price ? true : false}
+									helperText={errors.price ? errors.price.message : ''}
+									InputProps={{
+										endAdornment: <InputAdornment position='end'>BGN</InputAdornment>
+									}}
+								/>
+
+								<TextField
+									required
+									label='Select Duration'
+									select
+									value={duration}
+									{...register('duration')}
+									onChange={handleDurationChange}
+									variant="outlined"
+									size="small"
+									fullWidth
+
+									error={errors.duration ? true : false}
+									helperText={errors.duration ? errors.duration.message : ''}
+								>
+									{
+										serviceDuration.map(duration => (
+											<MenuItem key={uniqid()} value={duration}>{duration} minutes</MenuItem>
+										))
+									}
+
+								</TextField>
+							</Stack>
+
+							<FormControl required>
+								<FormLabel id="status-select-group" >Status</FormLabel>
+								<RadioGroup row aria-labelledby="status-select-group" value={status ?? ' '} onChange={onStatusChange} >
+									<FormControlLabel value="active" control={<Radio />} label="Active" {...register('status')} />
+									<FormControlLabel value="inactive" control={<Radio />} label="Inactive" {...register('status')} />
+								</RadioGroup>
+								<FormHelperText> {errors.status ? errors.status.message : ''} </FormHelperText>
+							</FormControl>
+
+							<Stack direction='row' justifyContent='space-around'>
+								<Button variant="contained" type='submit' disabled={!(isDirty && isValid)}>Create Service</Button>
+								<Button variant="contained" color="error" onClick={onClickCancelButton}>Cancel </Button>
+							</Stack>
 						</Stack>
-
-						<FormControl required>
-							<FormLabel id="status-select-group" >Status</FormLabel>
-							<RadioGroup row aria-labelledby="status-select-group" value={status ?? ' '} onChange={onStatusChange} >
-								<FormControlLabel value="active" control={<Radio />} label="Active" {...register('status')} />
-								<FormControlLabel value="inactive" control={<Radio />} label="Inactive" {...register('status')} />
-							</RadioGroup>
-							<FormHelperText> {errors.status ? errors.status.message : ''} </FormHelperText>
-						</FormControl>
-
-                        <Stack direction='row' justifyContent='space-around'>
-                            <Button variant="contained" type='submit' disabled={!(isDirty && isValid)}>Create Service</Button>
-                            <Button variant="contained" color="error" onClick={onClickCancelButton}>Cancel </Button>
-                        </Stack>
+					</form>
+				</Grid>
+				<Grid item lg={5}>
+					<Stack maxHeight='320px' border='1px solid black' height='100%' width='100%' direction='column' justifyContent='center' alignItems='center'>
+						{
+							previewImgUrl
+								? <CardMedia height='100%' width='auto' component='img' image={previewImgUrl} alt='Preview Image' />
+								: <Typography variant='h4' textAlign='center'>Image preview will appear here</Typography>
+						}
 					</Stack>
-				</form>
+				</Grid>
 			</Grid>
-			<Grid item lg={4}>
-				<Stack maxHeight='320px' border='1px solid black' height='100%' width='100%' direction='column' justifyContent='center' alignItems='center'>
-					{
-						previewImgUrl
-							? <CardMedia height='100%' width='auto' component='img' image={previewImgUrl} alt='Preview Image' />
-							: <Typography variant='h4' textAlign='center'>Image preview will appear here</Typography>
-					}
-				</Stack>
-			</Grid>
-		</Grid>
+		</Paper>
 	)
 }
 
