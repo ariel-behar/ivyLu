@@ -4,32 +4,49 @@ import uniqid from "uniqid";
 import { User } from "../models/User";
 
 import Container from "@mui/material/Container";
-import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
+import Stack from "@mui/material/Stack";
+import ImageList from "@mui/material/ImageList";
+import ImageListItemBar from "@mui/material/ImageListItemBar";
+import ImageListItem from "@mui/material/ImageListItem";
+import getUserRole from "../utils/getUserRole";
 
 function OurTeamView() {
 	const hairdressers = useLoaderData() as User[];
 
 	return (
-		<Container>
+		<Container sx={{ height: '80vh' }}>
 			<div>OurTeamView</div>
+			<Typography variant="h3" sx={{ color: 'common.white' }}>Meet Our Team!</Typography>
+			<Stack direction='row'  height='100%'>
+			
+				<ImageList
+					sx={{ width: '100%' }}
+					cols={3}
+					rowHeight={400}
+				>
+					{
+						hairdressers.map((hairdresser: User) => {
+							return (
+								<ImageListItem key={uniqid()}>
+									<img
+										src={hairdresser.imgUrl}
+										alt={hairdresser.firstName}
+										loading='lazy'
+									/>
+									<ImageListItemBar position='top' title={`${hairdresser.firstName} ${hairdresser.lastName}`} />
+									<ImageListItemBar subtitle={getUserRole(hairdresser.role).capitalized} />
 
-				{
-					hairdressers.map((hairdresser: User) => {
-						return (
-							<Grid container key={uniqid()}>
-								<Grid item md={9}>
-									<Typography variant="h3">{hairdresser.firstName} {hairdresser.lastName} </Typography>
-									<Typography variant="body1">{hairdresser.about} </Typography>
-								</Grid>
-								<Grid item md={3}>
-									<img src={hairdresser.imgUrl} alt='Hairdresser' height='300px' />
-								</Grid>
-							</Grid>
-						)
-					})
-				}
-		</Container>
+								</ImageListItem>
+							)
+						})
+					}
+
+				</ImageList >
+
+
+			</Stack >
+		</Container >
 	)
 }
 
