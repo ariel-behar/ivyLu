@@ -11,7 +11,7 @@ interface Props {
 function BottomHeaderBar({ isLoggedIn }: Props) {
     return (
         <Box
-            sx={{ backgroundColor: 'main.beige', position: 'fixed', width: '100%', zIndex: 100 }}
+            sx={{ backgroundColor: 'main.beige', position: 'fixed', top:'64px', width: '100%', zIndex: 100 }}
             component={Paper}
         >
             <Container>

@@ -26,14 +26,14 @@ function Header() {
                             <Button to='/' color='inherit' component={RouterNavLink} sx={{ '&.active': { fontWeight: 'fontWeightBold' } }}>Home</Button>
                             <Button to='/products' color='inherit' component={RouterNavLink} sx={{ '&.active': { fontWeight: 'fontWeightBold' } }}>Products</Button>
                             <Button to='/services' color='inherit' component={RouterNavLink} sx={{ '&.active': { fontWeight: 'fontWeightBold' } }}>Services</Button>
-                            <Button
+                            {/* <Button
                                 to='/gallery'
                                 color='inherit'
                                 component={RouterNavLink}
                                 sx={{ '&.active': { fontWeight: 'fontWeightBold' } }}
                             >
                                 Gallery
-                            </Button>
+                            </Button> */}
                         </Toolbar>
                         <Toolbar sx={{
                             backgroundColor: 'main.black',
@@ -80,7 +80,6 @@ function Header() {
             </AppBar>
 
             {isLoggedIn && <BottomHeaderBar isLoggedIn={isLoggedIn} />}
-
         </>
     )
 }
