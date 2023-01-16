@@ -6,6 +6,14 @@ import { yupResolver } from '@hookform/resolvers/yup';
 
 import weAreOpenSign from '../assets/img/weareopen-sign.jpg'
 
+import registerFormSchema from '../validations/registerFormSchema';
+import { User, ClientRegisterDTO } from '../models/User';
+import { useAuthContext } from '../contexts/AuthContext';
+import { AuthTokenType, IdType } from '../types/common/common-types';
+import { useNotificationContext } from '../contexts/NotificationContext';
+import { ApiUser, ApiUserImpl } from '../services/userServices';
+import { isGuestRouteGuard } from '../hoc/isGuestRouteGuard';
+
 import TextField from '@mui/material/TextField';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
@@ -15,17 +23,9 @@ import FormLabel from '@mui/material/FormLabel';
 import Button from '@mui/material/Button';
 import Stack from '@mui/system/Stack';
 import FormHelperText from '@mui/material/FormHelperText';
-
-import registerFormSchema from '../validations/registerFormSchema';
-import { User, ClientRegisterDTO } from '../models/User';
-import { useAuthContext } from '../contexts/AuthContext';
-import { AuthTokenType, IdType } from '../types/common/common-types';
-import { useNotificationContext } from '../contexts/NotificationContext';
-import { ApiUser, ApiUserImpl } from '../services/userServices';
-import { isGuestRouteGuard } from '../hoc/isGuestRouteGuard';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { Box } from '@mui/system';
+import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 
@@ -111,7 +111,7 @@ function RegisterView() {
 
 
 					<Grid item md={5} display='flex' direction='column' alignItems='center' justifyContent='center' height='100%'>
-						<Paper elevation={15} sx={{ borderRadius: "20px" }}>
+						<Paper elevation={15} sx={{ borderRadius: "20px", backgroundColor: 'transparent'  }}>
 							<Stack
 								direction='column'
 								alignItems='center'
@@ -119,7 +119,7 @@ function RegisterView() {
 								py={5}
 								borderRadius="20px"
 
-								sx={{ backgroundColor: 'main.yellow.darkest', border: `1px solid #434242` }}
+								sx={{ backgroundColor: 'rgba(94, 84, 80, 0.7)', border: `1px solid #434242` }}
 							>
 								<form onSubmit={handleSubmit(onFormSubmit)}>
 									<Stack spacing={1}>
@@ -225,7 +225,7 @@ function RegisterView() {
 								</form>
 
 								<Stack mt={2} direction='row' justifyContent='center'>
-									<Typography variant="h6" component='p'>Already a member of IvyLu? <RouterLink to="/login">Login here </RouterLink></Typography>
+									<Typography variant="h6" component='p' color='white'>Already a member of IvyLu? <RouterLink style={{color:'#42a5f5'}} to="/login">Login here </RouterLink></Typography>
 								</Stack>
 
 							</Stack>

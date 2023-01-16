@@ -1,6 +1,6 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form"
 import { useNavigate, Link as RouterLink } from "react-router-dom";
-
 
 import hairsalon from '../assets/img/hairsalon.jpg'
 
@@ -20,8 +20,8 @@ import Stack from '@mui/material/Stack';
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
-import { Grid } from "@mui/material";
-import { useState } from "react";
+import Grid from "@mui/material/Grid";
+
 
 const userServices: ApiUser<IdType, User, AuthTokenType> = new ApiUserImpl<IdType, User, AuthTokenType>('clients');
 
@@ -83,7 +83,7 @@ function LoginView() {
 				>
 					<Grid item md={5} display='flex' direction='column' alignItems='center' justifyContent='start' pt={3} height='100%'>
 
-						<Paper elevation={15} sx={{ borderRadius: "20px" }}>
+						<Paper elevation={15} sx={{ borderRadius: "20px", backgroundColor: 'transparent' }} >
 							<Stack
 								direction='column'
 								alignItems='center'
@@ -91,7 +91,7 @@ function LoginView() {
 								py={5}
 								borderRadius="20px"
 
-								sx={{ backgroundColor: 'main.yellow.darkest', border: `1px solid #434242` }}>
+								sx={{ backgroundColor: `rgba(94, 84, 80, 0.7)`, border: `1px solid #434242` }}>
 
 								<form onSubmit={handleSubmit(onFormSubmit)} >
 
@@ -140,7 +140,7 @@ function LoginView() {
 								</form>
 
 								<Stack mt={2} direction='row' justifyContent='center'>
-									<Typography variant="h6" component='p'>Not a member of IvyLu yet? <RouterLink to="/register">Register here </RouterLink></Typography>
+									<Typography variant="h6" component='p' color='white'>Not a member of IvyLu yet? <RouterLink style={{color:'#42a5f5'}} to="/register">Register here </RouterLink></Typography>
 								</Stack>
 							</Stack>
 						</Paper>
