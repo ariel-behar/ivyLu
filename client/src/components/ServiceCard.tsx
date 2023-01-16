@@ -12,14 +12,17 @@ interface Props {
 function ServiceCard({ service }: Props) {
 
     return (
-        <ImageListItem key={uniqid()} sx={{ overflow: 'hidden' }}                 >
+        <ImageListItem key={uniqid()} sx={{ overflow: 'hidden' }}
+            component={motion.div}
+            whileHover={{
+                scale: 1.02,
+            }}
+        >
             <motion.img style={{ width: 'auto', height: '400px' }}
                 src={`${service.imgUrl}`}
                 alt={service.title}
                 loading='lazy'
-                whileHover={{
-                    scale: 1.05,
-                }}
+
             />
             <Stack
                 direction='row'

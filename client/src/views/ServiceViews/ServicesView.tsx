@@ -19,7 +19,8 @@ function ServicesView() {
                 cols={1}
                 gap={100}
                 sx={{
-                    overflow: 'hidden'
+                    overflow: 'hidden',
+                    padding: '20px'
                 }}
             >
                 {
