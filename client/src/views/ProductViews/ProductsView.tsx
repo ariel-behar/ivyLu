@@ -102,7 +102,6 @@ function ProductsView() {
 				</Breadcrumbs>
 			</Stack>
 
-			{/* sx={{backgroundColor: 'main.black'}} */}
 			<Grid container spacing={0} mt={3} >
 				{products &&
 					products.map((product: Product) => {
