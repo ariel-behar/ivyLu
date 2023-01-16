@@ -8,7 +8,7 @@ import 'react-big-calendar/lib/css/react-big-calendar.css'
 import { Calendar, dateFnsLocalizer } from 'react-big-calendar'
 import { Views } from 'react-big-calendar';
 
-import Box from '@mui/material/Box';
+import Paper from '@mui/material/Paper';
 
 
 const locales = {
@@ -35,7 +35,7 @@ interface Props {
 
 function ScheduleCalendar({scheduledItems}: Props) {
     return (
-        <Box sx={{ backgroundColor: 'common.white' }}>
+        <Paper >
             <Calendar
                 defaultView={Views.AGENDA}
                 localizer={localizer}
@@ -44,7 +44,7 @@ function ScheduleCalendar({scheduledItems}: Props) {
                 endAccessor='end'
                 style={{ minHeight: '600px', padding: '10px 5px' }}
             />
-        </Box>
+        </Paper>
     )
 }
 
