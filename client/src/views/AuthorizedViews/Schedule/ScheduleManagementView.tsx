@@ -4,6 +4,7 @@ import { useLoaderData } from 'react-router-dom';
 import { IScheduleConfirmationResponse } from '../../../types/scheduleTypes';
 
 import ScheduleCalendar from '../../../components/ScheduleCalendar';
+import Box from '@mui/material/Box';
 
 interface IScheduledItem {
 	title: string
@@ -42,6 +43,8 @@ function ScheduleManagementView() {
 	return (
 		<>
 			<div>ScheduleManagementView</div>
+
+			<Box height='70.75px' ></Box>
 
 			<ScheduleCalendar scheduledItems={scheduledItems}/>
 		</>

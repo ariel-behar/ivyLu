@@ -1,19 +1,25 @@
+import { useEffect, useState } from "react";
 import { Outlet, NavLink as RouterNavLink, useLocation, useNavigate } from "react-router-dom"
 
 import { useAuthContext } from "../../contexts/AuthContext";
 import { isAuthRouteGuard } from "../../hoc/isAuthRouteGuard";
 
-import Stack from "@mui/material/Stack"
-import Breadcrumbs from "@mui/material/Breadcrumbs"
-import Link from "@mui/material/Link"
 import Container from "@mui/material/Container";
-import { useEffect } from "react";
+
+import Box from "@mui/material/Box";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
 
 
 function ManagementRootView() {
     const { isAdmin } = useAuthContext() as { isAdmin: boolean };
+    const [value, setValue] = useState(0);
     const location = useLocation();
     const navigate = useNavigate()
+
+    const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+        setValue(newValue);
+    };
 
     useEffect(() => {
         if (location.pathname === '/management') {
@@ -23,80 +29,31 @@ function ManagementRootView() {
     }, [])
 
     return (
-        <Container>
-            <div>ManagementRootView</div>
+        <Box py={3} sx={{flexGrow: 1, backgroundColor: 'common.white'}}>
+            <Container>
+                <div>ManagementRootView</div>
 
-            <Stack direction='row' justifyContent='center'>
-                <Breadcrumbs
-                    aria-label="breadcrumb"
-                >
-                    <Link
-                        mx={2}
-                        underline="hover"
-                        to="/management/orders"
-                        component={RouterNavLink}
-                        sx={{ '&.active': { fontWeight: 'fontWeightBold' } }}
-                    >
-                        Orders
-                    </Link>
-                    <Link
-                        mx={2}
-                        underline="hover"
-                        to="/management/schedule"
-                        component={RouterNavLink}
-                        sx={{ '&.active': { fontWeight: 'fontWeightBold' } }}
-                    >
-                        Schedule
-                    </Link>
-                    <Link
-                        mx={2}
-                        underline="hover"
-                        to="/management/services"
-                        component={RouterNavLink}
-                        sx={{ '&.active': { fontWeight: 'fontWeightBold' } }}
-                    >
-                        Services
-                    </Link>
-                    <Link
-                        mx={2}
-                        underline="hover"
-                        to="/management/products"
-                        component={RouterNavLink}
-                        sx={{ '&.active': { fontWeight: 'fontWeightBold' } }}
-                    >
-                        Products
-                    </Link>
+                <Box sx={{ width: '100%' }}>
+                    <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                        <Tabs value={value} onChange={handleChange}>
+                            <Tab label="Orders" value={0} component={RouterNavLink} to='/management/orders' sx={{ '&.active': { fontWeight: 'fontWeightBold' } }} />
+                            <Tab label="Schedule" value={1} component={RouterNavLink} to='/management/schedule' sx={{ '&.active': { fontWeight: 'fontWeightBold' } }} />
+                            <Tab label="Services" value={2} component={RouterNavLink} to='/management/services' sx={{ '&.active': { fontWeight: 'fontWeightBold' } }} />
+                            <Tab label="Products" value={3} component={RouterNavLink} to='/management/products' sx={{ '&.active': { fontWeight: 'fontWeightBold' } }} />
 
-                    {isAdmin &&
-                        <Link
-                            mx={2}
-                            underline="hover"
-                            to="/management/clients"
-                            component={RouterNavLink}
-                            sx={{ '&.active': { fontWeight: 'fontWeightBold' } }}
-                        >
-                            Clients
-                        </Link>
-                    }
+                            {isAdmin && <Tab label="Clients" value={4} component={RouterNavLink} to='/management/clients' sx={{ '&.active': { fontWeight: 'fontWeightBold' } }} />}
+                            {isAdmin && <Tab label="Staff" value={5} component={RouterNavLink} to='/management/staff' sx={{ '&.active': { fontWeight: 'fontWeightBold' } }} />}
 
-                    {isAdmin &&
-                        <Link
-                            mx={2}
-                            underline="hover"
-                            to="/management/staff"
-                            component={RouterNavLink}
-                            sx={{ '&.active': { fontWeight: 'fontWeightBold' } }}
-                        >
-                            Staff
-                        </Link>
-                    }
 
-                </Breadcrumbs>
+                        </Tabs>
+                    </Box>
+                </Box>
 
-            </Stack>
 
-            <Outlet />
-        </Container>
+                <Outlet />
+
+            </Container>
+        </Box>
     )
 }
 

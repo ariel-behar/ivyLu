@@ -5,7 +5,6 @@ import { Order } from '../../../models/Order';
 
 function MyOrdersView() {
 	let orders = useLoaderData() as Order[];
-	console.log('orders:', orders)
 
 	return (
 		<>
