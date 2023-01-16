@@ -1,0 +1,117 @@
+[{
+  "_id": {
+    "$oid": "63b45c60b1339cb594be1f69"
+  },
+  "firstName": "Ariel",
+  "lastName": "Behar",
+  "email": "admin@hotmail.com",
+  "phone": 123123,
+  "gender": "male",
+  "password": "$2b$10$c6gWY/qPK6lAaFo8P2QA0ubziwhxTQIAvKdgDhL2bJjZJQ2k/v4p6",
+  "role": 4,
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1672764512947"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1672764512947"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63b45c77b1339cb594be1f6d"
+  },
+  "firstName": "Ivanela",
+  "lastName": "Bratoeva",
+  "email": "operator@hotmail.com",
+  "phone": 123123,
+  "gender": "female",
+  "password": "$2b$10$yrshnYSW9DudpdDHwd.jlejbjzDH8KQsVUlm.U.U7oz/xElVbc/pO",
+  "role": 3,
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1672764535951"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1672764535951"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63b45caab1339cb594be1f71"
+  },
+  "firstName": "Maria",
+  "lastName": "Petkova",
+  "email": "hairdresser@hotmail.com",
+  "phone": "123123",
+  "gender": "female",
+  "imgUrl": "https://ivy-lu.s3.eu-central-1.amazonaws.com/team/hairdresser1.jpg",
+  "password": "123",
+  "role": 2,
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1672764586319"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1673797799969"
+    }
+  },
+  "__v": 0,
+  "about": "Loves to experiment with colors. If you are looking for the \"WOW\" effect, Maria is up to the task"
+},{
+  "_id": {
+    "$oid": "63b5a4019b9d2a061f1cc94c"
+  },
+  "firstName": "Jovana",
+  "lastName": "Marinkova",
+  "email": "hairdresser2@hotmail.com",
+  "phone": "123123",
+  "gender": "female",
+  "imgUrl": "https://ivy-lu.s3.eu-central-1.amazonaws.com/team/hairdresser2.jpg",
+  "password": "123",
+  "role": 2,
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1672848385719"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1673797811658"
+    }
+  },
+  "__v": 0,
+  "about": "Loves to experiment with colors. If you are looking for the \"WOW\" effect, Jovana is up to the task"
+},{
+  "_id": {
+    "$oid": "63b8bd3eebcd52d0659dd97a"
+  },
+  "firstName": "Dimitar",
+  "lastName": "Stefanov",
+  "email": "hairdresser3@hotmail.com",
+  "phone": "123123",
+  "gender": "male",
+  "password": "123",
+  "role": 2,
+  "about": "Very motivated and loves his job very much. Dimitar welcomes you to the IvyLu family",
+  "imgUrl": "https://ivy-lu.s3.eu-central-1.amazonaws.com/team/hairdresser3-male.jpg",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1673051454963"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1673797823369"
+    }
+  },
+  "__v": 0
+}]

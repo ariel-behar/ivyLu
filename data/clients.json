@@ -1,0 +1,67 @@
+[{
+  "_id": {
+    "$oid": "63b45cc9b1339cb594be1f78"
+  },
+  "firstName": "Sara",
+  "lastName": "Ivanova",
+  "email": "client@hotmail.com",
+  "phone": 88918152,
+  "gender": "female",
+  "password": "$2b$10$vFSTnhStsuchygwLiLhUhekjFljaglrL4wy0QqN6lgJQCail1O4sm",
+  "role": 1,
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1672764617624"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1672764617624"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63c1c4d05650ad49ada4cfb9"
+  },
+  "firstName": "Vesela",
+  "lastName": "Miteva",
+  "email": "client2@hotmail.com",
+  "phone": "123123",
+  "gender": "female",
+  "password": "$2b$10$FdPOOYgx2o2LXMWSvqhuX.ikopQeRmlihyGSahxDmf.8pDzdE4yVK",
+  "role": 1,
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1673643216126"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1673643216126"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63c1c4eb5650ad49ada4cfbd"
+  },
+  "firstName": "Mariana",
+  "lastName": "Tosheva",
+  "email": "client3@hotmail.com",
+  "phone": "123123",
+  "gender": "female",
+  "password": "$2b$10$My6dytEAhXj3dZaNmKq5cegb7piKvWoNakFtwFKO8aOu5PZNfjWHy",
+  "role": 1,
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1673643243173"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1673643243173"
+    }
+  },
+  "__v": 0
+}]
