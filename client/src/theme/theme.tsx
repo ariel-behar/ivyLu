@@ -15,7 +15,8 @@ const theme = createTheme({
 			yellow:{
 				primary: '#ffeb3b',
 				light: '#ffee58',
-				dark: '#fdd835'
+				dark: '#fdd835',
+				darkest: '#c8b900'
 			}
 			
 			

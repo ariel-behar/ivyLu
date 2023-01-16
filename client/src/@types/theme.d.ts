@@ -28,7 +28,8 @@ declare module '@mui/material/styles' {
             yellow: {
                 primary: PaletteColor,
                 light: PaletteColor,
-                dark: PaletteColor
+                dark: PaletteColor,
+                darkest: PaletteColor,
             },
         }
     }
@@ -47,7 +48,8 @@ declare module '@mui/material/styles' {
             yellow: {
                 primary: string | PaletteColorOptions,
                 light: string | PaletteColorOptions,
-                dark: string | PaletteColorOptions
+                dark: string | PaletteColorOptions,
+                darkest: string | PaletteColorOptions,
             },
             
             
