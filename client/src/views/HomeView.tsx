@@ -1,25 +1,33 @@
 import womanDarkHair from '../assets/img/woman-brown-hair.jpg'
 
-import Box from '@mui/material/Box'
 import Container from '@mui/material/Container'
 
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import { Carousel } from 'react-responsive-carousel';
+import Box from '@mui/material/Box';
 
 function HomeView() {
 	return (
+		<Box >
+			<Carousel infiniteLoop showThumbs={false} showIndicators={false} showStatus={false}>
 
-		<Box sx={{
-			backgroundImage: `url('${womanDarkHair}')`,
-			backgroundRepeat: 'no-repeat',
-			backgroundSize: 'cover',
-			minHeight: '100vh'
-		}}
-		>
-			<Container>
-				<div style={{ color: 'white' }}>HomeView</div>
-				<h1 style={{ color: 'white' }}>Under Construction</h1>
-			</Container>
+				<div className='image'>
+					<Container>
+						<img src={womanDarkHair} alt='Woman brown hair' />
+						<p className="legend">Legend 1</p>
+					</Container>
+				</div>
+				<div className='image'>
+					<img src={womanDarkHair} alt='Woman brown hair' />
+					<p className="legend">Legend 2</p>
+				</div>
+				<div className='image'>
+					<img src={womanDarkHair} alt='Woman brown hair' />
+					<p className="legend">Legend 3</p>
+				</div>
 
-		</Box >
+			</Carousel>
+		</Box>
 	)
 }
 
