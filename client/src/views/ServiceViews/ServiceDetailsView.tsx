@@ -6,7 +6,7 @@ import { useLoaderData } from 'react-router-dom'
 
 import { Service } from "../../models/Service"
 import { User } from '../../models/User'
-import {ScheduleCreateDTO } from '../../models/Schedule';
+import { ScheduleCreateDTO } from '../../models/Schedule';
 import * as scheduleServices from '../../services/scheduleServices';
 import { IdType } from '../../types/common/common-types';
 import addScheduleFormSchema from '../../validations/addScheduleFormSchema';
@@ -30,6 +30,7 @@ import ConfirmationView from '../ConfirmationView';
 import { IScheduleConfirmationResponse } from '../../types/scheduleTypes';
 import BackToButton from '../../components/Buttons/BackToButton';
 import { availableSchedulingHours, TAvailableSchedulingHours } from '../../utils/constants';
+import Box from '@mui/material/Box';
 
 interface IHairdresserSchedule {
 	_id: IdType,
@@ -48,16 +49,17 @@ type FormData = {
 
 function ServiceDetailsView() {
 	const { service, hairdressers } = useLoaderData() as { service: Service, hairdressers: User[] };
-	const { user, isClient } = useAuthContext() as {user: User, isClient: boolean};
+	const { user, isClient } = useAuthContext() as { user: User, isClient: boolean };
 	const { displayNotification } = useNotificationContext() as any;
-	const [ selectedHairdresser, setSelectedHairdresser] = useState<User | ''>('')
-	const [ hairdresserSchedule, setHairdresserSchedule] = useState<IHairdresserSchedule | null>(null);
-	const [ selectedAppointmentDate, setSelectedAppointmentDate] = useState<Date>(new Date());
-	const [ filteredAvailableShedulingHours, setFilteredAvailableShedulingHours] = useState<TAvailableSchedulingHours[] | []>(availableSchedulingHours)
-	const [ selectedAppointmentHour, setSelectedAppointmentHour] = useState<TAvailableSchedulingHours>(filteredAvailableShedulingHours[0])
-	const [ isCalendarOpen, setIsCalendarOpen] = useState(false);
-	const [ showConfirmationView, setShowConfirmationView] = useState<boolean>(false)
-	const [ createdScheduledItem, setCreatedScheduledItem] = useState<object | IScheduleConfirmationResponse>({})
+	const [selectedHairdresser, setSelectedHairdresser] = useState<User | ''>('')
+	const [hairdresserSchedule, setHairdresserSchedule] = useState<IHairdresserSchedule | null>(null);
+	const [selectedAppointmentDate, setSelectedAppointmentDate] = useState<Date>(new Date());
+	const [filteredAvailableShedulingHours, setFilteredAvailableShedulingHours] = useState<TAvailableSchedulingHours[] | []>(availableSchedulingHours)
+	const [selectedAppointmentHour, setSelectedAppointmentHour] = useState<TAvailableSchedulingHours>(filteredAvailableShedulingHours[0])
+	const [isCalendarOpen, setIsCalendarOpen] = useState(false);
+	const [showConfirmationView, setShowConfirmationView] = useState<boolean>(false)
+	const [createdScheduledItem, setCreatedScheduledItem] = useState<object | IScheduleConfirmationResponse>({})
+	const [hovered, setHovered] = useState<boolean>(false);
 
 	const { register, handleSubmit, formState: { errors, isValid } } = useForm<FormData>({
 		mode: 'onChange',
@@ -68,7 +70,7 @@ function ServiceDetailsView() {
 			appointmentHour: filteredAvailableShedulingHours[0]
 		}
 	})
- 
+
 	useEffect(() => {
 		if (selectedHairdresser !== '') {
 			scheduleServices.getHairdresserSchedule(selectedHairdresser._id)
@@ -158,7 +160,7 @@ function ServiceDetailsView() {
 	}
 
 	return (
-		<>
+		<Box py={3}>
 			<div>ServiceDetailsView</div>
 
 			{
@@ -166,7 +168,7 @@ function ServiceDetailsView() {
 					? <ConfirmationView entity={createdScheduledItem as IScheduleConfirmationResponse} entityType='service' />
 					:
 					<>
-						<Stack direction='row' justifyContent='right' mb={3}>
+						<Stack direction='row' justifyContent='left' mb={3}>
 							<BackToButton whereTo="services" />
 						</Stack>
 						<Paper>
@@ -272,13 +274,24 @@ function ServiceDetailsView() {
 														</TextField>
 
 														<Button
-															sx={{ display: 'block' }}
+															onMouseOver={() => setHovered(true)}
+															onMouseOut={() => setHovered(false)}
+
+															sx={{
+																display: 'block',
+																marginTop: '10px',
+																backgroundColor: 'main.yellow.primary',
+																color: 'black',
+																'&:hover': {
+																	transform: hovered ? 'scale(1.1)' : 'scale(1.0)',
+																	backgroundColor: 'main.yellow.dark',
+																}
+															}}
 															variant='contained'
-															style={{ marginTop: '10px' }}
 															type="submit"
 															disabled={!(isValid)}
 														>
-															Create Appointment
+															Schedule Appointment
 														</Button>
 													</>
 												}
@@ -290,7 +303,7 @@ function ServiceDetailsView() {
 						</Paper>
 					</>
 			}
-		</>
+		</Box>
 	)
 }
 

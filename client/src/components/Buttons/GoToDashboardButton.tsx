@@ -12,7 +12,7 @@ function GoToDashboardButton() {
 
   return (
     <>
-      <Button size="small" variant="text" color="success" onClick={onBackButtonClickHandler} endIcon={<ArrowForwardIcon />}>
+      <Button size="small" variant="contained" color="success" onClick={onBackButtonClickHandler} endIcon={<ArrowForwardIcon />}>
         Go to dashboard
       </Button>
     </>

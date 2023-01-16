@@ -21,16 +21,18 @@ import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
 
 
 
 function ProductOrderView() {
 	const product = useLoaderData() as Product;
-	const { user, isClient } = useAuthContext() as {user: User, isClient: boolean};
+	const { user, isClient } = useAuthContext() as { user: User, isClient: boolean };
 	const { displayNotification } = useNotificationContext() as any;
 	const [showConfirmationView, setShowConfirmationView] = useState<boolean>(false)
 	const [showConfirmationDialog, setShowConfirmationDialog] = useState<boolean>(false)
-	const [ orderedProduct, setOrderedProduct] = useState<Order | null>(null)
+	const [orderedProduct, setOrderedProduct] = useState<Order | null>(null)
+	const [hovered, setHovered] = useState<boolean>(false);
 
 	const onOrderButtonClick = () => {
 		setShowConfirmationDialog(true)
@@ -41,13 +43,13 @@ function ProductOrderView() {
 	}
 
 	const onConfirmDialogConfirmClick = async () => {
-		const order = new OrderCreateDTO(user._id , product._id)
+		const order = new OrderCreateDTO(user._id, product._id)
 
 		try {
 			let orderResponse = await orderServices.create(order, user.authToken)
 
-			if(orderResponse) {
-				displayNotification({message: 'Your order has successfully been submitted'}, 'success')
+			if (orderResponse) {
+				displayNotification({ message: 'Your order has successfully been submitted' }, 'success')
 				setOrderedProduct(orderResponse)
 			}
 
@@ -60,13 +62,13 @@ function ProductOrderView() {
 	}
 
 	return (
-		<>
+		<Box py={3}>
 			<div>ProductOrderView</div>
 			{
 				showConfirmationView
 					? <ConfirmationView entity={orderedProduct} entityType='product' />
 					: <>
-						<Stack direction='row' justifyContent='right' mb={3}>
+						<Stack direction='row' justifyContent='left' mb={3}>
 							<BackToButton whereTo="products" />
 						</Stack>
 						<Paper>
@@ -100,8 +102,27 @@ function ProductOrderView() {
 											Volume: <b> {product.volume} {getMeasurementUnit(product.volumeMeasurementUnit).abbreviated} </b>
 										</Typography>
 									</Stack>
-								
-								{ isClient && <Button variant='contained' onClick={onOrderButtonClick}>Order Product</Button>}
+
+									{isClient &&
+										<Button
+											onMouseOver={() => setHovered(true)}
+											onMouseOut={() => setHovered(false)}
+
+											sx={{
+												display: 'block',
+												marginTop: '10px',
+												backgroundColor: 'main.yellow.primary',
+												color: 'black',
+												'&:hover': {
+													transform: hovered ? 'scale(1.1)' : 'scale(1.0)',
+													backgroundColor: 'main.yellow.dark',
+												}
+											}}
+											variant='contained'
+											onClick={onOrderButtonClick}
+										>
+											Order Product
+										</Button>}
 								</Grid>
 							</Grid>
 						</Paper>
@@ -120,7 +141,7 @@ function ProductOrderView() {
 					: ''
 			}
 
-		</>
+		</Box>
 	)
 }
 

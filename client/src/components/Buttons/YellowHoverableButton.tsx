@@ -11,13 +11,13 @@ import Button from "@mui/material/Button";
 interface Props {
     entity: Service | Product,
     entityType: 'service' | 'product',
-    text: string
+    children: React.ReactNode
 }
 
 function YellowHoverableButton({
     entity, 
     entityType, 
-    text
+    children
 }: Props) {
     const [hovered, setHovered] = useState<boolean>(false);
     const { isLoggedIn } = useAuthContext() as { isLoggedIn: boolean };
@@ -40,7 +40,7 @@ function YellowHoverableButton({
                 }
             }}
         >
-            {text}
+            {children}
         </Button>
     )
 }

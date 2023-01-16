@@ -3,8 +3,8 @@ import ImageListItem from '@mui/material/ImageListItem'
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
 import { Service } from "../models/Service";
-import YellowHoverableButton from "./Buttons/YellowHoverableButton";
 import { motion } from 'framer-motion';
+import YellowHoverableButton from './Buttons/YellowHoverableButton';
 
 interface Props {
     service: Service
@@ -68,7 +68,9 @@ function ServiceCard({ service }: Props) {
                     <Typography variant="body1" sx={{ color: 'common.white' }}>Price: <b>{service.price} BGN</b></Typography>
                 </Stack>
 
-                <YellowHoverableButton entity={service} entityType='service' text='Schedule now' />
+                <YellowHoverableButton entity={service} entityType='service'>
+                    Schedule now
+                </YellowHoverableButton>
             </Stack>
         </ImageListItem>
     )

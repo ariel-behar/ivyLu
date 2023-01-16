@@ -16,7 +16,7 @@ function BackToButton({ whereTo }: Props) {
 
     return (
         <>
-            <Button size="small" variant="text" color="secondary" onClick={onBackButtonClickHandler} startIcon={<ArrowBackIcon />}>
+            <Button size="small" variant="contained" color="secondary" onClick={onBackButtonClickHandler} startIcon={<ArrowBackIcon />}>
                 Back to {whereTo}
             </Button>
         </>

@@ -6,7 +6,7 @@ import { getMeasurementUnit } from '../utils/getMeasurementUnit';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
-import YellowHoverableButton from './Buttons/YellowHoverableButton';
+import YellowHoverableButton from "./Buttons/YellowHoverableButton";
 
 interface Props {
 	product: Product,
@@ -81,7 +81,9 @@ export default function ProductCard({
 						<Typography variant="body1" sx={{ color: 'common.white' }}>Price: <b>{product.price} BGN</b></Typography>
 					</Stack>
 
-					<YellowHoverableButton entity={product} entityType='product' text='Order now' />
+					<YellowHoverableButton entity={product} entityType='product'>
+						Order now
+					</YellowHoverableButton>
 
 				</Stack>
 			</Box>
