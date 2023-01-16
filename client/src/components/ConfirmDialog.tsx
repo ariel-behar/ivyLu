@@ -11,6 +11,7 @@ import { Service } from '../models/Service'
 import Typography from '@mui/material/Typography'
 import { getMeasurementUnit } from '../utils/getMeasurementUnit'
 import Box from '@mui/material/Box'
+import { useState } from 'react'
 
 
 
@@ -29,6 +30,7 @@ function ConfirmDialog({
     closeConfirmDialog,
     onConfirmDialogConfirmClick
 }: Props) {
+    const [hovered, setHovered] = useState<boolean>(false);
 
     return (
         <>
@@ -38,14 +40,14 @@ function ConfirmDialog({
                 aria-labelledby='dialog-title'
                 aria-describedby='dialog-description'>
 
-                <DialogTitle id="dialog-title">Please <b>confirm</b> if your
+                <DialogTitle id="dialog-title" sx={{ backgroundColor: 'main.black', color: 'common.white' }}>Please <b>confirm</b> if your
                     {entityType === 'product' && ` order details `}
                     {entityType === 'service' && ' appointment details '}
                     are correct:</DialogTitle>
                 <DialogContent>
-                    <DialogContentText id='dialog-description'>
+                    <DialogContentText id='dialog-description' sx={{ marginTop: '20px', color: 'black' }}>
                         <Stack>
-                            <img src={entity.imgUrl} alt={entity.title} style={{maxHeight: '350px'}}/>
+                            <img src={entity.imgUrl} alt={entity.title} style={{ maxHeight: '350px' }} />
 
                             <Box>
                                 {
@@ -74,9 +76,25 @@ function ConfirmDialog({
                 </DialogContent>
 
                 <DialogActions>
-                    <Stack width='100%' px={2} pb={2} direction='row' justifyContent='space-between'>
+                    <Stack width='100%' px={2} pb={2} direction='row' justifyContent='space-between' alignItems='baseline'>
                         <Button autoFocus variant='contained' color='primary' onClick={() => closeConfirmDialog()}>Cancel</Button>
-                        <Button variant='text' color='primary' onClick={() => onConfirmDialogConfirmClick()}>Confirm
+                        <Button
+                            onMouseOver={() => setHovered(true)}
+                            onMouseOut={() => setHovered(false)}
+
+                            sx={{
+                                display: 'block',
+                                marginTop: '10px',
+                                backgroundColor: 'main.yellow.dark',
+                                color: 'black',
+                                '&:hover': {
+                                    transform: hovered ? 'scale(1.1)' : 'scale(1.0)',
+                                    backgroundColor: 'main.yellow.primary',
+                                }
+                            }}
+                            variant='contained'
+                            onClick={() => onConfirmDialogConfirmClick()}
+                        >Confirm
                             {entityType === 'product' ? ' order' : ''}
                             {entityType === 'service' ? ' appointment' : ''}
                         </Button>
