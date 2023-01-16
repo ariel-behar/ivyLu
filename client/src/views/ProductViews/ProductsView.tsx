@@ -16,6 +16,7 @@ import Chip from "@mui/material/Chip";
 import Typography from "@mui/material/Typography";
 
 import CachedIcon from '@mui/icons-material/Cached';
+import Box from "@mui/material/Box";
 
 
 const entityServices: ApiEntity<IdType, Product, AuthTokenType> = new ApiEntityImpl<IdType, Product, AuthTokenType>('products');
@@ -52,7 +53,7 @@ function ProductsView() {
 	}, [])
 
 	return (
-		<>
+		<Box py={3}>
 			<div>ProductsView</div>
 
 			<Typography variant="h3" sx={{ color: 'common.white' }}>Products</Typography>
@@ -98,12 +99,12 @@ function ProductsView() {
 				</Breadcrumbs>
 			</Stack>
 
-
-			<Grid container spacing={3} mt={3}>
+			{/* sx={{backgroundColor: 'main.black'}} */}
+			<Grid container spacing={0} mt={3} >
 				{products &&
 					products.map((product: Product) => {
 						return (
-							<Grid item lg={4} key={uniqid()} >
+							<Grid item lg={4} key={uniqid()}  >
 								<ProductCard
 									key={uniqid()}
 									product={product}
@@ -113,7 +114,7 @@ function ProductsView() {
 					})
 				}
 			</Grid>
-		</>
+		</Box>
 	)
 }
 export default ProductsView

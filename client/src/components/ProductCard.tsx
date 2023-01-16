@@ -27,8 +27,14 @@ export default function ProductCard({
 				flexDirection: 'column',
 				borderBottom: '1px dashed lightgrey',
 				borderLeft: '1px dashed lightgrey',
-				paddingLeft: '10px',
-				paddingBottom: '10px'
+				padding: '10px',
+				backgroundColor: 'rgba(44, 44, 44,0.3)',
+				borderBottomLeftRadius: '20px',
+				borderTopRightRadius: '20px'
+			}}
+			component={motion.div}
+			whileHover={{
+				scale: 1.03,
 			}}
 		>
 			<Box sx={{ position: 'relative' }}>
@@ -48,8 +54,7 @@ export default function ProductCard({
 					{product.productCategory.substring(0, 1).toUpperCase()}{product.productCategory.substring(1,)}
 				</Typography>
 
-				<motion.img
-				
+				<img
 					style={{
 						height: '400px',
 						zIndex: 2,

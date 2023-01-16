@@ -4,6 +4,7 @@ import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
 import { Service } from "../models/Service";
 import YellowHoverableButton from "./Buttons/YellowHoverableButton";
+import { motion } from 'framer-motion';
 
 interface Props {
     service: Service
@@ -11,11 +12,14 @@ interface Props {
 function ServiceCard({ service }: Props) {
 
     return (
-        <ImageListItem key={uniqid()} sx={{ overflow: 'hidden' }}>
-            <img style={{ width: 'auto', height: '400px' }}
+        <ImageListItem key={uniqid()} sx={{ overflow: 'hidden' }}                 >
+            <motion.img style={{ width: 'auto', height: '400px' }}
                 src={`${service.imgUrl}`}
                 alt={service.title}
                 loading='lazy'
+                whileHover={{
+                    scale: 1.05,
+                }}
             />
             <Stack
                 direction='row'
@@ -31,6 +35,7 @@ function ServiceCard({ service }: Props) {
                     backgroundColor: 'rgba(30, 30, 30, 0.5)',
                     transform: "rotate(10deg)"
                 }}
+
             >
                 <Typography
                     component={"h4"}
