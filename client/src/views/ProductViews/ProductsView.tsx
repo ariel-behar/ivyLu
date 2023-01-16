@@ -56,7 +56,10 @@ function ProductsView() {
 		<Box py={3}>
 			<div>ProductsView</div>
 
-			<Typography variant="h3" sx={{ color: 'common.white' }}>Products</Typography>
+            <Stack direction='row' alignItems='center' sx={{overflow: 'hidden'}}>
+				<Typography variant="h3" sx={{ color: 'common.white', marginRight: '30px' }}>Products</Typography>
+				<hr style={{width: '100%', height: '2px'}}/>
+			</Stack>
 
 			<Stack direction='row' justifyContent='space-between' alignItems='center'>
 				<Typography variant="h5" sx={{ color: 'common.white' }}>Categories:</Typography>

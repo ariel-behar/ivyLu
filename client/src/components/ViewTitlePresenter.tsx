@@ -25,9 +25,9 @@ function ViewTitlePresenter({
                 <Container sx={{ height: "100%" }}>
                     <Stack height='100%' direction='row' alignItems='center'>
                         <Typography
-                            variant="h1"
+                            variant="h2"
                             component='h3'
-                            color='common.white'
+                            color='main.teal.primary'
                             style={{
                                 transformOrigin: 'bottom left',
                                 transform: 'rotate(3deg)'
