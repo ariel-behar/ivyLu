@@ -111,11 +111,11 @@ function ProductOrderView() {
 											sx={{
 												display: 'block',
 												marginTop: '10px',
-												backgroundColor: 'main.yellow.primary',
+												backgroundColor: 'main.yellow.dark',
 												color: 'black',
 												'&:hover': {
 													transform: hovered ? 'scale(1.1)' : 'scale(1.0)',
-													backgroundColor: 'main.yellow.dark',
+													backgroundColor: 'main.yellow.primary',
 												}
 											}}
 											variant='contained'
