@@ -5,7 +5,7 @@ import { useAuthContext } from '../../../contexts/AuthContext';
 import getUserRole from '../../../utils/getUserRole';
 import { User } from '../../../models/User';
 
-import ManagementMenuButton from './ManagementMenuButton';
+// import ManagementMenuButton from './ManagementMenuButton';
 
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
@@ -47,7 +47,9 @@ function IsLoggedInButtons({ whichHeaderBar }: Props) {
                         <Box>
                             <Button to='/dashboard' color='inherit' component={RouterNavLink} sx={{ '&.active': { fontWeight: 'fontWeightBold' } }}>Dashboard</Button>
 
-                            {(isAdmin || isOperator || isHairdresser) && <ManagementMenuButton />}
+                            {(isAdmin || isOperator || isHairdresser) && <Button to='/management' color='inherit' component={RouterNavLink} sx={{ '&.active': { fontWeight: 'fontWeightBold' } }}>Management</Button> }
+
+                            {/* {(isAdmin || isOperator || isHairdresser) && <ManagementMenuButton />} */}
 
                             <Button to='/logout' color='inherit' component={RouterLink} sx={{ '&.active': { fontWeight: 'fontWeightBold' } }}>Logout</Button>
                         </Box>

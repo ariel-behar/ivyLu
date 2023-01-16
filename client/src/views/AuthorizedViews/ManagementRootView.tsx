@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { Outlet, NavLink as RouterNavLink, useLocation, useNavigate } from "react-router-dom"
+import { useState } from "react";
+import { Outlet, NavLink as RouterNavLink } from "react-router-dom"
 
 import { useAuthContext } from "../../contexts/AuthContext";
 import { isAuthRouteGuard } from "../../hoc/isAuthRouteGuard";
@@ -16,19 +16,10 @@ import Tab from "@mui/material/Tab";
 function ManagementRootView() {
     const { isAdmin } = useAuthContext() as { isAdmin: boolean };
     const [value, setValue] = useState(0);
-    const location = useLocation();
-    const navigate = useNavigate()
 
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-        setValue(newValue);
+        setValue(newValue); 
     };
-
-    useEffect(() => {
-        if (location.pathname === '/management') {
-
-            navigate('/management/orders')
-        }
-    }, [])
 
     return (
         <Box py={3} sx={{flexGrow: 1, background: `url('${lightPattern}')` }}>
