@@ -49,13 +49,14 @@ function HomeView() {
 
 					<Box ml={2}>
 						<Typography
-							mt={5}
+							mt={4}
 							variant='h4'
 							component={motion.h5}
+							sx={{color: 'common.white', textTransform: 'uppercase'}}
+							color='white' 
 							initial={{ opacity: 0 }}
 							animate={{ opacity: 1 }}
 							transition={{ duration: 2, delay: 0.5 }}
-							color='white' className="legend"
 						>
 							Immerse yourself in the Magical World of Colors, Style & Beauty
 						</Typography>
@@ -66,7 +67,7 @@ function HomeView() {
 						initial={{ opacity: 0 }}
 						animate={{ opacity: 1 }}
 						transition={{ duration: 2, delay: 0.8 }}
-						mt={7} direction='row' spacing={3} justifyContent='space-between' alignItems='center' alignContent='center'>
+						mt={8} direction='row' spacing={3} justifyContent='space-between' alignItems='center' alignContent='center'>
 
 							<Button
 								onMouseOver={() => setHovered(true)}
