@@ -36,7 +36,6 @@ function ProductsView() {
 			} else {
 				productsResponse = await entityServices.getAll()
 			}
-
 			setProducts(productsResponse)
 			setCurrentlySelectedCategory(category)
 		} catch (err) {

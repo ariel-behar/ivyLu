@@ -205,7 +205,7 @@ router.post('/create', isAuth, isClient, async (req: Request, res: Response, nex
                                 }
                             }
 
-                            let scheduledItem = {
+                            let newScheduledItem = {
                                 _id: scheduledItemResponse._id,
                                 client,
                                 hairdresser,
@@ -224,7 +224,7 @@ router.post('/create', isAuth, isClient, async (req: Request, res: Response, nex
                                 }
                             }
 
-                            res.json(scheduledItem)
+                            res.status(201).location(`/api/schedule/${newScheduledItem._id}`).json(newScheduledItem)
                         }
                       
                     } catch (err: any) {

@@ -59,7 +59,7 @@ router.post('/register', async (req: Request, res: Response, next: NextFunction)
                 let clientRegisterResponse = await clientServices.register({firstName, lastName,email, phone, gender, role: Number(role), password });
 
                 if (clientRegisterResponse) {
-                    let client = {
+                    let newClient = {
                         _id: clientRegisterResponse._id,
                         firstName: clientRegisterResponse.firstName,
                         lastName: clientRegisterResponse.lastName,
@@ -69,9 +69,9 @@ router.post('/register', async (req: Request, res: Response, next: NextFunction)
                         role: clientRegisterResponse.role,
                     };
         
-                    let authToken = generateAuthToken(client);
+                    let authToken = generateAuthToken(newClient);
 
-                    return res.json({ ...client, authToken });
+                    return res.status(201).location(`/api/users/${newClient._id}`).json({ ...newClient, authToken });
                 }
             } catch(err: any) {
                 next(err)

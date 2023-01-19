@@ -42,8 +42,8 @@ router.post('/create', isAuth, isOperatorAdmin, (req, res, next) => __awaiter(vo
             try {
                 let createServiceResponse = yield serviceServices.create({ title, description, additionalComments, imgUrl, price, duration, status, creatorId });
                 if (createServiceResponse) {
-                    let service = {
-                        serviceId: createServiceResponse._id,
+                    let newService = {
+                        _id: createServiceResponse._id,
                         title: createServiceResponse.title,
                         description: createServiceResponse.description,
                         additionalComments: createServiceResponse.additionalComments,
@@ -51,7 +51,7 @@ router.post('/create', isAuth, isOperatorAdmin, (req, res, next) => __awaiter(vo
                         price: createServiceResponse.price,
                         duration: createServiceResponse.duration
                     };
-                    res.json(service);
+                    res.status(201).location(`/api/services/${newService._id}`).json(newService);
                 }
             }
             catch (err) {
@@ -71,7 +71,7 @@ router.post('/:serviceId/edit', isAuth, isOperatorAdmin, (req, res, next) => __a
         let editServiceResponse = yield serviceServices.updateOne(serviceId, service);
         if (editServiceResponse) {
             let service = {
-                serviceId: editServiceResponse._id,
+                _id: editServiceResponse._id,
                 title: editServiceResponse.title,
                 description: editServiceResponse.description,
                 additionalComments: editServiceResponse.additionalComments,

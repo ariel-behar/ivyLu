@@ -54,8 +54,8 @@ router.post('/create', isAuth, isOperatorAdmin, (req, res, next) => __awaiter(vo
             try {
                 let createProductResponse = yield productServices.create({ title, description, productCategory, additionalComments, imgUrl, price, volume, volumeMeasurementUnit, productCode, status, creatorId });
                 if (createProductResponse) {
-                    let product = {
-                        productId: createProductResponse._id,
+                    let newProduct = {
+                        _id: createProductResponse._id,
                         title: createProductResponse.title,
                         description: createProductResponse.description,
                         productCategory: createProductResponse.productCategory,
@@ -67,7 +67,7 @@ router.post('/create', isAuth, isOperatorAdmin, (req, res, next) => __awaiter(vo
                         productCode: createProductResponse.productCode,
                         status: createProductResponse.status
                     };
-                    res.json(product);
+                    res.status(201).location(`/api/products/${newProduct._id}`).json(newProduct);
                 }
             }
             catch (err) {
@@ -87,7 +87,7 @@ router.post('/:productId/edit', isAuth, isOperatorAdmin, (req, res, next) => __a
         let editProductResponse = yield productServices.updateOne(productId, product);
         if (editProductResponse) {
             let product = {
-                productId: editProductResponse._id,
+                _id: editProductResponse._id,
                 title: editProductResponse.title,
                 description: editProductResponse.description,
                 productCategory: editProductResponse.productCategory,

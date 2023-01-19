@@ -69,7 +69,7 @@ router.post('/register', isAuth, isAdmin, (req, res, next) => __awaiter(void 0, 
                     staffRegisterResponse = yield staffServices.register({ firstName, lastName, email, phone, gender, password, role });
                 }
                 if (staffRegisterResponse) {
-                    let user = {
+                    let newUser = {
                         _id: staffRegisterResponse._id,
                         firstName: staffRegisterResponse.firstName,
                         lastName: staffRegisterResponse.lastName,
@@ -79,8 +79,8 @@ router.post('/register', isAuth, isAdmin, (req, res, next) => __awaiter(void 0, 
                         role: staffRegisterResponse.role,
                         imgUrl: staffRegisterResponse.imgUrl
                     };
-                    let authToken = generateAuthToken(user);
-                    return res.json(Object.assign(Object.assign({}, user), { authToken }));
+                    let authToken = generateAuthToken(newUser);
+                    return res.status(201).location(`/api/staff/${newUser._id}`).json(Object.assign(Object.assign({}, newUser), { authToken }));
                 }
             }
             catch (err) {

@@ -131,14 +131,14 @@ router.post('/create', isAuth, isClient, (req, res, next) => __awaiter(void 0, v
                         productCode: populatedOrder.product.productCode
                     };
                 }
-                let order = {
+                let newOrder = {
                     _id: populatedOrder._id,
                     createdAt: populatedOrder.createdAt,
                     status: populatedOrder.status,
                     client,
                     product
                 };
-                return res.json(order);
+                return res.status(201).location(`/api/orders/${newOrder._id}`).json(newOrder);
             }
         }
     }

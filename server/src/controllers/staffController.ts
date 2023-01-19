@@ -75,7 +75,7 @@ router.post('/register', isAuth, isAdmin, async (req: Request, res: Response, ne
                 }
 
                 if (staffRegisterResponse) {
-                    let user = {
+                    let newUser = {
                         _id: staffRegisterResponse._id,
                         firstName: staffRegisterResponse.firstName,
                         lastName: staffRegisterResponse.lastName,
@@ -86,9 +86,9 @@ router.post('/register', isAuth, isAdmin, async (req: Request, res: Response, ne
                         imgUrl: staffRegisterResponse.imgUrl
                     };
 
-                    let authToken = generateAuthToken(user);
+                    let authToken = generateAuthToken(newUser);
 
-                    return res.json({ ...user, authToken });
+                    return res.status(201).location(`/api/staff/${newUser._id}`).json({ ...newUser, authToken });
                 }
             } catch (err) {
                 next(err)

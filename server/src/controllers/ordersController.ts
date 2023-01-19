@@ -150,7 +150,7 @@ router.post('/create', isAuth, isClient, async (req: Request, res: Response, nex
                         productCode: populatedOrder.product.productCode
                     }
                 }
-                let order = {
+                let newOrder = {
                     _id: populatedOrder._id,
                     createdAt: populatedOrder.createdAt,
                     status: populatedOrder.status,
@@ -158,7 +158,7 @@ router.post('/create', isAuth, isClient, async (req: Request, res: Response, nex
                     product
                 };
     
-                return res.json(order)
+                return res.status(201).location(`/api/orders/${newOrder._id}`).json(newOrder)
             }
         }
     } catch (err) {

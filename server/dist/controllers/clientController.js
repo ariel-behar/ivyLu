@@ -53,7 +53,7 @@ router.post('/register', (req, res, next) => __awaiter(void 0, void 0, void 0, f
             try {
                 let clientRegisterResponse = yield clientServices.register({ firstName, lastName, email, phone, gender, role: Number(role), password });
                 if (clientRegisterResponse) {
-                    let client = {
+                    let newClient = {
                         _id: clientRegisterResponse._id,
                         firstName: clientRegisterResponse.firstName,
                         lastName: clientRegisterResponse.lastName,
@@ -62,8 +62,8 @@ router.post('/register', (req, res, next) => __awaiter(void 0, void 0, void 0, f
                         gender: clientRegisterResponse.gender,
                         role: clientRegisterResponse.role,
                     };
-                    let authToken = generateAuthToken(client);
-                    return res.json(Object.assign(Object.assign({}, client), { authToken }));
+                    let authToken = generateAuthToken(newClient);
+                    return res.status(201).location(`/api/users/${newClient._id}`).json(Object.assign(Object.assign({}, newClient), { authToken }));
                 }
             }
             catch (err) {

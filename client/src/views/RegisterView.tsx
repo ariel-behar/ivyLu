@@ -72,7 +72,6 @@ function RegisterView() {
 
 		try {
 			let registerUserResponse = await userServices.register(user as User)
-			console.log('registerUserResponse:', registerUserResponse)
 
 			login(registerUserResponse)
 			navigate('/')

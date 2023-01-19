@@ -177,7 +177,7 @@ router.post('/create', isAuth, isClient, (req, res, next) => __awaiter(void 0, v
                                     duration: scheduledItemResponse.service.duration,
                                 };
                             }
-                            let scheduledItem = {
+                            let newScheduledItem = {
                                 _id: scheduledItemResponse._id,
                                 client,
                                 hairdresser,
@@ -195,7 +195,7 @@ router.post('/create', isAuth, isClient, (req, res, next) => __awaiter(void 0, v
                                     minutesISO: scheduledItemResponse.minutesISO
                                 }
                             };
-                            res.json(scheduledItem);
+                            res.status(201).location(`/api/schedule/${newScheduledItem._id}`).json(newScheduledItem);
                         }
                     }
                     catch (err) {

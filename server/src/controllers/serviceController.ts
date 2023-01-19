@@ -44,8 +44,8 @@ router.post('/create', isAuth, isOperatorAdmin, async (req: Request, res: Respon
                 let createServiceResponse = await serviceServices.create({ title, description, additionalComments, imgUrl, price, duration, status, creatorId });
 
                 if (createServiceResponse) {
-                    let service = {
-                        serviceId: createServiceResponse._id,
+                    let newService = {
+                        _id: createServiceResponse._id,
                         title: createServiceResponse.title,
                         description: createServiceResponse.description,
                         additionalComments: createServiceResponse.additionalComments,
@@ -54,7 +54,7 @@ router.post('/create', isAuth, isOperatorAdmin, async (req: Request, res: Respon
                         duration: createServiceResponse.duration
                     };
 
-                    res.json(service);
+                    res.status(201).location(`/api/services/${newService._id}`).json(newService);
                 }
             } catch (err: any) {
                 next(err)
@@ -76,7 +76,7 @@ router.post('/:serviceId/edit',isAuth, isOperatorAdmin, async (req: Request, res
 
         if (editServiceResponse) {
             let service = {
-                serviceId: editServiceResponse._id,
+                _id: editServiceResponse._id,
                 title: editServiceResponse.title,
                 description: editServiceResponse.description,
                 additionalComments: editServiceResponse.additionalComments,
