@@ -72,6 +72,7 @@ function RegisterView() {
 
 		try {
 			let registerUserResponse = await userServices.register(user as User)
+			console.log('registerUserResponse:', registerUserResponse)
 
 			login(registerUserResponse)
 			navigate('/')
@@ -110,8 +111,17 @@ function RegisterView() {
 
 
 
-					<Grid item md={5} display='flex' direction='column' alignItems='center' justifyContent='center' height='100%'>
-						<Paper elevation={15} sx={{ borderRadius: "20px", backgroundColor: 'transparent'  }}>
+					<Grid
+						item md={5}
+						sx={{
+							height: '100%',
+							display: 'flex',
+							flexDirection: 'column',
+							alignItems: 'center',
+							justifyContent: 'center'
+						}}
+					>
+						<Paper elevation={15} sx={{ borderRadius: "20px", backgroundColor: 'transparent' }}>
 							<Stack
 								direction='column'
 								alignItems='center'
@@ -124,7 +134,7 @@ function RegisterView() {
 								<form onSubmit={handleSubmit(onFormSubmit)}>
 									<Stack spacing={1}>
 										<TextField
-											sx={{background: "rgb(232, 241, 250)"}}
+											sx={{ background: "rgb(232, 241, 250)" }}
 											required
 											id="first-name"
 											label="First Name"
@@ -136,7 +146,7 @@ function RegisterView() {
 										/>
 
 										<TextField
-											sx={{background: "rgb(232, 241, 250)"}}
+											sx={{ background: "rgb(232, 241, 250)" }}
 											required
 											id="last-name"
 											label="Last Name"
@@ -148,7 +158,7 @@ function RegisterView() {
 										/>
 
 										<TextField
-											sx={{background: "rgb(232, 241, 250)"}}
+											sx={{ background: "rgb(232, 241, 250)" }}
 											required
 											id="email"
 											label="E-mail"
@@ -161,7 +171,7 @@ function RegisterView() {
 										/>
 
 										<TextField
-											sx={{background: "rgb(232, 241, 250)"}}
+											sx={{ background: "rgb(232, 241, 250)" }}
 											required
 											id="phone-number"
 											type='number'
@@ -183,7 +193,7 @@ function RegisterView() {
 										</FormControl>
 
 										<TextField
-											sx={{background: "rgb(232, 241, 250)"}}
+											sx={{ background: "rgb(232, 241, 250)" }}
 											required
 											id="password"
 											type="password"
@@ -196,7 +206,7 @@ function RegisterView() {
 										/>
 
 										<TextField
-											sx={{background: "rgb(232, 241, 250)"}}
+											sx={{ background: "rgb(232, 241, 250)" }}
 											required
 											id="confirmPassword"
 											type="password"
@@ -225,7 +235,7 @@ function RegisterView() {
 								</form>
 
 								<Stack mt={2} direction='row' justifyContent='center'>
-									<Typography variant="h6" component='p' color='white'>Already a member of IvyLu? <RouterLink style={{color:'#42a5f5'}} to="/login">Login here </RouterLink></Typography>
+									<Typography variant="h6" component='p' color='white'>Already a member of IvyLu? <RouterLink style={{ color: '#42a5f5' }} to="/login">Login here </RouterLink></Typography>
 								</Stack>
 
 							</Stack>
@@ -239,32 +249,6 @@ function RegisterView() {
 
 					</Grid>
 				</Grid>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 			</Container>
 		</Box>
 	)

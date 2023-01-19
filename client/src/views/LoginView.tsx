@@ -81,7 +81,17 @@ function LoginView() {
 
 					}}
 				>
-					<Grid item md={5} display='flex' direction='column' alignItems='center' justifyContent='start' pt={3} height='100%'>
+					<Grid
+						item md={5}
+						pt={3}
+						sx={{
+							height: '100%',
+							display: 'flex',
+							flexDirection: 'column',
+							alignItems: 'center',
+							justifyContent: 'start'
+						}}
+					>
 
 						<Paper elevation={15} sx={{ borderRadius: "20px", backgroundColor: 'transparent' }} >
 							<Stack
@@ -98,7 +108,7 @@ function LoginView() {
 									<Stack spacing={2} >
 
 										<TextField
-											sx={{background: "rgb(232, 241, 250)"}}
+											sx={{ background: "rgb(232, 241, 250)" }}
 											required
 											id="email"
 											label="E-mail"
@@ -110,7 +120,7 @@ function LoginView() {
 										/>
 
 										<TextField
-											sx={{background: "rgb(232, 241, 250)"}}
+											sx={{ background: "rgb(232, 241, 250)" }}
 											required
 											id="password"
 											type="password"
@@ -140,7 +150,7 @@ function LoginView() {
 								</form>
 
 								<Stack mt={2} direction='row' justifyContent='center'>
-									<Typography variant="h6" component='p' color='white'>Not a member of IvyLu yet? <RouterLink style={{color:'#42a5f5'}} to="/register">Register here </RouterLink></Typography>
+									<Typography variant="h6" component='p' color='white'>Not a member of IvyLu yet? <RouterLink style={{ color: '#42a5f5' }} to="/register">Register here </RouterLink></Typography>
 								</Stack>
 							</Stack>
 						</Paper>
