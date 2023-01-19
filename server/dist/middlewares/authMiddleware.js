@@ -35,7 +35,7 @@ export const isClient = function (req, res, next) {
         next();
     }
     else {
-        next({ status: 401, message: 'Unauthorized request.' });
+        next({ status: 403, message: 'Forbidden request.' });
     }
 };
 export const isHairdresserOperatorAdmin = function (req, res, next) {
@@ -44,7 +44,7 @@ export const isHairdresserOperatorAdmin = function (req, res, next) {
         next();
     }
     else {
-        next({ status: 401, message: 'Unauthorized request.' });
+        next({ status: 403, message: 'Forbidden request.' });
     }
 };
 export const isOperatorAdmin = function (req, res, next) {
@@ -53,7 +53,7 @@ export const isOperatorAdmin = function (req, res, next) {
         next();
     }
     else {
-        next({ status: 401, message: 'Unauthorized request.' });
+        next({ status: 403, message: 'Forbidden request.' });
     }
 };
 export const isAdmin = function (req, res, next) {
@@ -62,7 +62,7 @@ export const isAdmin = function (req, res, next) {
         next();
     }
     else {
-        next({ status: 401, message: 'Unauthorized request.' });
+        next({ status: 403, message: 'Forbidden request.' });
     }
 };
 //# sourceMappingURL=authMiddleware.js.map

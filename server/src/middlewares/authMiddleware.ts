@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express'
 import jwt from 'jsonwebtoken'
 import * as env from 'dotenv'
-import { AuthTokenType } from '../types/common-types'
+import { AuthTokenType } from '../types/common-types.js'
 import { sendErrorResponse } from '../utils/sendErrorResponse.js'
 env.config()
 
@@ -50,7 +50,7 @@ export const isClient = function (req: Request, res: Response, next: NextFunctio
     if (userRole === 1) {
         next()
     } else {
-        next({ status: 401, message: 'Unauthorized request.' })
+        next({ status: 403, message: 'Forbidden request.' })
     }
 }
 
@@ -60,7 +60,7 @@ export const isHairdresserOperatorAdmin = function (req: Request, res: Response,
     if (userRole === 2 || userRole === 3 || userRole === 4) {
         next()
     } else {
-        next({ status: 401, message: 'Unauthorized request.' })
+        next({ status: 403, message: 'Forbidden request.' })
     }
 }
 
@@ -70,7 +70,7 @@ export const isOperatorAdmin = function (req: Request, res: Response, next: Next
     if (userRole === 3 || userRole === 4) {
         next()
     } else {
-        next({ status: 401, message: 'Unauthorized request.' })
+        next({ status: 403, message: 'Forbidden request.' })
     }
 }
 
@@ -80,6 +80,6 @@ export const isAdmin = function (req: Request, res: Response, next: NextFunction
     if (userRole === 4) {
         next()
     } else {
-        next({ status: 401, message: 'Unauthorized request.' })
+        next({ status: 403, message: 'Forbidden request.' })
     }
 }
