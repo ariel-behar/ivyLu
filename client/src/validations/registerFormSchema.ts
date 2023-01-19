@@ -32,10 +32,10 @@ export const registerFormSchemaShape = {
                 .nullable(),
         password: yup
                 .string()
-                .required('Password is required')
-                .min(8, "Password should be at least 8 characters long")
-                .max(20, "Password should be at most 20 characters long")
-                .matches(PASSWORD_PATTERN_REGEX, "Password must contain at least 1 uppercase letter, 1 lowercase letter, 1 number and 1 special character"),
+                .required('Password is required'),
+                // .min(8, "Password should be at least 8 characters long")
+                // .max(20, "Password should be at most 20 characters long")
+                // .matches(PASSWORD_PATTERN_REGEX, "Password must contain at least 1 uppercase letter, 1 lowercase letter, 1 number and 1 special character"),
         confirmPassword: yup
                 .string()
                 .required('Confirm password is required')
