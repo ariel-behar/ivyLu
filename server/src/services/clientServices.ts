@@ -1,5 +1,5 @@
 import Client, { IClientDocument, IClientRegister } from '../models/Client.js';
-import { IdType } from '../types/common-types.js';
+import { IdType, Partial } from '../types/common-types.js';
 
 const selectedFields = {firstName: 1, lastName: 1, email: 1, phone: 1, gender: 1, role: 1, imgUrl: 1, about: 1}
 
@@ -7,7 +7,7 @@ export const getOneByEmail = (email: IClientDocument['email']) => Client.findOne
 
 export const getAll = () => Client.find({}, selectedFields ).lean();
 
-export const getManyFilteredBy = (filters: object) => Client.find(filters, selectedFields).lean();
+export const getManyFilteredBy = (filters: Partial<IClientDocument>) => Client.find(filters, selectedFields).lean();
 
 export const register = (user: IClientRegister) => Client.create(user);
 
