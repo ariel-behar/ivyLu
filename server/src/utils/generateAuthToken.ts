@@ -1,10 +1,11 @@
 import jwt from 'jsonwebtoken'
 import * as env from 'dotenv'
-import {UserDTO} from '../models/User';
+import { IStaffDocument } from '../models/Staff';
+import { IClientDocument } from '../models/Client';
 
 env.config()
 
-const generateAuthToken = (user: UserDTO) => {
+const generateAuthToken = (user: IStaffDocument | IClientDocument) => {
     let payload = user;
 
     let AUTH_TOKEN = jwt.sign(payload, process.env.AUTH_TOKEN_SECRET);
