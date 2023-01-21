@@ -130,7 +130,7 @@ router.post('/login', isGuest, (req, res, next) => __awaiter(void 0, void 0, voi
         next(err);
     }
 }));
-router.post('/:userId/edit', isAuth, isAdmin, (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+router.put('/:userId', isAuth, isAdmin, (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     let userId = req.params.userId;
     let { firstName, lastName, email, phone, gender, password, role, about, imgUrl } = req.body;
     try {

@@ -65,7 +65,7 @@ router.post('/', isAuth, isOperatorAdmin, async (req: Request, res: Response, ne
     }
 })
 
-router.patch('/:serviceId',isAuth, isOperatorAdmin, async (req: Request, res: Response, next: NextFunction) => {
+router.put('/:serviceId',isAuth, isOperatorAdmin, async (req: Request, res: Response, next: NextFunction) => {
     let serviceId = req.params.serviceId
     let { title, description, additionalComments, imgUrl, price, duration, status } = req.body;
 

@@ -144,7 +144,7 @@ router.post('/login', isGuest, async (req: Request, res: Response, next: NextFun
     }
 })
 
-router.post('/:userId/edit', isAuth, isAdmin, async (req: Request, res: Response, next: NextFunction) => {
+router.put('/:userId', isAuth, isAdmin, async (req: Request, res: Response, next: NextFunction) => {
     let userId = req.params.userId;
     let { firstName, lastName, email, phone, gender, password, role, about, imgUrl } = req.body;
 
