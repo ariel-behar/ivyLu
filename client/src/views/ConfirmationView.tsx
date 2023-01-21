@@ -22,7 +22,7 @@ function ConfirmationView({ entity, entityType }: Props) {
     return (
 
         <Box py={3}>
-            {/* <div>ConfirmationView</div> */}
+            <div>ConfirmationView</div>
             <Container>
 
 

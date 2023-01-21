@@ -8,7 +8,7 @@ function ClientsAdminView() {
     
     return (
         <>
-            {/* <div>ClientsAdminView</div> */}
+            <div>ClientsAdminView</div>
 
             <Box height='70.75px' ></Box>
 

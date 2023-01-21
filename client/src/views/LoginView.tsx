@@ -62,7 +62,7 @@ function LoginView() {
 	return (
 		<Box py={3}>
 			<Container>
-				{/* <div> LoginView</div> */}
+				<div> LoginView</div>
 
 				<Stack direction='row' alignItems='center' sx={{ overflow: 'hidden', margin: '20px 0' }}>
 					<hr style={{ width: '100%', height: '2px' }} />

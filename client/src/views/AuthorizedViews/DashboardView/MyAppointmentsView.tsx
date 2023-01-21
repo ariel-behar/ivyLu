@@ -39,7 +39,7 @@ function MyAppointmentsView() {
 
 	return (
 		<>
-			{/* <div>MyAppointmentsView</div> */}
+			<div>MyAppointmentsView</div>
 
 			<ScheduleCalendar scheduledItems={scheduledItems}/>
 		</>

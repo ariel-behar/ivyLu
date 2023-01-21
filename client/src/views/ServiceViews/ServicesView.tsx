@@ -14,6 +14,7 @@ function ServicesView() {
 
     return (
         <Box py={3}>
+            <div>ServiceView</div>
 
             <Stack direction='row' alignItems='center' sx={{ overflow: 'hidden' }}>
                 <Typography variant="h3" sx={{ color: 'common.white', marginRight: '30px' }}>Services</Typography>

@@ -42,7 +42,7 @@ function ScheduleManagementView() {
 
 	return (
 		<>
-			{/* <div>ScheduleManagementView</div> */}
+			<div>ScheduleManagementView</div>
 
 			<Box height='70.75px' ></Box>
 

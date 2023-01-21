@@ -18,7 +18,7 @@ function OurTeamView() {
 	return (
 		<Box py={3}>
 			<Container sx={{ height: '80vh' }}>
-				{/* <div>OurTeamView</div> */}
+				<div>OurTeamView</div>
 
 				<Stack direction='row' alignItems='center' sx={{overflow: 'hidden'}}>
 					<Typography variant="h3" sx={{ color: 'common.white', marginRight: '30px', whiteSpace: 'nowrap' }}>Meet Our Team!</Typography>

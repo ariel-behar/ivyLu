@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom';
 function ServicesManagementView() {
     return (
         <>
-            {/* <div>ServicesManagementView</div> */}
+            <div>ServicesManagementView</div>
 
             <Outlet />
         </>

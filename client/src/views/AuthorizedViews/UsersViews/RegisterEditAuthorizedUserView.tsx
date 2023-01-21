@@ -133,7 +133,7 @@ function RegisterEditAuthorizedUserView({ formType }: Props) {
 
 	return (
 		<Paper style={{ padding: '10px' }}>
-			{/* <div>RegisterAuthorizedView</div> */}
+			<div>RegisterAuthorizedView</div>
 			<Grid container spacing={2} columnSpacing={1}>
 				<Grid item xs={12} sm={12} lg={7}>
 					<form onSubmit={handleSubmit(onFormSubmit)}>
