@@ -63,7 +63,7 @@ router.post('/create', isAuth, isOperatorAdmin, (req, res, next) => __awaiter(vo
         next(err);
     }
 }));
-router.post('/:serviceId/edit', isAuth, isOperatorAdmin, (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+router.patch('/:serviceId', isAuth, isOperatorAdmin, (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     let serviceId = req.params.serviceId;
     let { title, description, additionalComments, imgUrl, price, duration, status } = req.body;
     let service = { title, description, additionalComments, imgUrl, price, duration, status };

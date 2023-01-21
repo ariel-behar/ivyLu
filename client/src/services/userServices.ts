@@ -44,7 +44,7 @@ export class ApiUserImpl<I, E extends Identifiable<I>, A extends AuthTokenType> 
     }
 
     update(entityId: I, entity: E, authToken: A): Promise<E> {
-        return request(`${baseUrl}/${this.apiCollectionSuffix}/${entityId}/edit`, 'POST', entity, authToken);
+        return request(`${baseUrl}/${this.apiCollectionSuffix}/${entityId}`, 'PATCH', entity, authToken);
     }
     deleteOne(entityId: I, entity: undefined, authToken: A): Promise<string> {
         return request(`${baseUrl}/${this.apiCollectionSuffix}/${entityId}`, 'DELETE', entity, authToken);

@@ -33,7 +33,7 @@ export class ApiEntityImpl<I, E extends Identifiable<I>, A extends AuthTokenType
         return request(`${baseUrl}/${this.apiCollectionSuffix}/create`, 'POST', {...entityWithoutId, userId}, authToken);
     }
     update(entityId: I, entity: E, authToken: A): Promise<E> {
-        return request(`${baseUrl}/${this.apiCollectionSuffix}/${entityId}/edit`, 'POST', entity, authToken);
+        return request(`${baseUrl}/${this.apiCollectionSuffix}/${entityId}`, 'PATCH', entity, authToken);
     }
     deleteOne(entityId: I, entity: undefined, authToken: A): Promise<string> {
         return request(`${baseUrl}/${this.apiCollectionSuffix}/${entityId}`, 'DELETE', entity, authToken);

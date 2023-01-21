@@ -79,7 +79,7 @@ router.post('/create', isAuth, isOperatorAdmin, (req, res, next) => __awaiter(vo
         next(err);
     }
 }));
-router.post('/:productId/edit', isAuth, isOperatorAdmin, (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+router.patch('/:productId', isAuth, isOperatorAdmin, (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     let productId = req.params.productId;
     let { title, description, productCategory, additionalComments, imgUrl, price, volume, volumeMeasurementUnit, productCode, status } = req.body;
     let product = { title, description, productCategory, additionalComments, imgUrl, price, volume, volumeMeasurementUnit, productCode, status };

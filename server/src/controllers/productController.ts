@@ -80,7 +80,7 @@ router.post('/create', isAuth, isOperatorAdmin, async (req: Request, res: Respon
     }
 })
 
-router.post('/:productId/edit',isAuth, isOperatorAdmin, async (req: Request, res: Response, next: NextFunction) => {
+router.patch('/:productId', isAuth, isOperatorAdmin, async (req: Request, res: Response, next: NextFunction) => {
     let productId = req.params.productId
     let { title, description,productCategory, additionalComments, imgUrl, price, volume, volumeMeasurementUnit, productCode, status } = req.body;
 
