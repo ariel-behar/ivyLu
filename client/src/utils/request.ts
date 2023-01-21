@@ -1,10 +1,10 @@
-type headersType = {
+type Theaders = {
     'Content-Type'?: string,
-    'Auth-Token'?: string
+    'Authorization'?: string
 }
 
 type optionsType = {
-    headers: headersType,
+    headers: Theaders,
     method: string,
     body?: string
 
@@ -15,14 +15,14 @@ const request = (url: string, method: string, body?: object, authToken?: string)
         method = 'Get'
     }
 
-    let headers: headersType = {};
+    let headers: Theaders = {};
 
     if (['post', 'put', 'patch'].includes(method.toLowerCase())) {
         headers['Content-Type'] = 'application/json';
     }
 
     if (authToken) {
-        headers['Auth-Token'] = authToken;
+        headers['Authorization'] = `Bearer ${authToken}`;
     }
 
     let options: optionsType = {

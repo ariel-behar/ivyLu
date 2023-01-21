@@ -8,36 +8,45 @@ env.config()
 export interface IUserRequest extends Request {
     user: any,
     headers: {
-        "auth-token": string
+        "authorization": string
     }
 }
 
 export const isAuth = function (req: Request, res: Response, next: NextFunction) {
-    let userAuthToken = req.headers['auth-token']
+    let tokenHeader = req.headers['authorization']
 
-    if (!userAuthToken) {
-        next({ status: 401, message: 'Unauthorized request.' })
-    }
-
-    try {
-        jwt.verify(userAuthToken as AuthTokenType, process.env.AUTH_TOKEN_SECRET, function (err, decodedToken) {
-            if (err) {
-                next({ status: 401, message: 'A problem occurred during User authentication' })
-            } else {
-                res.locals.user = decodedToken;
-
-                next();
+    if(!tokenHeader) {
+        next({ status: 401, message: `Unauthorized request` });
+        return;
+    } else {
+        let authTokenBearer = tokenHeader.split(' ')[0]
+        let authToken = tokenHeader.split(' ')[1]
+    
+        if (!authToken || authTokenBearer !== 'Bearer') {
+            next({ status: 401, message: 'No valid access token has been provided' })
+        } else {
+            try {
+                jwt.verify(authToken as AuthTokenType, process.env.AUTH_TOKEN_SECRET, function (err, decodedToken) {
+                    if (err) {
+                        next({ status: 401, message: 'Access token is invalid' })
+                    } else {
+                        res.locals.user = decodedToken;
+        
+                        next();
+                    }
+                })
+            } catch (err: any) {
+                sendErrorResponse(req, res, 401, err.message, err)
             }
-        })
-    } catch (err: any) {
-        sendErrorResponse(req, res, 401, err.message, err)
+        }
     }
 }
 
 export const isGuest = function (req: Request, res: Response, next: NextFunction) {
-    let userAuthToken = req.headers['auth-token']
+    let tokenHeader = req.headers['authorization']
+    let authToken = tokenHeader?.split(' ')[1]
 
-    if (!userAuthToken) {
+    if (!authToken) {
         return next()
     }
 
