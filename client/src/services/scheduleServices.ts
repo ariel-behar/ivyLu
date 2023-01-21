@@ -8,7 +8,7 @@ let scheduleUrl = `${baseUrl}/schedule`
 
 export const getHairdresserSchedule = (hairdresserId: IdType) => request(`${scheduleUrl}/hairdresser/${hairdresserId}`, 'GET')
 
-export const create = (scheduleItemWithoutId: ScheduleCreateDTO, authToken: AuthTokenType) => request(`${scheduleUrl}/create`, 'POST', scheduleItemWithoutId, authToken);
+export const create = (scheduleItemWithoutId: ScheduleCreateDTO, authToken: AuthTokenType) => request(`${scheduleUrl}`, 'POST', scheduleItemWithoutId, authToken);
 
 export const getAll = (authToken: AuthTokenType) => request(`${scheduleUrl}`, 'GET', undefined, authToken);
 

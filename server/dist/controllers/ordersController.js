@@ -100,7 +100,7 @@ router.get('/:clientId', isAuth, (req, res, next) => __awaiter(void 0, void 0, v
         next(err);
     }
 }));
-router.post('/create', isAuth, isClient, (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+router.post('/', isAuth, isClient, (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     let { clientId, productId, status } = req.body;
     try {
         let orderCreateResponse = yield ordersServices.create({ client: clientId, product: productId, status });

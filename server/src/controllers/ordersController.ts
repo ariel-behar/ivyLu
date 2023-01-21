@@ -114,7 +114,7 @@ router.get('/:clientId', isAuth, async (req: Request, res: Response, next: NextF
 
 
 
-router.post('/create', isAuth, isClient, async (req: Request, res: Response, next: NextFunction) => {
+router.post('/', isAuth, isClient, async (req: Request, res: Response, next: NextFunction) => {
     let { clientId, productId, status } = req.body;
 
     try {

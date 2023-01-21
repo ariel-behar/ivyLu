@@ -31,7 +31,7 @@ router.get('/:serviceId', (req, res, next) => __awaiter(void 0, void 0, void 0, 
         next(err);
     }
 }));
-router.post('/create', isAuth, isOperatorAdmin, (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+router.post('/', isAuth, isOperatorAdmin, (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     let { title, description, additionalComments, imgUrl, price, duration, status, creatorId } = req.body;
     try {
         let serviceExists = yield serviceServices.getOneByTitle(title);

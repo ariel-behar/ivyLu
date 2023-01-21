@@ -150,7 +150,7 @@ router.get('/:clientId', async (req: Request, res: Response, next: NextFunction)
     }
 })
 
-router.post('/create', isAuth, isClient, async (req: Request, res: Response, next: NextFunction) => {
+router.post('/', isAuth, isClient, async (req: Request, res: Response, next: NextFunction) => {
     const { clientId, hairdresserId, serviceId, scheduledDate, scheduledHour } = req.body;
 
     try {

@@ -42,7 +42,7 @@ router.get('/:productId', async (req: Request, res: Response, next: NextFunction
     }
 })
 
-router.post('/create', isAuth, isOperatorAdmin, async (req: Request, res: Response, next: NextFunction) => {
+router.post('/', isAuth, isOperatorAdmin, async (req: Request, res: Response, next: NextFunction) => {
     let { title, description, productCategory, additionalComments, imgUrl, price, volume, volumeMeasurementUnit, productCode, status, creatorId } = req.body;
 
     try {

@@ -31,7 +31,7 @@ router.get('/:serviceId', async (req: Request, res: Response, next: NextFunction
     }
 })
 
-router.post('/create', isAuth, isOperatorAdmin, async (req: Request, res: Response, next: NextFunction) => {
+router.post('/', isAuth, isOperatorAdmin, async (req: Request, res: Response, next: NextFunction) => {
     let { title, description, additionalComments, imgUrl, price, duration, status, creatorId } = req.body;
 
     try {

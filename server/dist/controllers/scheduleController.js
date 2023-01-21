@@ -131,7 +131,7 @@ router.get('/:clientId', (req, res, next) => __awaiter(void 0, void 0, void 0, f
         }
     }
 }));
-router.post('/create', isAuth, isClient, (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+router.post('/', isAuth, isClient, (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { clientId, hairdresserId, serviceId, scheduledDate, scheduledHour } = req.body;
     try {
         let formattedDateISO = format(new Date(scheduledDate), "dd/MM/yyyy");
