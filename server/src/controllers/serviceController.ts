@@ -93,7 +93,7 @@ router.post('/:serviceId/edit',isAuth, isOperatorAdmin, async (req: Request, res
 
 })
 
-router.get('/:serviceId/delete',isAuth, isOperatorAdmin, async (req: Request, res: Response, next: NextFunction) => {
+router.delete('/:serviceId',isAuth, isOperatorAdmin, async (req: Request, res: Response, next: NextFunction) => {
     let serviceId = req.params.serviceId
 
     try {

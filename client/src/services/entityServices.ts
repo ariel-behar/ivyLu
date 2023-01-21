@@ -36,7 +36,7 @@ export class ApiEntityImpl<I, E extends Identifiable<I>, A extends AuthTokenType
         return request(`${baseUrl}/${this.apiCollectionSuffix}/${entityId}/edit`, 'POST', entity, authToken);
     }
     deleteOne(entityId: I, entity: undefined, authToken: A): Promise<string> {
-        return request(`${baseUrl}/${this.apiCollectionSuffix}/${entityId}/delete`, 'GET', entity, authToken);
+        return request(`${baseUrl}/${this.apiCollectionSuffix}/${entityId}`, 'DELETE', entity, authToken);
     }
  
 

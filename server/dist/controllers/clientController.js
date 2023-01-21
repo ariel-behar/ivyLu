@@ -113,7 +113,7 @@ router.post('/login', isGuest, (req, res, next) => __awaiter(void 0, void 0, voi
         next(err);
     }
 }));
-router.get('/:userId/delete', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+router.delete('/:userId', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     let userId = req.params.userId;
     try {
         let deleteClientResponse = yield clientServices.deleteOne(userId);

@@ -176,7 +176,7 @@ router.post('/:userId/edit', isAuth, isAdmin, async (req: Request, res: Response
     }
 })
 
-router.get('/:userId/delete', isAuth, async (req: Request, res: Response, next: NextFunction) => {
+router.delete('/:userId', isAuth, async (req: Request, res: Response, next: NextFunction) => {
     let userId = req.params.userId
 
     try {

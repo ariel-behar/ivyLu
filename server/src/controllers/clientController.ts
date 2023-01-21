@@ -127,7 +127,7 @@ router.post('/login', isGuest, async (req: Request, res: Response, next: NextFun
     }
 })
 
-router.get('/:userId/delete', async (req: Request, res: Response, next: NextFunction) => {
+router.delete('/:userId', async (req: Request, res: Response, next: NextFunction) => {
     let userId = req.params.userId
 
     try {

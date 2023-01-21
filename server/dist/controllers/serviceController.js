@@ -86,7 +86,7 @@ router.post('/:serviceId/edit', isAuth, isOperatorAdmin, (req, res, next) => __a
         next(err);
     }
 }));
-router.get('/:serviceId/delete', isAuth, isOperatorAdmin, (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+router.delete('/:serviceId', isAuth, isOperatorAdmin, (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     let serviceId = req.params.serviceId;
     try {
         let deleteServiceResponse = yield serviceServices.deleteOne(serviceId);

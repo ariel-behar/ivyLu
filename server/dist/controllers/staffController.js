@@ -159,7 +159,7 @@ router.post('/:userId/edit', isAuth, isAdmin, (req, res, next) => __awaiter(void
         next(err);
     }
 }));
-router.get('/:userId/delete', isAuth, (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+router.delete('/:userId', isAuth, (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     let userId = req.params.userId;
     try {
         let deleteStaffResponse = yield staffServices.deleteOne(userId);

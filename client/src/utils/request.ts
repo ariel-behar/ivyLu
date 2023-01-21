@@ -3,21 +3,23 @@ type Theaders = {
     'Authorization'?: string
 }
 
+type TMethods = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE'
+
 type optionsType = {
     headers: Theaders,
-    method: string,
+    method: TMethods,
     body?: string
 
 }
 
-const request = (url: string, method: string, body?: object, authToken?: string) => {
+const request = (url: string, method: TMethods, body?: object, authToken?: string) => {
     if (method === undefined) {
-        method = 'Get'
+        method = 'GET'
     }
 
     let headers: Theaders = {};
 
-    if (['post', 'put', 'patch'].includes(method.toLowerCase())) {
+    if (['POST', 'PUT', 'PATCH'].includes(method)) {
         headers['Content-Type'] = 'application/json';
     }
 

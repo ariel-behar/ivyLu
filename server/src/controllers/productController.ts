@@ -111,7 +111,7 @@ router.post('/:productId/edit',isAuth, isOperatorAdmin, async (req: Request, res
     }
 })
 
-router.get('/:productId/delete',isAuth, isOperatorAdmin, async (req: Request, res: Response, next: NextFunction) => {
+router.delete('/:productId',isAuth, isOperatorAdmin, async (req: Request, res: Response, next: NextFunction) => {
     let productId = req.params.productId
 
     try {

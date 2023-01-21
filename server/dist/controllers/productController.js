@@ -106,7 +106,7 @@ router.post('/:productId/edit', isAuth, isOperatorAdmin, (req, res, next) => __a
         next(err);
     }
 }));
-router.get('/:productId/delete', isAuth, isOperatorAdmin, (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+router.delete('/:productId', isAuth, isOperatorAdmin, (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     let productId = req.params.productId;
     try {
         let deleteProductResponse = yield productServices.deleteOne(productId);
