@@ -17,11 +17,11 @@ clientSchema.pre('save', function (next) {
         this.password = hash;
         next();
     })
-        .catch(error => {
-        if (error.message === 'data and salt arguments required') {
-            throw { code: 500, message: 'An error occurred while attempting to sign you up. Please try again' };
+        .catch(err => {
+        if (err.message === 'data and salt arguments required') {
+            next(new Error('An error occurred while attempting to sign you up. Please try again'));
         }
-        throw { code: 500, message: error.message };
+        next(new Error(err.message));
     });
 });
 const Client = mongoose.model('Client', clientSchema);

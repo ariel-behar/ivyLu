@@ -13,4 +13,6 @@ export const register = (user: IClientRegister) => Client.create(user);
 
 export const login = (email: IClientDocument['email']) => Client.findOne({email}).lean()
 
+export const update = (userId: IdType, user: Partial<IClientDocument>) => Client.findByIdAndUpdate(userId, user, {new: true});
+
 export const deleteOne = (userId: IdType) => Client.deleteOne({_id: userId});

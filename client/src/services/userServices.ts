@@ -1,6 +1,6 @@
 import request from "../utils/request";
 
-import { AuthTokenType, Identifiable } from "../types/common/common-types";
+import { AuthTokenType, Identifiable, Partial } from "../types/common/common-types";
 
 import { baseUrl } from "./api";
 export interface ApiUser<I, E extends Identifiable<I>, A extends AuthTokenType> {
@@ -9,8 +9,8 @@ export interface ApiUser<I, E extends Identifiable<I>, A extends AuthTokenType> 
     getOne(userId: I, authToken: A): Promise<E>;
     getAll(authToken?: A): Promise<E[]>;
     getManyFilteredBy(filter: object): Promise<E[]>
-    update(entityId: I, entity: E, authToken: A): Promise<E>;
-    deleteOne(entityId: I, entity: undefined, authToken: A): Promise<string>;
+    update(userId: I, userData: Partial<E>, authToken: A): Promise<E>;
+    deleteOne(userId: I, userData: undefined, authToken: A): Promise<string>;
 }
 
 export class ApiUserImpl<I, E extends Identifiable<I>, A extends AuthTokenType> implements ApiUser<I, E, A> {
@@ -43,11 +43,12 @@ export class ApiUserImpl<I, E extends Identifiable<I>, A extends AuthTokenType> 
         return request(`${baseUrl}/${this.apiCollectionSuffix}?${queryString.join('&')}`, 'GET');
     }
 
-    update(entityId: I, entity: E, authToken: A): Promise<E> {
-        return request(`${baseUrl}/${this.apiCollectionSuffix}/${entityId}`, 'PUT', entity, authToken);
+    update(userId: I, userData: Partial<E>, authToken: A): Promise<E> {
+        return request(`${baseUrl}/${this.apiCollectionSuffix}/${userId}`, 'PATCH', userData, authToken);
     }
-    deleteOne(entityId: I, entity: undefined, authToken: A): Promise<string> {
-        return request(`${baseUrl}/${this.apiCollectionSuffix}/${entityId}`, 'DELETE', entity, authToken);
+    
+    deleteOne(userId: I, userData: undefined, authToken: A): Promise<string> {
+        return request(`${baseUrl}/${this.apiCollectionSuffix}/${userId}`, 'DELETE', userData, authToken);
     }
 }
 

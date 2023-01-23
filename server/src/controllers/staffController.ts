@@ -144,7 +144,7 @@ router.post('/login', isGuest, async (req: Request, res: Response, next: NextFun
     }
 })
 
-router.put('/:userId', isAuth, isAdmin, async (req: Request, res: Response, next: NextFunction) => {
+router.patch('/:userId', isAuth, isAdmin, async (req: Request, res: Response, next: NextFunction) => {
     let userId = req.params.userId;
     let { firstName, lastName, email, phone, gender, password, role, about, imgUrl } = req.body;
 
@@ -152,7 +152,7 @@ router.put('/:userId', isAuth, isAdmin, async (req: Request, res: Response, next
         let staffEditResponse;
 
         if (role == 2) {
-            staffEditResponse =await staffServices.update(userId, { firstName, lastName, email, phone, gender, password, role, imgUrl, about, });
+            staffEditResponse =await staffServices.update(userId, { firstName, lastName, email, phone, gender, password, role, imgUrl, about });
         } else {
             staffEditResponse = await staffServices.update(userId, { firstName, lastName, email, phone, gender, password, role });
         }

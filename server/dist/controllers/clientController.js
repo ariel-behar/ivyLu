@@ -9,8 +9,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 import { Router } from 'express';
 import bcrypt from 'bcrypt';
-import * as staffServices from '../services/staffServices.js';
 import * as clientServices from '../services/clientServices.js';
+import * as staffServices from '../services/staffServices.js';
 import { AuthenticationError, InvalidDataError } from '../models/Errors.js';
 import { isGuest } from '../middlewares/authMiddleware.js';
 import generateAuthToken from '../utils/generateAuthToken.js';
@@ -107,6 +107,40 @@ router.post('/login', isGuest, (req, res, next) => __awaiter(void 0, void 0, voi
         }
         else {
             next(new AuthenticationError(`Username or password are incorrect.`));
+        }
+    }
+    catch (err) {
+        next(err);
+    }
+}));
+router.patch('/:userId', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    let userId = req.params.userId;
+    let updateFields = req.body;
+    try {
+        if (Object.keys(updateFields).includes('password')) {
+            try {
+                let hashedPassword = yield bcrypt.hash(updateFields.password, Number(process.env.JWT_SALT));
+                updateFields.password = hashedPassword;
+            }
+            catch (err) {
+                if (err.message === 'data and salt arguments required') {
+                    next(new Error('An error occurred while attempting to update your password. Please try again'));
+                }
+                next(new Error(err.message));
+            }
+        }
+        let clientEditResponse = yield clientServices.update(userId, updateFields);
+        if (clientEditResponse) {
+            let user = {
+                _id: clientEditResponse._id,
+                firstName: clientEditResponse.firstName,
+                lastName: clientEditResponse.lastName,
+                email: clientEditResponse.email,
+                gender: clientEditResponse.gender,
+                phone: clientEditResponse.phone,
+                role: clientEditResponse.role,
+            };
+            return res.json(user);
         }
     }
     catch (err) {

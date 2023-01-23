@@ -130,13 +130,13 @@ router.post('/login', isGuest, (req, res, next) => __awaiter(void 0, void 0, voi
         next(err);
     }
 }));
-router.put('/:userId', isAuth, isAdmin, (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+router.patch('/:userId', isAuth, isAdmin, (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     let userId = req.params.userId;
     let { firstName, lastName, email, phone, gender, password, role, about, imgUrl } = req.body;
     try {
         let staffEditResponse;
         if (role == 2) {
-            staffEditResponse = yield staffServices.update(userId, { firstName, lastName, email, phone, gender, password, role, imgUrl, about, });
+            staffEditResponse = yield staffServices.update(userId, { firstName, lastName, email, phone, gender, password, role, imgUrl, about });
         }
         else {
             staffEditResponse = yield staffServices.update(userId, { firstName, lastName, email, phone, gender, password, role });
