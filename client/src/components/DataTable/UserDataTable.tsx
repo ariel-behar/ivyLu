@@ -78,7 +78,7 @@ function UserDataTable({
                                         Edit
                                     </Button>
                                 </TableCell>
-                                : <TableCell align='center'></TableCell>
+                                : entityType === 'staff' && <TableCell align='center'></TableCell>
                             }
 
                             <TableCell align='center'>
