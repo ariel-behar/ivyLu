@@ -146,16 +146,35 @@ router.post('/login', isGuest, async (req: Request, res: Response, next: NextFun
 
 router.patch('/:userId', isAuth, isAdmin, async (req: Request, res: Response, next: NextFunction) => {
     let userId = req.params.userId;
-    let { firstName, lastName, email, phone, gender, password, role, about, imgUrl } = req.body;
+    let updateFields = req.body;
 
     try {
-        let staffEditResponse;
+        if (Object.keys(updateFields).includes('newPassword')) {
+            let userLoginResponse = await staffServices.getOne(userId)
+            let oldPassword = updateFields.oldPassword
+            let newPassword = updateFields.newPassword
+            let isOldPasswordValid;
 
-        if (role == 2) {
-            staffEditResponse =await staffServices.update(userId, { firstName, lastName, email, phone, gender, password, role, imgUrl, about });
-        } else {
-            staffEditResponse = await staffServices.update(userId, { firstName, lastName, email, phone, gender, password, role });
+            if(userLoginResponse) {
+
+                isOldPasswordValid = await bcrypt.compare(oldPassword, userLoginResponse?.password);
+
+                if(isOldPasswordValid) {
+                    try {
+                        let hashedPassword = await bcrypt.hash(newPassword, Number(process.env.JWT_SALT))
+                        updateFields.password = hashedPassword;
+                    } catch(err: any) {
+                        if (err.message === 'data and salt arguments required') {
+                            next(new Error('An error occurred while attempting to update your password. Please try again'))
+                        }
+                        next(new Error(err.message))
+                    }
+                } else {
+                    next(new AuthenticationError('Old password is incorrect'));
+                }
+            }
         }
+        let staffEditResponse = await staffServices.update(userId, updateFields);
 
         if (staffEditResponse) {
             let user = {
