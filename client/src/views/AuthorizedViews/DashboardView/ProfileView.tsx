@@ -55,7 +55,6 @@ function ProfileView() {
 	})
 
 	const onFieldUpdateSubmit = async (data: FormData, e: React.BaseSyntheticEvent<object, any, any> | undefined) => {
-		console.log('data:', data)
 		e?.preventDefault()
 
 		let editFieldData;
@@ -68,13 +67,13 @@ function ProfileView() {
 		} else {
 			editFieldData = data;
 		}
-		console.log(editFieldData)
 
 		try {
 			let updateResponse = await userServices.update(user._id, editFieldData, user.authToken);
 			if (updateResponse) {
 				login({ ...updateResponse, authToken: user.authToken })
 
+				displayNotification({message: `Your ${editField} has successfully been updated`}, 'success')
 				setEditField(null);
 				reset()
 			}
@@ -195,7 +194,7 @@ function ProfileView() {
 														required
 														id="password"
 														type="password"
-														label="Password"
+														label="New Password"
 														variant="outlined"
 														size="small"
 														defaultValue=''
@@ -208,7 +207,7 @@ function ProfileView() {
 														required
 														id="confirmPassword"
 														type="password"
-														label="Confirm Password"
+														label="Confirm New Password"
 														variant="outlined"
 														size="small"
 														defaultValue=''
