@@ -132,15 +132,29 @@ router.patch('/:userId', async (req: Request, res: Response, next: NextFunction)
     let updateFields = req.body;
 
     try {
-        if (Object.keys(updateFields).includes('password')) {
-            try {
-                let hashedPassword = await bcrypt.hash(updateFields.password, Number(process.env.JWT_SALT))
-                updateFields.password = hashedPassword;
-            } catch(err: any) {
-                if (err.message === 'data and salt arguments required') {
-                    next(new Error('An error occurred while attempting to update your password. Please try again'))
+        if (Object.keys(updateFields).includes('newPassword')) {
+            let userLoginResponse = await clientServices.getOne(userId)
+            let oldPassword = updateFields.oldPassword
+            let newPassword = updateFields.newPassword
+            let isOldPasswordValid;
+
+            if(userLoginResponse) {
+
+                isOldPasswordValid = await bcrypt.compare(oldPassword, userLoginResponse?.password);
+
+                if(isOldPasswordValid) {
+                    try {
+                        let hashedPassword = await bcrypt.hash(newPassword, Number(process.env.JWT_SALT))
+                        updateFields.password = hashedPassword;
+                    } catch(err: any) {
+                        if (err.message === 'data and salt arguments required') {
+                            next(new Error('An error occurred while attempting to update your password. Please try again'))
+                        }
+                        next(new Error(err.message))
+                    }
+                } else {
+                    next(new AuthenticationError('Old password is incorrect'));
                 }
-                next(new Error(err.message))
             }
         }
 

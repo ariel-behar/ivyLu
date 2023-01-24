@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import * as yup from 'yup'
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -30,11 +30,12 @@ import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
 import ClearOutlinedIcon from '@mui/icons-material/ClearOutlined';
 import { useNotificationContext } from "../../../contexts/NotificationContext";
 
-type TEditField = 'email' | 'phone' | 'password' | null
+type TEditField = 'phone' | 'password' | null
 
 type FormData = {
 	email?: string,
 	phone?: string,
+	oldPassword?: string,
 	password?: string,
 	confirmPassword?: string
 }
@@ -48,23 +49,26 @@ function ProfileView() {
 	const [editField, setEditField] = useState<TEditField>(null);
 	const [resolverShape, setResolverShape] = useState<ObjectShape>({});
 
-	const { register, handleSubmit, formState: { errors, isDirty, isValid } } = useForm<FormData>({
+	const { register, handleSubmit,reset, formState: { errors, isValid} } = useForm<FormData>({
 		mode: 'onBlur',
 		resolver: yupResolver(yup.object().shape(resolverShape)),
 	})
 
 	const onFieldUpdateSubmit = async (data: FormData, e: React.BaseSyntheticEvent<object, any, any> | undefined) => {
+		console.log('data:', data)
 		e?.preventDefault()
 
 		let editFieldData;
-		
-		if(Object.keys(data).includes('password')) {
+
+		if (Object.keys(data).includes('password')) {
 			editFieldData = {
-				password: data.password
+				oldPassword: data.oldPassword,
+				newPassword: data.password
 			}
 		} else {
 			editFieldData = data;
 		}
+		console.log(editFieldData)
 
 		try {
 			let updateResponse = await userServices.update(user._id, editFieldData, user.authToken);
@@ -72,7 +76,9 @@ function ProfileView() {
 				login({ ...updateResponse, authToken: user.authToken })
 
 				setEditField(null);
+				reset()
 			}
+
 		} catch (err: any) {
 			displayNotification(err, 'error')
 		}
@@ -90,7 +96,8 @@ function ProfileView() {
 
 			if (selectedEditField === 'password') {
 				setResolverShape({
-					password: yup.reach(registerFormSchema, selectedEditField),
+					oldPassword: yup.string().required('Old password is required'),
+					password: yup.reach(registerFormSchema, 'password'),
 					confirmPassword: yup.reach(registerFormSchema, 'confirmPassword')
 				})
 			}
@@ -123,6 +130,7 @@ function ProfileView() {
 														type='number'
 														label="Phone Number"
 														variant="outlined"
+														defaultValue={user.phone}
 														size="small"
 														{...register('phone')}
 														error={errors.phone ? true : false}
@@ -172,11 +180,25 @@ function ProfileView() {
 												<Stack spacing={1} direction='row' alignContent='baseline' alignItems='baseline'>
 													<TextField
 														required
+														id="oldPassword"
+														type="password"
+														label="Old Password"
+														variant="outlined"
+														size="small"
+														defaultValue=''
+														{...register('oldPassword')}
+														error={errors.oldPassword ? true : false}
+														helperText={errors.oldPassword ? errors.oldPassword.message : ''}
+													/>
+
+													<TextField
+														required
 														id="password"
 														type="password"
 														label="Password"
 														variant="outlined"
 														size="small"
+														defaultValue=''
 														{...register('password')}
 														error={errors.password ? true : false}
 														helperText={errors.password ? errors.password.message : ''}
@@ -189,6 +211,7 @@ function ProfileView() {
 														label="Confirm Password"
 														variant="outlined"
 														size="small"
+														defaultValue=''
 														{...register('confirmPassword')}
 														error={errors.confirmPassword ? true : false}
 														helperText={errors.confirmPassword ? errors.confirmPassword.message : ''}
@@ -207,8 +230,6 @@ function ProfileView() {
 												</Stack>
 											</form>
 										</Stack>
-
-
 									</>
 									: <Typography
 										variant="body1"

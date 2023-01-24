@@ -16,6 +16,8 @@ export class User implements Identifiable<IdType> {
         public authToken: string,
         public about?: string,
         public imgUrl?: string,
+        public oldPassword?: string,
+        public newPassword?: string
     ){}
 }
 
