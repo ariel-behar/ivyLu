@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { NavLink as RouterNavLink, Outlet } from "react-router-dom";
+import { NavLink as RouterNavLink, Outlet, useLocation } from "react-router-dom";
 
 import { isAuthRouteGuard } from "../../../hoc/isAuthRouteGuard";
 
@@ -12,7 +12,20 @@ import Tabs from "@mui/material/Tabs";
 
 
 function DashboardView() {
-	const [value, setValue] = useState(0);
+	const location = useLocation()
+	const [value, setValue] = useState(getTabValue(location.pathname));
+
+	function getTabValue(path: string){
+		if(path === '/dashboard'){
+			return 0;
+		} else if(path === '/dashboard/orders'){
+			return 0;
+		}else if(path === '/dashboard/appointments'){
+			return 1;
+		}else if(path === '/dashboard/profile'){
+			return 2;
+		}
+	}
 
 	const handleChange = (event: React.SyntheticEvent, newValue: number) => {
 		setValue(newValue);

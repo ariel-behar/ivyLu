@@ -74,7 +74,7 @@ function UserDataTable({
                                     <Button
                                         variant="text"
                                         component={RouterLink}
-                                        to={`/management/${entityType === 'staff' ? 'staff' : 'clients' }/${entityUser._id}/edit`}>
+                                        to={`/dashboard/profile`}>
                                         Edit
                                     </Button>
                                 </TableCell>
