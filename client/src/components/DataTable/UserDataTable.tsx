@@ -28,7 +28,7 @@ function UserDataTable({
     entities,
     onDeleteButtonClickHandler
 }: Props) {
-    let { isAdmin } = useAuthContext() as {isAdmin: boolean};
+    let { isAdmin, user } = useAuthContext() as {isAdmin: boolean, user: User};
 
     return (
         <>
@@ -48,40 +48,41 @@ function UserDataTable({
             <TableBody>
 
                 {
-                    (entities as Omit<User, 'password'>[]).map((user) => (
+                    (entities as Omit<User, 'password'>[]).map((entityUser) => (
                         <StyledTableRow
-                            key={user._id}
+                            key={entityUser._id}
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                         >
                             <TableCell>
                                 <img
                                     height='50px'
                                     src={
-                                        user.imgUrl
-                                            ? user.imgUrl
-                                            : (user.gender === 'male' ? maleAvatar : femaleAvatar)}
-                                    alt={`${user.gender} avatar`}
+                                        entityUser.imgUrl
+                                            ? entityUser.imgUrl
+                                            : (entityUser.gender === 'male' ? maleAvatar : femaleAvatar)}
+                                    alt={`${entityUser.gender} avatar`}
                                 />
                             </TableCell>
-                            <TableCell>{getUserRole(user.role).capitalized}</TableCell>
-                            <TableCell>{user.firstName}</TableCell>
-                            <TableCell>{user.lastName}</TableCell>
+                            <TableCell>{getUserRole(entityUser.role).capitalized}</TableCell>
+                            <TableCell>{entityUser.firstName}</TableCell>
+                            <TableCell>{entityUser.lastName}</TableCell>
 
-                            <TableCell align='center'>{user.email}</TableCell>
+                            <TableCell align='center'>{entityUser.email}</TableCell>
 
-                            {(entityType === 'staff' && isAdmin) &&
-                                <TableCell align='center'>
+                            {(entityType === 'staff' && isAdmin && entityUser._id === user._id) 
+                               ? <TableCell align='center'>
                                     <Button
                                         variant="text"
                                         component={RouterLink}
-                                        to={`/management/${entityType === 'staff' ? 'staff' : 'clients' }/${user._id}/edit`}>
+                                        to={`/management/${entityType === 'staff' ? 'staff' : 'clients' }/${entityUser._id}/edit`}>
                                         Edit
                                     </Button>
                                 </TableCell>
+                                : <TableCell align='center'></TableCell>
                             }
 
                             <TableCell align='center'>
-                                <Button variant="text" color="error" onClick={() => onDeleteButtonClickHandler(user._id, entityType)}>
+                                <Button variant="text" color="error" onClick={() => onDeleteButtonClickHandler(entityUser._id, entityType)}>
                                     Delete
                                 </Button>
                             </TableCell>
