@@ -208,32 +208,35 @@ function RegisterEditAuthorizedUserView({ formType }: Props) {
 								</FormControl>
 							</Stack>
 
-							<Box width='100%' component='div' onBlur={handlePreviewImage}>
-								<TextField
-									fullWidth
-									required={role === 2}
-									label={role === 2 ? "Hairdresser Image" : 'User Image'}
-									placeholder='https://...'
-									variant="outlined"
-									size="small"
-									{...register('imgUrl')}
-									error={errors.imgUrl ? true : false}
-									helperText={errors.imgUrl ? errors.imgUrl.message : ''}
-								/>
-							</Box>
+
 
 							{
 								role === 2
-								&& <TextField
-									fullWidth
-									required={role === 2}
-									label="About Hairdresser"
-									variant="outlined"
-									size="small"
-									{...register('about')}
-									error={errors.about ? true : false}
-									helperText={errors.about ? errors.about.message : ''}
-								/>
+								&& <>
+									<Box width='100%' component='div' onBlur={handlePreviewImage}>
+										<TextField
+											fullWidth
+											required={role === 2}
+											label={role === 2 ? "Hairdresser Image" : 'User Image'}
+											placeholder='https://...'
+											variant="outlined"
+											size="small"
+											{...register('imgUrl')}
+											error={errors.imgUrl ? true : false}
+											helperText={errors.imgUrl ? errors.imgUrl.message : ''}
+										/>
+										<TextField
+											fullWidth
+											required={role === 2}
+											label="About Hairdresser"
+											variant="outlined"
+											size="small"
+											{...register('about')}
+											error={errors.about ? true : false}
+											helperText={errors.about ? errors.about.message : ''}
+										/>
+									</Box>
+								</>
 							}
 
 							<TextField

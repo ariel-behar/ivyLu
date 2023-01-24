@@ -16,10 +16,10 @@ const registerAuthorizedFormSchema = yup.object().shape({
             is: (role: number) => role === 2,
             then:
                 yup
-                .string()
-                .min(30, 'About hairdresser needs to be at least 30 characters long') 
-                .max(250, 'About hairdresser needs to be at most 250 characters long')
-                .matches(LATIN_CHARACTERS_REGEX, 'Only characters from the latin alphabet are allowed')
+                    .string()
+                    .min(30, 'About hairdresser needs to be at least 30 characters long')
+                    .max(250, 'About hairdresser needs to be at most 250 characters long')
+                    .matches(LATIN_CHARACTERS_REGEX, 'Only characters from the latin alphabet are allowed')
         }),
     imgUrl: yup
         .string()
@@ -27,9 +27,10 @@ const registerAuthorizedFormSchema = yup.object().shape({
             is: (role: number) => role === 2,
             then:
                 yup.string()
-                    .required('User Picture is required for the role "Hairdresser", because it will be displayed on the "OUR TEAM" page')
+                    .required('User Picture is required for role "Hairdresser", since it will be displayed on the "OUR TEAM" page')
                     .matches(IMAGE_URL_REGEX, 'Image URL should start with "http://" or "https://" and end with either .jpg|.jpeg|.png|.gif|.svg')
         })
+
 })
 
 export default registerAuthorizedFormSchema;
