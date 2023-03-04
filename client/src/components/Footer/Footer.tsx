@@ -1,4 +1,5 @@
-import logoIvyLu from '../../assets/img/logo-ivylu.png'
+import logoIvyLuSmallScreen from '../../assets/img/logo-ivylu.png'
+import logoIvyLuLargeScreen from '../../assets/img/logo-ivylu-art-and-beauty-horizontal.png'
 
 import styled from '@mui/material/styles/styled'
 
@@ -14,17 +15,32 @@ const StyledBox = styled(Box)`
     position: 'relative';
     z-index: 3;
     width: 100%;
-    height: 50px;
+    height: 60px;
 
     .logo-container-div {
         background-color: ${({ theme }) => theme.palette.main.black};
-        padding: 10px 20px;
-        border-radius: 50%;
         position: absolute;
         z-index: 4;
-        left: 50%;
-        bottom: 5px;
-        transform: translate(-50%, 0);
+        left: 0;
+        bottom: 0;
+        transform: translate(0, 0);
+        background-color: transparent;
+        padding: 0 10px;
+
+        img {
+            max-width: 210px;
+        }
+    }
+
+    @media (max-width: 599px) { 
+        height: 50px;
+        .logo-container-div {
+            padding: 5px 10px;
+
+            img {
+                max-width: 50px;
+            }
+        }
     }
 `
 
@@ -44,8 +60,13 @@ function Footer() {
                         <Link href='http://www.arielbehar.com' rel="noreferrer" target='_blank' style={{ color: 'lightgrey' }}>Ariel Behar</Link>
                     </Typography>
 
-                    <Box className='logo-container-div'>
-                        <img src={logoIvyLu} alt="IvyLu Logo" style={{ maxWidth: "80px" }} />
+
+                    <Box className='logo-container-div' display={{xs: 'none', sm: 'block'}}>
+                        <img src={logoIvyLuLargeScreen} alt="IvyLu Logo" />
+                    </Box>
+
+                    <Box className='logo-container-div' display={{xs: 'block', sm: 'none'}}>
+                        <img src={logoIvyLuSmallScreen} alt="IvyLu Logo" />
                     </Box>
                 </Stack>
             </Container>

@@ -42,23 +42,29 @@ function HomeView() {
 
 	return (
 		<StyledBackgroundBox sx={{
-			minHeight: isLoggedIn ? 'calc(100vh - 66px - 36.5px - 50px)' : 'calc(100vh - 55px - 50px)',
-			height: isLoggedIn ? 'calc(100% - 66px - 36.5px - 50px)' : 'calc(100% - 65px - 50px)',
+			minHeight: {
+				xs: isLoggedIn ? 'calc(100vh - 56px - 36.5px - 50px)' : 'calc(100vh - 56px - 50px)',
+				md: isLoggedIn ? 'calc(100vh - 56px - 36.5px - 70px)' : 'calc(100vh - 56px - 70px)'
+			},
+			height: {
+				xs: isLoggedIn ? 'calc(100% - 56px - 36.5px - 50px)' : 'calc(100% - 56px - 50px)',
+				md: isLoggedIn ? 'calc(100% - 56px - 36.5px - 70px)' : 'calc(100% - 56px - 70px)'
+			},
 			backgroundPosition: { xs: 'top right -200px', md: 'inherit' }
 		}}>
 			<Box 
 				className='mask' 
 				display={{ xs: 'block', md: 'none' }}
 				sx={{
-					minHeight: isLoggedIn ? 'calc(100vh - 66px - 36.5px - 50px)' : 'calc(100vh - 55px - 50px)',
-					height: isLoggedIn ? 'calc(100% - 66px - 36.5px - 50px)' : 'calc(100% - 65px - 50px)',
+					minHeight: isLoggedIn ? 'calc(100vh - 56px - 36.5px - 30px)' : 'calc(100vh - 56px - 50px)',
+					height: isLoggedIn ? 'calc(100% - 66px - 36.5px - 40px)' : 'calc(100% - 65px - 50px)',
 				}}
 			></Box>
 
 			<Container className='container'>
 				<Grid container >
-					<Grid item xs={12} sm={6} md={6} lg={5}>
-						<Box width='100%' height='auto' px={{ xs: 3, md: 0 }}>
+					<Grid item xs={12} sm={6} md={6} lg={5} >
+						<Box width='100%' height='auto' px={{ xs: 3, md: 0 }} pt={{xs: 4, lg: 3}}>
 							<motion.img
 								src={entireLogo}
 								style={{ maxWidth: '100%', maxHeight: '100%' }}
@@ -102,7 +108,7 @@ function HomeView() {
 								transition={{ duration: 2, delay: 0.8 }}
 
 								mt={{ xs: 6, md: 8 }}
-								mb={4}
+								mb={{ xs: 4, md: 0 }}
 								spacing={3}
 								direction='row'
 								justifyContent='center'
