@@ -23,8 +23,16 @@ const StyledBackgroundBox = styled(Box)`
 	background-repeat: no-repeat;
 	background-size: cover;
 
+	.mask {
+		position: absolute;
+		background-color: rgba(0,0,0, 0.6);
+		width: 100%;
+		height: auto;
+	}
+
 	.container {
 		padding-top: 20px;
+		height: 10
 	}
 `
 
@@ -33,43 +41,73 @@ function HomeView() {
 	const [hovered, setHovered] = useState<boolean>(false);
 
 	return (
-		<StyledBackgroundBox sx={{ 
-			height: isLoggedIn ? 'calc(100vh - 66px - 36.5px - 50px)' : 'calc(100vh - 65px - 50px)' 
-			}}>
+		<StyledBackgroundBox sx={{
+			minHeight: isLoggedIn ? 'calc(100vh - 66px - 36.5px - 50px)' : 'calc(100vh - 55px - 50px)',
+			height: isLoggedIn ? 'calc(100% - 66px - 36.5px - 50px)' : 'calc(100% - 65px - 50px)',
+			backgroundPosition: { xs: 'top right -200px', md: 'inherit' }
+		}}>
+			<Box 
+				className='mask' 
+				display={{ xs: 'block', md: 'none' }}
+				sx={{
+					minHeight: isLoggedIn ? 'calc(100vh - 66px - 36.5px - 50px)' : 'calc(100vh - 55px - 50px)',
+					height: isLoggedIn ? 'calc(100% - 66px - 36.5px - 50px)' : 'calc(100% - 65px - 50px)',
+				}}
+			></Box>
 
 			<Container className='container'>
 				<Grid container >
 					<Grid item xs={12} sm={6} md={6} lg={5}>
-						<motion.img
-							src={entireLogo}
-							style={{ maxWidth: '100%', maxHeight: '100%' }}
-							alt="Logo"
-							initial={{ opacity: 0 }}
-							animate={{ opacity: 1 }}
-							transition={{ duration: 2 }}
-						/>
+						<Box width='100%' height='auto' px={{ xs: 3, md: 0 }}>
+							<motion.img
+								src={entireLogo}
+								style={{ maxWidth: '100%', maxHeight: '100%' }}
+								alt="Logo"
+								initial={{ opacity: 0 }}
+								animate={{ opacity: 1 }}
+								transition={{ duration: 2 }}
+							/>
+						</Box>
 
-						<Box ml={2}>
+						<Box ml={2} textAlign='center'>
 							<Typography
 								mt={4}
 								variant='h4'
 								component={motion.h5}
-								sx={{ color: 'common.white', textTransform: 'uppercase' }}
+								sx={{ color: 'common.white', textTransform: 'uppercase', fontSize: { xs: '1.5rem', md: '2.125rem' } }}
 								color='white'
 								initial={{ opacity: 0 }}
 								animate={{ opacity: 1 }}
 								transition={{ duration: 2, delay: 0.5 }}
 							>
-								Immerse yourself in the Magical World of Colors, Style & Beauty
+								Immerse yourself in the Magical World of&nbsp;
+								<Box component='span' sx={{ color: '#d4e157' }}>C</Box>
+								<Box component='span' sx={{ color: '#8c675a' }}>O</Box>
+								<Box component='span' sx={{ color: '#4caf50' }}>L</Box>
+								<Box component='span' sx={{ color: '#8c675a' }}>O</Box>
+								<Box component='span' sx={{ color: '#0277bd' }}>R</Box>
+								<Box component='span' sx={{ color: '#e84845' }}>S</Box>
+								,&nbsp;
+								<i>Style</i> &&nbsp;
+								<Box component='span' sx={{ fontFamily: "'Dancing Script', cursive" }}>Beauty</Box>
+
 							</Typography>
 
 
 							<Stack
 								component={motion.div}
+
 								initial={{ opacity: 0 }}
 								animate={{ opacity: 1 }}
 								transition={{ duration: 2, delay: 0.8 }}
-								mt={8} direction='row' spacing={3} justifyContent='space-between' alignItems='center' alignContent='center'
+
+								mt={{ xs: 6, md: 8 }}
+								mb={4}
+								spacing={3}
+								direction='row'
+								justifyContent='center'
+								alignItems='center'
+								alignContent='center'
 							>
 								<Button
 									onMouseOver={() => setHovered(true)}
@@ -110,13 +148,12 @@ function HomeView() {
 									Go to Products
 								</Button>
 
-
 							</Stack>
 						</Box>
 					</Grid>
 				</Grid>
-
 			</Container >
+
 		</StyledBackgroundBox >
 	)
 }

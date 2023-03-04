@@ -54,12 +54,13 @@ function Header() {
     return (
         <>
             <AppBar position="sticky" sx={{ backgroundColor: 'main.black' }}>
-                <Container sx={{ padding: { xs: '0 5px', sm: '0 24px' } }} >
+                <Container sx={{ padding: { xs: '0 10px', sm: '0 24px' } }} >
                     <Toolbar disableGutters>
 
                         {/* Small screens */}
                         <Stack direction='row' justifyContent='space-between' alignItems='center' sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                             <IconButton
+                                sx={{padding: '5px'}}
                                 size="large"
                                 aria-label="account of current user"
                                 aria-controls="menu-appbar"
