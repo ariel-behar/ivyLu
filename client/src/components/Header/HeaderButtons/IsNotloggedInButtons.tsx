@@ -12,7 +12,7 @@ function IsNotloggedInButtons() {
                     to='/login'
                     color='inherit'
                     component={RouterNavLink}
-                    sx={{ '&.active': { fontWeight: 'fontWeightBold' } }}
+                    sx={{ '&.active': { fontWeight: 'fontWeightBold' }, padding: { xs: '6px 2px', sm: '6px 8px'} }}
                 >
                     Login
                 </Button>
@@ -20,7 +20,7 @@ function IsNotloggedInButtons() {
                     to='/register'
                     color='inherit'
                     component={RouterNavLink}
-                    sx={{ '&.active': { fontWeight: 'fontWeightBold' } }}
+                    sx={{ '&.active': { fontWeight: 'fontWeightBold' }, padding: { xs: '6px 2px', sm: '6px 8px'} }}
                 >
                     Register
                 </Button>

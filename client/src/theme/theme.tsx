@@ -18,8 +18,6 @@ const theme = createTheme({
 				dark: '#fdd835',
 				darkest: '#c8b900'
 			}
-			
-			
 		}
 	}
 })

@@ -1,16 +1,17 @@
+import { useState } from 'react';
+import { motion } from 'framer-motion';
 import { Link as RouterLink } from 'react-router-dom'
+
+import { useAuthContext } from '../contexts/AuthContext';
 
 import womanBlondHair from '../assets/img/woman-blond-hair.jpg'
 import entireLogo from '../assets/img/entire-logo.png'
 
 import Box from '@mui/material/Box';
-import { useAuthContext } from '../contexts/AuthContext';
-import { motion } from 'framer-motion';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
-import { useState } from 'react';
 
 function HomeView() {
 	const { isLoggedIn } = useAuthContext() as { isLoggedIn: boolean }
@@ -52,8 +53,8 @@ function HomeView() {
 							mt={4}
 							variant='h4'
 							component={motion.h5}
-							sx={{color: 'common.white', textTransform: 'uppercase'}}
-							color='white' 
+							sx={{ color: 'common.white', textTransform: 'uppercase' }}
+							color='white'
 							initial={{ opacity: 0 }}
 							animate={{ opacity: 1 }}
 							transition={{ duration: 2, delay: 0.5 }}
@@ -63,11 +64,12 @@ function HomeView() {
 
 
 						<Stack
-						component={motion.div}
-						initial={{ opacity: 0 }}
-						animate={{ opacity: 1 }}
-						transition={{ duration: 2, delay: 0.8 }}
-						mt={8} direction='row' spacing={3} justifyContent='space-between' alignItems='center' alignContent='center'>
+							component={motion.div}
+							initial={{ opacity: 0 }}
+							animate={{ opacity: 1 }}
+							transition={{ duration: 2, delay: 0.8 }}
+							mt={8} direction='row' spacing={3} justifyContent='space-between' alignItems='center' alignContent='center'
+						>
 
 							<Button
 								onMouseOver={() => setHovered(true)}
