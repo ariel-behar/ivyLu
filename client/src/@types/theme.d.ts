@@ -15,12 +15,12 @@ declare module '@mui/material/styles' {
     // }
 
     interface Palette {
-        main?: {
-            black?: PaletteColor,
-            beige?: PaletteColor,
+        main: {
+            black: PaletteColor,
+            beige: PaletteColor,
             beigeLight: PaletteColor,
-            darkGrey?: PaletteColor,
-            teal?: {
+            darkGrey: PaletteColor,
+            teal: {
                 primary: PaletteColor,
                 light: PaletteColor,
                 dark: PaletteColor
@@ -35,12 +35,12 @@ declare module '@mui/material/styles' {
     }
 
     interface PaletteOptions {
-        main?: {
-            black?: string | PaletteColorOptions,
-            beige?: string | PaletteColorOptions,
-            beigeLight?: string | PaletteColorOptions,
-            darkGrey?: string | PaletteColorOptions,
-            teal?: {
+        main: {
+            black: string | PaletteColorOptions,
+            beige: string | PaletteColorOptions,
+            beigeLight: string | PaletteColorOptions,
+            darkGrey: string | PaletteColorOptions,
+            teal: {
                 primary: string | PaletteColorOptions,
                 light: string | PaletteColorOptions,
                 dark: string | PaletteColorOptions
