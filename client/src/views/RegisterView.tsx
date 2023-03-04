@@ -28,6 +28,40 @@ import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
+import styled from '@mui/material/styles/styled';
+
+const StyledPaper = styled(Paper)`
+	input.css-1n4twyu-MuiInputBase-input-MuiOutlinedInput-input {
+		background-color: rgba(94, 84, 80, 0.7);
+		color: white;
+	}
+	label.css-1pysi21-MuiFormLabel-root-MuiInputLabel-root, 
+	label.css-1sumxir-MuiFormLabel-root-MuiInputLabel-root,
+	label.css-u4tvz2-MuiFormLabel-root,
+	span.css-vqmohf-MuiButtonBase-root-MuiRadio-root {
+		color: rgba(255, 255, 255, 0.5);
+	}
+
+	label.css-1sumxir-MuiFormLabel-root-MuiInputLabel-root.Mui-focused,
+	.css-j204z7-MuiFormControlLabel-root .MuiFormControlLabel-label,
+	span.css-vqmohf-MuiButtonBase-root-MuiRadio-root.Mui-checked {
+		color: white;
+	}
+
+	p.css-k4qjio-MuiFormHelperText-root.Mui-error {
+		background-color: rgba(255,255,255,0.3);
+		border-bottom-left-radius: 5px;
+		border-bottom-right-radius: 5px;
+		margin: 0;
+		padding-left: 10px;
+		padding-right: 10px;
+	}
+
+	button.css-16o0qn6-MuiButtonBase-root-MuiButton-root.Mui-disabled {
+		color: rgba(255, 255, 255, 0.6);
+		background-color: rgba(25, 118, 210, 0.3);
+	}
+`
 
 const userServices: ApiUser<IdType, User, AuthTokenType> = new ApiUserImpl<IdType, User, AuthTokenType>('clients');
 
@@ -108,8 +142,6 @@ function RegisterView() {
 
 					}}>
 
-
-
 					<Grid
 						item md={5}
 						sx={{
@@ -120,7 +152,7 @@ function RegisterView() {
 							justifyContent: 'center'
 						}}
 					>
-						<Paper elevation={15} sx={{ borderRadius: "20px", backgroundColor: 'transparent' }}>
+						<StyledPaper elevation={15} sx={{ borderRadius: "20px", backgroundColor: 'transparent' }}>
 							<Stack
 								direction='column'
 								alignItems='center'
@@ -133,8 +165,8 @@ function RegisterView() {
 								<form onSubmit={handleSubmit(onFormSubmit)}>
 									<Stack spacing={1}>
 										<TextField
-											sx={{ background: "rgb(232, 241, 250)" }}
 											required
+											autoComplete='off'
 											id="first-name"
 											label="First Name"
 											variant="outlined"
@@ -145,8 +177,8 @@ function RegisterView() {
 										/>
 
 										<TextField
-											sx={{ background: "rgb(232, 241, 250)" }}
 											required
+											autoComplete='off'
 											id="last-name"
 											label="Last Name"
 											variant="outlined"
@@ -157,8 +189,8 @@ function RegisterView() {
 										/>
 
 										<TextField
-											sx={{ background: "rgb(232, 241, 250)" }}
 											required
+											autoComplete='off'
 											id="email"
 											label="E-mail"
 											placeholder='example@email.com'
@@ -170,8 +202,8 @@ function RegisterView() {
 										/>
 
 										<TextField
-											sx={{ background: "rgb(232, 241, 250)" }}
 											required
+											autoComplete='off'
 											id="phone-number"
 											type='number'
 											label="Phone Number"
@@ -192,8 +224,8 @@ function RegisterView() {
 										</FormControl>
 
 										<TextField
-											sx={{ background: "rgb(232, 241, 250)" }}
 											required
+											autoComplete='off'
 											id="password"
 											type="password"
 											label="Password"
@@ -205,8 +237,8 @@ function RegisterView() {
 										/>
 
 										<TextField
-											sx={{ background: "rgb(232, 241, 250)" }}
 											required
+											autoComplete='off'
 											id="confirmPassword"
 											type="password"
 											label="Confirm Password"
@@ -240,7 +272,7 @@ function RegisterView() {
 							</Stack>
 
 
-						</Paper>
+						</StyledPaper>
 
 					</Grid>
 
