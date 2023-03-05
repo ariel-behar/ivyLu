@@ -21,6 +21,39 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
 import MenuIcon from '@mui/icons-material/Menu';
+import uniqid from 'uniqid';
+
+const pages = [
+    {
+        title: 'Home',
+        path: '/',
+        order: 1
+    },
+    {
+        title: 'Products',
+        path: '/products',
+        order: 2
+    },
+    {
+        title: 'Services',
+        path: '/services',
+        order: 3
+    },
+    {
+        title: 'Gallery',
+        path: '/gallery',
+        order: 4
+    },
+    {
+        title: 'Our Team',
+        path: '/our-team',
+        order: 5
+    }, {
+        title: 'About',
+        path: '/about',
+        order: 6
+    },
+]
 
 const StyledMenu = styled(Menu)`
     .css-1poimk-MuiPaper-root-MuiMenu-paper-MuiPaper-root-MuiPopover-paper {
@@ -60,7 +93,7 @@ function Header() {
                         {/* Small screens */}
                         <Stack direction='row' justifyContent='space-between' alignItems='center' sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                             <IconButton
-                                sx={{padding: '5px'}}
+                                sx={{ padding: '5px' }}
                                 size="large"
                                 aria-label="account of current user"
                                 aria-controls="menu-appbar"
@@ -89,38 +122,17 @@ function Header() {
                                     display: { xs: 'block', md: 'none' },
                                 }}
                             >
-                                <MenuItem onClick={handleCloseNavMenu}>
-                                    <Button to='/' color='inherit' component={RouterNavLink} sx={{ '&.active': { fontWeight: 'fontWeightBold' } }}>
-                                        Home
-                                    </Button>
-                                </MenuItem>
-                                <MenuItem onClick={handleCloseNavMenu}>
-                                    <Button to='/products' color='inherit' component={RouterNavLink} sx={{ '&.active': { fontWeight: 'fontWeightBold' } }}>
-                                        Products
-                                    </Button>
-                                </MenuItem>
-                                <MenuItem onClick={handleCloseNavMenu}>
-                                    <Button to='/services' color='inherit' component={RouterNavLink} sx={{ '&.active': { fontWeight: 'fontWeightBold' } }}>
-                                        Services
-                                    </Button>
-                                </MenuItem>
-                                <MenuItem onClick={handleCloseNavMenu}>
-                                    <Button to='/gallery' color='inherit' component={RouterNavLink} sx={{ '&.active': { fontWeight: 'fontWeightBold' } }}>
-                                        Gallery
-                                    </Button>
-                                </MenuItem>
-                                <MenuItem onClick={handleCloseNavMenu}>
-                                    <Button to='/our-team' color='inherit' component={RouterNavLink} sx={{ '&.active': { fontWeight: 'fontWeightBold' } }}>
-                                        Our Team
-                                    </Button>
-
-                                </MenuItem>
-                                <MenuItem onClick={handleCloseNavMenu}>
-                                    <Button to='/about' color='inherit' component={RouterNavLink} sx={{ '&.active': { fontWeight: 'fontWeightBold' } }} >
-                                        About
-                                    </Button>
-                                </MenuItem>
-
+                                {
+                                    pages.map(page => {
+                                        return (
+                                            <MenuItem onClick={handleCloseNavMenu}>
+                                                <Button key={uniqid()} to={page.path} color='inherit' component={RouterNavLink} sx={{ '&.active': { fontWeight: 'fontWeightBold' } }}>
+                                                    {page.title}
+                                                </Button>
+                                            </MenuItem>
+                                        )
+                                    })
+                                }
 
                             </StyledMenu>
 
@@ -151,18 +163,14 @@ function Header() {
                         {/* Large screens */}
                         <Stack direction='row' justifyContent='space-between' sx={{ width: '100%', display: { xs: 'none', md: 'flex' } }}>
                             <Toolbar >
-                                <Button to='/' color='inherit' component={RouterNavLink} sx={{ '&.active': { fontWeight: 'fontWeightBold' } }}>
-                                    Home
-                                </Button>
-                                <Button to='/products' color='inherit' component={RouterNavLink} sx={{ '&.active': { fontWeight: 'fontWeightBold' } }}>
-                                    Products
-                                </Button>
-                                <Button to='/services' color='inherit' component={RouterNavLink} sx={{ '&.active': { fontWeight: 'fontWeightBold' } }}>
-                                    Services
-                                </Button>
-                                <Button to='/gallery' color='inherit' component={RouterNavLink} sx={{ '&.active': { fontWeight: 'fontWeightBold' } }}>
-                                    Gallery
-                                </Button>
+                                {
+                                    pages.map(page => {
+                                        return page.order < 5 &&
+                                            <Button key={uniqid()} to={page.path} color='inherit' component={RouterNavLink} sx={{ '&.active': { fontWeight: 'fontWeightBold' } }}>
+                                                {page.title}
+                                            </Button>
+                                    })
+                                }
                             </Toolbar>
 
                             <Toolbar
@@ -182,13 +190,15 @@ function Header() {
                             </Toolbar>
 
                             <Toolbar >
-                                <Button to='/our-team' color='inherit' component={RouterNavLink} sx={{ '&.active': { fontWeight: 'fontWeightBold' } }}>
-                                    Our Team
-                                </Button>
+                                {
+                                    pages.map(page => {
+                                        return page.order > 4 &&
+                                            <Button key={uniqid()} to={page.path} color='inherit' component={RouterNavLink} sx={{ '&.active': { fontWeight: 'fontWeightBold' } }}>
+                                                {page.title}
+                                            </Button>
+                                    })
+                                }
 
-                                <Button to='/about' color='inherit' component={RouterNavLink} sx={{ '&.active': { fontWeight: 'fontWeightBold' } }} >
-                                    About
-                                </Button>
 
                                 {
                                     isLoggedIn
