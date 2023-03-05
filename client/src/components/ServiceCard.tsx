@@ -41,6 +41,7 @@ const StyledServiceTitleStack = styled(Stack)`
     }
 
     @media (max-width: 1199px){
+        top: -95%;
         right: -5%;
         .service-title {
             font-size: 3rem;
@@ -48,14 +49,16 @@ const StyledServiceTitleStack = styled(Stack)`
     }
 
     @media (max-width: 899px){
-        right: -5%;
+        top: -90%;
+        right: -8%;
         .service-title {
             font-size: 2rem;
         }
     }
 
     @media (max-width: 499px){
-        right: -12%;
+        top: -85%;
+        right: -15%;
         .service-title {
             font-size: 1.5rem;
         }
