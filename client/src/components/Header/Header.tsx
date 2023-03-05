@@ -65,7 +65,7 @@ const StyledMenu = styled(Menu)`
             border-top: 1px dashed ${({ theme }) => theme.palette.main.beigeLight};
             margin: 0 15px;
 
-            &:first-child {
+            &:first-of-type {
                 border-top: none;
             }
         }
@@ -125,8 +125,8 @@ function Header() {
                                 {
                                     pages.map(page => {
                                         return (
-                                            <MenuItem onClick={handleCloseNavMenu}>
-                                                <Button key={uniqid()} to={page.path} color='inherit' component={RouterNavLink} sx={{ '&.active': { fontWeight: 'fontWeightBold' } }}>
+                                            <MenuItem key={uniqid()} onClick={handleCloseNavMenu}>
+                                                <Button  to={page.path} color='inherit' component={RouterNavLink} sx={{ '&.active': { fontWeight: 'fontWeightBold' } }}>
                                                     {page.title}
                                                 </Button>
                                             </MenuItem>
