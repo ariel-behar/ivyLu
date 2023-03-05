@@ -1,11 +1,11 @@
 import { useOutletContext } from "react-router-dom";
+import uniqid from "uniqid";
 
 import { Service } from "../../models/Service";
+import ServiceCard from "../../components/ServiceCard";
 
 import ImageList from "@mui/material/ImageList";
-import ServiceCard from "../../components/ServiceCard";
 import Typography from "@mui/material/Typography";
-import uniqid from "uniqid";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 
@@ -23,10 +23,10 @@ function ServicesView() {
 
             <ImageList
                 cols={1}
-                gap={100}
                 sx={{
                     overflow: 'hidden',
-                    padding: '20px'
+                    padding: '20px',
+                    gap: {xs: '50px!important', md: '100px!important'}
                 }}
             >
                 {

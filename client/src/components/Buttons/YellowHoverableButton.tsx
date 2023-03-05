@@ -11,13 +11,15 @@ import Button from "@mui/material/Button";
 interface Props {
     entity: Service | Product,
     entityType: 'service' | 'product',
-    children: React.ReactNode
+    children: React.ReactNode,
+    size: 'small' | 'medium' | 'large'
 }
 
 function YellowHoverableButton({
     entity, 
     entityType, 
-    children
+    children,
+    size
 }: Props) {
     const [hovered, setHovered] = useState<boolean>(false);
     const { isLoggedIn } = useAuthContext() as { isLoggedIn: boolean };
@@ -30,6 +32,8 @@ function YellowHoverableButton({
 
             onMouseOver={() => setHovered(true)}
             onMouseOut={() => setHovered(false)}
+
+            size={size}
 
             sx={{
                 backgroundColor: 'main.yellow.dark',

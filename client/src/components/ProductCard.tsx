@@ -32,7 +32,7 @@ const StyledProductCardStack = styled(Stack)`
 		z-index: 1;
 		transform-origin: top left;
 		transform: rotate(-85deg);
-		color: ${(({theme}) => theme.palette.secondary.main)}
+		color: ${(({ theme }) => theme.palette.secondary.main)}
 	}
 
 	.product-card-image {
@@ -67,7 +67,7 @@ export default function ProductCard({
 
 
 	return (
-		<Box component={motion.div} whileHover={{ scale: 1.03}}>
+		<Box component={motion.div} whileHover={{ scale: 1.03 }}>
 
 			<StyledProductCardStack direction='column'>
 				<Box sx={{ position: 'relative' }}>
@@ -93,7 +93,14 @@ export default function ProductCard({
 							<Typography variant="body1" >Price: <b>{product.price} BGN</b></Typography>
 						</Stack>
 
-						<YellowHoverableButton entity={product} entityType='product'>Order now</YellowHoverableButton>
+
+						<Box component='div' display={{ xs: 'block', md: 'none' }} >
+							<YellowHoverableButton entity={product} entityType='product' size="medium">Order now</YellowHoverableButton>
+						</Box>
+
+						<Box component='div' display={{ xs: 'none', md: 'block' }} >
+							<YellowHoverableButton entity={product} entityType='product' size="large">Order now</YellowHoverableButton>
+						</Box>
 					</Stack>
 				</Box>
 			</StyledProductCardStack>
