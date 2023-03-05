@@ -4,10 +4,17 @@ import uniqid from "uniqid";
 import { Service } from "../../models/Service";
 import ServiceCard from "../../components/ServiceCard";
 
+import styled from "@mui/material/styles/styled";
+
 import ImageList from "@mui/material/ImageList";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
+
+const StyledHR = styled('hr')`
+	width: 100%;
+	height: 2px;
+`
 
 function ServicesView() {
     const services = useOutletContext() as Service[];
@@ -18,7 +25,7 @@ function ServicesView() {
 
             <Stack direction='row' alignItems='center' sx={{ overflow: 'hidden' }}>
                 <Typography variant="h3" sx={{ color: 'common.white', marginRight: '30px' }}>Services</Typography>
-                <hr style={{ width: '100%', height: '2px' }} />
+                <StyledHR />
             </Stack>
 
             <ImageList

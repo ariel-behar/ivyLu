@@ -42,6 +42,11 @@ const StyledChip = styled(Chip)`
 	} 
 `
 
+const StyledHR = styled('hr')`
+	width: 100%;
+	height: 2px;
+`
+
 const entityServices: ApiEntity<IdType, Product, AuthTokenType> = new ApiEntityImpl<IdType, Product, AuthTokenType>('products');
 
 function ProductsView() {
@@ -81,7 +86,7 @@ function ProductsView() {
             <Stack direction='row' alignItems='center' sx={{overflow: 'hidden'}}>
 				<Typography variant="h3" sx={{ color: 'common.white', marginRight: '30px' }}>Products</Typography>
 
-				<hr style={{width: '100%', height: '2px'}}/>
+				<StyledHR />
 			</Stack>
 
 			<Stack direction={{ xs: 'column', md: 'row' }} justifyContent='space-between' alignItems='center'>

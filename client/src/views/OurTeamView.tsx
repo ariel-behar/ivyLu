@@ -3,6 +3,8 @@ import uniqid from "uniqid";
 
 import { User } from "../models/User";
 
+import styled from "@mui/material/styles/styled";
+
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
@@ -11,6 +13,11 @@ import ImageListItemBar from "@mui/material/ImageListItemBar";
 import ImageListItem from "@mui/material/ImageListItem";
 import getUserRole from "../utils/getUserRole";
 import Box from "@mui/material/Box";
+
+const StyledHR = styled('hr')`
+	width: 100%;
+	height: 2px;
+`
 
 function OurTeamView() {
 	const hairdressers = useLoaderData() as User[];
@@ -22,7 +29,7 @@ function OurTeamView() {
 
 				<Stack direction='row' alignItems='center' sx={{overflow: 'hidden'}}>
 					<Typography variant="h3" sx={{ color: 'common.white', marginRight: '30px', whiteSpace: 'nowrap' }}>Meet Our Team!</Typography>
-					<hr style={{ minWidth: '100%', height: '2px' }} />
+					<StyledHR />
 				</Stack>
 
 				<Stack direction='row' height='100%'>
