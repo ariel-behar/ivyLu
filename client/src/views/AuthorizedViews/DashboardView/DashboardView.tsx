@@ -24,7 +24,6 @@ const StyledTabs = styled(Tabs)`
 			font-weight: bold 
 		}
 	}
-	
 `
 
 

@@ -11,7 +11,21 @@ import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
+import styled from "@mui/material/styles/styled";
 
+const StyledTabs = styled(Tabs)`
+	background-color: ${({theme}) => theme.palette.main.beige};
+
+	& a.Mui-selected { 
+		color: ${({theme}) => theme.palette.main.black};
+	}
+
+	.tab {
+		&.active { 
+			font-weight: bold 
+		}
+	}
+`
 
 function ManagementRootView() {
     const { isAdmin } = useAuthContext() as { isAdmin: boolean };
@@ -28,23 +42,24 @@ function ManagementRootView() {
 
                 <Box sx={{ width: '100%' }}>
                     <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                        <Tabs
+                        <StyledTabs
                             TabIndicatorProps={{ style: { backgroundColor: "#2c2c2c" } }}
                             value={value}
                             onChange={handleChange}
-                            sx={{ '& a.Mui-selected ': {color: 'main.black'}, backgroundColor: 'main.beige' }}
-
+							variant="scrollable"
+							scrollButtons
+							allowScrollButtonsMobile
                         >
-                            <Tab label="Orders" value={0} component={RouterNavLink} to='/management/orders' sx={{ '&.active': { fontWeight: 'fontWeightBold' } }} />
-                            <Tab label="Schedule" value={1} component={RouterNavLink} to='/management/schedule' sx={{ '&.active': { fontWeight: 'fontWeightBold' } }} />
-                            <Tab label="Services" value={2} component={RouterNavLink} to='/management/services' sx={{ '&.active': { fontWeight: 'fontWeightBold' } }} />
-                            <Tab label="Products" value={3} component={RouterNavLink} to='/management/products' sx={{ '&.active': { fontWeight: 'fontWeightBold' } }} />
+                            <Tab className="tab" label="Orders" value={0} component={RouterNavLink} to='/management/orders' />
+                            <Tab className="tab" label="Schedule" value={1} component={RouterNavLink} to='/management/schedule' />
+                            <Tab className="tab" label="Services" value={2} component={RouterNavLink} to='/management/services' />
+                            <Tab className="tab" label="Products" value={3} component={RouterNavLink} to='/management/products' />
 
-                            {isAdmin && <Tab label="Clients" value={4} component={RouterNavLink} to='/management/clients' sx={{ '&.active': { fontWeight: 'fontWeightBold' } }} />}
-                            {isAdmin && <Tab label="Staff" value={5} component={RouterNavLink} to='/management/staff' sx={{ '&.active': { fontWeight: 'fontWeightBold' } }} />}
+                            {isAdmin && <Tab className="tab" label="Clients" value={4} component={RouterNavLink} to='/management/clients' />}
+                            {isAdmin && <Tab className="tab" label="Staff" value={5} component={RouterNavLink} to='/management/staff' />}
 
 
-                        </Tabs>
+                        </StyledTabs>
                     </Box>
                 </Box>
 
