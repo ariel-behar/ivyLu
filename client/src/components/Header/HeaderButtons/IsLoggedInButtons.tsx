@@ -12,10 +12,10 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Badge from '@mui/material/Badge';
+import IconButton from '@mui/material/IconButton';
 
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import LogoutIcon from '@mui/icons-material/Logout';
-import { IconButton } from '@mui/material';
 
 interface Props {
     whichHeaderBar: 'top' | 'bottom'
@@ -36,7 +36,7 @@ function IsLoggedInButtons({ whichHeaderBar }: Props) {
                 </Button>
             }
 
-            { whichHeaderBar === 'top' && <IconButton to='/logout' color='inherit' component={RouterLink} sx={{ padding: 0 }}> <LogoutIcon />  </IconButton> }
+            { whichHeaderBar === 'top' && <IconButton to='/logout' color='inherit' component={RouterLink} sx={{ padding: 0, marginLeft: '10px' }}> <LogoutIcon />  </IconButton> }
 
             {
                 whichHeaderBar === 'bottom' &&

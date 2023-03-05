@@ -68,7 +68,31 @@ const StyledMenu = styled(Menu)`
             &:first-of-type {
                 border-top: none;
             }
+
+            .menu-item-link {
+                &.active {
+                    font-weight: bold;
+                }
+            }
         }
+    }
+`
+
+const StyledImageContainerToolbar = styled(Toolbar)`
+    background-color: ${(({ theme }) => theme.palette.main.black)};
+    border-radius: 100%;
+    position: absolute;
+    z-index: 100;
+    left: 50%;
+    transform: translateX(-50%);
+
+    &.small-screen {
+        top: 5px;
+        
+    }
+
+    &.large-screen {
+        top: 10px;
     }
 `
 
@@ -126,30 +150,20 @@ function Header() {
                                     pages.map(page => {
                                         return (
                                             <MenuItem key={uniqid()} onClick={handleCloseNavMenu}>
-                                                <Button  to={page.path} color='inherit' component={RouterNavLink} sx={{ '&.active': { fontWeight: 'fontWeightBold' } }}>
+                                                <Button className='menu-item-link' to={page.path} color='inherit' component={RouterNavLink} sx={{ '&.active': { fontWeight: 'fontWeightBold' } }}>
                                                     {page.title}
                                                 </Button>
                                             </MenuItem>
                                         )
                                     })
                                 }
-
                             </StyledMenu>
 
-                            <Box sx={{
-                                backgroundColor: 'main.black',
-                                borderRadius: '100%',
-                                position: "absolute",
-                                zIndex: '100',
-                                left: "50%",
-                                top: '5px',
-                                transform: "translateX(-50%)"
-                            }}
-                            >
+                            <StyledImageContainerToolbar className='small-screen'>
                                 <RouterNavLink to='/' >
                                     <img src={logo} alt="IvyLu Logo" style={{ maxWidth: "40px" }} />
                                 </RouterNavLink>
-                            </Box>
+                            </StyledImageContainerToolbar>
 
                             <Box>
                                 {
@@ -173,21 +187,11 @@ function Header() {
                                 }
                             </Toolbar>
 
-                            <Toolbar
-                                sx={{
-                                    backgroundColor: 'main.black',
-                                    borderRadius: '100%',
-                                    position: "absolute",
-                                    zIndex: '100',
-                                    left: "50%",
-                                    top: "50px",
-                                    transform: "translate(-50%, -50%)"
-                                }}
-                            >
+                            <StyledImageContainerToolbar className='large-screen'>
                                 <RouterNavLink to='/' >
                                     <img src={logo} alt="IvyLu Logo" style={{ maxWidth: "50px" }} />
                                 </RouterNavLink>
-                            </Toolbar>
+                            </StyledImageContainerToolbar>
 
                             <Toolbar >
                                 {
