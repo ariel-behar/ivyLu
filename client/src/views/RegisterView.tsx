@@ -14,6 +14,8 @@ import { useNotificationContext } from '../contexts/NotificationContext';
 import { ApiUser, ApiUserImpl } from '../services/userServices';
 import { isGuestRouteGuard } from '../hoc/isGuestRouteGuard';
 
+import styled from '@mui/material/styles/styled';
+
 import TextField from '@mui/material/TextField';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
@@ -28,38 +30,69 @@ import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import styled from '@mui/material/styles/styled';
 
-const StyledPaper = styled(Paper)`
-	input.css-1n4twyu-MuiInputBase-input-MuiOutlinedInput-input {
-		background-color: rgba(94, 84, 80, 0.7);
-		color: white;
-	}
-	label.css-1pysi21-MuiFormLabel-root-MuiInputLabel-root, 
-	label.css-1sumxir-MuiFormLabel-root-MuiInputLabel-root,
-	label.css-u4tvz2-MuiFormLabel-root,
-	span.css-vqmohf-MuiButtonBase-root-MuiRadio-root {
-		color: rgba(255, 255, 255, 0.5);
+const StyledHR = styled('hr')`
+	width: 100%;
+	height: 2px;
+`
+
+const StyledGridContainer = styled(Grid)`
+	min-height: 60vh;
+	background-image: ${`url(${weAreOpenSign})`};
+    background-size: cover;
+    background-repeat: no-repeat;
+	background-position: center right -150px;
+
+	.grid-item-form-container {
+		margin-bottom: 20px;
+		padding-top: 24px;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+
+		.form-container-paper {
+			border-radius: 20px;
+			background-color: transparent;
+
+
+			input.css-1n4twyu-MuiInputBase-input-MuiOutlinedInput-input {
+				background-color: rgba(94, 84, 80, 0.7);
+				color: white;
+			}
+			label.css-1pysi21-MuiFormLabel-root-MuiInputLabel-root, 
+			label.css-1sumxir-MuiFormLabel-root-MuiInputLabel-root,
+			label.css-u4tvz2-MuiFormLabel-root,
+			span.css-vqmohf-MuiButtonBase-root-MuiRadio-root {
+				color: rgba(255, 255, 255, 0.5);
+			}
+
+			label.css-1sumxir-MuiFormLabel-root-MuiInputLabel-root.Mui-focused,
+			.css-j204z7-MuiFormControlLabel-root,
+			.css-vqmohf-MuiButtonBase-root-MuiRadio-root.Mui-checked {
+				color: white;
+			}
+
+			button.css-16o0qn6-MuiButtonBase-root-MuiButton-root.Mui-disabled {
+				color: rgba(255, 255, 255, 0.6);
+				background-color: rgba(25, 118, 210, 0.3);
+			}
+
+			.form-container-paper-stack {
+				padding: 40px 24px;
+				border-radius: 20px;
+				background-color: rgba(0,0,0, 0.6);
+			}
+		}
 	}
 
-	label.css-1sumxir-MuiFormLabel-root-MuiInputLabel-root.Mui-focused,
-	.css-j204z7-MuiFormControlLabel-root .MuiFormControlLabel-label,
-	span.css-vqmohf-MuiButtonBase-root-MuiRadio-root.Mui-checked {
-		color: white;
-	}
-
-	p.css-k4qjio-MuiFormHelperText-root.Mui-error {
-		background-color: rgba(255,255,255,0.3);
-		border-bottom-left-radius: 5px;
-		border-bottom-right-radius: 5px;
-		margin: 0;
-		padding-left: 10px;
-		padding-right: 10px;
-	}
-
-	button.css-16o0qn6-MuiButtonBase-root-MuiButton-root.Mui-disabled {
-		color: rgba(255, 255, 255, 0.6);
-		background-color: rgba(25, 118, 210, 0.3);
+	@media (max-width: 899px) {
+		background-position: center right -150px;
+		margin-bottom: 10px;
+		.grid-item-form-container {
+			margin-bottom: 20px;
+		}
 	}
 `
 
@@ -121,47 +154,19 @@ function RegisterView() {
 	}
 
 	return (
-		<Box py={3}>
+		<Box py={{xs: 0, md: 3}}>
 			<Container>
-				<div>RegisterView</div>
-
 				<Stack direction='row' alignItems='center' sx={{ overflow: 'hidden', margin: '20px 0' }}>
-					<hr style={{ width: '100%', height: '2px' }} />
+					<StyledHR />
 					<Typography variant="h3" sx={{ color: 'common.white', marginLeft: '30px', marginRight: '30px', whiteSpace: 'nowrap' }}>Register</Typography>
-					<hr style={{ width: '100%', height: '2px' }} />
+					<StyledHR />
 				</Stack>
 
 
-				<Grid
-					container
-					height='60vh'
-					style={{
-						backgroundImage: `url('${weAreOpenSign}')`,
-						backgroundSize: 'cover',
-						backgroundRepeat: 'no-repeat',
-
-					}}>
-
-					<Grid
-						item md={5}
-						sx={{
-							height: '100%',
-							display: 'flex',
-							flexDirection: 'column',
-							alignItems: 'center',
-							justifyContent: 'center'
-						}}
-					>
-						<StyledPaper elevation={15} sx={{ borderRadius: "20px", backgroundColor: 'transparent' }}>
-							<Stack
-								direction='column'
-								alignItems='center'
-								px={3}
-								py={5}
-								borderRadius="20px"
-
-								sx={{ backgroundColor: 'rgba(94, 84, 80, 0.7)', border: `1px solid #434242` }}
-							>
+				<StyledGridContainer container >
+					<Grid item xs={12} md={5} className='grid-item-form-container' >
+						<Paper className='form-container-paper' elevation={15}>
+							<Stack direction='column' alignItems='center' className='form-container-paper-stack' >
 								<form onSubmit={handleSubmit(onFormSubmit)}>
 									<Stack spacing={1}>
 										<TextField
@@ -266,20 +271,14 @@ function RegisterView() {
 								</form>
 
 								<Stack mt={2} direction='row' justifyContent='center'>
-									<Typography variant="h6" component='p' color='white'>Already a member of IvyLu? <RouterLink style={{ color: '#42a5f5' }} to="/login">Login here </RouterLink></Typography>
+									<Typography variant="h6" component='p' color='white'>Already a member of IvyLu? <br /> <RouterLink style={{ color: '#42a5f5' }} to="/login">Login here </RouterLink></Typography>
 								</Stack>
-
 							</Stack>
-
-
-						</StyledPaper>
+						</Paper>
 
 					</Grid>
 
-					<Grid item md={7}>
-
-					</Grid>
-				</Grid>
+				</StyledGridContainer>
 			</Container>
 		</Box>
 	)

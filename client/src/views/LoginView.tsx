@@ -24,25 +24,65 @@ import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 
-const StyledPaper = styled(Paper)`
-	input.css-1n4twyu-MuiInputBase-input-MuiOutlinedInput-input {
-		background-color: rgba(94, 84, 80, 0.7);
-		color: white;
-	}
-	label.css-1pysi21-MuiFormLabel-root-MuiInputLabel-root, 
-	label.css-1sumxir-MuiFormLabel-root-MuiInputLabel-root,
-	span.css-vqmohf-MuiButtonBase-root-MuiRadio-root {
-		color: rgba(255, 255, 255, 0.5);
+const StyledHR = styled('hr')`
+	width: 100%;
+	height: 2px;
+`
+
+const StyledGridContainer = styled(Grid)`
+	min-height: 60vh;
+	background-image: ${`url(${hairsalon})`};
+    background-size: cover;
+    background-repeat: no-repeat;
+
+	.grid-item-form-container {
+		padding-top: 24px;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: start;
+
+		.form-container-paper {
+			border-radius: 20px;
+			background-color: transparent;
+
+
+			input.css-1n4twyu-MuiInputBase-input-MuiOutlinedInput-input {
+				background-color: rgba(94, 84, 80, 0.7);
+				color: white;
+			}
+			label.css-1pysi21-MuiFormLabel-root-MuiInputLabel-root, 
+			label.css-1sumxir-MuiFormLabel-root-MuiInputLabel-root,
+			span.css-vqmohf-MuiButtonBase-root-MuiRadio-root {
+				color: rgba(255, 255, 255, 0.5);
+			}
+
+			label.css-1sumxir-MuiFormLabel-root-MuiInputLabel-root.Mui-focused,
+			label.css-u4tvz2-MuiFormLabel-root	{
+				color: white;
+			}
+
+			button.css-16o0qn6-MuiButtonBase-root-MuiButton-root.Mui-disabled {
+				color: rgba(255, 255, 255, 0.6);
+				background-color: rgba(25, 118, 210, 0.3);
+			}
+
+			.form-container-paper-stack {
+				padding: 40px 24px;
+				border-radius: 20px;
+				background-color: rgba(0,0,0, 0.6);
+			}
+		}
 	}
 
-	label.css-1sumxir-MuiFormLabel-root-MuiInputLabel-root.Mui-focused,
-	label.css-u4tvz2-MuiFormLabel-root	{
-		color: white;
-	}
+	@media (max-width: 899px) {
+		background-position: center right -150px;
+		margin-bottom: 10px;
 
-	button.css-16o0qn6-MuiButtonBase-root-MuiButton-root.Mui-disabled {
-		color: rgba(255, 255, 255, 0.6);
-		background-color: rgba(25, 118, 210, 0.3);
+		.grid-item-form-container {
+			margin-bottom: 20px;
+		}
 	}
 `
 
@@ -83,53 +123,22 @@ function LoginView() {
 	}
 
 	return (
-		<Box py={3}>
+		<Box py={{xs: 0, md: 3}}>
 			<Container>
-				<div> LoginView</div>
-
 				<Stack direction='row' alignItems='center' sx={{ overflow: 'hidden', margin: '20px 0' }}>
-					<hr style={{ width: '100%', height: '2px' }} />
+					<StyledHR />
 					<Typography variant="h3" sx={{ color: 'common.white', marginLeft: '30px', marginRight: '30px', whiteSpace: 'nowrap' }}>Login</Typography>
-					<hr style={{ width: '100%', height: '2px' }} />
+					<StyledHR />
 				</Stack>
 
 
-				<Grid
-					container
-					height='60vh'
-					style={{
-						backgroundImage: `url('${hairsalon}')`,
-						backgroundSize: 'cover',
-						backgroundRepeat: 'no-repeat',
-
-					}}
-				>
-					<Grid
-						item md={5}
-						pt={3}
-						sx={{
-							height: '100%',
-							display: 'flex',
-							flexDirection: 'column',
-							alignItems: 'center',
-							justifyContent: 'start'
-						}}
-					>
-
-						<StyledPaper
-							elevation={15}
-							sx={{ borderRadius: "20px", backgroundColor: 'transparent' }} >
-							<Stack
-								direction='column'
-								alignItems='center'
-								px={3}
-								py={5}
-								borderRadius="20px"
-
-								sx={{ backgroundColor: `rgba(94, 84, 80, 0.7)`, border: `1px solid #434242` }}>
+				<StyledGridContainer container >
+					<Grid item xs={12} md={5} className='grid-item-form-container'>
+						<Paper className='form-container-paper' elevation={15}>
+							<Stack direction='column' alignItems='center' className="form-container-paper-stack" >
 
 								<form onSubmit={handleSubmit(onFormSubmit)} >
-									<Stack spacing={2} >
+									<Stack spacing={1} >
 										<TextField
 											required
 											autoComplete="off"
@@ -178,17 +187,12 @@ function LoginView() {
 								</form>
 
 								<Stack mt={2} direction='row' justifyContent='center'>
-									<Typography variant="h6" component='p' color='white'>Not a member of IvyLu yet? <RouterLink style={{ color: '#42a5f5' }} to="/register">Register here </RouterLink></Typography>
+									<Typography variant="h6" component='p' color='white'>Not a member of IvyLu yet? <br /> <RouterLink style={{ color: '#42a5f5' }} to="/register">Register here </RouterLink></Typography>
 								</Stack>
 							</Stack>
-						</StyledPaper>
-
+						</Paper>
 					</Grid>
-					<Grid item md={7}>
-
-					</Grid>
-
-				</Grid>
+				</StyledGridContainer>
 			</Container>
 		</Box>
 	)
