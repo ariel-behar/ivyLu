@@ -5,10 +5,27 @@ import { isAuthRouteGuard } from "../../../hoc/isAuthRouteGuard";
 
 import lightPattern from '../../../assets/img/light-background-pattern.jpg'
 
+import styled from "@mui/material/styles/styled";
+
 import Box from "@mui/material/Box"
 import Container from "@mui/material/Container"
 import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
+
+const StyledTabs = styled(Tabs)`
+	background-color: ${({theme}) => theme.palette.main.beige};
+
+	& a.Mui-selected { 
+		color: ${({theme}) => theme.palette.main.black};
+	}
+
+	.tab {
+		&.active { 
+			font-weight: bold 
+		}
+	}
+	
+`
 
 
 function DashboardView() {
@@ -38,16 +55,18 @@ function DashboardView() {
 
 				<Box sx={{ width: '100%' }}>
 					<Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-						<Tabs
+						<StyledTabs
 							TabIndicatorProps={{ style: { backgroundColor: "#2c2c2c" } }}
 							value={value}
 							onChange={handleChange}
-							sx={{ '& a.Mui-selected ': { color: 'main.black' }, backgroundColor: 'main.beige' }}
+							variant="scrollable"
+							scrollButtons
+							allowScrollButtonsMobile
 						>
-							<Tab label="My Orders" value={0} component={RouterNavLink} to='/dashboard/orders' sx={{ '&.active': { fontWeight: 'fontWeightBold' } }} />
-							<Tab label="My Appointments" value={1} component={RouterNavLink} to='/dashboard/appointments' sx={{ '&.active': { fontWeight: 'fontWeightBold' } }} />
-							<Tab label="Profile" value={2} component={RouterNavLink} to='/dashboard/profile' sx={{ '&.active': { fontWeight: 'fontWeightBold' } }} />
-						</Tabs>
+							<Tab className="tab" label="My Orders" value={0} component={RouterNavLink} to='/dashboard/orders' />
+							<Tab className="tab" label="My Appointments" value={1} component={RouterNavLink} to='/dashboard/appointments' />
+							<Tab className="tab" label="Profile" value={2} component={RouterNavLink} to='/dashboard/profile' />
+						</StyledTabs>
 					</Box>
 				</Box>
 
