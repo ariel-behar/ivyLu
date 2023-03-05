@@ -1,13 +1,62 @@
 import { motion } from "framer-motion"
 
 import { Product } from '../models/Product';
+import YellowHoverableButton from "./Buttons/YellowHoverableButton";
 import { getMeasurementUnit } from '../utils/getMeasurementUnit';
+
+import styled from "@mui/material/styles/styled";
 
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
-import YellowHoverableButton from "./Buttons/YellowHoverableButton";
 
+
+const StyledProductCardStack = styled(Stack)`
+	max-width: 345px;
+	min-height: 400px;
+	border-bottom: 1px dashed lightgrey;
+	border-left: 1px dashed lightgrey;
+	padding: 10px;
+	background-color: rgba(44, 44, 44,0.3);
+	border-bottom-left-radius: 20px;
+	border-top-right-radius: 20px;
+	margin: 24px;
+
+	color: white;
+
+	.product-card-title {
+		font-size: 4.75rem;
+		position: absolute;
+		bottom: -100px;
+		left: -30px;
+		z-index: 1;
+		transform-origin: top left;
+		transform: rotate(-85deg);
+		color: ${(({theme}) => theme.palette.secondary.main)}
+	}
+
+	.product-card-image {
+		height: 400px;
+		z-index: 2;
+		position: relative;
+		left: 10px;
+	}
+
+	@media (max-width: 899px){
+
+		.product-card-title {
+			font-size: 3rem;
+			bottom: -70px;
+			left: -10px;
+		}
+
+		.product-card-image {
+			height:250px;
+			left: 50%;
+			transform: translateX(-50%);
+		}
+	}
+`
 interface Props {
 	product: Product,
 }
@@ -18,75 +67,36 @@ export default function ProductCard({
 
 
 	return (
-		<Stack
-			m={3}
-			sx={{
-				maxWidth: '345',
-				minHeight: '400px',
-				display: 'flex',
-				flexDirection: 'column',
-				borderBottom: '1px dashed lightgrey',
-				borderLeft: '1px dashed lightgrey',
-				padding: '10px',
-				backgroundColor: 'rgba(44, 44, 44,0.3)',
-				borderBottomLeftRadius: '20px',
-				borderTopRightRadius: '20px'
-			}}
-			component={motion.div}
-			whileHover={{
-				scale: 1.03,
-			}}
-		>
-			<Box sx={{ position: 'relative' }}>
-				<Typography
-					component={"h4"}
-					color="secondary"
-					sx={{
-						fontSize: '4.75rem',
-						position: 'absolute',
-						bottom: -100,
-						left: -30,
-						zIndex: 1,
-						transformOrigin: "top left",
-						transform: "rotate(-85deg)"
-					}}
-				>
-					{product.productCategory.substring(0, 1).toUpperCase()}{product.productCategory.substring(1,)}
-				</Typography>
+		<Box component={motion.div} whileHover={{ scale: 1.03}}>
 
-				<img
-					style={{
-						height: '400px',
-						zIndex: 2,
-						position: 'relative',
-						left: '10px'
-					}}
-					src={product.imgUrl}
-					alt={product.title}
-				/>
-			</Box>
-
-			<Box >
-				<hr />
-				<Stack direction='column' justifyContent='center' alignItems='center' sx={{ height: '65px' }}>
-					<Typography textAlign='center' variant="h5" component="div" sx={{ color: 'common.white' }}>
-						{product.title}
+			<StyledProductCardStack direction='column'>
+				<Box sx={{ position: 'relative' }}>
+					<Typography component={"h4"} className="product-card-title" >
+						{product.productCategory.substring(0, 1).toUpperCase()}{product.productCategory.substring(1,)}
 					</Typography>
-				</Stack>
-				<hr />
 
-				<Stack direction='row' justifyContent='space-between' width='100%' px={1} my={3}>
-					<Stack direction='column'>
-						<Typography variant="body1" sx={{ color: 'common.white' }}>Volume: <b> {product.volume} {getMeasurementUnit(product.volumeMeasurementUnit).abbreviated} </b></Typography>
-						<Typography variant="body1" sx={{ color: 'common.white' }}>Price: <b>{product.price} BGN</b></Typography>
+					<img className="product-card-image" src={product.imgUrl} alt={product.title} />
+				</Box>
+
+				<Box >
+					<hr />
+
+					<Stack direction='column' justifyContent='center' alignItems='center' sx={{ height: '65px' }}>
+						<Typography textAlign='center' variant="h5" component="div" >{product.title}</Typography>
 					</Stack>
 
-					<YellowHoverableButton entity={product} entityType='product'>
-						Order now
-					</YellowHoverableButton>
+					<hr />
 
-				</Stack>
-			</Box>
-		</Stack>
+					<Stack direction='row' justifyContent='space-between' width='100%' px={1} my={3}>
+						<Stack direction='column'>
+							<Typography variant="body1" >Volume: <b> {product.volume} {getMeasurementUnit(product.volumeMeasurementUnit).abbreviated} </b></Typography>
+							<Typography variant="body1" >Price: <b>{product.price} BGN</b></Typography>
+						</Stack>
+
+						<YellowHoverableButton entity={product} entityType='product'>Order now</YellowHoverableButton>
+					</Stack>
+				</Box>
+			</StyledProductCardStack>
+		</Box>
 	);
 }

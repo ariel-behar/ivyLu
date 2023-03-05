@@ -15,7 +15,7 @@ function RootView() {
     return (
         <Stack 
             direction='column' 
-            sx={{ background: `url('${pattern}')`, minHeight:'100vh'}}>
+            sx={{ background: `url('${pattern}')`, minHeight:'100vh', overflow: 'hidden' }}>
             <Notification />
 
             <Header />
