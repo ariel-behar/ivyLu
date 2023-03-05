@@ -5,7 +5,7 @@ import { useAuthContext } from '../../../contexts/AuthContext';
 import getUserRole from '../../../utils/getUserRole';
 import { User } from '../../../models/User';
 
-// import ManagementMenuButton from './ManagementMenuButton';
+import ManagementMenuButton from './ManagementMenuButton';
 
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
@@ -14,6 +14,8 @@ import Box from '@mui/material/Box';
 import Badge from '@mui/material/Badge';
 
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import LogoutIcon from '@mui/icons-material/Logout';
+import { IconButton } from '@mui/material';
 
 interface Props {
     whichHeaderBar: 'top' | 'bottom'
@@ -34,6 +36,8 @@ function IsLoggedInButtons({ whichHeaderBar }: Props) {
                 </Button>
             }
 
+            { whichHeaderBar === 'top' && <IconButton to='/logout' color='inherit' component={RouterLink} sx={{ padding: 0 }}> <LogoutIcon />  </IconButton> }
+
             {
                 whichHeaderBar === 'bottom' &&
                 <>
@@ -45,13 +49,12 @@ function IsLoggedInButtons({ whichHeaderBar }: Props) {
                         </Typography>
 
                         <Box>
-                            <Button to='/dashboard' color='inherit' component={RouterNavLink} sx={{ '&.active': { fontWeight: 'fontWeightBold' } }}>Dashboard</Button>
+                            {isClient && <Button to='/dashboard' color='inherit' component={RouterNavLink} sx={{ '&.active': { fontWeight: 'fontWeightBold' } }}>Dashboard</Button>}
+                            
+                            {/* {(isAdmin || isOperator || isHairdresser) && <Button to='/management' color='inherit' component={RouterNavLink} sx={{ '&.active': { fontWeight: 'fontWeightBold' } }}>Management</Button> } */}
 
-                            {(isAdmin || isOperator || isHairdresser) && <Button to='/management' color='inherit' component={RouterNavLink} sx={{ '&.active': { fontWeight: 'fontWeightBold' } }}>Management</Button> }
-
-                            {/* {(isAdmin || isOperator || isHairdresser) && <ManagementMenuButton />} */}
-
-                            <Button to='/logout' color='inherit' component={RouterLink} sx={{ '&.active': { fontWeight: 'fontWeightBold' } }}>Logout</Button>
+                            {(isAdmin || isOperator || isHairdresser) && <ManagementMenuButton />}
+                           
                         </Box>
                     </Stack>
                 </>

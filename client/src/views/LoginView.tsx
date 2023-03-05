@@ -141,7 +141,7 @@ function LoginView() {
 									<Stack spacing={1} >
 										<TextField
 											required
-											autoComplete="off"
+											// autoComplete="off"
 											id="email"
 											label="E-mail"
 											variant="outlined"
@@ -153,12 +153,12 @@ function LoginView() {
 
 										<TextField
 											required
-											inputProps={{
-												autocomplete: 'new-password',
-												form: {
-													autocomplete: 'off',
-												},
-											}}
+											// inputProps={{
+											// 	autocomplete: 'new-password',
+											// 	form: {
+											// 		autocomplete: 'off',
+											// 	},
+											// }}
 											id="password"
 											type="password"
 											label="Password"

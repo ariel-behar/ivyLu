@@ -86,7 +86,7 @@ function Header() {
 
     return (
         <>
-            <AppBar position="sticky" sx={{ backgroundColor: 'main.black' }}>
+            <AppBar position="fixed" sx={{ backgroundColor: 'main.black' }}>
                 <Container sx={{ padding: { xs: '0 10px', sm: '0 24px' } }} >
                     <Toolbar disableGutters>
 

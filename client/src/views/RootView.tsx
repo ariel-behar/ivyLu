@@ -23,7 +23,7 @@ function RootView() {
             <Stack 
             flexGrow={1} 
             height='100%' 
-            sx={{ marginTop: isLoggedIn ? '38px' : '' }}
+            sx={{ marginTop: isLoggedIn ? '102px' : '64px' }}
                 >
                 <Outlet />
             </Stack>

@@ -52,6 +52,14 @@ function ManagementMenuButton() {
                 }}
 
             >
+                 <MenuItem
+                    onClick={handleClose}
+                    component={RouterNavLink}
+                    to='/dashboard'
+                    sx={{ '&.active': { fontWeight: 'fontWeightBold' } }}
+                >
+                    Dashboard
+                </MenuItem>
                 <MenuItem
                     onClick={handleClose}
                     component={RouterNavLink}
