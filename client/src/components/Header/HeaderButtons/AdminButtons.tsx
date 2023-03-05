@@ -1,6 +1,7 @@
 import { NavLink as RouterNavLink } from 'react-router-dom'
 
 import MenuItem from '@mui/material/MenuItem';
+import Button from '@mui/material/Button';
 
 interface Props {
     handleClose: () => void
@@ -9,21 +10,16 @@ interface Props {
 function AdminButtons({ handleClose }: Props) {
     return (
         <>
-            <MenuItem
-                onClick={handleClose}
-                component={RouterNavLink}
-                to='/management/clients'
-                sx={{ '&.active': { fontWeight: 'fontWeightBold' } }}
-            >
-                Clients
+            <MenuItem onClick={handleClose}>
+                <Button className='menu-item-link' to='/management/clients' color='inherit' component={RouterNavLink} >
+                    Clients
+                </Button>
             </MenuItem>
-            <MenuItem
-                onClick={handleClose}
-                component={RouterNavLink}
-                to='/management/staff'
-                sx={{ '&.active': { fontWeight: 'fontWeightBold' } }}
-            >
-                Staff
+
+            <MenuItem onClick={handleClose}>
+                <Button className='menu-item-link' to='/management/staff' color='inherit' component={RouterNavLink} >
+                    Staff
+                </Button>
             </MenuItem>
         </>
     )
