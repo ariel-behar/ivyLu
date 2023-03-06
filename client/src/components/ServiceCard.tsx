@@ -9,6 +9,7 @@ import ImageListItem from '@mui/material/ImageListItem'
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box';
+import { useAuthContext } from '../contexts/AuthContext';
 
 const StyledImg = styled(motion.img)`
     width: auto; 
@@ -84,6 +85,8 @@ interface Props {
     service: Service
 }
 function ServiceCard({ service }: Props) {
+    const { isGuest, isClient } = useAuthContext() as { isGuest: boolean, isClient: boolean };
+
 
     return (
         <>
@@ -106,11 +109,11 @@ function ServiceCard({ service }: Props) {
                     </Stack>
 
                     <Box component='div' display={{xs: 'block', md: 'none'}} >
-                        <YellowHoverableButton entity={service} entityType='service' size='small'> Schedule now </YellowHoverableButton>
+                        <YellowHoverableButton entity={service} entityType='service' size='small'> {isGuest || isClient ? ' Schedule now' : 'View Details'} </YellowHoverableButton>
                     </Box>
 
                     <Box component='div' display={{xs: 'none', md: 'block'}} >
-                        <YellowHoverableButton entity={service} entityType='service' size='large'> Schedule now </YellowHoverableButton>
+                        <YellowHoverableButton entity={service} entityType='service' size='large'> {isGuest || isClient ? 'Schedule now' : 'View Details'} </YellowHoverableButton>
                     </Box>
                 </StyledBottomDetailsStack>
             </ImageListItem>

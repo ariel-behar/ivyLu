@@ -43,12 +43,12 @@ function HomeView() {
 	return (
 		<StyledBackgroundBox sx={{
 			minHeight: {
-				xs: isLoggedIn ? 'calc(100vh - 56px - 36.5px - 50px)' : 'calc(100vh - 56px - 50px)',
-				md: isLoggedIn ? 'calc(100vh - 56px - 36.5px - 70px)' : 'calc(100vh - 56px - 70px)'
+				xs: isLoggedIn ? 'calc(100vh - 56px - 36.5px - 50px)' : 'calc(100vh - 60px - 50px)',
+				md: isLoggedIn ? 'calc(100vh - 56px - 36.5px - 60px)' : 'calc(100vh - 60px - 60px)'
 			},
 			height: {
-				xs: isLoggedIn ? 'calc(100% - 56px - 36.5px - 50px)' : 'calc(100% - 56px - 50px)',
-				md: isLoggedIn ? 'calc(100% - 56px - 36.5px - 70px)' : 'calc(100% - 56px - 70px)'
+				xs: isLoggedIn ? 'calc(100% - 56px - 36.5px - 50px)' : 'calc(100% - 60px - 50px)',
+				md: isLoggedIn ? 'calc(100% - 56px - 36.5px - 60px)' : 'calc(100% - 60px - 60px)'
 			},
 			backgroundPosition: { xs: 'top right -200px', md: 'inherit' }
 		}}>

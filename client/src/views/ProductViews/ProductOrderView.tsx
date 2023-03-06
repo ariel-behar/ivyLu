@@ -15,15 +15,26 @@ import ConfirmationView from '../ConfirmationView';
 import ConfirmDialog from '../../components/ConfirmDialog';
 import BackToButton from '../../components/Buttons/BackToButton';
 
+import styled from "@mui/material/styles/styled";
+
 import Grid from '@mui/material/Grid';
-import ImageListItem from '@mui/material/ImageListItem';
 import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 
-
+const StyledButton = styled(Button)`
+	display: block;
+	margin-top: 10px;
+	background-color: ${({theme}) => theme.palette.main.yellow.dark};
+	color: black;
+	&:hover {
+		transform: scale(1.1);
+		transition: transform 0.2s ease;
+		background-color: ${({theme}) => theme.palette.main.yellow.primary};
+	}
+`
 
 function ProductOrderView() {
 	const product = useLoaderData() as Product;
@@ -32,7 +43,6 @@ function ProductOrderView() {
 	const [showConfirmationView, setShowConfirmationView] = useState<boolean>(false)
 	const [showConfirmationDialog, setShowConfirmationDialog] = useState<boolean>(false)
 	const [orderedProduct, setOrderedProduct] = useState<Order | null>(null)
-	const [hovered, setHovered] = useState<boolean>(false);
 
 	const onOrderButtonClick = () => {
 		setShowConfirmationDialog(true)
@@ -72,18 +82,8 @@ function ProductOrderView() {
 							<BackToButton whereTo="products" />
 						</Stack>
 						<Paper>
-							<Grid container>
-								<Grid item md={6}>
-									<ImageListItem >
-										<img
-											src={`${product.imgUrl}`}
-											alt={product.title}
-											loading='lazy'
-										/>
-
-									</ImageListItem>
-								</Grid>
-								<Grid item md={6} sx={{ backgroundColor: "main.beige" }}>
+							<Grid container sx={{ backgroundColor: "main.beige" }}>
+								<Grid item md={6} >
 
 									<Stack direction='row' justifyContent='center' p={2} sx={{ backgroundColor: "main.black", color: "common.white" }}>
 										<Typography variant="h4" component='h4'>{product.title}</Typography>
@@ -101,28 +101,14 @@ function ProductOrderView() {
 										<Typography variant="h6" component='h6'>
 											Volume: <b> {product.volume} {getMeasurementUnit(product.volumeMeasurementUnit).abbreviated} </b>
 										</Typography>
+
+										{isClient && <StyledButton variant='contained' onClick={onOrderButtonClick}> Order Product </StyledButton> } 
 									</Stack>
 
-									{isClient &&
-										<Button
-											onMouseOver={() => setHovered(true)}
-											onMouseOut={() => setHovered(false)}
-
-											sx={{
-												display: 'block',
-												marginTop: '10px',
-												backgroundColor: 'main.yellow.dark',
-												color: 'black',
-												'&:hover': {
-													transform: hovered ? 'scale(1.1)' : 'scale(1.0)',
-													backgroundColor: 'main.yellow.primary',
-												}
-											}}
-											variant='contained'
-											onClick={onOrderButtonClick}
-										>
-											Order Product
-										</Button>}
+									
+								</Grid>
+								<Grid item md={6} p={2}>
+									<img src={`${product.imgUrl}`} alt={product.title} loading='lazy' />
 								</Grid>
 							</Grid>
 						</Paper>
