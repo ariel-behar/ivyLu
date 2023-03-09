@@ -159,6 +159,12 @@ MongoDB
 
 <br />
 
+<h2>External Integrations</h2>
+
+<blockquote>AWS S3</blockquote>
+
+<br />
+
 <h2>Deployment</h2>
 
 <blockquote>Vercel</blockquote>
