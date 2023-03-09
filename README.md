@@ -41,7 +41,7 @@
 <h2>Project Description</h2>
 
 <blockquote>
-Ivylu, built with the MERN stack, uses React for a dynamic front end and Material UI for a modern, responsive design. TypeScript ensures type safety across the application. On the server side, Node.js and Express.js handle API requests, while Mongoose manages data interactions with MongoDB. The app features a shop section, though payment functionality is not yet implemented, and includes a scheduling system that efficiently resolves appointment conflicts. Users benefit from personalized dashboards to manage their product purchases and hairdresser appointments.
+IvyLu is an innovative web portal designed to streamline the beauty experience by allowing users to purchase beauty products and schedule hairdresser appointments online. This convenient platform eliminates the need for phone calls or in-person visits to the salon. With IvyLu, users can effortlessly browse and buy their favorite beauty products while also booking appointments with hairdressers, all from the comfort of their home. The user-friendly interface ensures a seamless and efficient experience for managing both product purchases and salon visits.
 </blockquote>
 
 <br />
@@ -120,7 +120,7 @@ npm start
 
 <h2>Technological Overview</h2>
 
-<blockquote>Vx Aviation is a vite-based, TypeScript-typed React app. It utilizes Tailwind CSS and the Material-Tailwind component library for streamlined, responsive styling. Framer Motion has been used to enhance animations, while React Hook Form and Yup manage form state and validation. Metadata management has been achieved with React Helmet.
+<blockquote>Ivylu, built with the MERN stack, uses React for a dynamic front end and Material UI for a modern, responsive design. TypeScript ensures type safety across the application. On the server side, Node.js and Express.js handle API requests, while Mongoose manages data interactions with MongoDB. The app features a shop section, though payment functionality is not yet implemented, and includes a scheduling system that efficiently resolves appointment conflicts. Users benefit from personalized dashboards to manage their product purchases and hairdresser appointments.
 </blockquote>
 
 <br />
