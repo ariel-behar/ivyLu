@@ -20,6 +20,7 @@ const StyledBackgroundBox = styled(Box)`
 	position: 'relative';
 	background-image: ${`url('${womanBlondHair}')`};
 	width: 100%;
+	position: relative;
 	background-repeat: no-repeat;
 	background-size: cover;
 
@@ -27,7 +28,7 @@ const StyledBackgroundBox = styled(Box)`
 		position: absolute;
 		background-color: rgba(0,0,0, 0.6);
 		width: 100%;
-		height: auto;
+		height: 100%;
 	}
 
 	.container {
@@ -55,10 +56,6 @@ function HomeView() {
 			<Box 
 				className='mask' 
 				display={{ xs: 'block', md: 'none' }}
-				sx={{
-					minHeight: isLoggedIn ? 'calc(100vh - 56px - 36.5px - 30px)' : 'calc(100vh - 56px - 50px)',
-					height: isLoggedIn ? 'calc(100% - 66px - 36.5px - 40px)' : 'calc(100% - 65px - 50px)',
-				}}
 			></Box>
 
 			<Container className='container'>
