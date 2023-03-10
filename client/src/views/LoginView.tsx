@@ -2,8 +2,6 @@ import { useState } from "react";
 import { useForm } from "react-hook-form"
 import { useNavigate, Link as RouterLink } from "react-router-dom";
 
-import hairsalon from '../assets/img/hairsalon.jpg'
-
 import { useAuthContext } from "../contexts/AuthContext";
 import { useNotificationContext } from "../contexts/NotificationContext";
 
@@ -31,7 +29,7 @@ const StyledHR = styled('hr')`
 
 const StyledGridContainer = styled(Grid)`
 	min-height: 60vh;
-	background-image: ${`url(${hairsalon})`};
+	background-image: url("https://ivy-lu.s3.eu-central-1.amazonaws.com/backgrounds/hairsalon.jpg");
     background-size: cover;
     background-repeat: no-repeat;
 

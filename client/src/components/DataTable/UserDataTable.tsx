@@ -5,9 +5,6 @@ import getUserRole from "../../utils/getUserRole"
 
 import { IdType } from "../../types/common/common-types"
 
-import maleAvatar from '../../assets/img/male-avatar.png'
-import femaleAvatar from '../../assets/img/female-avatar.png'
-
 import Button from "@mui/material/Button"
 import TableBody from "@mui/material/TableBody"
 import TableCell from "@mui/material/TableCell"
@@ -59,7 +56,7 @@ function UserDataTable({
                                     src={
                                         entityUser.imgUrl
                                             ? entityUser.imgUrl
-                                            : (entityUser.gender === 'male' ? maleAvatar : femaleAvatar)}
+                                            : (entityUser.gender === 'male' ? 'https://ivy-lu.s3.eu-central-1.amazonaws.com/avatars/male-avatar.png' : 'https://ivy-lu.s3.eu-central-1.amazonaws.com/avatars/female-avatar.png')}
                                     alt={`${entityUser.gender} avatar`}
                                 />
                             </TableCell>

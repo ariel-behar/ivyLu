@@ -11,9 +11,14 @@ import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box';
 import { useAuthContext } from '../contexts/AuthContext';
 
+const StyledBox = styled(ImageListItem)`
+    background: rgb(154,155,154);
+    background: radial-gradient(circle, rgba(154,155,154,1) 12%, rgba(103,102,103,1) 100%);
+    max-height: 400px;
+`
+
 const StyledImg = styled(motion.img)`
-    width: auto; 
-    height: 400px;
+    max-height: 100%;
 
     @media (max-width: 1199px){
         height: inherit;
@@ -90,33 +95,36 @@ function ServiceCard({ service }: Props) {
 
     return (
         <>
-            <ImageListItem sx={{ overflow: 'hidden' }}
+            <Box sx={{ overflow: 'hidden' }}
                 component={motion.div}
                 whileHover={{
                     scale: 1.02,
                 }}
             >
-                <StyledImg src={`${service.imgUrl}`} alt={service.title} loading='lazy' />
+                <StyledBox>
 
-                <StyledServiceTitleStack direction='row' justifyContent='right' alignItems='end' >
-                    <Typography component={"h4"} className='service-title'> {service.title} </Typography>
-                </StyledServiceTitleStack>
+                    <StyledImg src={`${service.imgUrl}`} alt={service.title} loading='lazy' />
 
-                <StyledBottomDetailsStack direction='row' justifyContent='space-around' spacing={1} >
-                    <Stack direction='column'>
-                        <Typography variant="body1">Duration: <b> {service.duration} minutes</b></Typography>
-                        <Typography variant="body1">Price: <b>{service.price} BGN</b></Typography>
-                    </Stack>
+                    <StyledServiceTitleStack direction='row' justifyContent='right' alignItems='end' >
+                        <Typography component={"h4"} className='service-title'> {service.title} </Typography>
+                    </StyledServiceTitleStack>
 
-                    <Box component='div' display={{xs: 'block', md: 'none'}} >
-                        <YellowHoverableButton entity={service} entityType='service' size='small'> {isGuest || isClient ? ' Schedule now' : 'View Details'} </YellowHoverableButton>
-                    </Box>
+                    <StyledBottomDetailsStack direction='row' justifyContent='space-around' spacing={1} >
+                        <Stack direction='column'>
+                            <Typography variant="body1">Duration: <b> {service.duration} minutes</b></Typography>
+                            <Typography variant="body1">Price: <b>{service.price} BGN</b></Typography>
+                        </Stack>
 
-                    <Box component='div' display={{xs: 'none', md: 'block'}} >
-                        <YellowHoverableButton entity={service} entityType='service' size='large'> {isGuest || isClient ? 'Schedule now' : 'View Details'} </YellowHoverableButton>
-                    </Box>
-                </StyledBottomDetailsStack>
-            </ImageListItem>
+                        <Box component='div' display={{ xs: 'block', md: 'none' }} >
+                            <YellowHoverableButton entity={service} entityType='service' size='small'> {isGuest || isClient ? ' Schedule now' : 'View Details'} </YellowHoverableButton>
+                        </Box>
+
+                        <Box component='div' display={{ xs: 'none', md: 'block' }} >
+                            <YellowHoverableButton entity={service} entityType='service' size='large'> {isGuest || isClient ? 'Schedule now' : 'View Details'} </YellowHoverableButton>
+                        </Box>
+                    </StyledBottomDetailsStack>
+                </StyledBox>
+            </Box>
         </>
     )
 }

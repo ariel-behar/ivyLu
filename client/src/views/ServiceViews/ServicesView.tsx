@@ -28,8 +28,7 @@ function ServicesView() {
                 <StyledHR />
             </Stack>
 
-            <ImageList
-                cols={1}
+            <Stack
                 sx={{
                     overflow: 'hidden',
                     padding: '20px',
@@ -41,7 +40,7 @@ function ServicesView() {
                         <ServiceCard service={service} key={uniqid()} />
                     ))
                 }
-            </ImageList>
+            </Stack>
         </Box>
     )
 }

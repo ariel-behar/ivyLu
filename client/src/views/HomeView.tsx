@@ -4,7 +4,6 @@ import { Link as RouterLink } from 'react-router-dom'
 
 import { useAuthContext } from '../contexts/AuthContext';
 
-import womanBlondHair from '../assets/img/woman-blond-hair.jpg'
 import entireLogo from '../assets/img/entire-logo.png'
 
 import styled from '@mui/material/styles/styled';
@@ -18,7 +17,7 @@ import Grid from '@mui/material/Grid';
 
 const StyledBackgroundBox = styled(Box)`
 	position: 'relative';
-	background-image: ${`url('${womanBlondHair}')`};
+	background-image: url('https://ivy-lu.s3.eu-central-1.amazonaws.com/backgrounds/woman-blond-hair.jpg');
 	width: 100%;
 	position: relative;
 	background-repeat: no-repeat;

@@ -4,8 +4,6 @@ import { useNavigate, Link as RouterLink } from "react-router-dom";
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
-import weAreOpenSign from '../assets/img/weareopen-sign.jpg'
-
 import registerFormSchema from '../validations/registerFormSchema';
 import { User, ClientRegisterDTO } from '../models/User';
 import { useAuthContext } from '../contexts/AuthContext';
@@ -38,7 +36,7 @@ const StyledHR = styled('hr')`
 
 const StyledGridContainer = styled(Grid)`
 	min-height: 60vh;
-	background-image: ${`url(${weAreOpenSign})`};
+	background-image: url('https://ivy-lu.s3.eu-central-1.amazonaws.com/backgrounds/weareopen-sign.jpg');
     background-size: cover;
     background-repeat: no-repeat;
 	background-position: center right -150px;

@@ -4,8 +4,6 @@ import { Outlet, NavLink as RouterNavLink } from "react-router-dom"
 import { useAuthContext } from "../../contexts/AuthContext";
 import { isAuthRouteGuard } from "../../hoc/isAuthRouteGuard";
 
-import lightPattern from '../../assets/img/light-background-pattern.jpg'
-
 import Container from "@mui/material/Container";
 
 import Box from "@mui/material/Box";
@@ -36,7 +34,7 @@ function ManagementRootView() {
     };
 
     return (
-        <Box py={3} sx={{ flexGrow: 1, background: `url('${lightPattern}')` }}>
+        <Box py={3} sx={{ flexGrow: 1, background: "url('https://ivy-lu.s3.eu-central-1.amazonaws.com/patterns/light-background-pattern.jpg')" }}>
             <Container>
                 <div>ManagementRootView</div>
 

@@ -11,9 +11,6 @@ import { User } from "../../../models/User";
 import { ApiUser, ApiUserImpl } from "../../../services/userServices";
 import { AuthTokenType, IdType } from "../../../types/common/common-types";
 
-import maleAvatar from '../../../assets/img/male-avatar.png'
-import femaleAvatar from '../../../assets/img/female-avatar.png'
-
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
@@ -248,7 +245,7 @@ function ProfileView() {
 						</Box>
 					</Grid>
 					<Grid item md={2} sx={{ borderLeft: '1px solid #4bb5ab' }} textAlign="center">
-						<img style={{ width: '100px' }} src={user.gender === 'male' ? maleAvatar : femaleAvatar} alt={user.gender === 'male' ? 'Male Avatar' : 'Female Avatar'} />
+						<img style={{ width: '100px' }} src={user.gender === 'male' ? 'https://ivy-lu.s3.eu-central-1.amazonaws.com/avatars/male-avatar.png' : 'https://ivy-lu.s3.eu-central-1.amazonaws.com/avatars/female-avatar.png'} alt={user.gender === 'male' ? 'Male Avatar' : 'Female Avatar'} />
 
 						{!isClient && <Typography variant="h6" textAlign='center'><b>{getUserRole(user.role).capitalized}</b></Typography>}
 					</Grid>

@@ -3,8 +3,6 @@ import { NavLink as RouterNavLink, Outlet, useLocation } from "react-router-dom"
 
 import { isAuthRouteGuard } from "../../../hoc/isAuthRouteGuard";
 
-import lightPattern from '../../../assets/img/light-background-pattern.jpg'
-
 import styled from "@mui/material/styles/styled";
 
 import Box from "@mui/material/Box"
@@ -48,7 +46,7 @@ function DashboardView() {
 	};
 
 	return (
-		<Box py={3} sx={{ flexGrow: 1, background: `url('${lightPattern}')` }}>
+		<Box py={3} sx={{ flexGrow: 1, background: "url('https://ivy-lu.s3.eu-central-1.amazonaws.com/patterns/light-background-pattern.jpg')" }}>
 			<Container>
 				<div>DashboardView</div>
 
