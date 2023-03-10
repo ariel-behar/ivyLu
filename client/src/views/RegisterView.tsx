@@ -56,28 +56,26 @@ const StyledGridContainer = styled(Grid)`
 			border-radius: 20px;
 			background-color: transparent;
 
-
-			input.css-1n4twyu-MuiInputBase-input-MuiOutlinedInput-input {
+			input.MuiInputBase-input {
 				background-color: rgba(94, 84, 80, 0.7);
 				color: white;
 			}
-			label.css-1pysi21-MuiFormLabel-root-MuiInputLabel-root, 
-			label.css-1sumxir-MuiFormLabel-root-MuiInputLabel-root,
-			label.css-u4tvz2-MuiFormLabel-root,
-			span.css-vqmohf-MuiButtonBase-root-MuiRadio-root {
+
+			label.MuiFormLabel-root,
+			.MuiRadio-root {
 				color: rgba(255, 255, 255, 0.5);
 			}
 
-			label.css-1sumxir-MuiFormLabel-root-MuiInputLabel-root.Mui-focused,
-			.css-j204z7-MuiFormControlLabel-root,
-			.css-vqmohf-MuiButtonBase-root-MuiRadio-root.Mui-checked {
+			label.MuiInputLabel-root.Mui-focused,
+			.MuiRadio-root.Mui-checked, 
+			.MuiFormControlLabel-label {
 				color: white;
 			}
-
-			button.css-16o0qn6-MuiButtonBase-root-MuiButton-root.Mui-disabled {
+			
+			button.MuiButton-root.Mui-disabled{
 				color: rgba(255, 255, 255, 0.6);
 				background-color: rgba(25, 118, 210, 0.3);
-			}
+			} 
 
 			.form-container-paper-stack {
 				padding: 40px 24px;

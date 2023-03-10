@@ -47,26 +47,23 @@ const StyledGridContainer = styled(Grid)`
 			border-radius: 20px;
 			background-color: transparent;
 
-
-			input.css-1n4twyu-MuiInputBase-input-MuiOutlinedInput-input {
+			input.MuiInputBase-input {
 				background-color: rgba(94, 84, 80, 0.7);
 				color: white;
 			}
-			label.css-1pysi21-MuiFormLabel-root-MuiInputLabel-root, 
-			label.css-1sumxir-MuiFormLabel-root-MuiInputLabel-root,
-			span.css-vqmohf-MuiButtonBase-root-MuiRadio-root {
+
+			label.MuiFormLabel-root {
 				color: rgba(255, 255, 255, 0.5);
 			}
 
-			label.css-1sumxir-MuiFormLabel-root-MuiInputLabel-root.Mui-focused,
-			label.css-u4tvz2-MuiFormLabel-root	{
+			label.MuiInputLabel-root.Mui-focused {
 				color: white;
 			}
 
-			button.css-16o0qn6-MuiButtonBase-root-MuiButton-root.Mui-disabled {
+			button.MuiButton-root.Mui-disabled {
 				color: rgba(255, 255, 255, 0.6);
 				background-color: rgba(25, 118, 210, 0.3);
-			}
+			} 
 
 			.form-container-paper-stack {
 				padding: 40px 24px;
@@ -141,7 +138,7 @@ function LoginView() {
 									<Stack spacing={1} >
 										<TextField
 											required
-											// autoComplete="off"
+											autoComplete="off"
 											id="email"
 											label="E-mail"
 											variant="outlined"
@@ -153,12 +150,12 @@ function LoginView() {
 
 										<TextField
 											required
-											// inputProps={{
-											// 	autocomplete: 'new-password',
-											// 	form: {
-											// 		autocomplete: 'off',
-											// 	},
-											// }}
+											inputProps={{
+												autocomplete: 'new-password',
+												form: {
+													autocomplete: 'off',
+												},
+											}}
 											id="password"
 											type="password"
 											label="Password"
