@@ -1,3 +1,5 @@
+import path from 'path';
+import { fileURLToPath } from 'url';
 import express from "express";
 import cors from "cors";
 import logger from 'morgan/index.js';
@@ -8,11 +10,14 @@ import { AuthenticationError, ForbiddenError, InvalidDataError, NotFoundError } 
 const dbName = process.env.DB_NAME;
 const PORT = process.env.PORT || '3030';
 const app = express();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+app.use(express.static(path.join(__dirname + '/public')));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.options('*', cors());
 app.use(cors({
-    origin: 'http://localhost:3000',
+    origin: ['http://ivylu.arielbehar.com/', 'https://ivylu.herokuapp.com/', 'http://localhost:3000', 'http://localhost:3001'],
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE']
 }));
 app.use(logger('dev'));

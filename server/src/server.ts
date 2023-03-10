@@ -1,3 +1,5 @@
+import path from 'path'
+import { fileURLToPath } from 'url';
 import express, {Application, NextFunction, Request, Response} from "express" ;
 import cors from "cors"
 import logger from 'morgan/index.js'
@@ -12,11 +14,17 @@ const PORT = process.env.PORT || '3030';
 
 const app: Application = express();
 
+const __filename = fileURLToPath(import.meta.url);
+
+const __dirname = path.dirname(__filename);
+
+app.use(express.static(path.join(__dirname + '/public')))
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.options('*', cors())
 app.use(cors({
-    origin: 'http://localhost:3000',
+    origin: ['http://ivylu.arielbehar.com/', 'https://ivylu.herokuapp.com/', 'http://localhost:3000', 'http://localhost:3001'],
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE']
 }));
 

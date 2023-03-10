@@ -1,0 +1,32 @@
+{
+  "files": {
+    "main.css": "/static/css/main.2f9cca55.css",
+    "main.js": "/static/js/main.272bdda4.js",
+    "static/js/171.009ba976.chunk.js": "/static/js/171.009ba976.chunk.js",
+    "static/js/279.7194bcc3.chunk.js": "/static/js/279.7194bcc3.chunk.js",
+    "static/js/787.56487755.chunk.js": "/static/js/787.56487755.chunk.js",
+    "static/js/411.ab2baa76.chunk.js": "/static/js/411.ab2baa76.chunk.js",
+    "static/media/light-background-pattern.jpg": "/static/media/light-background-pattern.b01d0075fb816e14eb29.jpg",
+    "static/media/dark-background-pattern.jpg": "/static/media/dark-background-pattern.21a30af2f5b42ba6d649.jpg",
+    "static/media/entire-logo.png": "/static/media/entire-logo.235806a2e225a2ca2440.png",
+    "static/media/woman-blond-hair.jpg": "/static/media/woman-blond-hair.59952e98ae8da7142033.jpg",
+    "static/media/hairsalon.jpg": "/static/media/hairsalon.d8deb328e007352e3796.jpg",
+    "static/media/logo-ivylu-art-and-beauty-horizontal.png": "/static/media/logo-ivylu-art-and-beauty-horizontal.d9dd6ad2ac34dc94d998.png",
+    "static/media/weareopen-sign.jpg": "/static/media/weareopen-sign.78b37e8e904a4685c93a.jpg",
+    "static/media/male-avatar.png": "/static/media/male-avatar.d9e5a42559edeca0116a.png",
+    "static/media/logo.png": "/static/media/logo.901f7fafb7afadd71684.png",
+    "static/media/female-avatar.png": "/static/media/female-avatar.eb2bceb417171458eae5.png",
+    "static/media/logo-ivylu.png": "/static/media/logo-ivylu.54d627605d3f9a6a936b.png",
+    "index.html": "/index.html",
+    "main.2f9cca55.css.map": "/static/css/main.2f9cca55.css.map",
+    "main.272bdda4.js.map": "/static/js/main.272bdda4.js.map",
+    "171.009ba976.chunk.js.map": "/static/js/171.009ba976.chunk.js.map",
+    "279.7194bcc3.chunk.js.map": "/static/js/279.7194bcc3.chunk.js.map",
+    "787.56487755.chunk.js.map": "/static/js/787.56487755.chunk.js.map",
+    "411.ab2baa76.chunk.js.map": "/static/js/411.ab2baa76.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.2f9cca55.css",
+    "static/js/main.272bdda4.js"
+  ]
+}
