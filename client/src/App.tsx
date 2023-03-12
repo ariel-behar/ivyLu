@@ -1,5 +1,4 @@
 import { RouterProvider } from "react-router-dom";
-import { ParallaxProvider } from 'react-scroll-parallax';
 
 import CssBaseline from '@mui/material/CssBaseline';
 
@@ -11,6 +10,7 @@ import router from "./router/router";
 import { NotificationProvider } from "./contexts/NotificationContext";
 import { ThemeProvider } from "@mui/material";
 import theme from "./theme/theme";
+import { ShoppingCartProvider } from "./contexts/ShoppingCartContext";
 
 function App() {
 	return (
@@ -18,11 +18,11 @@ function App() {
 			<CssBaseline />
 			<AuthProvider>
 				<NotificationProvider>
-					<ThemeProvider theme={theme}>
-						<ParallaxProvider>
+					<ShoppingCartProvider>
+						<ThemeProvider theme={theme}>
 							<RouterProvider router={router} />
-						</ParallaxProvider>
-					</ThemeProvider>
+						</ThemeProvider>
+					</ShoppingCartProvider>
 				</NotificationProvider>
 			</AuthProvider>
 		</>
