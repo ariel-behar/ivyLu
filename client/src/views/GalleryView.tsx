@@ -14,7 +14,7 @@ function GalleryView() {
 	return (
 		<Box py={3}>
 			<Container>
-				<div>GalleryView</div>
+				{/* <div>GalleryView</div> */}
 
 				<Stack direction='row' alignItems='center' sx={{ overflow: 'hidden' }}>
 					<Typography variant="h3" sx={{ color: 'common.white', marginRight: '30px', whiteSpace: 'nowrap' }}>IvyLu Gallery</Typography>

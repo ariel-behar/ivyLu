@@ -102,7 +102,7 @@ function ProfileView() {
 
 	return (
 		<>
-			<div>ProfileView</div>
+			{/* <div>ProfileView</div> */}
 
 			<Paper>
 				<Grid container direction='row' p={2} pl={5}>

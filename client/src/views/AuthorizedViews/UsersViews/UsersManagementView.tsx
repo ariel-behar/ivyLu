@@ -5,7 +5,7 @@ function UsersManagementView() {
 
 	return (
 		<>
-			<div>UsersManagementView</div>
+			{/* <div>UsersManagementView</div> */}
 
 			<Outlet />
 		</>

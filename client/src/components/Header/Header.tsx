@@ -39,11 +39,11 @@ const pages = [
         path: '/services',
         order: 3
     },
-    {
-        title: 'Gallery',
-        path: '/gallery',
-        order: 4
-    },
+    // {
+    //     title: 'Gallery',
+    //     path: '/gallery',
+    //     order: 4
+    // },
     {
         title: 'Our Team',
         path: '/our-team',

@@ -8,7 +8,7 @@ function MyOrdersView() {
 
 	return (
 		<>
-			<div>MyOrdersView</div>
+			{/* <div>MyOrdersView</div> */}
 
 			<DataTable entities={orders} entityType='order' requester='client' />
 		</>

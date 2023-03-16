@@ -7,7 +7,7 @@ function ShoppingCartView() {
   return (
     <Box py={3}>
       <Container>
-        <div>ShoppingCartView</div>
+        {/* <div>ShoppingCartView</div> */}
         <h1>Under Construction</h1>
       </Container>
     </Box>
