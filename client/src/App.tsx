@@ -1,16 +1,21 @@
 import { RouterProvider } from "react-router-dom";
+import { AuthProvider } from "./contexts/AuthContext";
+import { NotificationProvider } from "./contexts/NotificationContext";
+import { ThemeProvider } from "@mui/material";
+import { ShoppingCartProvider } from "./contexts/ShoppingCartContext";
+
+import { disableReactDevTools } from "@fvilers/disable-react-devtools";
 
 import CssBaseline from '@mui/material/CssBaseline';
 
 import './App.css';
 import 'react-toastify/dist/ReactToastify.css';
 
-import { AuthProvider } from "./contexts/AuthContext";
 import router from "./router/router";
-import { NotificationProvider } from "./contexts/NotificationContext";
-import { ThemeProvider } from "@mui/material";
+
 import theme from "./theme/theme";
-import { ShoppingCartProvider } from "./contexts/ShoppingCartContext";
+
+if(process.env.NODE_ENV === 'development') disableReactDevTools();
 
 function App() {
 	return (
