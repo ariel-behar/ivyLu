@@ -36,6 +36,10 @@ if(process.env.NODE_ENV === 'development') {
 
 app.use("/api", routes)
 
+app.use('*', (req: Request, res: Response) => {
+    res.sendFile(path.join(__dirname + '/public/index.html'))
+})
+
 app.use(function (err: any, req: Request, res: Response, next: NextFunction) {
     console.error(err.stack);
     let status = 500;
