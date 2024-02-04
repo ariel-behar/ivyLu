@@ -15,7 +15,7 @@ TODO.txt
 */dist-ssr
 */*.local
 */.prettierrc
-.env
+*/.env
 
 # Editor directories and files
 .vscode/*
