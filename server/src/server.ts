@@ -28,8 +28,10 @@ app.use(cors({
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE']
 }));
 
+if(process.env.NODE_ENV === 'development') {
+    app.use(logger('dev'))
+}
 
-app.use(logger('dev'))
 
 app.use("/api", routes)
 
