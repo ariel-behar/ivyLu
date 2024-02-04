@@ -4,6 +4,7 @@ import express, {Application, NextFunction, Request, Response} from "express" ;
 import cors from "cors"
 import logger from 'morgan/index.js'
 
+import allowedOrigins from './config/cors-config.js';
 import initDatabase  from './config/initDatabase.js'
 import routes from "./routes/routes.js"
 import { sendErrorResponse } from "./utils/sendErrorResponse.js";
@@ -24,7 +25,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.options('*', cors())
 app.use(cors({
-    origin: ['http://ivylu.arielbehar.com/', 'https://ivylu.herokuapp.com/', 'http://localhost:3000', 'http://localhost:3001'],
+    origin: allowedOrigins,
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE']
 }));
 
