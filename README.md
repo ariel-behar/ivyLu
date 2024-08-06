@@ -167,7 +167,7 @@ MongoDB
 
 <h2>Deployment</h2>
 
-<blockquote>Vercel</blockquote>
+<blockquote>Render</blockquote>
 
 <!-- <br /> -->
 <!-- <h2>Specs</h2> -->
